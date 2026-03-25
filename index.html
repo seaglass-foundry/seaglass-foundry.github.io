@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwingToPDF — True Vector PDF Output from Java Swing Components</title>
+    <meta name="description" content="Convert any Java Swing component to genuine vector PDF. Text stays selectable, graphics stay sharp. Built on Apache PDFBox.">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+            --code-bg: #1e293b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* ── Nav ── */
+        nav {
+            background: var(--navy);
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+        nav .brand {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+        }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: var(--white);
+            padding: 80px 24px 90px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--teal); }
+        .hero .tagline {
+            font-size: 1.25rem;
+            color: #a8c4d8;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        .hero .description {
+            max-width: 620px;
+            margin: 0 auto 36px;
+            color: #8eaec6;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-block;
+            padding: 13px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+
+        /* ── Features ── */
+        .features { padding: 80px 24px; background: var(--white); }
+        .features h2 { text-align: center; font-size: 2rem; margin-bottom: 12px; color: var(--navy); }
+        .features .subtitle { text-align: center; color: var(--text-light); margin-bottom: 48px; font-size: 1.05rem; }
+        .feature-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+        .feature-card {
+            background: var(--grey-bg);
+            border-radius: 10px;
+            padding: 32px 28px;
+            border: 1px solid var(--border);
+        }
+        .feature-card h3 {
+            font-size: 1.1rem;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+        .feature-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--teal-light);
+            border-radius: 8px;
+            margin-bottom: 14px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* ── Code ── */
+        .code-section { padding: 80px 24px; background: var(--grey-bg); }
+        .code-section h2 { text-align: center; font-size: 2rem; margin-bottom: 12px; color: var(--navy); }
+        .code-section .subtitle { text-align: center; color: var(--text-light); margin-bottom: 40px; font-size: 1.05rem; }
+        .code-columns {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+        .code-block { background: var(--code-bg); border-radius: 10px; overflow: hidden; }
+        .code-block-header {
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.06);
+            color: #94a3b8;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .code-block pre {
+            padding: 20px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+        .code-block code {
+            color: #e2e8f0;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+        .kw { color: #c084fc; }
+        .str { color: #86efac; }
+        .cmt { color: #64748b; }
+        .tag { color: #67e8f9; }
+        .attr { color: #fbbf24; }
+
+        /* ── License overview ── */
+        .license-section { padding: 80px 24px; background: var(--white); }
+        .license-section h2 { text-align: center; font-size: 2rem; margin-bottom: 12px; color: var(--navy); }
+        .license-section .subtitle { text-align: center; color: var(--text-light); margin-bottom: 48px; font-size: 1.05rem; }
+        .license-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+        .license-card {
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 32px 28px;
+            text-align: center;
+        }
+        .license-card.highlight { border-color: var(--teal); }
+        .license-card h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: 8px; }
+        .license-card p { color: var(--text-light); font-size: 0.93rem; line-height: 1.65; margin-bottom: 20px; }
+        .license-card ul { list-style: none; text-align: left; margin-bottom: 24px; }
+        .license-card li { padding: 6px 0; font-size: 0.93rem; color: var(--text-light); }
+        .license-card li::before { content: "\2713"; color: var(--teal); font-weight: 700; margin-right: 10px; }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--navy-dark);
+            color: #8eaec6;
+            padding: 40px 24px;
+            font-size: 0.9rem;
+        }
+        footer .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-copy { width: 100%; text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            .code-columns { grid-template-columns: 1fr; }
+            .license-grid { grid-template-columns: 1fr; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--navy);
+                padding: 16px 24px;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="docs.html">Docs</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <h1>Swing<span>ToPDF</span></h1>
+        <p class="tagline">True vector PDF output from Java Swing components</p>
+        <p class="description">
+            Convert any JComponent tree into genuine vector PDF. Text stays selectable,
+            graphics stay sharp at any zoom level, and file sizes stay small.
+            Built on Apache PDFBox.
+        </p>
+        <div class="cta-group">
+            <a href="https://central.maven.org/maven2/com/seaglassfoundry/swingtopdf/" class="btn btn-primary" target="_blank" rel="noopener">View on Maven Central</a>
+            <a href="pricing.html" class="btn btn-outline">Buy Commercial License</a>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2>Why SwingToPDF</h2>
+        <p class="subtitle">Everything you need to turn Swing UIs into production-quality PDFs</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#9674;</div>
+                <h3>Genuine Vector Output</h3>
+                <p>Text, shapes, and lines render as native PDF drawing operations — not rasterized images. Output is crisp at any zoom level and a fraction of the file size.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#9998;</div>
+                <h3>AcroForm Interactive Fields</h3>
+                <p>Export JTextField, JCheckBox, JRadioButton, JComboBox, JTextArea, and JPasswordField as fillable PDF form fields with a single method call.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#9083;</div>
+                <h3>Rich Text Support</h3>
+                <p>JTextPane and JEditorPane content renders with full formatting preserved — bold, italic, fonts, colors, and HTML.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#9881;</div>
+                <h3>20+ Component Handlers</h3>
+                <p>Specialized rendering for JTable, JTree, JList, JTabbedPane, JTextPane, JEditorPane, and more. Each component gets purpose-built handling.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#9782;</div>
+                <h3>Built on Apache PDFBox</h3>
+                <p>No native dependencies, no commercial PDF engine. Pure Java built on the trusted, open-source Apache PDFBox 3.x library.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#9878;</div>
+                <h3>Dual License</h3>
+                <p>Free under AGPL-3.0 for open-source projects. One-time commercial license available for proprietary applications — no royalties, no recurring fees.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="code-section">
+    <div class="container">
+        <h2>Get Started in Minutes</h2>
+        <p class="subtitle">Add the dependency, write three lines of code, and you have a PDF</p>
+        <div class="code-columns">
+            <div class="code-block">
+                <div class="code-block-header">Maven Dependency</div>
+                <pre><code><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span><span class="str">com.seaglassfoundry</span><span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span><span class="str">swingtopdf</span><span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span><span class="str">1.0.1</span><span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+            </div>
+            <div class="code-block">
+                <div class="code-block-header">Java Usage</div>
+                <pre><code><span class="kw">import</span> com.seaglassfoundry.swingtopdf.SwingPdfExporter;
+<span class="kw">import</span> com.seaglassfoundry.swingtopdf.api.PageSize;
+
+<span class="cmt">// Any JComponent — JPanel, JTable, JTabbedPane...</span>
+JPanel panel = buildYourUI();
+
+SwingPdfExporter.from(panel)
+    .pageSize(PageSize.A4)
+    .margins(<span class="attr">36</span>, <span class="attr">36</span>, <span class="attr">36</span>, <span class="attr">36</span>)
+    .title(<span class="str">"My Report"</span>)
+    .export(Path.of(<span class="str">"report.pdf"</span>));</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="license-section">
+    <div class="container">
+        <h2>Licensing</h2>
+        <p class="subtitle">Choose the license that fits your project</p>
+        <div class="license-grid">
+            <div class="license-card">
+                <h3>AGPL-3.0</h3>
+                <p>Free for open-source projects</p>
+                <ul>
+                    <li>Full library functionality</li>
+                    <li>Community support via GitHub</li>
+                    <li>Source disclosure required</li>
+                    <li>Derivative works must use AGPL</li>
+                </ul>
+                <a href="https://github.com/seaglass-foundry" class="btn btn-outline" style="color: var(--navy); border-color: var(--border);">View on GitHub</a>
+            </div>
+            <div class="license-card highlight">
+                <h3>Commercial License</h3>
+                <p>For proprietary applications</p>
+                <ul>
+                    <li>No source disclosure required</li>
+                    <li>One-time fee, perpetual use</li>
+                    <li>Per organization, per major version</li>
+                    <li>Email support included</li>
+                </ul>
+                <a href="pricing.html" class="btn btn-primary">View Pricing</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="docs.html">Documentation</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://central.maven.org/maven2/com/seaglassfoundry/swingtopdf/" target="_blank" rel="noopener">Maven Central</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry. All rights reserved.</div>
+    </div>
+</footer>
+
+</body>
+</html>

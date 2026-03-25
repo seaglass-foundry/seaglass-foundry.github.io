@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — SwingToPDF</title>
+    <meta name="description" content="SwingToPDF licensing options. Free under AGPL-3.0 for open source, or a one-time commercial license for proprietary applications.">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ── Nav ── */
+        nav {
+            background: var(--navy);
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+        nav .brand {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+        }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Page header ── */
+        .page-header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: var(--white);
+            padding: 50px 24px 55px;
+            text-align: center;
+        }
+        .page-header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+        .page-header p { color: #a8c4d8; font-size: 1.05rem; }
+
+        /* ── Pricing cards ── */
+        .pricing { padding: 70px 24px 80px; background: var(--grey-bg); }
+        .pricing-grid {
+            max-width: 860px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+        .price-card {
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 32px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .price-card.featured {
+            border-color: var(--teal);
+            box-shadow: 0 4px 24px rgba(74, 158, 142, 0.12);
+            position: relative;
+        }
+        .price-card.featured::before {
+            content: "Most Popular";
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--teal);
+            color: var(--white);
+            padding: 4px 18px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .price-card h2 {
+            font-size: 1.35rem;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+        .price-card .price-tag {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin: 16px 0 4px;
+        }
+        .price-card .price-note {
+            font-size: 0.88rem;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+        .price-card .desc {
+            color: var(--text-light);
+            font-size: 0.93rem;
+            margin-bottom: 24px;
+        }
+        .price-card ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+            flex: 1;
+        }
+        .price-card li {
+            padding: 9px 0;
+            font-size: 0.93rem;
+            color: var(--text);
+            border-bottom: 1px solid var(--grey-bg);
+        }
+        .price-card li:last-child { border-bottom: none; }
+        .price-card li::before {
+            content: "\2713";
+            color: var(--teal);
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, transform 0.1s;
+            text-align: center;
+        }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-secondary { background: var(--grey-bg); color: var(--navy); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--border); }
+
+        /* ── FAQ ── */
+        .faq { padding: 70px 24px 80px; background: var(--white); }
+        .faq h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--navy);
+            margin-bottom: 40px;
+        }
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            gap: 28px;
+        }
+        .faq-item h3 {
+            font-size: 1.05rem;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+        .faq-item p {
+            color: var(--text-light);
+            font-size: 0.93rem;
+            line-height: 1.65;
+        }
+
+        /* ── Contact ── */
+        .contact-bar {
+            background: var(--grey-bg);
+            padding: 40px 24px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        .contact-bar p {
+            font-size: 1.05rem;
+            color: var(--text);
+        }
+        .contact-bar a { font-weight: 600; }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--navy-dark);
+            color: #8eaec6;
+            padding: 40px 24px;
+            font-size: 0.9rem;
+        }
+        footer .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-copy { width: 100%; text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 1.7rem; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--navy);
+                padding: 16px 24px;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="docs.html">Docs</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<section class="page-header">
+    <h1>Pricing</h1>
+    <p>Simple, transparent licensing for every project</p>
+</section>
+
+<section class="pricing">
+    <div class="pricing-grid">
+        <div class="price-card">
+            <h2>AGPL-3.0</h2>
+            <div class="price-tag">Free</div>
+            <p class="price-note">For open-source projects</p>
+            <p class="desc">Use SwingToPDF at no cost in projects that comply with the AGPL-3.0 license.</p>
+            <ul>
+                <li>Full library functionality</li>
+                <li>All component handlers</li>
+                <li>AcroForm support</li>
+                <li>Community support via GitHub</li>
+                <li>Source disclosure required</li>
+                <li>Derivative works must use AGPL-3.0</li>
+            </ul>
+            <a href="https://github.com/seaglass-foundry" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
+        <div class="price-card featured">
+            <h2>Commercial License</h2>
+            <div class="price-tag">[PRICE]</div>
+            <p class="price-note">One-time fee per organization</p>
+            <p class="desc">Use SwingToPDF in proprietary and closed-source applications without AGPL obligations.</p>
+            <ul>
+                <li>No source disclosure required</li>
+                <li>Perpetual license, no recurring fees</li>
+                <li>Scoped per major version</li>
+                <li>Per organization — unlimited developers</li>
+                <li>Upgrade pricing for future major versions</li>
+                <li>Email support from the maintainer</li>
+            </ul>
+            <a href="[PURCHASE_URL]" class="btn btn-primary">Buy License</a>
+        </div>
+    </div>
+</section>
+
+<section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-grid">
+        <div class="faq-item">
+            <h3>What does "per major version" mean?</h3>
+            <p>Your license covers version 1.x of SwingToPDF. When a new major version (2.0, 3.0, etc.) is released, upgrade pricing is available to existing license holders.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can I use the AGPL version in a commercial product?</h3>
+            <p>Yes, but only if your entire application is also released under the AGPL-3.0 — meaning you must provide the complete source code to anyone who receives the software. If your application is proprietary or closed-source, you need the commercial license.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How many developers can use one commercial license?</h3>
+            <p>The license is per organization, not per developer. Everyone in your organization can use it — no seat limits.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is the commercial license perpetual?</h3>
+            <p>Yes. Once purchased, you can use the licensed major version of SwingToPDF indefinitely. There are no recurring fees or royalties.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Do you offer volume or enterprise pricing?</h3>
+            <p>For multi-product or enterprise licensing, please reach out directly at <a href="mailto:rich@seaglassfoundry.com">rich@seaglassfoundry.com</a>.</p>
+        </div>
+    </div>
+</section>
+
+<section class="contact-bar">
+    <p>Have questions about licensing? Email <a href="mailto:rich@seaglassfoundry.com">rich@seaglassfoundry.com</a></p>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="docs.html">Documentation</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://central.maven.org/maven2/com/seaglassfoundry/swingtopdf/" target="_blank" rel="noopener">Maven Central</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry. All rights reserved.</div>
+    </div>
+</footer>
+
+</body>
+</html>
