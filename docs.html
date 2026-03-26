@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation — SwingToPDF</title>
     <meta name="description" content="Get started with SwingToPDF. Add the Maven dependency and convert Swing components to PDF in minutes.">
+    <link rel="canonical" href="https://seaglassfoundry.com/docs.html">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seaglassfoundry.com/docs.html">
+    <meta property="og:title" content="Documentation — SwingToPDF">
+    <meta property="og:description" content="Get started with SwingToPDF. Add the Maven dependency and convert Swing components to PDF in minutes.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Documentation — SwingToPDF">
+    <meta name="twitter:description" content="Get started with SwingToPDF. Add the Maven dependency and convert Swing components to PDF in minutes.">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -188,7 +197,7 @@
             <a href="/">Home</a>
             <a href="docs.html">Docs</a>
             <a href="pricing.html">Pricing</a>
-            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://github.com/seaglass-foundry/SwingToPDF" target="_blank" rel="noopener">GitHub</a>
         </div>
     </div>
 </nav>
@@ -357,7 +366,7 @@ frame.pack();</code></pre>
         <div class="footer-links">
             <a href="docs.html">Documentation</a>
             <a href="pricing.html">Pricing</a>
-            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://github.com/seaglass-foundry/SwingToPDF" target="_blank" rel="noopener">GitHub</a>
             <a href="https://central.sonatype.com/artifact/com.seaglassfoundry/swingtopdf" target="_blank" rel="noopener">Maven Central</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
@@ -365,5 +374,16 @@ frame.pack();</code></pre>
     </div>
 </footer>
 
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) links.classList.remove('open');
+    });
+})();
+</script>
 </body>
 </html>
