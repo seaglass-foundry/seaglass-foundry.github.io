@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing — SwingToPDF</title>
-    <meta name="description" content="SwingToPDF licensing options. Free under AGPL-3.0 for open source, or a one-time commercial license for proprietary applications.">
+    <meta name="description" content="SwingToPDF licensing options. Free under AGPL-3.0 for open source, or commercial perpetual licenses starting at $399 for proprietary applications.">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -71,20 +71,31 @@
         .page-header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
         .page-header p { color: #a8c4d8; font-size: 1.05rem; }
 
+        /* ── Early adopter banner ── */
+        .promo-banner {
+            background: var(--teal);
+            color: var(--white);
+            text-align: center;
+            padding: 14px 24px;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+        }
+
         /* ── Pricing cards ── */
         .pricing { padding: 70px 24px 80px; background: var(--grey-bg); }
         .pricing-grid {
-            max-width: 860px;
+            max-width: 1100px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
         }
         .price-card {
             background: var(--white);
             border: 2px solid var(--border);
             border-radius: 12px;
-            padding: 40px 32px;
+            padding: 36px 28px;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -114,21 +125,33 @@
             color: var(--navy);
             margin-bottom: 4px;
         }
+        .price-card .tier-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .price-card .price-original {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+            margin-bottom: 2px;
+        }
         .price-card .price-tag {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--navy);
-            margin: 16px 0 4px;
+            margin-bottom: 2px;
         }
         .price-card .price-note {
-            font-size: 0.88rem;
-            color: var(--text-light);
-            margin-bottom: 24px;
+            font-size: 0.82rem;
+            color: var(--teal);
+            font-weight: 600;
+            margin-bottom: 20px;
         }
-        .price-card .desc {
+        .price-card .price-note-plain {
+            font-size: 0.85rem;
             color: var(--text-light);
-            font-size: 0.93rem;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         .price-card ul {
             list-style: none;
@@ -137,8 +160,8 @@
             flex: 1;
         }
         .price-card li {
-            padding: 9px 0;
-            font-size: 0.93rem;
+            padding: 8px 0;
+            font-size: 0.9rem;
             color: var(--text);
             border-bottom: 1px solid var(--grey-bg);
         }
@@ -152,7 +175,7 @@
 
         .btn {
             display: inline-block;
-            padding: 14px 32px;
+            padding: 14px 28px;
             border-radius: 6px;
             font-weight: 600;
             font-size: 0.95rem;
@@ -165,8 +188,69 @@
         .btn-secondary { background: var(--grey-bg); color: var(--navy); border: 1px solid var(--border); }
         .btn-secondary:hover { background: var(--border); }
 
+        /* ── OEM section ── */
+        .oem { padding: 0 24px 70px; background: var(--grey-bg); }
+        .oem-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 36px;
+            text-align: center;
+        }
+        .oem-card h2 {
+            font-size: 1.35rem;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .oem-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+        .oem-card .price-tag {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        /* ── License terms ── */
+        .terms { padding: 70px 24px 80px; background: var(--white); }
+        .terms h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--navy);
+            margin-bottom: 40px;
+        }
+        .terms-table {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .terms-table th,
+        .terms-table td {
+            text-align: left;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.93rem;
+        }
+        .terms-table th {
+            color: var(--navy);
+            font-weight: 700;
+            width: 180px;
+            vertical-align: top;
+        }
+        .terms-table td {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
         /* ── FAQ ── */
-        .faq { padding: 70px 24px 80px; background: var(--white); }
+        .faq { padding: 70px 24px 80px; background: var(--grey-bg); }
         .faq h2 {
             text-align: center;
             font-size: 1.8rem;
@@ -192,7 +276,7 @@
 
         /* ── Contact ── */
         .contact-bar {
-            background: var(--grey-bg);
+            background: var(--white);
             padding: 40px 24px;
             text-align: center;
             border-top: 1px solid var(--border);
@@ -224,9 +308,12 @@
         .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
         .footer-copy { width: 100%; text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
 
+        @media (max-width: 1024px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 768px) {
             .page-header h1 { font-size: 1.7rem; }
-            .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
             .hamburger { display: block; }
             nav .nav-links { display: none; }
             nav .nav-links.open {
@@ -240,6 +327,7 @@
                 padding: 16px 24px;
                 gap: 16px;
             }
+            .terms-table th { width: 130px; }
         }
     </style>
 </head>
@@ -260,16 +348,21 @@
 
 <section class="page-header">
     <h1>Pricing</h1>
-    <p>Simple, transparent licensing for every project</p>
+    <p>Simple, transparent licensing for every team size</p>
 </section>
+
+<div class="promo-banner">
+    Early Adopter Pricing &mdash; 20% Off All Tiers | Limited Time Offer
+</div>
 
 <section class="pricing">
     <div class="pricing-grid">
+        <!-- AGPL -->
         <div class="price-card">
             <h2>AGPL-3.0</h2>
+            <p class="tier-desc">For open-source projects</p>
             <div class="price-tag">Free</div>
-            <p class="price-note">For open-source projects</p>
-            <p class="desc">Use SwingToPDF at no cost in projects that comply with the AGPL-3.0 license.</p>
+            <p class="price-note-plain">No cost, ever</p>
             <ul>
                 <li>Full library functionality</li>
                 <li>All component handlers</li>
@@ -280,22 +373,96 @@
             </ul>
             <a href="https://github.com/seaglass-foundry" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub</a>
         </div>
-        <div class="price-card featured">
-            <h2>Commercial License</h2>
-            <div class="price-tag">[PRICE]</div>
-            <p class="price-note">One-time fee per organization</p>
-            <p class="desc">Use SwingToPDF in proprietary and closed-source applications without AGPL obligations.</p>
+
+        <!-- Developer -->
+        <div class="price-card">
+            <h2>Developer</h2>
+            <p class="tier-desc">1 developer &middot; 1 project</p>
+            <div class="price-original">$499</div>
+            <div class="price-tag">$399</div>
+            <p class="price-note">early adopter price</p>
             <ul>
+                <li>Single named developer</li>
+                <li>One production project</li>
+                <li>All v1.x patch releases included</li>
+                <li>Email support (2 business day response)</li>
                 <li>No source disclosure required</li>
-                <li>Perpetual license, no recurring fees</li>
-                <li>Scoped per major version</li>
-                <li>Per organization — unlimited developers</li>
-                <li>Upgrade pricing for future major versions</li>
-                <li>Email support from the maintainer</li>
+                <li>No royalties, no recurring fees</li>
             </ul>
-            <a href="mailto:rich@seaglassfoundry.com" class="btn btn-primary">Contact to Purchase</a>
+            <a href="mailto:rich@seaglassfoundry.com?subject=SwingToPDF%20Developer%20License" class="btn btn-primary">Purchase</a>
+        </div>
+
+        <!-- Team -->
+        <div class="price-card featured">
+            <h2>Team</h2>
+            <p class="tier-desc">Up to 5 developers &middot; unlimited projects</p>
+            <div class="price-original">$1,999</div>
+            <div class="price-tag">$1,599</div>
+            <p class="price-note">early adopter price</p>
+            <ul>
+                <li>Up to 5 named developers</li>
+                <li>Unlimited projects within organization</li>
+                <li>All v1.x patch releases included</li>
+                <li>Email support (2 business day response)</li>
+                <li>No source disclosure required</li>
+                <li>No royalties, no recurring fees</li>
+            </ul>
+            <a href="mailto:rich@seaglassfoundry.com?subject=SwingToPDF%20Team%20License" class="btn btn-primary">Purchase</a>
+        </div>
+
+        <!-- Site -->
+        <div class="price-card">
+            <h2>Site</h2>
+            <p class="tier-desc">Unlimited developers &middot; unlimited projects</p>
+            <div class="price-original">$4,999</div>
+            <div class="price-tag">$3,999</div>
+            <p class="price-note">early adopter price</p>
+            <ul>
+                <li>Entire organization &mdash; no developer limit</li>
+                <li>Unlimited projects</li>
+                <li>All v1.x patch releases included</li>
+                <li>Priority email support (1 business day response)</li>
+                <li>No source disclosure required</li>
+                <li>No royalties, no recurring fees</li>
+            </ul>
+            <a href="mailto:rich@seaglassfoundry.com?subject=SwingToPDF%20Site%20License" class="btn btn-primary">Purchase</a>
         </div>
     </div>
+</section>
+
+<section class="oem">
+    <div class="oem-card">
+        <h2>OEM / Redistribution</h2>
+        <p>Embed SwingToPDF inside a product you sell or distribute to other developers or organizations. Custom terms negotiated based on distribution volume and use case.</p>
+        <div class="price-tag">From $14,999</div>
+        <a href="mailto:rich@seaglassfoundry.com?subject=SwingToPDF%20OEM%20License" class="btn btn-primary">Contact for a Quote</a>
+    </div>
+</section>
+
+<section class="terms">
+    <h2>License Terms</h2>
+    <table class="terms-table">
+        <tr>
+            <th>Perpetual</th>
+            <td>Pay once, use forever. No subscriptions, no renewals, no recurring fees.</td>
+        </tr>
+        <tr>
+            <th>Per Major Version</th>
+            <td>A v1 license covers all v1.x releases. New major versions (v2, v3) require a new license &mdash; existing customers receive upgrade pricing.</td>
+        </tr>
+        <tr>
+            <th>Per Organization</th>
+            <td>Team and Site licenses cover your entire organization. No per-seat counting beyond the Developer tier.</td>
+        </tr>
+        <tr>
+            <th>Delivery</th>
+            <td>License issued as a signed PDF document upon purchase.</td>
+        </tr>
+        <tr>
+            <th>AGPL Alternative</th>
+            <td>Use SwingToPDF free under AGPL-3.0 if your project is fully open source under the same license.</td>
+        </tr>
+    </table>
 </section>
 
 <section class="faq">
@@ -303,23 +470,27 @@
     <div class="faq-grid">
         <div class="faq-item">
             <h3>What does "per major version" mean?</h3>
-            <p>Your license covers version 1.x of SwingToPDF. When a new major version (2.0, 3.0, etc.) is released, upgrade pricing is available to existing license holders.</p>
+            <p>Your license covers version 1.x of SwingToPDF, including all patch releases. When a new major version (2.0, 3.0, etc.) is released, existing customers receive upgrade pricing.</p>
         </div>
         <div class="faq-item">
             <h3>Can I use the AGPL version in a commercial product?</h3>
-            <p>Yes, but only if your entire application is also released under the AGPL-3.0 — meaning you must provide the complete source code to anyone who receives the software. If your application is proprietary or closed-source, you need the commercial license.</p>
+            <p>Yes, but only if your entire application is also released under the AGPL-3.0 &mdash; meaning you must provide the complete source code to anyone who receives the software. If your application is proprietary or closed-source, you need a commercial license.</p>
         </div>
         <div class="faq-item">
-            <h3>How many developers can use one commercial license?</h3>
-            <p>The license is per organization, not per developer. Everyone in your organization can use it — no seat limits.</p>
+            <h3>What's the difference between Developer, Team, and Site?</h3>
+            <p>Developer covers one named developer working on one project. Team covers up to five developers with unlimited projects. Site covers your entire organization with no limits on developers or projects.</p>
         </div>
         <div class="faq-item">
             <h3>Is the commercial license perpetual?</h3>
             <p>Yes. Once purchased, you can use the licensed major version of SwingToPDF indefinitely. There are no recurring fees or royalties.</p>
         </div>
         <div class="faq-item">
-            <h3>Do you offer volume or enterprise pricing?</h3>
-            <p>For multi-product or enterprise licensing, please reach out directly at <a href="mailto:rich@seaglassfoundry.com">rich@seaglassfoundry.com</a>.</p>
+            <h3>How long will early adopter pricing last?</h3>
+            <p>Early adopter pricing is available for a limited time. Lock in the 20% discount now &mdash; your license is perpetual, so the savings are permanent.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What if I need to redistribute SwingToPDF inside my product?</h3>
+            <p>If you're embedding SwingToPDF in a product you distribute to other developers or organizations, you'll need an OEM license. <a href="mailto:rich@seaglassfoundry.com">Contact us</a> for custom terms.</p>
         </div>
     </div>
 </section>
@@ -337,7 +508,7 @@
             <a href="https://central.maven.org/maven2/com/seaglassfoundry/swingtopdf/" target="_blank" rel="noopener">Maven Central</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
-        <div class="footer-copy">&copy; 2026 Seaglass Foundry. All rights reserved.</div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry. All rights reserved. Prices in USD. Early adopter pricing subject to change.</div>
     </div>
 </footer>
 
