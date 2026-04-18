@@ -3,30 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seaglass Foundry — A small studio crafting software and games</title>
-    <meta name="description" content="Seaglass Foundry is a small independent studio building carefully-crafted software and games. Home of SwingToPDF and the open-source game Worldwind Reforged (Cannonforge banner).">
-    <link rel="canonical" href="https://seaglassfoundry.com/">
+    <title>Products — Seaglass Foundry</title>
+    <meta name="description" content="Explore the software and games made at Seaglass Foundry — including SwingToPDF for Java developers and Worldwind Reforged, released open source under our Cannonforge banner.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://seaglassfoundry.com/">
-    <meta property="og:title" content="Seaglass Foundry — A small studio crafting software and games">
-    <meta property="og:description" content="Seaglass Foundry is a small independent studio. Home of SwingToPDF and the open-source game Worldwind Reforged.">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/">
+    <meta property="og:title" content="Products — Seaglass Foundry">
+    <meta property="og:description" content="Explore the software and games made at Seaglass Foundry — including SwingToPDF and the open-source game Worldwind Reforged.">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Seaglass Foundry">
-    <meta name="twitter:description" content="A small studio crafting software and games.">
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Seaglass Foundry",
-        "url": "https://seaglassfoundry.com",
-        "email": "rich@seaglassfoundry.com",
-        "description": "A small independent studio crafting software and games.",
-        "sameAs": [
-            "https://github.com/seaglass-foundry"
-        ]
-    }
-    </script>
+    <meta name="twitter:title" content="Products — Seaglass Foundry">
+    <meta name="twitter:description" content="Explore the software and games made at Seaglass Foundry.">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -50,12 +37,11 @@
             color: var(--text);
             line-height: 1.7;
             font-size: 16px;
+            background: var(--grey-bg);
         }
 
         a { color: var(--teal-dark); text-decoration: none; }
         a:hover { text-decoration: underline; }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
         /* ── Nav ── */
         nav {
@@ -85,82 +71,28 @@
         nav .nav-links a:hover { color: var(--white); text-decoration: none; }
         .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
 
-        /* ── Hero ── */
-        .hero {
+        /* ── Page header ── */
+        .page-header {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
             color: var(--white);
-            padding: 100px 24px 110px;
+            padding: 70px 24px 75px;
             text-align: center;
         }
-        .hero h1 {
-            font-size: 3.2rem;
+        .page-header h1 {
+            font-size: 2.4rem;
             font-weight: 800;
             letter-spacing: -0.03em;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
-        .hero h1 span { color: var(--teal); }
-        .hero .tagline {
-            font-size: 1.3rem;
+        .page-header p {
             color: #a8c4d8;
-            margin-bottom: 24px;
-            font-weight: 400;
-        }
-        .hero .description {
-            max-width: 640px;
-            margin: 0 auto 40px;
-            color: #8eaec6;
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
-        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        .btn {
-            display: inline-block;
-            padding: 13px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: background 0.2s, transform 0.1s;
-        }
-        .btn:hover { text-decoration: none; transform: translateY(-1px); }
-        .btn-primary { background: var(--teal); color: var(--white); }
-        .btn-primary:hover { background: var(--teal-dark); }
-        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
-        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
-
-        /* ── Philosophy ── */
-        .philosophy {
-            padding: 70px 24px;
-            background: var(--white);
-            text-align: center;
-        }
-        .philosophy h2 {
-            font-size: 1.8rem;
-            color: var(--navy);
-            margin-bottom: 16px;
-        }
-        .philosophy p {
-            max-width: 700px;
+            font-size: 1.1rem;
+            max-width: 600px;
             margin: 0 auto;
-            color: var(--text);
-            font-size: 1.05rem;
-            line-height: 1.75;
         }
 
         /* ── Products grid ── */
-        .products {
-            padding: 70px 24px 90px;
-            background: var(--grey-bg);
-        }
-        .products-header { text-align: center; margin-bottom: 48px; }
-        .products-header h2 {
-            font-size: 2rem;
-            color: var(--navy);
-            margin-bottom: 10px;
-        }
-        .products-header p {
-            color: var(--text-light);
-            font-size: 1.05rem;
-        }
+        .products-section { padding: 70px 24px 90px; }
         .products-grid {
             max-width: 1100px;
             margin: 0 auto;
@@ -196,13 +128,13 @@
         }
         .badge-dev { background: var(--teal-light); color: var(--teal-dark); }
         .badge-game { background: #fef3e6; color: #9a5c1e; }
-        .product-card h3 {
+        .product-card h2 {
             font-size: 1.5rem;
             color: var(--navy);
             margin-bottom: 6px;
             letter-spacing: -0.02em;
         }
-        .product-card h3 span { color: var(--teal); }
+        .product-card h2 span { color: var(--teal); }
         .product-card .tagline {
             color: var(--text-light);
             font-size: 0.95rem;
@@ -235,16 +167,14 @@
             content: "→";
             transition: transform 0.15s;
         }
-        .product-card:hover .card-cta::after { transform: translateX(4px); }
+        .product-card:hover .card-cta::after {
+            transform: translateX(4px);
+        }
 
         /* ── Teaser (ForgeGIS) ── */
-        .teaser-section {
-            padding: 0 24px 80px;
-            background: var(--grey-bg);
-        }
         .teaser {
             max-width: 780px;
-            margin: 0 auto;
+            margin: 70px auto 0;
             text-align: center;
             padding: 48px 36px 44px;
             border: 1px dashed var(--teal);
@@ -300,24 +230,6 @@
             text-decoration: none;
         }
 
-        /* ── Contact strip ── */
-        .contact-strip {
-            background: var(--white);
-            padding: 60px 24px;
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-        .contact-strip h2 {
-            font-size: 1.5rem;
-            color: var(--navy);
-            margin-bottom: 12px;
-        }
-        .contact-strip p {
-            color: var(--text-light);
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-
         /* ── Footer ── */
         footer {
             background: var(--navy-dark);
@@ -340,8 +252,7 @@
         .footer-copy { width: 100%; text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .hero .tagline { font-size: 1.05rem; }
+            .page-header h1 { font-size: 1.8rem; }
             .products-grid { grid-template-columns: 1fr; }
             .hamburger { display: block; }
             nav .nav-links { display: none; }
@@ -372,63 +283,36 @@
     </div>
 </nav>
 
-<section class="hero">
-    <div class="container">
-        <h1>Seaglass <span>Foundry</span></h1>
-        <p class="tagline">A small studio crafting software and games</p>
-        <p class="description">
-            We build carefully-made software tools and games &mdash; some shipped
-            commercially, some released open source under our Cannonforge banner.
-            Every product is designed with the same focus on craft, clarity, and long-term value.
-        </p>
-        <div class="cta-group">
-            <a href="/products/" class="btn btn-primary">Explore Our Products</a>
-            <a href="https://github.com/seaglass-foundry" class="btn btn-outline" target="_blank" rel="noopener">GitHub</a>
-        </div>
-    </div>
+<section class="page-header">
+    <h1>Our Products</h1>
+    <p>The software and games we craft at Seaglass Foundry &mdash; shipped commercially or released open source under our Cannonforge banner.</p>
 </section>
 
-<section class="philosophy">
-    <div class="container">
-        <h2>What we make</h2>
-        <p>
-            Seaglass Foundry builds a small number of things, carefully.
-            Our work spans developer tools like <a href="/products/swingtopdf/">SwingToPDF</a>
-            and games like <a href="/products/worldwind-reforged/">Worldwind Reforged</a>,
-            which we release as open source under our Cannonforge banner.
-            We favor depth over breadth &mdash; fewer products, done better.
-        </p>
-    </div>
-</section>
-
-<section class="products">
-    <div class="products-header">
-        <h2>Our Products</h2>
-        <p>A developer library and a game &mdash; with more in the works.</p>
-    </div>
+<section class="products-section">
     <div class="products-grid">
 
         <a href="/products/swingtopdf/" class="product-card">
             <span class="card-badge badge-dev">Developer Library</span>
-            <h3>Swing<span>ToPDF</span></h3>
+            <h2>Swing<span>ToPDF</span></h2>
             <p class="tagline">True vector PDF output from Java Swing components</p>
             <p class="description">
                 Convert any JComponent tree into genuine vector PDF. Text stays selectable,
-                graphics stay sharp, and file sizes stay small. Built on Apache PDFBox.
+                graphics stay sharp at any zoom level, and file sizes stay small. Built on Apache PDFBox.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; AGPL-3.0 or commercial &middot; v1.1.0
+                <strong>Java 17+</strong> &middot; AGPL-3.0 or commercial license &middot; v1.1.0 on Maven Central
             </div>
             <span class="card-cta">Learn more</span>
         </a>
 
         <a href="/products/worldwind-reforged/" class="product-card">
             <span class="card-badge badge-game">Game &middot; Open Source</span>
-            <h3>Worldwind <span>Reforged</span></h3>
+            <h2>Worldwind <span>Reforged</span></h2>
             <p class="tagline">An open-source game, released under our Cannonforge banner</p>
             <p class="description">
-                Our game project, developed at Seaglass Foundry and released as
-                open source under the Cannonforge banner. Source lives on GitHub.
+                Our current game project, developed at Seaglass Foundry and released
+                as open source under the Cannonforge banner &mdash; the open-source arm
+                of the studio. Source and releases live on GitHub.
             </p>
             <div class="meta">
                 <strong>Open source</strong> &middot; Cannonforge banner &middot; Developed at Seaglass Foundry
@@ -437,26 +321,16 @@
         </a>
 
     </div>
-</section>
 
-<section class="teaser-section">
     <div class="teaser">
         <span class="teaser-badge">Coming Soon</span>
         <h3>Forge<span>GIS</span></h3>
-        <p class="teaser-tagline">A new approach to GIS &mdash; in active development</p>
+        <p class="teaser-tagline">A new approach to GIS &mdash; in active development at Seaglass Foundry</p>
         <p class="teaser-desc">
             We're building something we think will reshape how people work with geospatial data.
             Details are coming &mdash; leave your email if you'd like to be among the first to hear.
         </p>
         <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20Early%20Access" class="btn-teaser">Get notified about ForgeGIS &rarr;</a>
-    </div>
-</section>
-
-<section class="contact-strip">
-    <div class="container">
-        <h2>Work with us</h2>
-        <p>Licensing questions, partnership inquiries, or just a hello &mdash; we'd love to hear from you.</p>
-        <a href="mailto:rich@seaglassfoundry.com" class="btn btn-primary">rich@seaglassfoundry.com</a>
     </div>
 </section>
 

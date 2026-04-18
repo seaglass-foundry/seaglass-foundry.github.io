@@ -30,24 +30,29 @@
         }
         h1 { font-size: 5rem; font-weight: 800; margin-bottom: 8px; }
         h1 span { color: var(--teal); }
-        p { font-size: 1.15rem; color: #a8c4d8; margin-bottom: 32px; max-width: 440px; }
+        p { font-size: 1.15rem; color: #a8c4d8; margin-bottom: 32px; max-width: 480px; }
+        .actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
         a {
             display: inline-block;
             padding: 13px 28px;
             border-radius: 6px;
             font-weight: 600;
             font-size: 0.95rem;
-            background: var(--teal);
-            color: var(--white);
             text-decoration: none;
-            transition: background 0.2s, transform 0.1s;
+            transition: background 0.2s, transform 0.1s, border-color 0.2s;
         }
-        a:hover { background: var(--teal-dark); transform: translateY(-1px); }
+        a.primary { background: var(--teal); color: var(--white); }
+        a.primary:hover { background: var(--teal-dark); transform: translateY(-1px); }
+        a.outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        a.outline:hover { border-color: rgba(255,255,255,0.7); transform: translateY(-1px); }
     </style>
 </head>
 <body>
     <h1>4<span>0</span>4</h1>
-    <p>The page you're looking for doesn't exist or has been moved.</p>
-    <a href="/">Back to Home</a>
+    <p>The page you're looking for doesn't exist or has been moved. Try our homepage or products page instead.</p>
+    <div class="actions">
+        <a href="/" class="primary">Back to Home</a>
+        <a href="/products/" class="outline">See Products</a>
+    </div>
 </body>
 </html>
