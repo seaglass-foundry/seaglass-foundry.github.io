@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Worldwind Reforged — Seaglass Foundry</title>
-    <meta name="description" content="Worldwind Reforged — a modern Java 17+ revival of NASA WorldWind. A 3D globe visualization toolkit with GLSL shaders, GPU-accelerated surface shapes, and full backwards compatibility with the original WorldWind Java API.">
+    <title>Worldwind Reforged — A Community Modernization of NASA WorldWind</title>
+    <meta name="description" content="Worldwind Reforged — a community modernization of NASA's WorldWind, maintained by Seaglass Foundry under our Cannonforge banner. Updated for Java 17+, shader-based rendering, GPU-accelerated surface shapes, and a clean Maven build. Released open source as a contribution back to the WorldWind community.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/worldwind-reforged/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/worldwind-reforged/">
-    <meta property="og:title" content="Worldwind Reforged — Seaglass Foundry">
-    <meta property="og:description" content="A modern Java 17+ revival of NASA WorldWind — a 3D globe visualization toolkit. Open source under the Cannonforge banner.">
+    <meta property="og:title" content="Worldwind Reforged — A Community Modernization of NASA WorldWind">
+    <meta property="og:description" content="Our community modernization of NASA WorldWind — Java 17+, shader-based rendering, GPU-accelerated surface shapes, clean Maven build. Open source under our Cannonforge banner.">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Worldwind Reforged — Seaglass Foundry">
-    <meta name="twitter:description" content="A modern Java 17+ revival of NASA WorldWind — a 3D globe visualization toolkit. Open source under the Cannonforge banner.">
+    <meta name="twitter:title" content="Worldwind Reforged — A Community Modernization of NASA WorldWind">
+    <meta name="twitter:description" content="Our community modernization of NASA WorldWind, open source under the Cannonforge banner.">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -22,15 +22,17 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform (JVM)",
         "url": "https://seaglassfoundry.com/products/worldwind-reforged/",
-        "description": "A modern Java 17+ revival of NASA WorldWind — a 3D globe visualization toolkit with GLSL shaders, GPU-accelerated surface shapes, and full backwards compatibility with the original WorldWind Java API.",
+        "description": "A community modernization of NASA's WorldWind, maintained by Seaglass Foundry LLC under our Cannonforge banner. Updated for Java 17+, shader-based rendering, GPU-accelerated surface shapes, and a clean Maven build. Released as open source as a contribution back to the WorldWind community.",
         "creator": {
             "@type": "Organization",
-            "name": "Seaglass Foundry",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
             "url": "https://seaglassfoundry.com"
         },
         "publisher": {
             "@type": "Organization",
-            "name": "Seaglass Foundry",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
             "url": "https://seaglassfoundry.com"
         }
     }
@@ -50,6 +52,8 @@
             --white: #ffffff;
             --border: #dce3ea;
         }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
 
         html { scroll-behavior: smooth; }
 
@@ -285,14 +289,15 @@
 
 <section class="hero">
     <div class="container">
-        <div class="publisher-badge">Open Source &middot; Cannonforge</div>
+        <div class="publisher-badge">Open-Source Contribution &middot; Cannonforge banner</div>
         <h1>Worldwind <span>Reforged</span></h1>
-        <p class="tagline">A modern Java 17+ revival of NASA WorldWind</p>
+        <p class="tagline">A community modernization of NASA's WorldWind</p>
         <p class="description">
-            A 3D globe visualization toolkit for Java &mdash; GLSL shaders, GPU-accelerated surface shapes,
-            and a full Maven build. Fully backwards compatible with the original WorldWind Java API,
-            so it's a drop-in replacement for legacy code. Developed at Seaglass Foundry and released
-            as open source under our Cannonforge banner.
+            Worldwind Reforged isn't a Seaglass Foundry<sup class="tm">&trade;</sup> product. It's a modernization
+            of NASA's WorldWind that we maintain as a contribution back to the WorldWind community &mdash;
+            updated for Java 17+, shader-based rendering, GPU-accelerated surface shapes, and a clean Maven
+            build. The API stays fully backwards compatible with the original, so it's a drop-in upgrade
+            for anyone still building on WorldWind. Released open source under our Cannonforge banner.
         </p>
         <div class="cta-group">
             <a href="https://github.com/io-cannonforge/worldwindreforged" class="btn btn-primary" target="_blank" rel="noopener">View on GitHub</a>
@@ -303,21 +308,24 @@
 
 <section class="about">
     <div class="container">
-        <h2>About the Project</h2>
+        <h2>About the project</h2>
         <p>
-            Worldwind Reforged is a serious real-time situational awareness platform &mdash; built
-            as a modern revival of NASA's WorldWind, updated for Java 17+ with shader-based rendering,
-            GPU-accelerated surface shapes, compute shaders on GL 4.3+, and a Maven-based build.
-            Flagship showcase demos include maritime vessel tracking, live air traffic, and satellite tracking.
+            NASA's WorldWind Java is a legacy toolkit that the wider community still relies on for 3D globe
+            visualization. Rather than fork it for our own work and walk away, we modernized it openly so the
+            community has a clean, maintained baseline to build on: Java 17+, shader-based rendering on
+            modern OpenGL, GPU-accelerated surface shapes, compute shaders on GL 4.3+, and a Maven-based
+            build that drops cleanly into modern Java projects.
         </p>
         <p>
-            The API is fully backwards-compatible with the original WorldWind Java, which makes the toolkit
-            a drop-in replacement for legacy WorldWind code. The project is fully open source &mdash;
-            anyone can read the code, file issues, and follow along as it develops.
+            The API stays fully backwards-compatible with the original WorldWind Java &mdash; existing
+            WorldWind code runs against Reforged without changes, so adopting it doesn't mean rewriting
+            anything. Sample demos in the repository (maritime vessel tracking, live air traffic, satellite
+            tracking) exercise the rendering path end-to-end, but the project itself is the toolkit, not the demos.
         </p>
         <p>
             All releases, source, and documentation live on the
-            <a href="https://github.com/io-cannonforge/worldwindreforged" target="_blank" rel="noopener">Cannonforge GitHub organization</a>.
+            <a href="https://github.com/io-cannonforge/worldwindreforged" target="_blank" rel="noopener">Cannonforge GitHub organization</a>
+            &mdash; the open-source banner Seaglass Foundry uses when releasing work for the community.
         </p>
     </div>
 </section>
@@ -352,7 +360,7 @@
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
-        <div class="footer-copy">&copy; 2026 Seaglass Foundry. All rights reserved.</div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
     </div>
 </footer>
 

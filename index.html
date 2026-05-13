@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seaglass Foundry — A small studio crafting developer tools and libraries</title>
-    <meta name="description" content="Seaglass Foundry is a small independent studio building carefully-crafted developer tools and libraries. Home of SwingToPDF and Worldwind Reforged, a modern Java revival of NASA WorldWind (released open source under our Cannonforge banner).">
+    <title>Seaglass Foundry — Forged For Speed. Refined by Craft.</title>
+    <meta name="description" content="Seaglass Foundry — Forged For Speed. Refined by Craft. Home of ForgeGIS, a GPU-accelerated geospatial library and native MCP server written in pure Java; plus SwingToPDF. Maintainers of Worldwind Reforged, our community modernization of NASA WorldWind.">
     <link rel="canonical" href="https://seaglassfoundry.com/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/">
-    <meta property="og:title" content="Seaglass Foundry — A small studio crafting developer tools and libraries">
-    <meta property="og:description" content="Seaglass Foundry is a small independent studio. Home of SwingToPDF and the open-source Worldwind Reforged Java toolkit.">
+    <meta property="og:title" content="Seaglass Foundry — Forged For Speed. Refined by Craft.">
+    <meta property="og:description" content="Forged For Speed. Refined by Craft. Home of ForgeGIS (GPU-accelerated geospatial compute and MCP server) and SwingToPDF. Maintainers of Worldwind Reforged, our community modernization of NASA WorldWind.">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Seaglass Foundry">
-    <meta name="twitter:description" content="A small studio crafting developer tools and libraries.">
+    <meta name="twitter:title" content="Seaglass Foundry — Forged For Speed. Refined by Craft.">
+    <meta name="twitter:description" content="Forged For Speed. Refined by Craft. ForgeGIS, SwingToPDF, and our community-maintained Worldwind Reforged modernization.">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Seaglass Foundry",
+        "name": "Seaglass Foundry LLC",
+        "legalName": "Seaglass Foundry LLC",
+        "alternateName": "Seaglass Foundry",
+        "slogan": "Forged For Speed. Refined by Craft.",
         "url": "https://seaglassfoundry.com",
         "email": "rich@seaglassfoundry.com",
-        "description": "A small independent studio crafting developer tools and libraries.",
+        "description": "An independent studio building GPU-accelerated developer libraries and tools. Maker of ForgeGIS, SwingToPDF, and Worldwind Reforged.",
         "sameAs": [
             "https://github.com/seaglass-foundry"
         ]
@@ -36,6 +39,9 @@
             --teal: #4a9e8e;
             --teal-dark: #3b8273;
             --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
             --grey-bg: #f4f7f9;
             --text: #2c3e50;
             --text-light: #5a6a7a;
@@ -56,6 +62,7 @@
         a:hover { text-decoration: underline; }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
 
         /* ── Nav ── */
         nav {
@@ -89,37 +96,43 @@
         .hero {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
             color: var(--white);
-            padding: 100px 24px 110px;
+            padding: 110px 24px 100px;
             text-align: center;
         }
+        .hero .eyebrow {
+            display: inline-block;
+            color: var(--teal);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
         .hero h1 {
-            font-size: 3.2rem;
+            font-size: 3.4rem;
             font-weight: 800;
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
+            letter-spacing: -0.025em;
+            margin-bottom: 18px;
+            line-height: 1.1;
         }
-        .hero h1 span { color: var(--teal); }
-        .hero .tagline {
-            font-size: 1.3rem;
+        .hero h1 .speed { color: var(--white); }
+        .hero h1 .sep { color: var(--teal); margin: 0 0.12em; }
+        .hero h1 .craft { color: var(--white); }
+        .hero .subline {
             color: #a8c4d8;
-            margin-bottom: 24px;
-            font-weight: 400;
-        }
-        .hero .description {
+            font-size: 1.1rem;
             max-width: 640px;
-            margin: 0 auto 40px;
-            color: #8eaec6;
-            font-size: 1.05rem;
-            line-height: 1.7;
+            margin: 0 auto 36px;
+            line-height: 1.65;
         }
-        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
         .btn {
             display: inline-block;
             padding: 13px 28px;
             border-radius: 6px;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: background 0.2s, transform 0.1s;
+            transition: background 0.2s, transform 0.1s, border-color 0.2s;
         }
         .btn:hover { text-decoration: none; transform: translateY(-1px); }
         .btn-primary { background: var(--teal); color: var(--white); }
@@ -127,42 +140,184 @@
         .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
         .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
 
+        /* ── Flagship section ── */
+        .flagship {
+            padding: 80px 24px 40px;
+            background: var(--white);
+        }
+        .flagship-card {
+            max-width: 1040px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, var(--white) 0%, var(--grey-bg) 100%);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--amber);
+            border-radius: 14px;
+            padding: 48px 48px 44px;
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+        .flagship-card .fc-left .badge {
+            display: inline-block;
+            background: var(--amber-light);
+            color: var(--amber-dark);
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+        .flagship-card .fc-left h2 {
+            font-size: 2.3rem;
+            color: var(--navy);
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+        .flagship-card .fc-left h2 .product { color: var(--teal-dark); }
+        .flagship-card .fc-left .fc-tagline {
+            color: var(--text-light);
+            font-size: 1.08rem;
+            margin-bottom: 22px;
+            font-weight: 500;
+        }
+        .flagship-card .fc-left .fc-description {
+            color: var(--text);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 26px;
+        }
+        .flagship-card .fc-left .fc-claim {
+            display: block;
+            padding: 14px 18px;
+            background: var(--white);
+            border-left: 3px solid var(--teal);
+            border-radius: 4px;
+            color: var(--navy);
+            font-size: 0.98rem;
+            font-weight: 500;
+            line-height: 1.55;
+            margin-bottom: 26px;
+        }
+        .flagship-card .fc-left .fc-claim em { color: var(--teal-dark); font-style: normal; font-weight: 700; }
+        .flagship-card .fc-left .fc-cta-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn-product { background: var(--navy); color: var(--white); }
+        .btn-product:hover { background: var(--navy-dark); }
+        .btn-ghost {
+            color: var(--teal-dark);
+            border: 2px solid var(--teal);
+        }
+        .btn-ghost:hover { background: var(--teal-light); }
+        .flagship-card .fc-right {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 28px;
+        }
+        .fc-stat {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px 20px;
+        }
+        .fc-stat .fc-stat-num {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+        .fc-stat .fc-stat-num .accent { color: var(--teal); }
+        .fc-stat .fc-stat-label {
+            font-size: 0.86rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
         /* ── Philosophy ── */
         .philosophy {
-            padding: 70px 24px;
+            padding: 30px 24px 60px;
             background: var(--white);
             text-align: center;
         }
         .philosophy h2 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--navy);
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         .philosophy p {
             max-width: 700px;
             margin: 0 auto;
             color: var(--text);
-            font-size: 1.05rem;
+            font-size: 1rem;
             line-height: 1.75;
         }
 
-        /* ── Products grid ── */
+        /* ── Secondary products ── */
         .products {
-            padding: 70px 24px 90px;
+            padding: 70px 24px 70px;
             background: var(--grey-bg);
         }
-        .products-header { text-align: center; margin-bottom: 48px; }
-        .products-header h2 {
-            font-size: 2rem;
+        .products-grid.products-grid-solo {
+            max-width: 560px;
+            grid-template-columns: 1fr;
+        }
+
+        /* ── Open-source contribution ── */
+        .open-source {
+            padding: 60px 24px 80px;
+            background: var(--white);
+            border-top: 1px solid var(--border);
+        }
+        .open-source .os-header {
+            max-width: 760px;
+            margin: 0 auto 36px;
+            text-align: center;
+        }
+        .open-source .os-eyebrow {
+            display: inline-block;
+            color: var(--amber-dark);
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .open-source h2 {
+            font-size: 1.6rem;
             color: var(--navy);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+        .open-source .os-header p {
+            color: var(--text);
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+        .open-source .os-card {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .products-header { text-align: center; margin-bottom: 40px; }
+        .products-header h2 {
+            font-size: 1.7rem;
+            color: var(--navy);
+            margin-bottom: 8px;
         }
         .products-header p {
             color: var(--text-light);
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
         .products-grid {
-            max-width: 1100px;
+            max-width: 1040px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -195,7 +350,7 @@
             width: fit-content;
         }
         .badge-dev { background: var(--teal-light); color: var(--teal-dark); }
-        .badge-oss { background: #fef3e6; color: #9a5c1e; }
+        .badge-oss { background: var(--amber-light); color: var(--amber-dark); }
         .product-card h3 {
             font-size: 1.5rem;
             color: var(--navy);
@@ -274,11 +429,38 @@
         footer a { color: #a8c4d8; }
         footer a:hover { color: var(--white); }
         .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
-        .footer-copy { width: 100%; text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .footer-tag {
+            width: 100%;
+            text-align: center;
+            margin-top: 16px;
+            color: var(--teal);
+            font-size: 0.85rem;
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+        .footer-copy {
+            width: 100%;
+            text-align: center;
+            margin-top: 16px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 900px) {
+            .flagship-card {
+                grid-template-columns: 1fr;
+                padding: 36px 28px 32px;
+                gap: 24px;
+            }
+            .flagship-card .fc-right { padding-top: 0; flex-direction: row; flex-wrap: wrap; gap: 12px; }
+            .fc-stat { flex: 1 1 calc(33% - 12px); min-width: 140px; }
+        }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .hero .tagline { font-size: 1.05rem; }
+            .hero { padding: 80px 24px 70px; }
+            .hero h1 { font-size: 2.1rem; }
+            .hero .eyebrow { font-size: 0.7rem; }
+            .flagship-card .fc-left h2 { font-size: 1.7rem; }
             .products-grid { grid-template-columns: 1fr; }
             .hamburger { display: block; }
             nav .nav-links { display: none; }
@@ -311,16 +493,55 @@
 
 <section class="hero">
     <div class="container">
-        <h1>Seaglass <span>Foundry</span></h1>
-        <p class="tagline">A small studio crafting developer tools and libraries</p>
-        <p class="description">
-            We build carefully-made developer tools and libraries &mdash; some shipped
-            commercially, some released open source under our Cannonforge banner.
-            Every product is designed with the same focus on craft, clarity, and long-term value.
+        <span class="eyebrow">Seaglass Foundry<sup class="tm">&trade;</sup></span>
+        <h1>
+            <span class="speed">Forged For Speed.</span>
+            <span class="sep">&middot;</span>
+            <span class="craft">Refined by Craft.</span>
+        </h1>
+        <p class="subline">
+            Announcing <strong style="color:#fff;">ForgeGIS<sup class="tm">&trade;</sup></strong>, our flagship release &mdash; a GPU-accelerated
+            geospatial library and native MCP server, written entirely in Java.
         </p>
         <div class="cta-group">
-            <a href="/products/" class="btn btn-primary">Explore Our Products</a>
-            <a href="https://github.com/seaglass-foundry" class="btn btn-outline" target="_blank" rel="noopener">GitHub</a>
+            <a href="/products/forgegis/" class="btn btn-primary">Explore ForgeGIS</a>
+            <a href="products/forgegis/downloads/forgegis-sales-onepager.pdf" class="btn btn-outline">Download Sales One-Pager</a>
+        </div>
+    </div>
+</section>
+
+<section class="flagship">
+    <div class="flagship-card">
+        <div class="fc-left">
+            <span class="badge">Flagship &middot; ForgeGIS<sup class="tm">&trade;</sup></span>
+            <h2>GPU-accelerated geospatial compute, <span class="product">for the agent era</span></h2>
+            <p class="fc-tagline">220 user-facing operations across 11 categories. 218 callable by AI agents through a native MCP server.</p>
+            <p class="fc-description">
+                ForgeGIS runs raster, vector, hydrology, visibility, spectral, ML, and point-cloud workloads on the GPU
+                through Java-side compute kernels &mdash; and exposes 218 of its 220 operations to AI agents through
+                a native Model Context Protocol server. Pure Java end to end: no JNI, no native dependencies, no native build step.
+            </p>
+            <span class="fc-claim">
+                To our knowledge, <em>the only GPU-accelerated geospatial MCP server in existence</em>.
+            </span>
+            <div class="fc-cta-group">
+                <a href="/products/forgegis/" class="btn btn-product">See ForgeGIS</a>
+                <a href="products/forgegis/downloads/forgegis-sales-onepager.pdf" class="btn btn-ghost">Sales One-Pager (PDF)</a>
+            </div>
+        </div>
+        <div class="fc-right">
+            <div class="fc-stat">
+                <div class="fc-stat-num">220<span class="accent">&nbsp;/&nbsp;11</span></div>
+                <div class="fc-stat-label">operations across 11 geospatial categories</div>
+            </div>
+            <div class="fc-stat">
+                <div class="fc-stat-num">218<span class="accent">&nbsp;/&nbsp;220</span></div>
+                <div class="fc-stat-label">agent-callable through native MCP</div>
+            </div>
+            <div class="fc-stat">
+                <div class="fc-stat-num">14&times;&ndash;40&times;</div>
+                <div class="fc-stat-label">multi-stage pipeline speedup vs GDAL CLI</div>
+            </div>
         </div>
     </div>
 </section>
@@ -329,21 +550,23 @@
     <div class="container">
         <h2>What we make</h2>
         <p>
-            Seaglass Foundry builds a small number of things, carefully.
-            Our work spans commercial developer libraries like <a href="/products/swingtopdf/">SwingToPDF</a>
-            and open-source toolkits like <a href="/products/worldwind-reforged/">Worldwind Reforged</a>,
-            a modern Java revival of NASA WorldWind that we release under our Cannonforge banner.
-            We favor depth over breadth &mdash; fewer products, done better.
+            Seaglass Foundry builds a small number of things, carefully &mdash; GPU-accelerated developer libraries
+            for technical workloads where speed and correctness both matter. Our two shipping products are
+            <a href="/products/forgegis/">ForgeGIS</a> (geospatial compute, our flagship) and
+            <a href="/products/swingtopdf/">SwingToPDF<sup class="tm">&trade;</sup></a> (vector PDF output from Java Swing).
+            We also maintain <a href="/products/worldwind-reforged/">Worldwind Reforged</a>, a community
+            modernization of NASA's WorldWind &mdash; released as open source under our Cannonforge banner
+            to give back to the WorldWind community.
         </p>
     </div>
 </section>
 
 <section class="products">
     <div class="products-header">
-        <h2>Our Products</h2>
-        <p>A commercial library and an open-source Java toolkit &mdash; with more in the works.</p>
+        <h2>Also from the foundry</h2>
+        <p>Our other shipping library, alongside ForgeGIS.</p>
     </div>
-    <div class="products-grid">
+    <div class="products-grid products-grid-solo">
 
         <a href="/products/swingtopdf/" class="product-card">
             <span class="card-badge badge-dev">Developer Library</span>
@@ -359,28 +582,42 @@
             <span class="card-cta">Learn more</span>
         </a>
 
-        <a href="/products/worldwind-reforged/" class="product-card">
-            <span class="card-badge badge-oss">Java Toolkit &middot; Open Source</span>
+    </div>
+</section>
+
+<section class="open-source">
+    <div class="container">
+        <div class="os-header">
+            <span class="os-eyebrow">Open-source contribution</span>
+            <h2>Giving back to the WorldWind community</h2>
+            <p>
+                Worldwind Reforged is our modernization of NASA's WorldWind &mdash; not a commercial product
+                we ship, but a community contribution maintained under our Cannonforge banner. We
+                modernized the toolkit for Java 17+, shader-based rendering, and a clean Maven build,
+                then released the work openly so the WorldWind community can keep building on it.
+            </p>
+        </div>
+        <a href="/products/worldwind-reforged/" class="product-card os-card">
+            <span class="card-badge badge-oss">Open Source &middot; Cannonforge banner</span>
             <h3>Worldwind <span>Reforged</span></h3>
-            <p class="tagline">A modern Java 17+ revival of NASA WorldWind</p>
+            <p class="tagline">A modernized Java 17+ build of NASA WorldWind, given back to the community</p>
             <p class="description">
-                A 3D globe visualization toolkit for Java &mdash; shader-based rendering,
-                GPU-accelerated surface shapes, and full backwards compatibility with the
-                original WorldWind Java API. Open source under our Cannonforge banner.
+                Shader-based rendering, GPU-accelerated surface shapes, full Maven build, and backwards
+                compatibility with the original WorldWind Java API &mdash; a drop-in modernization for
+                anyone still building on WorldWind. Source and releases on GitHub under our Cannonforge banner.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Open source &middot; Cannonforge banner
+                <strong>Java 17+</strong> &middot; Open source &middot; Community maintained
             </div>
             <span class="card-cta">Learn more</span>
         </a>
-
     </div>
 </section>
 
 <section class="contact-strip">
     <div class="container">
         <h2>Work with us</h2>
-        <p>Licensing questions, partnership inquiries, or just a hello &mdash; we'd love to hear from you.</p>
+        <p>Licensing questions, evaluation access, partnership inquiries &mdash; we read every email.</p>
         <a href="mailto:rich@seaglassfoundry.com" class="btn btn-primary">rich@seaglassfoundry.com</a>
     </div>
 </section>
@@ -389,12 +626,14 @@
     <div class="footer-inner">
         <div class="footer-links">
             <a href="/products/">Products</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
             <a href="/products/swingtopdf/">SwingToPDF</a>
             <a href="/products/worldwind-reforged/">Worldwind Reforged</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
-        <div class="footer-copy">&copy; 2026 Seaglass Foundry. All rights reserved.</div>
+        <div class="footer-tag">Forged For Speed. Refined by Craft.</div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved.</div>
     </div>
 </footer>
 

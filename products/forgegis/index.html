@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era</title>
+    <meta name="description" content="ForgeGIS is a GPU-accelerated geospatial library and native MCP server written entirely in Java — no JNI, no native dependencies. 220 user-facing operations across 11 categories, 218 callable by AI agents. 14×–40× pipeline speedups vs GDAL.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/">
+    <meta property="og:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
+    <meta property="og:description" content="GPU-accelerated geospatial compute and a native Model Context Protocol server, written entirely in Java. 220 operations across 11 categories, 218 callable by AI agents, 14×–40× pipeline speedups vs GDAL.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
+    <meta name="twitter:description" content="GPU-accelerated geospatial library and native MCP server, pure Java. 220 ops, 218 agent-callable, 14×–40× pipeline speedups vs GDAL.">
+    <meta name="keywords" content="GPU-accelerated geospatial library, MCP geospatial server, Java GPU GIS, geospatial Model Context Protocol, GDAL alternative, Java GIS library, GPU GIS compute, agent-callable geospatial">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "ForgeGIS",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Cross-platform (JVM)",
+        "url": "https://seaglassfoundry.com/products/forgegis/",
+        "description": "A GPU-accelerated geospatial compute library and native Model Context Protocol (MCP) server, written entirely in Java with no JNI and no native dependencies. 220 user-facing operations across 11 categories; 218 callable by AI agents via MCP.",
+        "programmingLanguage": "Java",
+        "creator": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        }
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+            --code-bg: #1e293b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .container-narrow { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.92em; }
+        p code, li code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--navy); }
+
+        /* ── Nav ── */
+        nav {
+            background: var(--navy);
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+        nav .brand {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+        }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Product subnav ── */
+        .subnav {
+            background: var(--navy-dark);
+            padding: 0 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .subnav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            height: 44px;
+            font-size: 0.88rem;
+        }
+        .subnav .crumb { color: #8eaec6; }
+        .subnav .crumb a { color: #a8c4d8; }
+        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+        .subnav .sep { color: #5a6a7a; }
+        .subnav .flagship-tag {
+            margin-left: auto;
+            color: var(--amber);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: var(--white);
+            padding: 80px 24px 90px;
+            text-align: center;
+        }
+        .hero .flagship-badge {
+            display: inline-block;
+            background: rgba(216, 151, 60, 0.15);
+            color: var(--amber);
+            border: 1px solid rgba(216, 151, 60, 0.4);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--teal); }
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: #a8c4d8;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+        .hero .categorical-claim {
+            max-width: 700px;
+            margin: 0 auto 36px;
+            color: var(--white);
+            font-size: 1.1rem;
+            line-height: 1.65;
+            font-weight: 500;
+        }
+        .hero .categorical-claim em { color: var(--teal); font-style: normal; font-weight: 700; }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-block;
+            padding: 13px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, transform 0.1s, border-color 0.2s;
+        }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+        .btn-light { background: var(--white); color: var(--navy); border: 1px solid var(--border); }
+        .btn-light:hover { border-color: var(--teal); }
+
+        /* ── Stats strip ── */
+        .stats {
+            background: var(--white);
+            padding: 56px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .stat {
+            text-align: center;
+            padding: 0 12px;
+        }
+        .stat .number {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+        .stat .number .accent { color: var(--teal); }
+        .stat .label {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* ── Generic section ── */
+        section.block { padding: 70px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 {
+            font-size: 1.9rem;
+            color: var(--navy);
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+        section.block .section-intro {
+            color: var(--text-light);
+            font-size: 1.02rem;
+            margin-bottom: 32px;
+            max-width: 720px;
+        }
+        section.block h2.center, section.block .center { text-align: center; }
+        section.block .center.section-intro { margin-left: auto; margin-right: auto; }
+
+        /* ── 3-up content blocks ── */
+        .three-up {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 8px;
+        }
+        .three-up .item {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 28px 26px;
+        }
+        section.block.tinted .three-up .item { background: var(--white); }
+        .three-up h3 {
+            font-size: 1.1rem;
+            color: var(--navy);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+        .three-up p {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ── Architecture explainer ── */
+        .arch-block {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 36px 36px;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+        .arch-block .arch-lede {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 24px;
+        }
+        .arch-surfaces {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 22px;
+        }
+        .arch-surface {
+            background: var(--grey-bg);
+            border-left: 3px solid var(--teal);
+            padding: 18px 20px;
+            border-radius: 6px;
+        }
+        .arch-surface .surface-label {
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: var(--teal-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
+        .arch-surface .surface-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .arch-surface p {
+            font-size: 0.92rem;
+            color: var(--text);
+            line-height: 1.65;
+            margin: 0;
+        }
+        .arch-total {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            padding-top: 8px;
+            border-top: 1px dashed var(--border);
+        }
+        .arch-total strong { color: var(--navy); font-weight: 700; }
+
+        /* ── Performance highlights ── */
+        .perf-list {
+            max-width: 880px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 8px 0;
+        }
+        .perf-list li {
+            display: flex;
+            gap: 24px;
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border);
+            align-items: baseline;
+        }
+        .perf-list li:last-child { border-bottom: none; }
+        .perf-list .perf-num {
+            flex: 0 0 180px;
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--teal-dark);
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+        .perf-list .perf-text {
+            flex: 1;
+            color: var(--text);
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+        .perf-footnote {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-light);
+            font-size: 0.92rem;
+        }
+
+        /* ── Audience cards ── */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .audience-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 28px 26px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+        }
+        .audience-card:hover {
+            text-decoration: none;
+            border-color: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 58, 92, 0.06);
+        }
+        .audience-card .aud-label {
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: var(--amber-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+        .audience-card h3 {
+            font-size: 1.15rem;
+            color: var(--navy);
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .audience-card p {
+            color: var(--text);
+            font-size: 0.93rem;
+            line-height: 1.65;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .audience-card .card-cta {
+            color: var(--teal-dark);
+            font-weight: 600;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .audience-card .card-cta::after {
+            content: "↓";
+            transition: transform 0.15s;
+        }
+        .audience-card:hover .card-cta::after { transform: translateY(2px); }
+
+        /* ── Capability catalog ── */
+        .catalog {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px 24px;
+            margin-bottom: 24px;
+        }
+        .cat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            align-items: baseline;
+        }
+        .cat-item .cat-name { color: var(--text); font-size: 0.95rem; font-weight: 500; }
+        .cat-item .cat-count {
+            color: var(--teal-dark);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .catalog-note {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--amber);
+            border-radius: 6px;
+            padding: 18px 22px;
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .catalog-note strong { color: var(--navy); }
+
+        /* ── Downloads ── */
+        .downloads-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+        .download-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 26px 24px 22px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+        }
+        .download-card:hover {
+            text-decoration: none;
+            border-color: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 58, 92, 0.06);
+        }
+        .download-card .dl-type {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--teal-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+        .download-card .dl-type.tech { color: var(--navy); }
+        .download-card h3 {
+            font-size: 1.05rem;
+            color: var(--navy);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        .download-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 18px;
+            flex: 1;
+        }
+        .download-card .dl-cta {
+            color: var(--teal-dark);
+            font-weight: 600;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .download-card .dl-cta::after { content: "↓"; }
+
+        /* ── Contact strip ── */
+        .contact-strip {
+            background: var(--white);
+            padding: 60px 24px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        .contact-strip h2 {
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+        .contact-strip p {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--navy-dark);
+            color: #8eaec6;
+            padding: 40px 24px;
+            font-size: 0.9rem;
+        }
+        footer .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks {
+            width: 100%;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #7790a8;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+        .footer-copy {
+            width: 100%;
+            text-align: center;
+            margin-top: 12px;
+            color: #8eaec6;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .three-up { grid-template-columns: 1fr; }
+            .arch-surfaces { grid-template-columns: 1fr; }
+            .audience-grid { grid-template-columns: 1fr; }
+            .perf-list li { flex-direction: column; gap: 4px; padding: 18px 24px; }
+            .perf-list .perf-num { flex: 0 0 auto; }
+            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+            .subnav .flagship-tag { margin-left: 0; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--navy);
+                padding: 16px 24px;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+        <div class="nav-links">
+            <a href="/products/">Products</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<div class="subnav">
+    <div class="subnav-inner">
+        <div class="crumb">
+            <a href="/products/">Products</a>
+            <span class="sep">/</span>
+            <span>ForgeGIS</span>
+        </div>
+        <span class="flagship-tag">Flagship</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <div class="flagship-badge">Flagship Release</div>
+        <h1>ForgeGIS<sup class="tm">&trade;</sup></h1>
+        <p class="tagline">GPU-Accelerated Geospatial Compute for the Agent Era</p>
+        <p class="categorical-claim">
+            To our knowledge, <em>the only GPU-accelerated geospatial MCP server in existence</em>.
+            Written entirely in Java &mdash; no JNI, no native dependencies, no native build pipeline.
+            220 user-facing operations across 11 geospatial categories; 218 callable by AI agents through a native Model Context Protocol server.
+        </p>
+        <div class="cta-group">
+            <a href="downloads/forgegis-sales-onepager.pdf" class="btn btn-primary">Download Sales One-Pager</a>
+            <a href="#downloads" class="btn btn-outline">All Downloads</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat">
+            <div class="number">220<span class="accent"> / 11</span></div>
+            <div class="label">user-facing operations across 11 geospatial categories</div>
+        </div>
+        <div class="stat">
+            <div class="number">218<span class="accent"> / 220</span></div>
+            <div class="label">operations callable by AI agents via the native MCP server</div>
+        </div>
+        <div class="stat">
+            <div class="number">14&times;&ndash;40&times;</div>
+            <div class="label">multi-stage pipeline speedup vs GDAL CLI on equivalent workloads</div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">What it is, why it matters, how it's built differently</h2>
+        <p class="section-intro center">Three short answers for the technical evaluator.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>What it is</h3>
+                <p>
+                    ForgeGIS is a GPU-accelerated geospatial compute library and a native Model Context Protocol server,
+                    both written in Java. It runs raster, vector, hydrology, visibility, spectral, ML, and point-cloud
+                    workloads on the GPU through Java-side compute kernels &mdash; and exposes 218 of its 220 operations
+                    to AI agents through MCP.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Why it matters</h3>
+                <p>
+                    Serious geospatial work has historically meant assembling Python, C++, and native libraries
+                    &mdash; GDAL, JTS, PostGIS, CUDA &mdash; and accepting either CPU-bound throughput or a build
+                    pipeline tied to native dependencies. ForgeGIS removes both costs: GPU performance without
+                    leaving the JVM, and agent-callable surface without an integration layer.
+                </p>
+            </div>
+            <div class="item">
+                <h3>How it's built differently</h3>
+                <p>
+                    Pure Java end to end. No JNI. No JNA. No native compilation step. The GPU pipeline runs
+                    through Java-side compute kernels, the MCP server is a Java process, the operation catalog
+                    is Java code. Deployment is one JAR. Provenance is one source tree.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Dual-surface architecture</h2>
+        <p class="section-intro center">One library, two surfaces &mdash; one designed for agent composition, one for typed single calls.</p>
+        <div class="arch-block">
+            <p class="arch-lede">
+                The MCP server (<code>forgegis-mcp</code>) exposes ForgeGIS through two complementary surfaces, so an
+                AI agent can either compose a multi-stage workflow in a single call or invoke a specific operation
+                directly with typed inputs.
+            </p>
+            <div class="arch-surfaces">
+                <div class="arch-surface">
+                    <div class="surface-label">Surface 1 &mdash; Pipeline DSL</div>
+                    <div class="surface-name">133 operations</div>
+                    <p>
+                        Composable JSON pipeline format. Agents assemble multi-stage workflows
+                        (read &rarr; reproject &rarr; mask &rarr; classify &rarr; write) inside a single MCP call.
+                    </p>
+                </div>
+                <div class="arch-surface">
+                    <div class="surface-label">Surface 2 &mdash; Typed Intent Tools</div>
+                    <div class="surface-name">54 single-call tools</div>
+                    <p>
+                        Strongly-typed MCP tools for the most common operations. One MCP tool per intent,
+                        with structured inputs and validated arguments.
+                    </p>
+                </div>
+            </div>
+            <div class="arch-total">
+                <strong>62 MCP tools total</strong> &middot; 218 of 220 catalog operations reachable from an agent
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Performance highlights</h2>
+        <p class="section-intro center">Benchmarked against GDAL CLI on equivalent workloads. Numbers are summary &mdash; full methodology, dataset descriptions, and per-operation timings live in the Technical Brief.</p>
+        <ul class="perf-list">
+            <li>
+                <div class="perf-num">6.88&times; geomean</div>
+                <div class="perf-text">
+                    geometric-mean speedup across <strong>143 catalog operations</strong> vs GDAL CLI, with
+                    <strong>127 wins of 143</strong>.
+                </div>
+            </li>
+            <li>
+                <div class="perf-num">14.46&times;&ndash;39.75&times;</div>
+                <div class="perf-text">
+                    speedup range on <strong>multi-stage pipelines</strong> (read &rarr; transform &rarr; analyze &rarr; write),
+                    where the GPU keeps intermediate results resident and avoids per-stage CLI startup.
+                </div>
+            </li>
+            <li>
+                <div class="perf-num">13.76&times;&ndash;36.94&times;</div>
+                <div class="perf-text">
+                    per-operation median speedups across <strong>five real-world Copernicus and ETOPO datasets</strong>,
+                    measured on production-size inputs.
+                </div>
+            </li>
+        </ul>
+        <p class="perf-footnote">
+            Full methodology, hardware configuration, and per-operation breakdowns:
+            <a href="downloads/forgegis-technical-brief.pdf">ForgeGIS Technical Brief (PDF)</a>.
+        </p>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Who it's for</h2>
+        <p class="section-intro center">Three audiences, three one-pagers. Each leads with the parts of ForgeGIS that matter most to that reader.</p>
+        <div class="audience-grid">
+            <a href="downloads/forgegis-defense-onepager.pdf" class="audience-card">
+                <div class="aud-label">For defense &amp; intelligence</div>
+                <h3>Regulated deployment, dual licensing, no native binaries</h3>
+                <p>
+                    Pure-Java provenance, no JNI, no native build chain &mdash; deployable in regulated environments
+                    where supply-chain review demands a single-source-tree audit. AGPL-3.0 / commercial dual license,
+                    with terms suited to prime integrators and SI shops.
+                </p>
+                <span class="card-cta">Download defense one-pager (PDF)</span>
+            </a>
+            <a href="downloads/forgegis-agent-onepager.pdf" class="audience-card">
+                <div class="aud-label">For AI agent builders</div>
+                <h3>Native MCP server, 218 agent-callable ops</h3>
+                <p>
+                    Drop ForgeGIS into an LLM agent platform or workflow runner and get an immediate geospatial
+                    surface: pipeline DSL for composable multi-stage work, typed intent tools for single calls.
+                    62 MCP tools cover 218 of 220 catalog operations.
+                </p>
+                <span class="card-cta">Download agent one-pager (PDF)</span>
+            </a>
+            <a href="downloads/forgegis-sales-onepager.pdf" class="audience-card">
+                <div class="aud-label">For geospatial platforms</div>
+                <h3>GPU throughput for catalog-heavy workloads</h3>
+                <p>
+                    Mid-market geospatial SaaS, climate, and agtech platforms running large raster and vector
+                    catalogs on CPU-bound GDAL pipelines can replace the compute path without migrating off the JVM
+                    or adding a native build pipeline.
+                </p>
+                <span class="card-cta">Download general sales one-pager (PDF)</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Capability catalog</h2>
+        <p class="section-intro center">220 operations across 11 categories. The full catalog with operation-level descriptions is in the Technical Brief.</p>
+        <div class="catalog">
+            <div class="catalog-grid">
+                <div class="cat-item"><span class="cat-name">Terrain</span><span class="cat-count">14</span></div>
+                <div class="cat-item"><span class="cat-name">Bathymetry / Ocean</span><span class="cat-count">14</span></div>
+                <div class="cat-item"><span class="cat-name">Hydrology</span><span class="cat-count">7</span></div>
+                <div class="cat-item"><span class="cat-name">Visibility / RF</span><span class="cat-count">8</span></div>
+                <div class="cat-item"><span class="cat-name">Spectral / ML</span><span class="cat-count">30</span></div>
+                <div class="cat-item"><span class="cat-name">Spatial Geometry</span><span class="cat-count">80</span></div>
+                <div class="cat-item"><span class="cat-name">Filtering / Focal / Morphology</span><span class="cat-count">14</span></div>
+                <div class="cat-item"><span class="cat-name">Raster Mgmt / Vectorize / IO</span><span class="cat-count">39</span></div>
+                <div class="cat-item"><span class="cat-name">Routing</span><span class="cat-count">7</span></div>
+                <div class="cat-item"><span class="cat-name">Point Cloud</span><span class="cat-count">5</span></div>
+                <div class="cat-item"><span class="cat-name">Temporal</span><span class="cat-count">2</span></div>
+            </div>
+            <div class="catalog-note">
+                <strong>Topology completeness.</strong> The Spatial Geometry category includes full DE-9IM coverage:
+                the 8 OGC named predicates, 3 JTS extensions, the <code>Relate</code> operation, and the raw
+                9-character intersection matrix per geometry-type pair. Few GPU libraries surface the full DE-9IM
+                relate matrix &mdash; most stop at named predicates.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted" id="downloads">
+    <div class="container">
+        <h2 class="center">Downloads</h2>
+        <p class="section-intro center">All ForgeGIS collateral. Direct download &mdash; no email gate, no form wall.</p>
+        <div class="downloads-grid">
+            <a href="downloads/forgegis-technical-brief.pdf" class="download-card">
+                <div class="dl-type tech">Technical Brief &middot; 21 pages</div>
+                <h3>ForgeGIS Technical Brief</h3>
+                <p>
+                    Complete operation catalog, validation methodology, benchmark details, architectural deep-dive.
+                    The substantive document for technical evaluators and engineering reviewers.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgegis-sales-onepager.pdf" class="download-card">
+                <div class="dl-type">Sales One-Pager &middot; 2 pages</div>
+                <h3>General Sales One-Pager</h3>
+                <p>
+                    Front/back overview. General-purpose first-touch document covering positioning,
+                    headline numbers, and the dual-surface architecture at a glance.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgegis-defense-onepager.pdf" class="download-card">
+                <div class="dl-type">Defense One-Pager &middot; 2 pages</div>
+                <h3>Defense &amp; Intelligence Variant</h3>
+                <p>
+                    For defense and intelligence contractors, prime integrators, and SI shops.
+                    Leads on the regulated-deployment story and the AGPL / commercial licensing path.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgegis-agent-onepager.pdf" class="download-card">
+                <div class="dl-type">Agent One-Pager &middot; 2 pages</div>
+                <h3>AI Agent Builders Variant</h3>
+                <p>
+                    For AI agent builders, LLM agent platforms, and workflow/orchestration runners.
+                    Leads on the MCP surface and the pipeline-DSL / typed-intent dual architecture.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="contact-strip">
+    <div class="container">
+        <h2>Talk to us about ForgeGIS</h2>
+        <p>Licensing questions, evaluation access, partnership inquiries &mdash; we read every email.</p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20inquiry" class="btn btn-primary">rich@seaglassfoundry.com</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/products/">Products</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="downloads/forgegis-technical-brief.pdf">Technical Brief</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            ForgeGIS&trade; and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            GDAL, JTS, PostGIS, OpenCL, Vulkan, NVIDIA, and other third-party marks referenced on this page
+            are the property of their respective owners.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) links.classList.remove('open');
+    });
+})();
+</script>
+</body>
+</html>
