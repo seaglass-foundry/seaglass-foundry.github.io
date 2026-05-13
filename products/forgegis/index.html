@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era</title>
-    <meta name="description" content="ForgeGIS is a GPU-accelerated geospatial library and native MCP server written entirely in Java — no JNI, no native dependencies. 220 user-facing operations across 11 categories, 218 callable by AI agents. 14×–40× pipeline speedups vs GDAL.">
+    <meta name="description" content="ForgeGIS is a GPU-accelerated geospatial library and native MCP server distributed as pure-Java Maven artifacts — no first-party native code, no GDAL native bindings, no separate native install step. 220 user-facing operations across 11 categories, 218 callable by AI agents. 14×–40× multi-stage pipeline speedups vs GDAL.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/">
     <meta property="og:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
-    <meta property="og:description" content="GPU-accelerated geospatial compute and a native Model Context Protocol server, written entirely in Java. 220 operations across 11 categories, 218 callable by AI agents, 14×–40× pipeline speedups vs GDAL.">
+    <meta property="og:description" content="GPU-accelerated geospatial compute and a native Model Context Protocol server, distributed as pure-Java Maven artifacts. 220 operations across 11 categories, 218 callable by AI agents, 14×–40× multi-stage pipeline speedups vs GDAL.">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
-    <meta name="twitter:description" content="GPU-accelerated geospatial library and native MCP server, pure Java. 220 ops, 218 agent-callable, 14×–40× pipeline speedups vs GDAL.">
+    <meta name="twitter:description" content="GPU-accelerated geospatial library and native MCP server, pure-Java Maven artifacts. 220 ops, 218 agent-callable, 14×–40× multi-stage pipeline speedups vs GDAL.">
     <meta name="keywords" content="GPU-accelerated geospatial library, MCP geospatial server, Java GPU GIS, geospatial Model Context Protocol, GDAL alternative, Java GIS library, GPU GIS compute, agent-callable geospatial">
     <script type="application/ld+json">
     {
@@ -23,7 +23,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform (JVM)",
         "url": "https://seaglassfoundry.com/products/forgegis/",
-        "description": "A GPU-accelerated geospatial compute library and native Model Context Protocol (MCP) server, written entirely in Java with no JNI and no native dependencies. 220 user-facing operations across 11 categories; 218 callable by AI agents via MCP.",
+        "description": "A GPU-accelerated geospatial compute library and native Model Context Protocol (MCP) server, distributed as pure-Java Maven artifacts with no first-party native code, no GDAL native bindings, and no separate native install step. 220 user-facing operations across 11 categories; 218 callable by AI agents via MCP.",
         "programmingLanguage": "Java",
         "creator": {
             "@type": "Organization",
@@ -621,8 +621,8 @@
         <h1>ForgeGIS<sup class="tm">&trade;</sup></h1>
         <p class="tagline">GPU-Accelerated Geospatial Compute for the Agent Era</p>
         <p class="categorical-claim">
-            To our knowledge, <em>the only GPU-accelerated geospatial MCP server in existence</em>.
-            Written entirely in Java &mdash; no JNI, no native dependencies, no native build pipeline.
+            As of May 2026, <em>the only commercially-supported GPU-accelerated geospatial MCP server we have been able to identify</em>.
+            Distributed as pure-Java Maven artifacts &mdash; no first-party native code, no GDAL native bindings, no separate native install step.
             220 user-facing operations across 11 geospatial categories; 218 callable by AI agents through a native Model Context Protocol server.
         </p>
         <div class="cta-group">
@@ -675,9 +675,10 @@
             <div class="item">
                 <h3>How it's built differently</h3>
                 <p>
-                    Pure Java end to end. No JNI. No JNA. No native compilation step. The GPU pipeline runs
-                    through Java-side compute kernels, the MCP server is a Java process, the operation catalog
-                    is Java code. Deployment is one JAR. Provenance is one source tree.
+                    Pure-Java Maven distribution. No first-party native code, no GDAL native bindings, no
+                    separate native install step. GPU dispatch is via the JOCL OpenCL bindings (JNI bridge
+                    bundled in the JOCL JAR, extracted at runtime); the system OpenCL runtime is standard
+                    system software bundled with GPU drivers. Deployment is one JAR.
                 </p>
             </div>
         </div>
@@ -727,7 +728,8 @@
             <li>
                 <div class="perf-num">6.88&times; geomean</div>
                 <div class="perf-text">
-                    geometric-mean speedup across <strong>143 catalog operations</strong> vs GDAL CLI, with
+                    geometric-mean speedup across <strong>143 catalog comparison records</strong>
+                    (op &times; raster-scale measurements) vs GDAL CLI, with
                     <strong>127 wins of 143</strong>.
                 </div>
             </li>
@@ -760,11 +762,12 @@
         <div class="audience-grid">
             <a href="downloads/forgegis-defense-onepager.pdf" class="audience-card">
                 <div class="aud-label">For defense &amp; intelligence</div>
-                <h3>Regulated deployment, dual licensing, no native binaries</h3>
+                <h3>Regulated deployment, pure-Java Maven artifacts</h3>
                 <p>
-                    Pure-Java provenance, no JNI, no native build chain &mdash; deployable in regulated environments
-                    where supply-chain review demands a single-source-tree audit. AGPL-3.0 / commercial dual license,
-                    with terms suited to prime integrators and SI shops.
+                    No first-party native code, no GDAL native bindings, no separate native install step &mdash;
+                    deployable in regulated environments without coordinating separate native library distribution
+                    for ForgeGIS itself. Open-source and commercial licensing options; final license terms being
+                    finalized.
                 </p>
                 <span class="card-cta">Download defense one-pager (PDF)</span>
             </a>

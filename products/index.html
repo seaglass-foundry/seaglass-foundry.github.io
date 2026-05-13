@@ -310,9 +310,11 @@
                     <p class="tagline">GPU-accelerated geospatial compute &amp; native MCP server &mdash; pure Java</p>
                     <p class="description">
                         220 user-facing operations across 11 geospatial categories. 218 callable by AI agents through
-                        a native Model Context Protocol server. Pure Java end to end &mdash; no JNI, no native
-                        dependencies, no native build step. To our knowledge, the only GPU-accelerated geospatial
-                        MCP server in existence.
+                        a native Model Context Protocol server. Distributed as pure-Java Maven artifacts with no
+                        first-party native code, no GDAL native bindings, and no separate native install step &mdash;
+                        GPU dispatch is via the JOCL OpenCL bindings (JNI bridge bundled in the JOCL JAR). As of
+                        May 2026, the only commercially-supported GPU-accelerated geospatial MCP server we have
+                        been able to identify.
                     </p>
                     <div class="meta">
                         <strong>Java 17+</strong> &middot; License TBD &middot; Flagship release
