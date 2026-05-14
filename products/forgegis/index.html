@@ -362,6 +362,82 @@
             font-size: 0.92rem;
         }
 
+        /* ── Performance demonstration (video + methodology) ── */
+        .demo-embed {
+            max-width: 880px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--amber);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(15, 38, 64, 0.04);
+        }
+        .demo-embed .demo-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+        .demo-embed .demo-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+        .demo-methodology {
+            max-width: 880px;
+            margin: 28px auto 0;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--amber);
+            border-radius: 10px;
+            padding: 22px 28px;
+        }
+        .demo-methodology h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.01em;
+            margin-bottom: 12px;
+        }
+        .demo-methodology ul {
+            list-style: disc;
+            padding-left: 22px;
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+        .demo-methodology li { margin-bottom: 6px; }
+        .demo-methodology li:last-child { margin-bottom: 0; }
+        .demo-rig {
+            max-width: 880px;
+            margin: 18px auto 0;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+        .demo-cta {
+            max-width: 880px;
+            margin: 22px auto 0;
+            text-align: center;
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .demo-cta a { color: var(--teal-dark); font-weight: 600; }
+        .demo-attribution {
+            max-width: 880px;
+            margin: 22px auto 0;
+            color: var(--text-light);
+            font-size: 0.82rem;
+            line-height: 1.55;
+            text-align: center;
+        }
+
         /* ── Audience cards ── */
         .audience-grid {
             display: grid;
@@ -573,6 +649,8 @@
             .audience-grid { grid-template-columns: 1fr; }
             .perf-list li { flex-direction: column; gap: 4px; padding: 18px 24px; }
             .perf-list .perf-num { flex: 0 0 auto; }
+            .demo-methodology { padding: 18px 20px; }
+            .demo-methodology ul { font-size: 0.92rem; }
             .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
             .subnav .flagship-tag { margin-left: 0; }
             .hamburger { display: block; }
@@ -751,6 +829,45 @@
         <p class="perf-footnote">
             Full methodology, hardware configuration, and per-operation breakdowns:
             <a href="downloads/forgegis-technical-brief.pdf">ForgeGIS Technical Brief (PDF)</a>.
+        </p>
+    </div>
+</section>
+
+<section class="block" id="performance-demo">
+    <div class="container">
+        <h2 class="center">Performance demonstration</h2>
+        <p class="section-intro center">52 operations on real Cop30 DEM and Sentinel-2 data, side-by-side with GDAL. Wall-clock on both sides, cumulative speedup at the bottom, no cuts.</p>
+        <div class="demo-embed">
+            <div class="demo-frame">
+                <iframe
+                    src="https://www.youtube-nocookie.com/embed/ZSmGs_qpMfs"
+                    title="ForgeGIS vs GDAL &mdash; 52-operation performance demonstration"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="demo-methodology">
+            <h3>Methodology &mdash; biases built in against ForgeGIS</h3>
+            <ul>
+                <li>ForgeGIS runs on a cold file cache; GDAL runs second on a warmed cache.</li>
+                <li>ForgeGIS kernel compilation cost is included &mdash; kernels precompiled at startup, matching production deployment.</li>
+                <li>GDAL is invoked through native SWIG JNI bindings for single operations and through CLI subprocesses for multi-stage pipelines, matching the way real GDAL workflows run.</li>
+                <li><code>gdal_calc.py</code> invocations include Python interpreter startup &times; N invocations, as a real GDAL user would pay.</li>
+            </ul>
+        </div>
+        <p class="demo-rig">
+            NVIDIA RTX 5070 Laptop GPU &middot; Intel Core 7 240H &middot; Windows 11 &middot; Java 17 &middot; ForgeGIS 1.0.0 &middot; GDAL 3.12.0. Results specific to this stack.
+        </p>
+        <p class="demo-cta">
+            Per-operation JSONL timings from this recording, and the reproducible benchmark harness, available to vetted buyers under NDA &mdash;
+            <a href="mailto:rich@seaglassfoundry.com">rich@seaglassfoundry.com</a>.
+        </p>
+        <p class="demo-attribution">
+            Cop30 DEM contains modified Copernicus DEM data &copy; DLR e.V. 2010&ndash;2014, Airbus DS GmbH 2014&ndash;2018, provided under COPERNICUS by the European Union and ESA.
+            Sentinel-2 L2A contains modified Copernicus Sentinel data, ESA.
+            GDAL is open-source software developed by the GDAL/OGR Project under an MIT-style licence.
         </p>
     </div>
 </section>

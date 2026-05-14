@@ -215,6 +215,25 @@
             border: 2px solid var(--teal);
         }
         .btn-ghost:hover { background: var(--teal-light); }
+        .flagship-card .fc-left .fc-demo-link {
+            display: inline-block;
+            margin-top: 16px;
+            color: var(--teal-dark);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+        .flagship-card .fc-left .fc-demo-link:hover {
+            border-bottom-color: var(--teal);
+        }
+        .flagship-card .fc-left .fc-demo-link .arrow {
+            display: inline-block;
+            transition: transform 0.15s ease;
+        }
+        .flagship-card .fc-left .fc-demo-link:hover .arrow {
+            transform: translateX(3px);
+        }
         .flagship-card .fc-right {
             display: flex;
             flex-direction: column;
@@ -528,6 +547,7 @@
                 <a href="/products/forgegis/" class="btn btn-product">See ForgeGIS</a>
                 <a href="products/forgegis/downloads/forgegis-sales-onepager.pdf" class="btn btn-ghost">Sales One-Pager (PDF)</a>
             </div>
+            <a href="/products/forgegis/#performance-demo" class="fc-demo-link">Watch the unedited 52-op demonstration vs GDAL &mdash; methodology biased against us. <span class="arrow">&rarr;</span></a>
         </div>
         <div class="fc-right">
             <div class="fc-stat">
