@@ -1,0 +1,11 @@
+# Treat binary assets as binary so end-of-line normalization (core.autocrlf)
+# never rewrites their bytes. Without this, a text-heavy PDF can be misdetected
+# as text and corrupted by LF<->CRLF conversion on checkout.
+*.pdf binary
+*.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.woff binary
+*.woff2 binary
