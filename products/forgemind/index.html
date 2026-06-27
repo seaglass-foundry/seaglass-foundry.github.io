@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeMind — The GIS Intent Compiler | Natural Language to Validated GPU Geospatial Pipelines</title>
+    <meta name="description" content="ForgeMind is the natural-language control plane for ForgeGIS — a GIS Intent Compiler that turns a spoken or typed request into a validated, executed geospatial pipeline, or an explicit refusal. Zero confident-wrong results across 6,696 validated turns, ~25× lower LLM cost than an agent loop, LLM-agnostic, pure-JVM and local-disk.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/forgemind/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/forgemind/">
+    <meta property="og:title" content="ForgeMind — The GIS Intent Compiler">
+    <meta property="og:description" content="The natural-language control plane for ForgeGIS. Natural language in, validated GPU geospatial pipeline out — or an honest refusal. Zero confident-wrong results across 6,696 validated turns; ~25× lower LLM cost than an agent loop; LLM-agnostic.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ForgeMind — The GIS Intent Compiler">
+    <meta name="twitter:description" content="Natural language to validated GPU geospatial pipelines, or an honest refusal. Zero confident-wrong results across 6,696 turns; ~25× lower LLM cost; LLM-agnostic; pure-JVM.">
+    <meta name="keywords" content="GIS intent compiler, natural language GIS, geospatial LLM agent, MCP geospatial, refusal by construction, ForgeGIS control plane, agent geospatial pipeline, LLM-agnostic GIS">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "ForgeMind",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Cross-platform (JVM)",
+        "url": "https://seaglassfoundry.com/products/forgemind/",
+        "description": "ForgeMind is the GIS Intent Compiler and natural-language control plane for ForgeGIS. It turns a spoken or typed request into a validated, executed geospatial pipeline against the GPU-accelerated ForgeGIS engine, or — when a request cannot be honored correctly — into an explicit, machine-readable refusal. LLM-agnostic, native to the Model Context Protocol in both directions, pure-JVM with local-disk persistence.",
+        "programmingLanguage": "Java",
+        "creator": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        }
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+            --code-bg: #1e293b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .container-narrow { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.92em; }
+        p code, li code, td code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--navy); }
+
+        /* ── Nav ── */
+        nav {
+            background: var(--navy);
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+        nav .brand {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+        }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Product subnav ── */
+        .subnav {
+            background: var(--navy-dark);
+            padding: 0 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .subnav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            height: 44px;
+            font-size: 0.88rem;
+        }
+        .subnav .crumb { color: #8eaec6; }
+        .subnav .crumb a { color: #a8c4d8; }
+        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+        .subnav .sep { color: #5a6a7a; }
+        .subnav .flagship-tag {
+            margin-left: auto;
+            color: var(--amber);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: var(--white);
+            padding: 80px 24px 90px;
+            text-align: center;
+        }
+        .hero .flagship-badge {
+            display: inline-block;
+            background: rgba(216, 151, 60, 0.15);
+            color: var(--amber);
+            border: 1px solid rgba(216, 151, 60, 0.4);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+        .hero h1 span { color: var(--teal); }
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: #a8c4d8;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+        .hero .categorical-claim {
+            max-width: 720px;
+            margin: 0 auto 36px;
+            color: var(--white);
+            font-size: 1.1rem;
+            line-height: 1.65;
+            font-weight: 500;
+        }
+        .hero .categorical-claim em { color: var(--teal); font-style: normal; font-weight: 700; }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-block;
+            padding: 13px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, transform 0.1s, border-color 0.2s;
+        }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+        .btn-light { background: var(--white); color: var(--navy); border: 1px solid var(--border); }
+        .btn-light:hover { border-color: var(--teal); }
+
+        /* ── Stats strip ── */
+        .stats {
+            background: var(--white);
+            padding: 56px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .stats-grid {
+            max-width: 1040px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+        }
+        .stat {
+            text-align: center;
+            padding: 0 12px;
+        }
+        .stat .number {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+        .stat .number .accent { color: var(--teal); }
+        .stat .label {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* ── Generic section ── */
+        section.block { padding: 70px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 {
+            font-size: 1.9rem;
+            color: var(--navy);
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+        section.block .section-intro {
+            color: var(--text-light);
+            font-size: 1.02rem;
+            margin-bottom: 32px;
+            max-width: 760px;
+        }
+        section.block h2.center, section.block .center { text-align: center; }
+        section.block .center.section-intro { margin-left: auto; margin-right: auto; }
+
+        /* ── 3-up content blocks ── */
+        .three-up {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 8px;
+        }
+        .three-up .item {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 28px 26px;
+        }
+        section.block.tinted .three-up .item { background: var(--white); }
+        .three-up h3 {
+            font-size: 1.1rem;
+            color: var(--navy);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+        .three-up p {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ── Feature grid ── */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+            margin-top: 8px;
+        }
+        .feature-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--teal);
+            border-radius: 10px;
+            padding: 24px 24px;
+        }
+        section.block.tinted .feature-card { background: var(--white); }
+        .feature-card .feat-tag {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--amber-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+        .feature-card h3 {
+            font-size: 1.08rem;
+            color: var(--navy);
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .feature-card p {
+            color: var(--text);
+            font-size: 0.93rem;
+            line-height: 1.65;
+        }
+
+        /* ── Performance / validation list ── */
+        .perf-list {
+            max-width: 880px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 8px 0;
+        }
+        .perf-list li {
+            display: flex;
+            gap: 24px;
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border);
+            align-items: baseline;
+        }
+        .perf-list li:last-child { border-bottom: none; }
+        .perf-list .perf-num {
+            flex: 0 0 180px;
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--teal-dark);
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+        .perf-list .perf-text {
+            flex: 1;
+            color: var(--text);
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+        .perf-footnote {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-light);
+            font-size: 0.92rem;
+        }
+
+        /* ── Audience cards ── */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .audience-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 28px 26px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+        }
+        .audience-card:hover {
+            text-decoration: none;
+            border-color: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 58, 92, 0.06);
+        }
+        .audience-card .aud-label {
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: var(--amber-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+        .audience-card h3 {
+            font-size: 1.15rem;
+            color: var(--navy);
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .audience-card p {
+            color: var(--text);
+            font-size: 0.93rem;
+            line-height: 1.65;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .audience-card .card-cta {
+            color: var(--teal-dark);
+            font-weight: 600;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .audience-card .card-cta::after {
+            content: "↓";
+            transition: transform 0.15s;
+        }
+        .audience-card:hover .card-cta::after { transform: translateY(2px); }
+
+        /* ── Downloads ── */
+        .downloads-grid {
+            max-width: 1040px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+        .download-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 26px 24px 22px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+        }
+        .download-card:hover {
+            text-decoration: none;
+            border-color: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 58, 92, 0.06);
+        }
+        .download-card .dl-type {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--teal-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+        .download-card .dl-type.tech { color: var(--navy); }
+        .download-card h3 {
+            font-size: 1.05rem;
+            color: var(--navy);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        .download-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 18px;
+            flex: 1;
+        }
+        .download-card .dl-cta {
+            color: var(--teal-dark);
+            font-weight: 600;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .download-card .dl-cta::after { content: "↓"; }
+
+        /* ── Contact strip ── */
+        .contact-strip {
+            background: var(--white);
+            padding: 60px 24px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        .contact-strip h2 {
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+        .contact-strip p {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--navy-dark);
+            color: #8eaec6;
+            padding: 40px 24px;
+            font-size: 0.9rem;
+        }
+        footer .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks {
+            width: 100%;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #7790a8;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+        .footer-copy {
+            width: 100%;
+            text-align: center;
+            margin-top: 12px;
+            color: #8eaec6;
+        }
+
+        /* ── ForgeMind page-specific ── */
+        /* Compiler pipeline flow */
+        .flow-steps {
+            max-width: 980px;
+            margin: 0 auto 30px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            align-items: stretch;
+        }
+        .flow-step {
+            position: relative;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px 14px;
+            text-align: center;
+        }
+        .flow-step.is-llm { border-top: 3px solid var(--amber); }
+        .flow-step.is-det { border-top: 3px solid var(--teal); }
+        .flow-step .fs-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+        .flow-step .fs-desc { font-size: 0.8rem; color: var(--text-light); line-height: 1.45; }
+        .flow-step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--teal);
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        /* Compiler vs agent-loop comparison table */
+        .compare-wrap { max-width: 920px; margin: 0 auto; overflow-x: auto; }
+        table.compare {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.93rem;
+        }
+        table.compare th, table.compare td {
+            text-align: left;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            line-height: 1.55;
+        }
+        table.compare thead th {
+            background: var(--navy);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.86rem;
+        }
+        table.compare thead th.col-mind { background: var(--teal-dark); }
+        table.compare tbody th {
+            background: var(--grey-bg);
+            color: var(--navy);
+            font-weight: 700;
+            white-space: nowrap;
+            width: 150px;
+        }
+        table.compare td.col-mind { color: var(--navy); font-weight: 500; }
+        table.compare tr:last-child th, table.compare tr:last-child td { border-bottom: none; }
+
+        /* Marathon teaser */
+        .marathon {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, #14324f 100%);
+            color: var(--white);
+        }
+        .marathon .container { text-align: center; }
+        .marathon .m-eyebrow {
+            display: inline-block;
+            color: var(--amber);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+        .marathon h2 { color: var(--white); font-size: 1.95rem; letter-spacing: -0.02em; margin-bottom: 14px; }
+        .marathon p.m-lede {
+            max-width: 720px;
+            margin: 0 auto 28px;
+            color: #c2d6e6;
+            font-size: 1.03rem;
+            line-height: 1.7;
+        }
+        .marathon .m-stats {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .marathon .m-stat {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 18px 24px;
+            min-width: 150px;
+        }
+        .marathon .m-stat .m-num { font-size: 1.9rem; font-weight: 800; color: var(--teal); line-height: 1.1; }
+        .marathon .m-stat .m-lbl { font-size: 0.82rem; color: #a8c4d8; margin-top: 4px; }
+        .marathon .btn-amber { background: var(--amber); color: var(--navy-dark); }
+        .marathon .btn-amber:hover { background: #e6a64c; }
+
+        /* Request patterns */
+        .req-list { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+        .req-item {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--teal);
+            border-radius: 8px;
+            padding: 16px 22px;
+        }
+        .req-item .req-kind { font-weight: 700; color: var(--navy); }
+        .req-item .req-quote { color: var(--teal-dark); font-style: italic; }
+        .req-item .req-desc { color: var(--text-light); font-size: 0.92rem; }
+
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .flow-steps { grid-template-columns: 1fr 1fr; }
+            .flow-step:not(:last-child)::after { content: ""; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .three-up { grid-template-columns: 1fr; }
+            .audience-grid { grid-template-columns: 1fr; }
+            .perf-list li { flex-direction: column; gap: 4px; padding: 18px 24px; }
+            .perf-list .perf-num { flex: 0 0 auto; }
+            .flow-steps { grid-template-columns: 1fr; }
+            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+            .subnav .flagship-tag { margin-left: 0; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--navy);
+                padding: 16px 24px;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+        <div class="nav-links">
+            <a href="/products/">Products</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<div class="subnav">
+    <div class="subnav-inner">
+        <div class="crumb">
+            <a href="/products/">Products</a>
+            <span class="sep">/</span>
+            <span>ForgeMind</span>
+        </div>
+        <span class="flagship-tag">The GIS Intent Compiler</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <div class="flagship-badge">New &middot; Forge Suite &middot; v1.0</div>
+        <h1>ForgeMind<sup class="tm">&trade;</sup></h1>
+        <p class="tagline">The GIS Intent Compiler</p>
+        <p class="categorical-claim">
+            Natural language in. Correct geospatial pipelines out. <em>Or an honest refusal.</em>
+            ForgeMind is the natural-language control plane for ForgeGIS &mdash; it turns a spoken or typed
+            request into a validated, executed pipeline on the GPU-accelerated engine, and when a request
+            cannot be honored correctly it returns an explicit refusal rather than a confident guess.
+        </p>
+        <div class="cta-group">
+            <a href="downloads/forgemind-sales-onepager.pdf" class="btn btn-primary">Download Sales One-Pager</a>
+            <a href="#downloads" class="btn btn-outline">All Downloads</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat">
+            <div class="number">Zero</div>
+            <div class="label">confident-wrong results across 79 conversations and 6,696 turns</div>
+        </div>
+        <div class="stat">
+            <div class="number">~25<span class="accent">&times;</span></div>
+            <div class="label">lower LLM cost vs. an agent-loop baseline on the same workflows</div>
+        </div>
+        <div class="stat">
+            <div class="number">97</div>
+            <div class="label">voice-routable capabilities exercised end to end</div>
+        </div>
+        <div class="stat">
+            <div class="number">~94<span class="accent">%</span></div>
+            <div class="label">compiler eval pass rate: intent &rarr; validated pipeline</div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">What it is, why it matters, how it's built differently</h2>
+        <p class="section-intro center">Three short answers for the technical evaluator.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>What it is</h3>
+                <p>
+                    ForgeMind sits between a human (or another agent) and the ForgeGIS<sup class="tm">&trade;</sup>
+                    compute engine. It decides what to run, binds the request to real data, dispatches the work,
+                    and narrates the result &mdash; turning informal language into a correct, reproducible
+                    operation. It speaks the Model Context Protocol natively in both directions.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Why it matters</h3>
+                <p>
+                    A conventional agent lets a model author tool chains directly, so every wrong parameter and
+                    hallucinated step lands in production looking confident. ForgeMind refuses by construction:
+                    a request either compiles to a validated pipeline or is declined. That is what regulated and
+                    mission work requires.
+                </p>
+            </div>
+            <div class="item">
+                <h3>How it's built differently</h3>
+                <p>
+                    The language model classifies intent and extracts parameters only. Deterministic code owns
+                    pipeline structure, type-checking, and execution &mdash; so the same request yields the same
+                    pipeline every time, with no hallucinated params and no drift. Cheap work runs on a fast
+                    model tier; the costly tier is reserved for the hard step.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">The compiler model</h2>
+        <p class="section-intro center">ForgeMind treats a natural-language request the way a compiler treats source code. The language model does one narrow job &mdash; extract intent into a typed intermediate representation. From there, deterministic machinery takes over.</p>
+        <div class="flow-steps">
+            <div class="flow-step">
+                <div class="fs-name">Natural language</div>
+                <div class="fs-desc">&ldquo;Compute least-cost path from ingress_ip to hlz_charlie&rdquo;</div>
+            </div>
+            <div class="flow-step is-llm">
+                <div class="fs-name">LLM: intent extract</div>
+                <div class="fs-desc">Maps words to a typed intent. No execution.</div>
+            </div>
+            <div class="flow-step is-det">
+                <div class="fs-name">Typed IR</div>
+                <div class="fs-desc">Operation + resolved anchors + parameters</div>
+            </div>
+            <div class="flow-step is-det">
+                <div class="fs-name">Deterministic check + route</div>
+                <div class="fs-desc">Type-check, resolve refs, refuse if unsound</div>
+            </div>
+            <div class="flow-step is-det">
+                <div class="fs-name">GPU execution</div>
+                <div class="fs-desc">ForgeGIS runs the validated operation</div>
+            </div>
+        </div>
+        <div class="compare-wrap">
+            <table class="compare">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Typical LLM agent loop</th>
+                        <th class="col-mind">ForgeMind compiler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>What the LLM does</th>
+                        <td>Plans and executes, reasons about geometry directly</td>
+                        <td class="col-mind">Extracts intent into a typed IR, nothing more</td>
+                    </tr>
+                    <tr>
+                        <th>Where math happens</th>
+                        <td>Inside the model's reasoning (unverifiable)</td>
+                        <td class="col-mind">Deterministic engine &middot; GPU-accelerated ForgeGIS</td>
+                    </tr>
+                    <tr>
+                        <th>Failure mode</th>
+                        <td>Plausible, confident, wrong</td>
+                        <td class="col-mind">Explicit refusal. Never a fabricated number</td>
+                    </tr>
+                    <tr>
+                        <th>Cost / latency</th>
+                        <td>Many model calls per task</td>
+                        <td class="col-mind">One intent pass, then deterministic execution</td>
+                    </tr>
+                    <tr>
+                        <th>Auditability</th>
+                        <td>Opaque chain of thought</td>
+                        <td class="col-mind">Inspectable IR for every single turn</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Architecture commitments</h2>
+        <p class="section-intro center">The internal GIS Intent Compiler is proprietary; what follows is the externally observable contract each commitment produces.</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feat-tag">Refusal by construction</div>
+                <h3>Validation before execution</h3>
+                <p>
+                    Every candidate pipeline is checked against a type system and operational guards before any
+                    work is dispatched. A request that cannot be mapped to a valid operation, lacks its
+                    parameters, or cannot bind to data is refused with a specific, machine-readable reason &mdash;
+                    never run speculatively.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Narrow the model</div>
+                <h3>The LLM does only intent</h3>
+                <p>
+                    The language model is confined to classifying what the operator wants and extracting
+                    parameters. The shape of the pipeline is owned by deterministic machinery, so the same
+                    request produces the same pipeline every time &mdash; no hallucinated parameters, no
+                    operation-arity slips, no run-to-run drift.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Cost engineering</div>
+                <h3>The right model for each job</h3>
+                <p>
+                    Cheap, high-volume classification and narration run on a fast, low-cost tier; the more
+                    capable tier is reserved for the genuinely hard reasoning. The measured effect is roughly a
+                    25&times; reduction in language-model cost versus an agent-loop approach &mdash; without
+                    sacrificing correctness.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">No vendor lock-in</div>
+                <h3>LLM-agnostic by design</h3>
+                <p>
+                    The provider and model sit behind one abstraction &mdash; configuration, not architecture.
+                    Switch models to follow cost, capability, availability, or procurement constraints (including
+                    continuity during a provider outage) without code changes. Claude and OpenAI ship built in;
+                    self-hosted models use the same integration point.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Learns with use</div>
+                <h3>Semantic memory</h3>
+                <p>
+                    Successful workflows, and corrections to unsuccessful ones, accumulate as retrievable
+                    exemplars backed by local storage and on-device embeddings. Learning happens through
+                    accumulated retrieval context, not model fine-tuning &mdash; so it is inspectable, clearable,
+                    and never silently bakes a bad pattern into a model's weights.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">MCP citizen</div>
+                <h3>Native MCP, both directions</h3>
+                <p>
+                    As a client it dispatches to MCP tool servers &mdash; the ForgeGIS compute surface, a dataset
+                    catalog, a map client &mdash; guarding each namespace behind a circuit breaker. As a server it
+                    exposes a single high-level tool a higher-order agent can hand an entire geospatial workflow to.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Geometry the agent can reason about</div>
+                <h3>Named scene entities</h3>
+                <p>
+                    Named geometry a user places on a map &mdash; a dock, a route, an objective &mdash; is
+                    referenced by a stable handle and hydrated from the catalog on demand, never re-derived from a
+                    bounding box. Fail-closed: if the true geometry is not reachable, the operation defers and asks
+                    rather than emitting a plausible-but-wrong product.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block marathon">
+    <div class="container">
+        <span class="m-eyebrow">Showcase &middot; Session S-MARATHON-22</span>
+        <h2>One conversation. A complete mission plan.</h2>
+        <p class="m-lede">
+            A 102-operation test scenario simulating a combat search-and-rescue plan, run end to end in plain
+            English against real SRTM terrain. Every operation was understood, type-checked, routed, and
+            executed &mdash; and every one succeeded.
+        </p>
+        <div class="m-stats">
+            <div class="m-stat"><div class="m-num">102</div><div class="m-lbl">operations, one session</div></div>
+            <div class="m-stat"><div class="m-num">29</div><div class="m-lbl">named entities, all reused</div></div>
+            <div class="m-stat"><div class="m-num">27</div><div class="m-lbl">distinct operations</div></div>
+            <div class="m-stat"><div class="m-num">0</div><div class="m-lbl">failed or confident-wrong</div></div>
+        </div>
+        <a href="showcase.html" class="btn btn-amber">Read the full marathon showcase &rarr;</a>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Capabilities, by intent</h2>
+        <p class="section-intro center">ForgeMind makes the 239-operation ForgeGIS catalog reachable in natural language &mdash; anchored on a deterministic core of more than 130 routed capabilities, with 97 exercised end to end in the validation campaign. Coverage grows capability by capability as each is validated; ForgeMind advertises only what it can run correctly.</p>
+        <div class="req-list">
+            <div class="req-item">
+                <span class="req-kind">Direct analysis.</span>
+                <span class="req-quote">&ldquo;Compute viewshed from 34.5N 69.2E with a 10&nbsp;km radius.&rdquo;</span>
+                <span class="req-desc">&mdash; explicit-coordinate raster analysis.</span>
+            </div>
+            <div class="req-item">
+                <span class="req-kind">Discovery into analysis.</span>
+                <span class="req-quote">&ldquo;What elevation datasets do we have for this region? Pick the highest-resolution one and run a slope analysis.&rdquo;</span>
+                <span class="req-desc">&mdash; a catalog query chained into a compute operation.</span>
+            </div>
+            <div class="req-item">
+                <span class="req-kind">Site suitability.</span>
+                <span class="req-quote">&ldquo;Where can we land outside the enemy viewshed?&rdquo;</span>
+                <span class="req-desc">&mdash; a multi-operation suitability workflow combining line-of-sight exclusion with terrain constraints.</span>
+            </div>
+            <div class="req-item">
+                <span class="req-kind">Scene-aware.</span>
+                <span class="req-quote">&ldquo;Mark Objective Bravo here and map the slope around it,&rdquo;</span>
+                <span class="req-desc">then later &ldquo;rebuild the slope picture &mdash; it displaced to a new grid reference&rdquo; &mdash; named-anchor placement and refinement across turns.</span>
+            </div>
+            <div class="req-item">
+                <span class="req-kind">Visualization.</span>
+                <span class="req-quote">&ldquo;Load the result onto the globe as a red, 50% transparent layer.&rdquo;</span>
+                <span class="req-desc">&mdash; chaining a compute product into a map-client display.</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Validation and coverage</h2>
+        <p class="section-intro center">ForgeMind is validated along two complementary axes &mdash; a large multi-turn conversation campaign that measures end-to-end behavior as an operator would experience it, and a focused compiler-evaluation campaign that measures the core intent-to-pipeline transformation in isolation.</p>
+        <ul class="perf-list">
+            <li>
+                <div class="perf-num">0 / 6,696</div>
+                <div class="perf-text">
+                    <strong>confident-wrong results across the entire conversation campaign</strong> &mdash; 79
+                    multi-turn sessions, 6,696 total turns. Requests it could honor were honored; requests it
+                    could not were refused or routed to clarification.
+                </div>
+            </li>
+            <li>
+                <div class="perf-num">97</div>
+                <div class="perf-text">
+                    <strong>voice-routable capabilities exercised end to end</strong> &mdash; the figure the
+                    campaign actually ran, not a speculative tool list. The same refusal discipline that declines
+                    an ambiguous request governs how the capability surface grows.
+                </div>
+            </li>
+            <li>
+                <div class="perf-num">~94%</div>
+                <div class="perf-text">
+                    <strong>compiler eval pass rate</strong> on the intent-to-validated-pipeline evaluation,
+                    including the hardest multi-turn cases &mdash; continuation across turns, parameter overrides,
+                    named-anchor resolution, and the negative cases that must refuse correctly.
+                </div>
+            </li>
+        </ul>
+        <p class="perf-footnote">
+            Full validation methodology and campaign detail: <a href="downloads/forgemind-technical-brief.pdf">ForgeMind Technical Brief (PDF)</a>.
+        </p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Deployment and integration</h2>
+        <p class="section-intro center">ForgeMind ships as a single self-contained Java application, deployable where the mission runs.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>Two shapes, one artifact</h3>
+                <p>
+                    Run it as an HTTP service exposing a small REST surface &mdash; a buffered endpoint plus a
+                    streaming (SSE) endpoint that surfaces each model round trip and tool call live &mdash; or as
+                    an MCP stdio server that presents ForgeMind as a single delegatable tool to a higher-level
+                    agent host. Auth, rate limiting, request-size caps, and a concurrency cap are built in.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Purpose-built for ForgeGIS</h3>
+                <p>
+                    ForgeMind spawns and supervises its MCP backends &mdash; the ForgeGIS compute engine, a
+                    dataset catalog, and a map client &mdash; as local subprocesses over stdio, with health
+                    checks and per-namespace circuit breakers. ForgeGIS is the engine it is built to drive; the
+                    catalog and map-client roles are pluggable behind the protocol.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Fit for regulated &amp; air-gapped sites</h3>
+                <p>
+                    A pure-JVM application with local-disk persistence and no required external services beyond
+                    the language-provider endpoint. The memory store is a single local database file; backends run
+                    over stdio, not the network. For programs hosting their own models, the provider abstraction
+                    is the single integration point.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Who it's for</h2>
+        <p class="section-intro center">One product, three readers. Each one-pager leads with the parts of ForgeMind that matter most to that audience.</p>
+        <div class="audience-grid">
+            <a href="downloads/forgemind-defense-onepager.pdf" class="audience-card">
+                <div class="aud-label">For defense &amp; intelligence</div>
+                <h3>Trustworthy geospatial for mission environments</h3>
+                <p>
+                    A natural-language control plane that refuses rather than fabricates. The line-of-sight
+                    surface &mdash; viewshed, intervisibility, terrain-constrained suitability &mdash; reachable by
+                    intent; named entities resolved against real geometry; pure-JVM, local-disk, deployable where
+                    the mission runs.
+                </p>
+                <span class="card-cta">Download defense &amp; IC one-pager (PDF)</span>
+            </a>
+            <a href="downloads/forgemind-agent-onepager.pdf" class="audience-card">
+                <div class="aud-label">For AI agent builders</div>
+                <h3>A GIS Intent Compiler, native to MCP</h3>
+                <p>
+                    Consumes MCP tools and exposes itself as a single MCP tool a higher-level agent can hand a
+                    whole geospatial workflow to. Compile intent into a validated pipeline deterministically &mdash;
+                    ~25&times; lower model cost, zero confident-wrong results, and an inspectable IR per turn.
+                </p>
+                <span class="card-cta">Download agent-builder one-pager (PDF)</span>
+            </a>
+            <a href="downloads/forgemind-sales-onepager.pdf" class="audience-card">
+                <div class="aud-label">For operators &amp; analysts</div>
+                <h3>Answers, not query syntax</h3>
+                <p>
+                    Ask for a geospatial product in plain language &mdash; a viewshed, a slope mask, a
+                    site-suitability search &mdash; and get a correct result without learning a desktop GIS.
+                    ForgeMind holds context across a conversation, so a subject is established once and refined
+                    across turns.
+                </p>
+                <span class="card-cta">Download general sales one-pager (PDF)</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="block" id="downloads">
+    <div class="container">
+        <h2 class="center">Downloads</h2>
+        <p class="section-intro center">All ForgeMind collateral. Direct download &mdash; no email gate, no form wall.</p>
+        <div class="downloads-grid">
+            <a href="downloads/forgemind-technical-brief.pdf" class="download-card">
+                <div class="dl-type tech">Technical Brief &middot; 10 pages</div>
+                <h3>ForgeMind Technical Brief</h3>
+                <p>
+                    Architecture, the validation campaigns, capabilities, and deployment guidance. The
+                    substantive document for technical evaluators and engineering reviewers.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgemind-showcase-marathon.pdf" class="download-card">
+                <div class="dl-type">Showcase &middot; 11 pages</div>
+                <h3>S-MARATHON-22 Showcase</h3>
+                <p>
+                    The full 102-operation marathon session, operation by operation, against real SRTM terrain &mdash;
+                    every plain-English request, the operation it compiled to, and the result.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgemind-sales-onepager.pdf" class="download-card">
+                <div class="dl-type">Sales One-Pager &middot; 2 pages</div>
+                <h3>General Sales One-Pager</h3>
+                <p>
+                    Front/back overview. General-purpose first-touch document covering positioning, headline
+                    numbers, and the compiler model at a glance.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgemind-defense-onepager.pdf" class="download-card">
+                <div class="dl-type">Defense One-Pager &middot; 2 pages</div>
+                <h3>Defense &amp; Intelligence Variant</h3>
+                <p>
+                    For defense and intelligence programs, prime integrators, and SI shops. Leads on
+                    refusal-by-construction, the line-of-sight surface, and disconnected deployment.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgemind-agent-onepager.pdf" class="download-card">
+                <div class="dl-type">Agent One-Pager &middot; 2 pages</div>
+                <h3>AI Agent Builders Variant</h3>
+                <p>
+                    For AI agent builders, LLM agent platforms, and MCP-native runners. Leads on the two-way MCP
+                    surface, the compile-don't-loop architecture, and the cost story.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="contact-strip">
+    <div class="container">
+        <h2>Talk to us about ForgeMind</h2>
+        <p>Licensing questions, evaluation access, partnership and distribution inquiries &mdash; we read every email. License terms are being finalized; an evaluation build is available to qualified teams on request.</p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=ForgeMind%20inquiry" class="btn btn-primary">rich@seaglassfoundry.com</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/products/">Products</a>
+            <a href="/products/forgemind/">ForgeMind</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/forgedata/">ForgeData</a>
+            <a href="downloads/forgemind-technical-brief.pdf">Technical Brief</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            ForgeMind&trade;, ForgeGIS&trade;, ForgeData&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            Claude is a trademark of Anthropic, PBC; OpenAI and GPT are trademarks of OpenAI.
+            Model Context Protocol, JSON-RPC, Java, OpenJDK, SQLite, and Maven are trademarks or registered trademarks of their respective owners.
+            SRTM elevation data referenced is courtesy of NASA / USGS (public domain).
+            Other product, company, and dataset names referenced are the property of their respective owners; reference to these marks does not imply endorsement.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) links.classList.remove('open');
+    });
+})();
+</script>
+</body>
+</html>

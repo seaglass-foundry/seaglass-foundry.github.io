@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeData — The Data-Intelligence Layer of the Forge Suite</title>
+    <meta name="description" content="ForgeData is the data-intelligence layer of the Forge suite: cost-aware routing, a portable single-file GeoPackage catalog, and a 49-tool MCP surface that let an agent ask for data by intent and get back the best-fit correct dataset — ranked by coverage and resolution with access cost as the tiebreaker — across thirteen heterogeneous source types.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/forgedata/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/forgedata/">
+    <meta property="og:title" content="ForgeData — The Data-Intelligence Layer of the Forge Suite">
+    <meta property="og:description" content="Ask for geospatial data by intent and get the best-fit correct dataset across thirteen heterogeneous sources. Cost-aware routing, a portable single-file catalog, and a 49-tool MCP surface. Bundled with the Forge suite.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ForgeData — The Data-Intelligence Layer of the Forge Suite">
+    <meta name="twitter:description" content="Cost-aware geospatial data routing across 13 sources, one portable catalog file, 49 MCP tools. Bundled with the Forge suite.">
+    <meta name="keywords" content="geospatial data routing, cost-aware data catalog, GeoPackage catalog, MCP data layer, STAC PostGIS COG routing, derived-product memory, ForgeGIS data layer, heterogeneous geospatial sources">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "ForgeData",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Cross-platform (JVM)",
+        "url": "https://seaglassfoundry.com/products/forgedata/",
+        "description": "ForgeData is the data-intelligence layer of the Forge suite. It provides cost-aware routing, a portable single-file GeoPackage catalog, and a 49-tool Model Context Protocol surface so an agent can ask for geospatial data by intent and receive the best-fit correct dataset — ranked by coverage and resolution with access cost as the tiebreaker — across thirteen heterogeneous source types. Bundled with the Forge suite.",
+        "programmingLanguage": "Java",
+        "creator": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        }
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+            --code-bg: #1e293b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; }
+        p code, li code, td code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--navy); }
+
+        /* ── Nav ── */
+        nav { background: var(--navy); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+        nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+        nav .brand { color: var(--white); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Product subnav ── */
+        .subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .subnav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 44px; font-size: 0.88rem; }
+        .subnav .crumb { color: #8eaec6; }
+        .subnav .crumb a { color: #a8c4d8; }
+        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+        .subnav .sep { color: #5a6a7a; }
+        .subnav .flagship-tag { margin-left: auto; color: var(--amber); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* ── Hero ── */
+        .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: var(--white); padding: 80px 24px 90px; text-align: center; }
+        .hero .flagship-badge { display: inline-block; background: rgba(216, 151, 60, 0.15); color: var(--amber); border: 1px solid rgba(216, 151, 60, 0.4); padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+        .hero h1 span { color: var(--teal); }
+        .hero .tagline { font-size: 1.3rem; color: #a8c4d8; margin-bottom: 24px; font-weight: 400; }
+        .hero .categorical-claim { max-width: 720px; margin: 0 auto 36px; color: var(--white); font-size: 1.1rem; line-height: 1.65; font-weight: 500; }
+        .hero .categorical-claim em { color: var(--teal); font-style: normal; font-weight: 700; }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 13px 28px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.1s, border-color 0.2s; }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+
+        /* ── Stats strip ── */
+        .stats { background: var(--white); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .stats-grid { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+        .stat { text-align: center; padding: 0 12px; }
+        .stat .number { font-size: 2.4rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+        .stat .number .accent { color: var(--teal); }
+        .stat .label { font-size: 0.95rem; color: var(--text-light); line-height: 1.5; }
+
+        /* ── Generic section ── */
+        section.block { padding: 70px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 { font-size: 1.9rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.02em; }
+        section.block .section-intro { color: var(--text-light); font-size: 1.02rem; margin-bottom: 32px; max-width: 760px; }
+        section.block h2.center, section.block .center { text-align: center; }
+        section.block .center.section-intro { margin-left: auto; margin-right: auto; }
+
+        /* ── 3-up content blocks ── */
+        .three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 8px; }
+        .three-up .item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px 26px; }
+        section.block.tinted .three-up .item { background: var(--white); }
+        .three-up h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.01em; }
+        .three-up p { color: var(--text); font-size: 0.95rem; line-height: 1.7; }
+
+        /* ── Feature grid ── */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 8px; }
+        .feature-card { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: 10px; padding: 24px 24px; }
+        section.block.tinted .feature-card { background: var(--white); }
+        .feature-card .feat-tag { font-size: 0.72rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .feature-card h3 { font-size: 1.08rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; }
+        .feature-card p { color: var(--text); font-size: 0.93rem; line-height: 1.65; }
+
+        /* ── Ranking + tiers ── */
+        .routing-wrap { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+        .rank-card, .tier-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 26px 28px; }
+        .rank-card h3, .tier-card h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 16px; }
+        ol.rank { list-style: none; counter-reset: rank; }
+        ol.rank li { counter-increment: rank; position: relative; padding: 10px 0 10px 42px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+        ol.rank li:last-child { border-bottom: none; }
+        ol.rank li::before { content: counter(rank); position: absolute; left: 0; top: 9px; width: 26px; height: 26px; background: var(--teal-light); color: var(--teal-dark); border-radius: 50%; font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
+        ol.rank li strong { color: var(--navy); }
+        ol.rank li .muted { color: var(--text-light); font-size: 0.88rem; }
+        ul.tiers { list-style: none; }
+        ul.tiers li { display: flex; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        ul.tiers li:last-child { border-bottom: none; }
+        ul.tiers .tier-name { font-family: "SFMono-Regular", Consolas, Menlo, monospace; font-size: 0.82rem; font-weight: 700; color: var(--teal-dark); flex: 0 0 118px; }
+        ul.tiers .tier-desc { font-size: 0.9rem; color: var(--text); line-height: 1.5; }
+        .routing-note { max-width: 940px; margin: 22px auto 0; color: var(--text-light); font-size: 0.92rem; text-align: center; }
+
+        /* ── Source types ── */
+        .src-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; max-width: 1000px; margin: 0 auto; }
+        .src { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+        .src .src-name { font-family: "SFMono-Regular", Consolas, Menlo, monospace; font-size: 0.82rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+        .src .src-desc { font-size: 0.84rem; color: var(--text-light); line-height: 1.45; }
+
+        /* ── Suite-fit grid ── */
+        .suite-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 1000px; margin: 0 auto; }
+        .suite-item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 22px 20px; text-align: center; }
+        .suite-item.is-self { border-top: 3px solid var(--teal); }
+        .suite-item .s-name { font-size: 1.05rem; font-weight: 800; color: var(--navy); letter-spacing: -0.01em; }
+        .suite-item .s-name .x { color: var(--teal); }
+        .suite-item .s-role { font-size: 0.82rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.06em; margin: 6px 0 10px; }
+        .suite-item .s-desc { font-size: 0.88rem; color: var(--text); line-height: 1.55; }
+
+        /* ── Audience cards ── */
+        .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .audience-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px 26px 24px; display: flex; flex-direction: column; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+        .audience-card:hover { text-decoration: none; border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26, 58, 92, 0.06); }
+        .audience-card .aud-label { font-size: 0.74rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .audience-card h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; }
+        .audience-card p { color: var(--text); font-size: 0.93rem; line-height: 1.65; margin-bottom: 20px; flex: 1; }
+        .audience-card .card-cta { color: var(--teal-dark); font-weight: 600; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 6px; }
+        .audience-card .card-cta::after { content: "↓"; transition: transform 0.15s; }
+        .audience-card:hover .card-cta::after { transform: translateY(2px); }
+
+        /* ── Downloads ── */
+        .downloads-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+        .download-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 26px 24px 22px; display: flex; flex-direction: column; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+        .download-card:hover { text-decoration: none; border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26, 58, 92, 0.06); }
+        .download-card .dl-type { font-size: 0.72rem; font-weight: 700; color: var(--teal-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .download-card .dl-type.tech { color: var(--navy); }
+        .download-card h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 8px; letter-spacing: -0.01em; }
+        .download-card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; margin-bottom: 18px; flex: 1; }
+        .download-card .dl-cta { color: var(--teal-dark); font-weight: 600; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 6px; }
+        .download-card .dl-cta::after { content: "↓"; }
+
+        /* ── Licensing note ── */
+        .lic-note { max-width: 880px; margin: 36px auto 0; background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 6px; padding: 16px 22px; color: var(--text); font-size: 0.92rem; line-height: 1.6; }
+        .lic-note strong { color: var(--amber-dark); }
+
+        /* ── Contact strip ── */
+        .contact-strip { background: var(--white); padding: 60px 24px; text-align: center; border-top: 1px solid var(--border); }
+        .contact-strip h2 { font-size: 1.5rem; color: var(--navy); margin-bottom: 12px; }
+        .contact-strip p { color: var(--text-light); font-size: 1rem; margin-bottom: 20px; }
+
+        /* ── Footer ── */
+        footer { background: var(--navy-dark); color: #8eaec6; padding: 40px 24px; font-size: 0.9rem; }
+        footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks { width: 100%; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #7790a8; font-size: 0.8rem; line-height: 1.6; }
+        .footer-copy { width: 100%; text-align: center; margin-top: 12px; color: #8eaec6; }
+
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .routing-wrap { grid-template-columns: 1fr; }
+            .suite-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .three-up { grid-template-columns: 1fr; }
+            .audience-grid { grid-template-columns: 1fr; }
+            .suite-grid { grid-template-columns: 1fr; }
+            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+            .subnav .flagship-tag { margin-left: 0; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+        <div class="nav-links">
+            <a href="/products/">Products</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<div class="subnav">
+    <div class="subnav-inner">
+        <div class="crumb">
+            <a href="/products/">Products</a>
+            <span class="sep">/</span>
+            <span>ForgeData</span>
+        </div>
+        <span class="flagship-tag">Data-Intelligence Layer</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <div class="flagship-badge">New &middot; Forge Suite &middot; v0.1</div>
+        <h1>ForgeData<sup class="tm">&trade;</sup></h1>
+        <p class="tagline">The data-intelligence layer of the Forge suite</p>
+        <p class="categorical-claim">
+            Ask for geospatial data by intent and get back the <em>best-fit correct dataset</em> &mdash; ranked by
+            coverage and resolution, with access cost as the deciding tiebreaker &mdash; across thirteen
+            heterogeneous source types. ForgeGIS computes, ForgeMind reasons, ForgeGIS Studio renders;
+            ForgeData decides which data to use and how to get it.
+        </p>
+        <div class="cta-group">
+            <a href="downloads/forgedata-sales-onepager.pdf" class="btn btn-primary">Download Sales One-Pager</a>
+            <a href="#downloads" class="btn btn-outline">All Downloads</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat">
+            <div class="number">13<span class="accent"> &rarr; 1</span></div>
+            <div class="label">heterogeneous source types behind one query interface</div>
+        </div>
+        <div class="stat">
+            <div class="number">49</div>
+            <div class="label">MCP tools over stdio JSON-RPC &mdash; the same surface ForgeMind and Studio consume</div>
+        </div>
+        <div class="stat">
+            <div class="number">47</div>
+            <div class="label">spatial operations bound to data requirements in the routing registry</div>
+        </div>
+        <div class="stat">
+            <div class="number">5</div>
+            <div class="label">access tiers, cheapest to most expensive &mdash; self-calibrating on measured latency</div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">What it is, why it matters, how it's built differently</h2>
+        <p class="section-intro center">Three short answers for the technical evaluator.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>What it is</h3>
+                <p>
+                    ForgeData sits beneath the suite and owns the cross-cutting problem of data discovery and
+                    access. It keeps one catalog &mdash; what you can query and the recipes that refresh it &mdash;
+                    and routes every request to the best-fit dataset across local files and remote services alike,
+                    with no hardcoded paths and no per-project glue.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Why it matters</h3>
+                <p>
+                    Most platforms make the customer build the routing layer themselves: bespoke catalog tables,
+                    hand-maintained config, hardcoded paths nobody wants to own. ForgeData ships that layer in the
+                    box, so the suite works against a realistic, scattered data landscape on day one rather than
+                    after an integration project.
+                </p>
+            </div>
+            <div class="item">
+                <h3>How it's built differently</h3>
+                <p>
+                    The catalog <em>is</em> the configuration &mdash; the data-source recipes live in the same
+                    GeoPackage file as the inventory, so nothing drifts out of sync, and API keys stay in the
+                    environment, never the file. Routing is fidelity-first: coverage, then resolution, then
+                    extent-fit, with access cost as the deciding tiebreaker.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Cost-aware routing</h2>
+        <p class="section-intro center">ForgeData's core differentiator. Name an operation and an area of interest, and <code>find_optimal_for_operation</code> returns a ranked, costed, deduplicated list of catalog entries that can serve it &mdash; with no hardcoded paths.</p>
+        <div class="routing-wrap">
+            <div class="rank-card">
+                <h3>How candidates are ranked</h3>
+                <ol class="rank">
+                    <li><strong>AOI coverage</strong> &mdash; descending. <span class="muted">The dataset covering more of your bbox wins.</span></li>
+                    <li><strong>Resolution</strong> &mdash; ascending. <span class="muted">When coverage ties, finer pixels win.</span></li>
+                    <li><strong>Extent-fit</strong> &mdash; descending. <span class="muted">The footprint closest to the AOI size wins.</span></li>
+                    <li><strong>Access tier</strong> &mdash; final tiebreaker only. <span class="muted">Locality breaks an otherwise-perfect tie; it never overrides coverage or resolution.</span></li>
+                </ol>
+            </div>
+            <div class="tier-card">
+                <h3>Five access tiers, cheapest first</h3>
+                <ul class="tiers">
+                    <li><span class="tier-name">LOCAL_HOT</span><span class="tier-desc">Recently loaded; warm in ForgeGIS CPU/GPU memory.</span></li>
+                    <li><span class="tier-name">LOCAL_COLD</span><span class="tier-desc">On-disk local file; fast, but needs I/O.</span></li>
+                    <li><span class="tier-name">REMOTE_DB</span><span class="tier-desc">PostGIS &mdash; fast point lookup, costlier windowed reads.</span></li>
+                    <li><span class="tier-name">REMOTE_COG</span><span class="tier-desc">HTTP / S3 range-queryable raster.</span></li>
+                    <li><span class="tier-name">REMOTE_WCS</span><span class="tier-desc">OGC WCS and other on-demand HTTP services.</span></li>
+                </ul>
+            </div>
+        </div>
+        <p class="routing-note">After the first read of a remote dataset, ForgeData stores the measured wall-clock latency and uses it instead of the static formula &mdash; the cost signal sharpens the longer the suite runs.</p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Thirteen sources, one interface</h2>
+        <p class="section-intro center">Thirteen source-type implementations cover the common public and private geospatial sources &mdash; all addressable through one uniform query interface. The customer's environment can be a mix; the caller sees one ranked answer.</p>
+        <div class="src-grid">
+            <div class="src"><div class="src-name">LOCAL_DIR</div><div class="src-desc">A directory of tiles, vectors, or point clouds; optional filesystem-watch auto-pickup.</div></div>
+            <div class="src"><div class="src-name">STAC</div><div class="src-desc">SpatioTemporal Asset Catalog collections (e.g. Sentinel-2 on S3).</div></div>
+            <div class="src"><div class="src-name">WCS</div><div class="src-desc">OGC Web Coverage Service &mdash; on-demand windowed raster.</div></div>
+            <div class="src"><div class="src-name">WFS</div><div class="src-desc">OGC Web Feature Service &mdash; GeoJSON at read time.</div></div>
+            <div class="src"><div class="src-name">POSTGIS</div><div class="src-desc">PostGIS vector + raster with server-side spatial filtering.</div></div>
+            <div class="src"><div class="src-name">ARCGIS_REST</div><div class="src-desc">Esri FeatureServer / ImageServer layers.</div></div>
+            <div class="src"><div class="src-name">OVERPASS</div><div class="src-desc">OpenStreetMap features via the Overpass API (tile-grid).</div></div>
+            <div class="src"><div class="src-name">OPENTOPO_API</div><div class="src-desc">OpenTopography elevation (tile-grid; daily rate limits).</div></div>
+            <div class="src"><div class="src-name">NOAA_API</div><div class="src-desc">NOAA datasets (tile-grid).</div></div>
+            <div class="src"><div class="src-name">COPERNICUS_CDS</div><div class="src-desc">Copernicus Climate Data Store (single-request, hash-named output).</div></div>
+            <div class="src"><div class="src-name">TIGER_ROADS</div><div class="src-desc">TIGER/Line All Roads &mdash; named-road lookup and bbox queries.</div></div>
+            <div class="src"><div class="src-name">TIGER_ADDRFEAT</div><div class="src-desc">TIGER/Line address-range edges &mdash; address geocoding.</div></div>
+            <div class="src"><div class="src-name">TERRARIUM</div><div class="src-desc">Mapzen Terrarium terrain tiles (no-API-key elevation bootstrap).</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">What makes the answers trustworthy</h2>
+        <p class="section-intro center">The same correctness discipline the rest of the Forge suite is built on, applied to data.</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feat-tag">Configuration as data</div>
+                <h3>One portable catalog file</h3>
+                <p>
+                    All state &mdash; datasets and the recipes that refresh them &mdash; lives in one standard
+                    GeoPackage. No companion <code>sources.yml</code> to drift out of sync, and no secrets baked
+                    in: the catalog stores only the environment-variable name that holds a key. Safe to copy, ship
+                    to a field laptop or air-gapped site, or commit &mdash; and readable in QGIS or DB Browser.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Refuses, never fabricates</div>
+                <h3>Structured, classified errors</h3>
+                <p>
+                    Every tool failure returns a structured envelope with a specific, machine-readable reason
+                    &mdash; <code>aoi_out_of_coverage</code>, <code>windowed_read_unsupported</code>,
+                    <code>bbox_invalid</code> &mdash; never an empty success or the nearest wrong tile. For
+                    coverage gaps it even names the registered source whose sync could acquire the area.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Honest geometry, one seam</div>
+                <h3>Open water, handled correctly</h3>
+                <p>
+                    DEMs flatten open water to a literal 0&nbsp;m that reads as solid ground and corrupts slope,
+                    viewshed, and line-of-sight. ForgeData recodes over-water cells to NoData at one shared read
+                    seam &mdash; geometry-driven and source-agnostic across SRTM, Copernicus, 3DEP, Terrarium, and
+                    remote WCS &mdash; so every consumer inherits honest terrain. A strict no-op until a water layer
+                    is present.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Gets faster with use</div>
+                <h3>Derived-product memory</h3>
+                <p>
+                    When ForgeGIS computes a slope raster over an area, the result registers back into the catalog
+                    as a derived product, pinning its parent, operation, parameters, and content hash. The next
+                    request that needs the same thing finds it cheaply instead of recomputing &mdash; so over a
+                    long-running project, workflows get faster the longer the suite runs.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Where ForgeData sits in the suite</h2>
+        <p class="section-intro center">The routing work could in principle live inside ForgeGIS, ForgeMind, or Studio. It deliberately does not &mdash; each of those has a sharp job, and folding data-intelligence concerns into any of them would blur that boundary. ForgeData is the home for the cross-cutting problem, so it can evolve independently of every consumer.</p>
+        <div class="suite-grid">
+            <div class="suite-item">
+                <div class="s-name">Forge<span class="x">GIS</span></div>
+                <div class="s-role">Computes</div>
+                <div class="s-desc">GPU-accelerated geospatial compute engine &mdash; raster, terrain, spectral, point clouds.</div>
+            </div>
+            <div class="suite-item">
+                <div class="s-name">Forge<span class="x">Mind</span></div>
+                <div class="s-role">Reasons</div>
+                <div class="s-desc">The GIS Intent Compiler &mdash; natural-language orchestration across tools.</div>
+            </div>
+            <div class="suite-item">
+                <div class="s-name">ForgeGIS <span class="x">Studio</span></div>
+                <div class="s-role">Renders</div>
+                <div class="s-desc">Browser-facing UI &mdash; catalog browser, source management, raster preview.</div>
+            </div>
+            <div class="suite-item is-self">
+                <div class="s-name">Forge<span class="x">Data</span></div>
+                <div class="s-role">Decides the data</div>
+                <div class="s-desc">Catalog, cost routing, sync, derived-product memory, window extraction.</div>
+            </div>
+        </div>
+        <p class="routing-note">ForgeMind and Studio talk to ForgeData over MCP &mdash; the same stdio JSON-RPC surface any third-party MCP client could use. ForgeGIS is consumed by ForgeData as an in-process Java library for the actual data reads, so windowed-raster extraction and elevation queries happen with no network hop. Underlying sources stay exactly where they are.</p>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Who it's for</h2>
+        <p class="section-intro center">One layer, three readers. Each one-pager leads with the parts of ForgeData that matter most to that audience.</p>
+        <div class="audience-grid">
+            <a href="downloads/forgedata-defense-onepager.pdf" class="audience-card">
+                <div class="aud-label">For defense &amp; intelligence</div>
+                <h3>The data layer that ships where the mission runs</h3>
+                <p>
+                    Its entire state is a single local file with no embedded secrets, so a curated catalog ships to
+                    a field laptop or air-gapped site and queries on arrival. Fail-closed on coverage, auditable
+                    provenance on every dataset, honest terrain at the line-of-sight seam.
+                </p>
+                <span class="card-cta">Download defense &amp; IC one-pager (PDF)</span>
+            </a>
+            <a href="downloads/forgedata-agent-onepager.pdf" class="audience-card">
+                <div class="aud-label">For AI agent builders</div>
+                <h3>Geospatial data routing, native to MCP</h3>
+                <p>
+                    A 49-tool server an agent hands a data question to &mdash; which dataset covers this area at the
+                    right resolution, and what does it cost to read? &mdash; and gets back a ranked, costed answer
+                    instead of a hardcoded path, with structured errors an agent can branch on.
+                </p>
+                <span class="card-cta">Download agent-builder one-pager (PDF)</span>
+            </a>
+            <a href="downloads/forgedata-sales-onepager.pdf" class="audience-card">
+                <div class="aud-label">For suite buyers</div>
+                <h3>Make it Just Work against real data</h3>
+                <p>
+                    When a ForgeMind workflow asks for a viewshed or a slope analysis, the agent does not need to
+                    know one dataset is a local SRTM tile and another a remote COG on S3. It calls one operation
+                    and gets back a ranked, costed list &mdash; best-fit correct dataset first.
+                </p>
+                <span class="card-cta">Download general sales one-pager (PDF)</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="block" id="downloads">
+    <div class="container">
+        <h2 class="center">Downloads</h2>
+        <p class="section-intro center">All ForgeData collateral. Direct download &mdash; no email gate, no form wall.</p>
+        <div class="downloads-grid">
+            <a href="downloads/forgedata-technical-brief.pdf" class="download-card">
+                <div class="dl-type tech">Technical Brief &middot; 15 pages</div>
+                <h3>ForgeData Technical Brief</h3>
+                <p>
+                    The catalog model, cost-aware routing, the operation registry, the source types, the MCP tool
+                    surface, the read paths, and deployment guidance. The substantive document for technical
+                    evaluators and platform engineers.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgedata-sales-onepager.pdf" class="download-card">
+                <div class="dl-type">Sales One-Pager &middot; 2 pages</div>
+                <h3>General Sales One-Pager</h3>
+                <p>
+                    Front/back overview. General-purpose first-touch document covering positioning, headline
+                    numbers, and the routing story at a glance.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgedata-defense-onepager.pdf" class="download-card">
+                <div class="dl-type">Defense One-Pager &middot; 2 pages</div>
+                <h3>Defense &amp; Intelligence Variant</h3>
+                <p>
+                    For defense and intelligence programs and prime integrators. Leads on the secret-free portable
+                    catalog, fail-closed coverage, and disconnected deployment.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgedata-agent-onepager.pdf" class="download-card">
+                <div class="dl-type">Agent One-Pager &middot; 2 pages</div>
+                <h3>AI Agent Builders Variant</h3>
+                <p>
+                    For AI agent builders and MCP-native runners. Leads on the 49-tool MCP surface, intent-based
+                    routing, structured refusal, and derived-product memory.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+        </div>
+        <div class="lic-note">
+            <strong>A note on licensing.</strong> ForgeData is bundled with the Forge suite and is not sold
+            separately. Its license is not yet finalized; nothing here should be read as a grant of rights.
+            Contact the maintainer before redistributing ForgeData or any catalog bundle.
+        </div>
+    </div>
+</section>
+
+<section class="contact-strip">
+    <div class="container">
+        <h2>Talk to us about ForgeData</h2>
+        <p>Evaluation access, suite licensing, and partnership inquiries &mdash; we read every email. An evaluation build is available to qualified teams on request.</p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=ForgeData%20inquiry" class="btn btn-primary">rich@seaglassfoundry.com</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/products/">Products</a>
+            <a href="/products/forgedata/">ForgeData</a>
+            <a href="/products/forgemind/">ForgeMind</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="downloads/forgedata-technical-brief.pdf">Technical Brief</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            ForgeData&trade;, ForgeGIS&trade;, ForgeMind&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            Model Context Protocol, JSON-RPC, GeoPackage, Java, OpenJDK, SQLite, and Maven are trademarks or registered trademarks of their respective owners.
+            PostGIS, STAC, OGC, WCS, WFS, Esri, ArcGIS, OpenStreetMap, Overpass, OpenTopography, NOAA, Copernicus, Sentinel, Mapzen Terrarium, TIGER/Line, QGIS, DB Browser for SQLite, Amazon S3, SRTM, and 3DEP are the trademarks, services, or data products of their respective owners &mdash; interoperable sources ForgeData can read, not affiliated with or endorsing Seaglass Foundry.
+            Reference to these marks does not imply endorsement.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) links.classList.remove('open');
+    });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeMind Showcase — S-MARATHON-22: One Conversation, A Complete Mission Plan</title>
+    <meta name="description" content="S-MARATHON-22: a 102-operation combat search-and-rescue test scenario planned end to end through ForgeMind in plain English, against real SRTM terrain. 29 named entities created and reused, 27 distinct geospatial operations, zero failed or confident-wrong results.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/forgemind/showcase.html">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/forgemind/showcase.html">
+    <meta property="og:title" content="ForgeMind Showcase — S-MARATHON-22">
+    <meta property="og:description" content="One conversation, a complete mission plan. 102 operations, 29 named entities, 0 failures — a CSAR scenario planned in plain English against real SRTM terrain.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ForgeMind Showcase — S-MARATHON-22">
+    <meta name="twitter:description" content="102 operations in one session, 29 entities reused, 0 confident-wrong results — a CSAR plan in plain English on real terrain.">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+            --code-bg: #1e293b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; }
+        p code, li code, td code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--navy); }
+
+        /* ── Nav ── */
+        nav { background: var(--navy); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+        nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+        nav .brand { color: var(--white); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Product subnav ── */
+        .subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .subnav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 44px; font-size: 0.88rem; }
+        .subnav .crumb { color: #8eaec6; }
+        .subnav .crumb a { color: #a8c4d8; }
+        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+        .subnav .sep { color: #5a6a7a; }
+        .subnav .flagship-tag { margin-left: auto; color: var(--amber); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: var(--white);
+            padding: 76px 24px 84px;
+        }
+        .hero .container { max-width: 920px; }
+        .hero .h-eyebrow {
+            display: inline-block;
+            color: var(--teal);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.12;
+            margin-bottom: 14px;
+        }
+        .hero .h-rule { width: 120px; height: 4px; background: linear-gradient(90deg, var(--amber), var(--teal)); border-radius: 2px; margin-bottom: 22px; }
+        .hero p.h-lede { color: #b6cee0; font-size: 1.15rem; line-height: 1.65; max-width: 680px; }
+        .hero .h-prov { margin-top: 26px; color: #7e9bb4; font-size: 0.85rem; letter-spacing: 0.02em; }
+
+        /* ── Stats strip ── */
+        .stats { background: var(--white); padding: 50px 24px; border-bottom: 1px solid var(--border); }
+        .stats-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .stat { text-align: center; padding: 0 12px; }
+        .stat .number { font-size: 2.4rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+        .stat .number.zero { color: var(--teal-dark); }
+        .stat .label { font-size: 0.92rem; color: var(--text-light); line-height: 1.5; }
+
+        /* ── Generic section ── */
+        section.block { padding: 64px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 { font-size: 1.8rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.02em; }
+        section.block h2.center { text-align: center; }
+        section.block .lede { color: var(--text); font-size: 1.02rem; line-height: 1.75; max-width: 860px; }
+        section.block .lede + .lede { margin-top: 16px; }
+        section.block .section-intro { color: var(--text-light); font-size: 1.02rem; margin-bottom: 28px; max-width: 760px; }
+        section.block .center.section-intro { margin-left: auto; margin-right: auto; text-align: center; }
+        .pull {
+            max-width: 820px;
+            margin: 26px auto 0;
+            border-left: 3px solid var(--amber);
+            background: var(--white);
+            padding: 16px 22px;
+            border-radius: 6px;
+            color: var(--navy);
+            font-style: italic;
+        }
+        .pull .attrib { display: block; margin-top: 8px; font-style: normal; font-size: 0.86rem; color: var(--text-light); }
+
+        /* ── Phase timeline ── */
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .phase {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--teal);
+            border-radius: 8px;
+            padding: 16px 14px;
+        }
+        .phase .ph-range { font-size: 0.78rem; font-weight: 700; color: var(--amber-dark); letter-spacing: 0.04em; margin-bottom: 6px; }
+        .phase .ph-name { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.25; }
+        .phase .ph-desc { font-size: 0.82rem; color: var(--text-light); line-height: 1.5; }
+
+        /* ── Entity grid ── */
+        .entity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 8px 18px;
+            max-width: 940px;
+            margin: 0 auto;
+        }
+        .entity {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+            padding: 8px 14px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+        .entity .e-name { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.86rem; color: var(--navy); }
+        .entity .e-type { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+        .entity .e-type.point { color: var(--teal-dark); }
+        .entity .e-type.line { color: var(--amber-dark); }
+        .entity .e-type.polygon { color: var(--navy); }
+        .entity-note { text-align: center; color: var(--text-light); font-size: 0.9rem; margin-top: 20px; }
+
+        /* ── Operation log table ── */
+        .oplog-wrap { max-width: 1000px; margin: 0 auto; overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--white); }
+        table.oplog { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 720px; }
+        table.oplog th, table.oplog td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+        table.oplog thead th { background: var(--navy); color: var(--white); font-weight: 700; font-size: 0.8rem; position: sticky; top: 0; }
+        table.oplog .num { width: 42px; color: var(--text-light); font-weight: 700; text-align: right; white-space: nowrap; }
+        table.oplog .op { white-space: nowrap; }
+        table.oplog .op code { color: var(--teal-dark); font-weight: 600; background: none; padding: 0; }
+        table.oplog .result { color: var(--navy); }
+        table.oplog tr.sec th {
+            background: var(--teal-light);
+            color: var(--teal-dark);
+            font-size: 0.86rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            text-transform: none;
+            position: static;
+        }
+        table.oplog tbody tr:hover td { background: #fbfdfe; }
+
+        /* ── Compiler flow + comparison ── */
+        .flow-steps { max-width: 980px; margin: 0 auto 30px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        .flow-step { position: relative; background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 18px 14px; text-align: center; }
+        .flow-step.is-llm { border-top: 3px solid var(--amber); }
+        .flow-step.is-det { border-top: 3px solid var(--teal); }
+        .flow-step .fs-name { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+        .flow-step .fs-desc { font-size: 0.8rem; color: var(--text-light); line-height: 1.45; }
+        .flow-step:not(:last-child)::after { content: "→"; position: absolute; right: -11px; top: 50%; transform: translateY(-50%); color: var(--teal); font-weight: 700; z-index: 2; }
+
+        .compare-wrap { max-width: 920px; margin: 0 auto; overflow-x: auto; }
+        table.compare { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 0.93rem; min-width: 560px; }
+        table.compare th, table.compare td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+        table.compare thead th { background: var(--navy); color: var(--white); font-weight: 700; font-size: 0.86rem; }
+        table.compare thead th.col-mind { background: var(--teal-dark); }
+        table.compare tbody th { background: var(--grey-bg); color: var(--navy); font-weight: 700; white-space: nowrap; width: 150px; }
+        table.compare td.col-mind { color: var(--navy); font-weight: 500; }
+        table.compare tr:last-child th, table.compare tr:last-child td { border-bottom: none; }
+
+        /* ── Proof grid ── */
+        .proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 8px; }
+        .proof { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--teal); border-radius: 8px; padding: 20px 22px; }
+        .proof h3 { font-size: 1.02rem; color: var(--navy); margin-bottom: 8px; }
+        .proof p { font-size: 0.92rem; color: var(--text); line-height: 1.6; }
+
+        /* ── Back / CTA strip ── */
+        .closer { background: var(--navy-dark); color: #c2d6e6; padding: 56px 24px; text-align: center; }
+        .closer h2 { color: var(--white); font-size: 1.5rem; margin-bottom: 12px; }
+        .closer p { max-width: 680px; margin: 0 auto 22px; color: #a8c4d8; }
+        .closer .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 13px 28px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.1s, border-color 0.2s; }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+
+        /* ── Footer ── */
+        footer { background: var(--navy-dark); color: #8eaec6; padding: 40px 24px; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.08); }
+        footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks { width: 100%; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #7790a8; font-size: 0.8rem; line-height: 1.6; }
+        .footer-copy { width: 100%; text-align: center; margin-top: 12px; color: #8eaec6; }
+
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .phase-grid { grid-template-columns: repeat(2, 1fr); }
+            .flow-steps { grid-template-columns: 1fr 1fr; }
+            .flow-step:not(:last-child)::after { content: ""; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .phase-grid { grid-template-columns: 1fr; }
+            .flow-steps { grid-template-columns: 1fr; }
+            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+            .subnav .flagship-tag { margin-left: 0; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+        <div class="nav-links">
+            <a href="/products/">Products</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<div class="subnav">
+    <div class="subnav-inner">
+        <div class="crumb">
+            <a href="/products/">Products</a>
+            <span class="sep">/</span>
+            <a href="/products/forgemind/">ForgeMind</a>
+            <span class="sep">/</span>
+            <span>Showcase</span>
+        </div>
+        <span class="flagship-tag">Session S-MARATHON-22</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <span class="h-eyebrow">ForgeMind &middot; The GIS Intent Compiler</span>
+        <h1>One conversation.<br>A complete mission plan.</h1>
+        <div class="h-rule"></div>
+        <p class="h-lede">
+            A 102-operation test scenario simulating a combat search-and-rescue plan, requested entirely in
+            plain English and run end to end against real SRTM terrain. Every operation was understood,
+            type-checked, routed, and executed. All 102 succeeded.
+        </p>
+        <p class="h-prov">convo-exec run &middot; S-MARATHON-22 &middot; generated CSAR test scenario &middot; real SRTM 1-arc-second DEM, Galiuro Mountains, southeast Arizona</p>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat"><div class="number">102</div><div class="label">operations in one continuous session</div></div>
+        <div class="stat"><div class="number">29</div><div class="label">named entities created and reused</div></div>
+        <div class="stat"><div class="number">27</div><div class="label">distinct geospatial operations exercised</div></div>
+        <div class="stat"><div class="number zero">0</div><div class="label">failed or confident-wrong results</div></div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2>What you are looking at</h2>
+        <p class="lede">
+            This walks through a single recorded session, <strong>S-MARATHON-22</strong> &mdash; a generated test
+            scenario that simulates a combat search-and-rescue recovery being planned through ForgeMind<sup class="tm">&trade;</sup>.
+            It is not a record of a real operation. It is a deliberately demanding evaluation, run end to end
+            against real SRTM terrain in the Galiuro Mountains of southeast Arizona. One hundred and two
+            operations, requested in plain English, from &ldquo;mark the survivor's last known position&rdquo;
+            through the final &ldquo;list everything on the map so I can confirm the recovery package is
+            complete.&rdquo; Every one was understood, type-checked, routed, and executed. All 102 succeeded.
+        </p>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2>Why a marathon, and why this one matters</h2>
+        <p class="lede">
+            Most demos show a system answering one clever question. That proves very little. Real operational
+            work is not one question &mdash; it is a long chain of dependent decisions where each step relies on
+            the exact entities, geometry, and assumptions established in the steps before it. The interesting
+            question is not &ldquo;can it answer a prompt&rdquo; but <strong>&ldquo;can it hold a coherent
+            operational picture across a hundred linked requests without drifting, hallucinating, or quietly
+            inventing an answer.&rdquo;</strong>
+        </p>
+        <p class="lede">
+            S-MARATHON-22 is that test. It models a punishing scenario &mdash; the kind of plan where a wrong
+            elevation, a misresolved waypoint, or a route that clips a threat ring would be the difference
+            between a recovered survivor and a downed aircraft. The session was run end to end against real
+            terrain, and it held.
+        </p>
+        <div class="pull">
+            &ldquo;List everything on the map so I can confirm the recovery package is complete.&rdquo;
+            <span class="attrib">&mdash; Operation 102. By this point ForgeMind is tracking 29 named entities created across the previous 101 operations, each still addressable by name.</span>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">The scenario, in seven phases</h2>
+        <p class="section-intro center">Context was never restated. Each entity was named once, then referred to by name for the rest of the session, and ForgeMind carried the full picture forward.</p>
+        <div class="phase-grid">
+            <div class="phase">
+                <div class="ph-range">1&ndash;8</div>
+                <div class="ph-name">Locate &amp; read terrain</div>
+                <div class="ph-desc">Mark survivor. Elevation, slope, hillshade, contours, high/low ground.</div>
+            </div>
+            <div class="phase">
+                <div class="ph-range">9&ndash;14</div>
+                <div class="ph-name">Frame the area</div>
+                <div class="ph-desc">Define JOA and search area. Areas, containment checks.</div>
+            </div>
+            <div class="phase">
+                <div class="ph-range">15&ndash;31</div>
+                <div class="ph-name">Threat picture</div>
+                <div class="ph-desc">Plot enemy + MANPADS. Viewsheds, line of sight, weapon-engagement rings.</div>
+            </div>
+            <div class="phase">
+                <div class="ph-range">32&ndash;48</div>
+                <div class="ph-name">Pick the HLZ</div>
+                <div class="ph-desc">Three candidates. Slope, elevation, threat-ring tests, range to survivor.</div>
+            </div>
+            <div class="phase">
+                <div class="ph-range">49&ndash;71</div>
+                <div class="ph-name">Ingress &amp; ground team</div>
+                <div class="ph-desc">Direct vs. least-cost routes, corridors, overwatch line of sight.</div>
+            </div>
+            <div class="phase">
+                <div class="ph-range">72&ndash;86</div>
+                <div class="ph-name">Egress &amp; CASEVAC</div>
+                <div class="ph-desc">Masked egress, corridors, handoff point, casevac leg.</div>
+            </div>
+            <div class="phase">
+                <div class="ph-range">87&ndash;102</div>
+                <div class="ph-name">Consolidate</div>
+                <div class="ph-desc">Hull, threat unions, bounding box, reproject to UTM, final inventory.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Reference resolution is the whole game</h2>
+        <p class="section-intro center">The single hardest thing in this run is not any one operation. It is that 85 of the 102 operations refer back to entities defined earlier &mdash; a deep dependency graph that ForgeMind never lost a node of. Below are the 29 entities it tracked simultaneously, each created by a plain-English request and reusable by name for the rest of the session.</p>
+        <div class="entity-grid">
+            <div class="entity"><span class="e-name">survivor</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">joa</span><span class="e-type polygon">Polygon</span></div>
+            <div class="entity"><span class="e-name">search_area</span><span class="e-type polygon">Polygon</span></div>
+            <div class="entity"><span class="e-name">threat_1</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">threat_2</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">manpads</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">manpads_wez</span><span class="e-type polygon">Polygon</span></div>
+            <div class="entity"><span class="e-name">threat_1_ring</span><span class="e-type polygon">Polygon</span></div>
+            <div class="entity"><span class="e-name">threat_2_ring</span><span class="e-type polygon">Polygon</span></div>
+            <div class="entity"><span class="e-name">hlz_alpha</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">hlz_bravo</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">hlz_charlie</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">ingress_ip</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">ingress_route</span><span class="e-type line">Line</span></div>
+            <div class="entity"><span class="e-name">masked_ingress</span><span class="e-type line">Line</span></div>
+            <div class="entity"><span class="e-name">ingress_corridor</span><span class="e-type polygon">Polygon</span></div>
+            <div class="entity"><span class="e-name">gt_route</span><span class="e-type line">Line</span></div>
+            <div class="entity"><span class="e-name">gt_corridor</span><span class="e-type polygon">Polygon</span></div>
+            <div class="entity"><span class="e-name">gt_overwatch</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">egress_rp</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">egress_route</span><span class="e-type line">Line</span></div>
+            <div class="entity"><span class="e-name">masked_egress</span><span class="e-type line">Line</span></div>
+            <div class="entity"><span class="e-name">egress_corridor</span><span class="e-type polygon">Polygon</span></div>
+            <div class="entity"><span class="e-name">casevac_hp</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">casevac_leg</span><span class="e-type line">Line</span></div>
+            <div class="entity"><span class="e-name">search_center</span><span class="e-type point">Point</span></div>
+            <div class="entity"><span class="e-name">recovery_hull</span><span class="e-type polygon">Polygon</span></div>
+            <div class="entity"><span class="e-name">combined_threat</span><span class="e-type polygon">Polygon</span></div>
+            <div class="entity"><span class="e-name">total_threat</span><span class="e-type polygon">Polygon</span></div>
+        </div>
+        <p class="entity-note">12 points, 11 polygons, 6 lines. &ldquo;Union manpads_wez and combined_threat&rdquo; at operation 93 acts on a polygon that was itself a union of two rings created at operation 91. The dependency graph is deep, and ForgeMind never lost a node.</p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Every operation, and its result</h2>
+        <p class="section-intro center">The complete log of all 102 operations, exactly as ForgeMind executed them against the real SRTM 1-arc-second DEM. The first column is the plain-English request, the second is the operation ForgeMind compiled it to, the third is the result it returned. Nothing here is illustrative or hand-edited &mdash; every row is a real execution result.</p>
+        <div class="oplog-wrap">
+            <table class="oplog">
+                <thead>
+                    <tr><th class="num">#</th><th>Plain-English request</th><th>Operation</th><th>Result</th></tr>
+                </thead>
+                <tbody>
+                    <tr class="sec"><th colspan="4">Section 1 &mdash; Fix the survivor &amp; read his terrain</th></tr>
+                    <tr><td class="num">1</td><td>Mark the survivor's last known position at -110.245, 32.560 and call it survivor</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity survivor &mdash; survivor at 32.56000, -110.24500.</td></tr>
+                    <tr><td class="num">2</td><td>What's the elevation at survivor?</td><td class="op"><code>ELEVATION_POINT</code></td><td class="result">Elevation = 1602 m</td></tr>
+                    <tr><td class="num">3</td><td>How steep is the ground at survivor? I need to know if he's on a slope.</td><td class="op"><code>SLOPE_POINT</code></td><td class="result">Slope = 14.31&deg;</td></tr>
+                    <tr><td class="num">4</td><td>Generate a hillshade around survivor so we can read the terrain he's in.</td><td class="op"><code>HILLSHADE</code></td><td class="result">raster 361&times;361 px</td></tr>
+                    <tr><td class="num">5</td><td>Generate a slope raster around survivor.</td><td class="op"><code>SLOPE</code></td><td class="result">raster 361&times;361 px</td></tr>
+                    <tr><td class="num">6</td><td>Generate contours around survivor every 20 meters for the recovery overlay.</td><td class="op"><code>CONTOUR</code></td><td class="result">535 contour lines</td></tr>
+                    <tr><td class="num">7</td><td>What's the highest ground within 2 kilometers of survivor?</td><td class="op"><code>ELEVATION_STATS</code></td><td class="result">min 1479 m / max 1912 m / mean 1595 m (20305 px)</td></tr>
+                    <tr><td class="num">8</td><td>Find the lowest ground within 1 kilometer of survivor.</td><td class="op"><code>ELEVATION_STATS</code></td><td class="result">min 1505 m / max 1717 m / mean 1573 m (5005 px)</td></tr>
+
+                    <tr class="sec"><th colspan="4">Section 2 &mdash; Joint ops area &amp; search area</th></tr>
+                    <tr><td class="num">9</td><td>Create a polygon with corners -110.30, 32.51, -110.16, 32.51, -110.16, 32.64, -110.30, 32.64 and call it joa</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity joa &mdash; joa (polygon, 4 vertices) on the map.</td></tr>
+                    <tr><td class="num">10</td><td>Create a polygon with corners -110.27, 32.54, -110.22, 32.54, -110.22, 32.58, -110.27, 32.58 and call it search_area</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity search_area &mdash; search_area (polygon, 4 vertices) on the map.</td></tr>
+                    <tr><td class="num">11</td><td>What's the area of the joa in square kilometers?</td><td class="op"><code>AREA</code></td><td class="result">Area = 189.6 km&sup2; (1.896e+08 m&sup2;)</td></tr>
+                    <tr><td class="num">12</td><td>What's the area of search_area in square kilometers?</td><td class="op"><code>AREA</code></td><td class="result">Area = 20.84 km&sup2; (2.084e+07 m&sup2;)</td></tr>
+                    <tr><td class="num">13</td><td>Is survivor inside search_area?</td><td class="op"><code>POINT_IN_POLYGON</code></td><td class="result">INSIDE (1/1 intersecting)</td></tr>
+                    <tr><td class="num">14</td><td>Is survivor inside the joa?</td><td class="op"><code>POINT_IN_POLYGON</code></td><td class="result">INSIDE (1/1 intersecting)</td></tr>
+
+                    <tr class="sec"><th colspan="4">Section 3 &mdash; Threats &amp; MANPADS</th></tr>
+                    <tr><td class="num">15</td><td>Plot a suspected enemy position at -110.215, 32.540 and call it threat_1</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity threat_1 &mdash; threat_1 at 32.54000, -110.21500.</td></tr>
+                    <tr><td class="num">16</td><td>Plot another suspected enemy position at -110.205, 32.590 and call it threat_2</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity threat_2 &mdash; threat_2 at 32.59000, -110.20500.</td></tr>
+                    <tr><td class="num">17</td><td>Mark a possible MANPADS site on the ridge at -110.278, 32.550 and call it manpads</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity manpads &mdash; manpads at 32.55000, -110.27800.</td></tr>
+                    <tr><td class="num">18</td><td>What's the elevation at manpads? If they're up high it changes our ingress.</td><td class="op"><code>ELEVATION_POINT</code></td><td class="result">Elevation = 2083 m</td></tr>
+                    <tr><td class="num">19</td><td>How far is threat_1 from survivor, in meters?</td><td class="op"><code>DISTANCE</code></td><td class="result">Distance = 3585.5 m</td></tr>
+                    <tr><td class="num">20</td><td>How far is threat_2 from survivor, in meters?</td><td class="op"><code>DISTANCE</code></td><td class="result">Distance = 5017.6 m</td></tr>
+                    <tr><td class="num">21</td><td>How far is the manpads site from survivor, in meters?</td><td class="op"><code>DISTANCE</code></td><td class="result">Distance = 3286.5 m</td></tr>
+                    <tr><td class="num">22</td><td>Compute the viewshed from manpads at a 2 meter height. I want to see what that MANPADS can cover.</td><td class="op"><code>VIEWSHED</code></td><td class="result">raster 361&times;361 px</td></tr>
+                    <tr><td class="num">23</td><td>Compute the viewshed from threat_1 at a 2 meter height.</td><td class="op"><code>VIEWSHED</code></td><td class="result">raster 361&times;361 px</td></tr>
+                    <tr><td class="num">24</td><td>Is survivor visible from manpads? Can they see our guy?</td><td class="op"><code>INTERVISIBILITY</code></td><td class="result">Line of sight = NO (0/1)</td></tr>
+                    <tr><td class="num">25</td><td>Does the manpads site have line of sight to threat_1? Checking if it's a coordinated position.</td><td class="op"><code>INTERVISIBILITY</code></td><td class="result">Line of sight = NO (0/1)</td></tr>
+
+                    <tr class="sec"><th colspan="4">Section 4 &mdash; Weapon-engagement zones</th></tr>
+                    <tr><td class="num">26</td><td>Put a 4 kilometer ring around manpads and call it manpads_wez</td><td class="op"><code>BUFFER</code></td><td class="result">Buffer 4000 m</td></tr>
+                    <tr><td class="num">27</td><td>What's the area of manpads_wez in square kilometers?</td><td class="op"><code>AREA</code></td><td class="result">Area = 50.01 km&sup2; (5.001e+07 m&sup2;)</td></tr>
+                    <tr><td class="num">28</td><td>Put a 2 kilometer ring around threat_1 and call it threat_1_ring</td><td class="op"><code>BUFFER</code></td><td class="result">Buffer 2000 m</td></tr>
+                    <tr><td class="num">29</td><td>Put a 2 kilometer ring around threat_2 and call it threat_2_ring</td><td class="op"><code>BUFFER</code></td><td class="result">Buffer 2000 m</td></tr>
+                    <tr><td class="num">30</td><td>Does survivor fall inside manpads_wez?</td><td class="op"><code>POINT_IN_POLYGON</code></td><td class="result">INSIDE (1/1 intersecting)</td></tr>
+                    <tr><td class="num">31</td><td>Does search_area overlap manpads_wez?</td><td class="op"><code>OVERLAP</code></td><td class="result">overlaps(a,b) = TRUE</td></tr>
+
+                    <tr class="sec"><th colspan="4">Section 5 &mdash; HLZ selection</th></tr>
+                    <tr><td class="num">32</td><td>We need an HLZ close to the survivor but out of the threat ring. Mark a candidate at -110.260, 32.560 and call it hlz_alpha</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity hlz_alpha &mdash; hlz_alpha at 32.56000, -110.26000.</td></tr>
+                    <tr><td class="num">33</td><td>Mark a second HLZ candidate at -110.245, 32.545 and call it hlz_bravo</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity hlz_bravo &mdash; hlz_bravo at 32.54500, -110.24500.</td></tr>
+                    <tr><td class="num">34</td><td>Mark a third candidate at -110.230, 32.560 and call it hlz_charlie</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity hlz_charlie &mdash; hlz_charlie at 32.56000, -110.23000.</td></tr>
+                    <tr><td class="num">35</td><td>What's the slope at hlz_alpha? It needs to be under 7 degrees for the Black Hawk.</td><td class="op"><code>SLOPE_POINT</code></td><td class="result">Slope = 15.96&deg;</td></tr>
+                    <tr><td class="num">36</td><td>What's the slope at hlz_bravo?</td><td class="op"><code>SLOPE_POINT</code></td><td class="result">Slope = 3.03&deg;</td></tr>
+                    <tr><td class="num">37</td><td>What's the slope at hlz_charlie?</td><td class="op"><code>SLOPE_POINT</code></td><td class="result">Slope = 1.12&deg;</td></tr>
+                    <tr><td class="num">38</td><td>What's the elevation at hlz_alpha?</td><td class="op"><code>ELEVATION_POINT</code></td><td class="result">Elevation = 1629 m</td></tr>
+                    <tr><td class="num">39</td><td>What's the elevation at hlz_bravo?</td><td class="op"><code>ELEVATION_POINT</code></td><td class="result">Elevation = 1549 m</td></tr>
+                    <tr><td class="num">40</td><td>What's the elevation at hlz_charlie?</td><td class="op"><code>ELEVATION_POINT</code></td><td class="result">Elevation = 1498 m</td></tr>
+                    <tr><td class="num">41</td><td>Is hlz_alpha inside manpads_wez? If it's in the threat ring it's out.</td><td class="op"><code>POINT_IN_POLYGON</code></td><td class="result">INSIDE (1/1 intersecting)</td></tr>
+                    <tr><td class="num">42</td><td>Is hlz_bravo inside manpads_wez?</td><td class="op"><code>POINT_IN_POLYGON</code></td><td class="result">INSIDE (1/1 intersecting)</td></tr>
+                    <tr><td class="num">43</td><td>Is hlz_charlie inside manpads_wez?</td><td class="op"><code>POINT_IN_POLYGON</code></td><td class="result">OUTSIDE (0/1 intersecting)</td></tr>
+                    <tr><td class="num">44</td><td>Can the manpads site see hlz_alpha?</td><td class="op"><code>INTERVISIBILITY</code></td><td class="result">Line of sight = NO (0/1)</td></tr>
+                    <tr><td class="num">45</td><td>Can the manpads site see hlz_charlie?</td><td class="op"><code>INTERVISIBILITY</code></td><td class="result">Line of sight = NO (0/1)</td></tr>
+                    <tr><td class="num">46</td><td>How far is hlz_alpha from survivor, in meters? That's how far the ground team has to move him.</td><td class="op"><code>DISTANCE</code></td><td class="result">Distance = 1405.7 m</td></tr>
+                    <tr><td class="num">47</td><td>How far is hlz_charlie from survivor, in meters?</td><td class="op"><code>DISTANCE</code></td><td class="result">Distance = 1405.7 m</td></tr>
+                    <tr><td class="num">48</td><td>Range and bearing from hlz_charlie to survivor.</td><td class="op"><code>RANGE_AND_BEARING</code></td><td class="result">Range = 1408.7 m, bearing = 270.0&deg;</td></tr>
+
+                    <tr class="sec"><th colspan="4">Section 6 &mdash; Ingress (direct vs terrain-masked)</th></tr>
+                    <tr><td class="num">49</td><td>Set the ingress start point at -110.290, 32.520 and call it ingress_ip</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity ingress_ip &mdash; ingress_ip at 32.52000, -110.29000.</td></tr>
+                    <tr><td class="num">50</td><td>What's the elevation at ingress_ip?</td><td class="op"><code>ELEVATION_POINT</code></td><td class="result">Elevation = 1877 m</td></tr>
+                    <tr><td class="num">51</td><td>Create a line from -110.290, 32.520 to -110.230, 32.560 and call it ingress_route</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity ingress_route &mdash; ingress_route (line, 2 vertices) on the map.</td></tr>
+                    <tr><td class="num">52</td><td>How long is ingress_route in kilometers?</td><td class="op"><code>LENGTH</code></td><td class="result">Length = 7.171 km (7171 m)</td></tr>
+                    <tr><td class="num">53</td><td>Pull an elevation profile along ingress_route. Let me see what the direct run looks like.</td><td class="op"><code>PROFILE_LINE</code></td><td class="result">Elevation profile = 128 stations over 7170 m, min 1498 m / max 2056 m</td></tr>
+                    <tr><td class="num">54</td><td>Does ingress_route pass through manpads_wez? If it does we reroute.</td><td class="op"><code>CROSSES</code></td><td class="result">crosses(a,b) = TRUE</td></tr>
+                    <tr><td class="num">55</td><td>Does ingress_route cross threat_1_ring?</td><td class="op"><code>CROSSES</code></td><td class="result">crosses(a,b) = FALSE</td></tr>
+                    <tr><td class="num">56</td><td>Compute the least cost path from ingress_ip to hlz_charlie and call it masked_ingress</td><td class="op"><code>LEAST_COST_PATH</code></td><td class="result">Least-cost path = 354 cells</td></tr>
+                    <tr><td class="num">57</td><td>How long is masked_ingress in kilometers?</td><td class="op"><code>LENGTH</code></td><td class="result">Length = 10.99 km (1.099e+04 m)</td></tr>
+                    <tr><td class="num">58</td><td>Pull an elevation profile along masked_ingress. I want to fly it nap-of-the-earth.</td><td class="op"><code>PROFILE_LINE</code></td><td class="result">Elevation profile = 128 stations over 10980 m, min 1490 m / max 2080 m</td></tr>
+                    <tr><td class="num">59</td><td>Buffer masked_ingress by 500 meters as the ingress corridor and call it ingress_corridor</td><td class="op"><code>BUFFER_LAYER</code></td><td class="result">Line/area buffer</td></tr>
+                    <tr><td class="num">60</td><td>Does ingress_corridor overlap manpads_wez?</td><td class="op"><code>OVERLAP</code></td><td class="result">overlaps(a,b) = TRUE</td></tr>
+
+                    <tr class="sec"><th colspan="4">Section 7 &mdash; Ground team move &amp; overwatch</th></tr>
+                    <tr><td class="num">61</td><td>The ground team inserts at the HLZ. Create a line from -110.230, 32.560 to -110.245, 32.560 and call it gt_route</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity gt_route &mdash; gt_route (line, 2 vertices) on the map.</td></tr>
+                    <tr><td class="num">62</td><td>How long is gt_route in meters?</td><td class="op"><code>LENGTH</code></td><td class="result">Length = 1406</td></tr>
+                    <tr><td class="num">63</td><td>Pull an elevation profile along gt_route. How much climbing for the team carrying gear?</td><td class="op"><code>PROFILE_LINE</code></td><td class="result">Elevation profile = 128 stations over 1408 m, min 1498 m / max 1619 m</td></tr>
+                    <tr><td class="num">64</td><td>Does gt_route cross into manpads_wez?</td><td class="op"><code>CROSSES</code></td><td class="result">crosses(a,b) = TRUE</td></tr>
+                    <tr><td class="num">65</td><td>Buffer gt_route by 100 meters as the movement corridor and call it gt_corridor</td><td class="op"><code>BUFFER_LAYER</code></td><td class="result">Line/area buffer</td></tr>
+                    <tr><td class="num">66</td><td>Mark an overwatch position for the team at -110.245, 32.555 and call it gt_overwatch</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity gt_overwatch &mdash; gt_overwatch at 32.55500, -110.24500.</td></tr>
+                    <tr><td class="num">67</td><td>What's the elevation at gt_overwatch?</td><td class="op"><code>ELEVATION_POINT</code></td><td class="result">Elevation = 1577 m</td></tr>
+                    <tr><td class="num">68</td><td>Compute the viewshed from gt_overwatch at a 2 meter height. I want eyes on the survivor and his draw.</td><td class="op"><code>VIEWSHED</code></td><td class="result">raster 361&times;361 px</td></tr>
+                    <tr><td class="num">69</td><td>Can gt_overwatch see survivor?</td><td class="op"><code>INTERVISIBILITY</code></td><td class="result">Line of sight = YES (1/1)</td></tr>
+                    <tr><td class="num">70</td><td>Can gt_overwatch see hlz_charlie?</td><td class="op"><code>INTERVISIBILITY</code></td><td class="result">Line of sight = NO (0/1)</td></tr>
+                    <tr><td class="num">71</td><td>Does gt_overwatch have line of sight to manpads? I don't want them skylined to that site.</td><td class="op"><code>INTERVISIBILITY</code></td><td class="result">Line of sight = NO (0/1)</td></tr>
+
+                    <tr class="sec"><th colspan="4">Section 8 &mdash; Egress &amp; CASEVAC handoff</th></tr>
+                    <tr><td class="num">72</td><td>Set the egress endpoint at -110.170, 32.630 and call it egress_rp</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity egress_rp &mdash; egress_rp at 32.63000, -110.17000.</td></tr>
+                    <tr><td class="num">73</td><td>What's the elevation at egress_rp?</td><td class="op"><code>ELEVATION_POINT</code></td><td class="result">Elevation = 1331 m</td></tr>
+                    <tr><td class="num">74</td><td>Create a line from -110.230, 32.560 to -110.170, 32.630 and call it egress_route</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity egress_route &mdash; egress_route (line, 2 vertices) on the map.</td></tr>
+                    <tr><td class="num">75</td><td>How long is egress_route in kilometers?</td><td class="op"><code>LENGTH</code></td><td class="result">Length = 9.601 km (9601 m)</td></tr>
+                    <tr><td class="num">76</td><td>Does egress_route pass through manpads_wez? We are not flying back out through the threat.</td><td class="op"><code>CROSSES</code></td><td class="result">crosses(a,b) = FALSE</td></tr>
+                    <tr><td class="num">77</td><td>Compute the least cost path from hlz_charlie to egress_rp and call it masked_egress</td><td class="op"><code>LEAST_COST_PATH</code></td><td class="result">Least-cost path = 404 cells</td></tr>
+                    <tr><td class="num">78</td><td>How long is masked_egress in kilometers?</td><td class="op"><code>LENGTH</code></td><td class="result">Length = 12.28 km (1.228e+04 m)</td></tr>
+                    <tr><td class="num">79</td><td>Pull an elevation profile along masked_egress.</td><td class="op"><code>PROFILE_LINE</code></td><td class="result">Elevation profile = 128 stations over 12269 m, min 1303 m / max 1501 m</td></tr>
+                    <tr><td class="num">80</td><td>Does masked_egress cross threat_2_ring?</td><td class="op"><code>CROSSES</code></td><td class="result">crosses(a,b) = TRUE</td></tr>
+                    <tr><td class="num">81</td><td>Buffer masked_egress by 500 meters as the egress corridor and call it egress_corridor</td><td class="op"><code>BUFFER_LAYER</code></td><td class="result">Line/area buffer</td></tr>
+                    <tr><td class="num">82</td><td>Mark the CASEVAC handoff point at -110.165, 32.625 and call it casevac_hp</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity casevac_hp &mdash; casevac_hp at 32.62500, -110.16500.</td></tr>
+                    <tr><td class="num">83</td><td>What's the distance from egress_rp to casevac_hp, in kilometers?</td><td class="op"><code>DISTANCE</code></td><td class="result">Distance = 726.8 m</td></tr>
+                    <tr><td class="num">84</td><td>What's the slope at casevac_hp? Confirming the second bird can set down.</td><td class="op"><code>SLOPE_POINT</code></td><td class="result">Slope = 2.25&deg;</td></tr>
+                    <tr><td class="num">85</td><td>Create a line from -110.170, 32.630 to -110.165, 32.625 and call it casevac_leg</td><td class="op"><code>CREATE / LIST</code></td><td class="result">Created entity casevac_leg &mdash; casevac_leg (line, 2 vertices) on the map.</td></tr>
+                    <tr><td class="num">86</td><td>How long is casevac_leg in kilometers?</td><td class="op"><code>LENGTH</code></td><td class="result">Length = 0.7269 km (726.9 m)</td></tr>
+
+                    <tr class="sec"><th colspan="4">Section 9 &mdash; Consolidated recovery package</th></tr>
+                    <tr><td class="num">87</td><td>Find the centroid of search_area and call it search_center</td><td class="op"><code>CENTROID</code></td><td class="result">Centroid</td></tr>
+                    <tr><td class="num">88</td><td>How far is search_center from survivor, in meters?</td><td class="op"><code>DISTANCE</code></td><td class="result">Distance = 5.2 m</td></tr>
+                    <tr><td class="num">89</td><td>Draw the convex hull around survivor, hlz_charlie, gt_overwatch, and ingress_ip and call it recovery_hull</td><td class="op"><code>CONVEX_HULL_POINTS</code></td><td class="result">Convex hull</td></tr>
+                    <tr><td class="num">90</td><td>What's the area of recovery_hull in square kilometers?</td><td class="op"><code>AREA</code></td><td class="result">Area = 3.127 km&sup2; (3.127e+06 m&sup2;)</td></tr>
+                    <tr><td class="num">91</td><td>Union threat_1_ring and threat_2_ring into combined_threat</td><td class="op"><code>DISSOLVE_ENTITIES</code></td><td class="result">Union/dissolve</td></tr>
+                    <tr><td class="num">92</td><td>What's the area of combined_threat in square kilometers?</td><td class="op"><code>AREA</code></td><td class="result">Area = 25.00 km&sup2; (2.500e+07 m&sup2;) (sum of 2 features &mdash; total area, overlaps not dissolved)</td></tr>
+                    <tr><td class="num">93</td><td>Union manpads_wez and combined_threat into total_threat</td><td class="op"><code>DISSOLVE_ENTITIES</code></td><td class="result">Union/dissolve</td></tr>
+                    <tr><td class="num">94</td><td>What's the area of total_threat in square kilometers?</td><td class="op"><code>AREA</code></td><td class="result">Area = 75.01 km&sup2; (7.501e+07 m&sup2;) (sum of 3 features &mdash; total area, overlaps not dissolved)</td></tr>
+                    <tr><td class="num">95</td><td>Does recovery_hull overlap total_threat? I want to know how much of our working area is under threat.</td><td class="op"><code>OVERLAP</code></td><td class="result">overlaps(a,b) = TRUE</td></tr>
+                    <tr><td class="num">96</td><td>What's the bounding box of survivor, hlz_charlie, gt_overwatch, and egress_rp?</td><td class="op"><code>BBOX</code></td><td class="result">bbox of 4 entities computed</td></tr>
+                    <tr><td class="num">97</td><td>Reproject survivor to UTM zone 12N for the nine-line.</td><td class="op"><code>REPROJECT</code></td><td class="result">To EPSG:32612 &rarr; (570878, 3602762)</td></tr>
+                    <tr><td class="num">98</td><td>Reproject hlz_charlie to UTM zone 12N.</td><td class="op"><code>REPROJECT</code></td><td class="result">To EPSG:32612 &rarr; (572286, 3602772)</td></tr>
+                    <tr><td class="num">99</td><td>Reproject masked_ingress to UTM zone 12N.</td><td class="op"><code>REPROJECT_LAYER</code></td><td class="result">Reprojected 1 feature(s) to EPSG:32612</td></tr>
+                    <tr><td class="num">100</td><td>Reproject recovery_hull to UTM zone 12N.</td><td class="op"><code>REPROJECT_LAYER</code></td><td class="result">Reprojected 1 feature(s) to EPSG:32612</td></tr>
+                    <tr><td class="num">101</td><td>Generate contours around hlz_charlie every 10 meters for the HLZ card.</td><td class="op"><code>CONTOUR</code></td><td class="result">1143 contour lines</td></tr>
+                    <tr><td class="num">102</td><td>List everything on the map so I can confirm the recovery package is complete.</td><td class="op"><code>CREATE / LIST</code></td><td class="result">29 entities confirmed on map</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Read the plan, not just the pass rate</h2>
+        <p class="section-intro center">The numbers are internally consistent in a way a guessing system could not fake.</p>
+        <p class="lede" style="max-width:860px;margin:0 auto;text-align:center;">
+            <code>hlz_charlie</code> is the only one of three landing-zone candidates that sits outside the
+            MANPADS weapon-engagement zone (op 43), and it also has the flattest ground at 1.12&deg; (op 37).
+            The direct ingress route crosses the threat ring (op 54), so the least-cost path is longer at 10.99
+            km but masked. The overwatch position can see the survivor (op 69) but is not skylined to the
+            MANPADS site (op 71). This is a coherent, self-consistent recovery plan, computed from real
+            elevation data.
+        </p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Why it does not get things confidently wrong</h2>
+        <p class="section-intro center">A normal LLM agent loop would try to be the GIS engine &mdash; reason about coordinates, guess at operations, and emit an answer that sounds right. That is exactly where confident-wrong results come from. ForgeMind is built the opposite way.</p>
+        <div class="flow-steps">
+            <div class="flow-step"><div class="fs-name">Natural language</div><div class="fs-desc">&ldquo;Compute least cost path from ingress_ip to hlz_charlie&rdquo;</div></div>
+            <div class="flow-step is-llm"><div class="fs-name">LLM: intent extract</div><div class="fs-desc">Maps words to a typed intent. No execution.</div></div>
+            <div class="flow-step is-det"><div class="fs-name">Typed IR</div><div class="fs-desc">Operation + resolved anchors + parameters</div></div>
+            <div class="flow-step is-det"><div class="fs-name">Deterministic check + route</div><div class="fs-desc">Type-check, resolve refs, refuse if unsound</div></div>
+            <div class="flow-step is-det"><div class="fs-name">GPU execution</div><div class="fs-desc">ForgeGIS runs the validated operation</div></div>
+        </div>
+        <div class="compare-wrap">
+            <table class="compare">
+                <thead>
+                    <tr><th></th><th>Typical LLM agent loop</th><th class="col-mind">ForgeMind compiler</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th>What the LLM does</th><td>Plans and executes, reasons about geometry directly</td><td class="col-mind">Extracts intent into a typed IR, nothing more</td></tr>
+                    <tr><th>Where math happens</th><td>Inside the model's reasoning (unverifiable)</td><td class="col-mind">Deterministic engine &middot; GPU-accelerated ForgeGIS</td></tr>
+                    <tr><th>Failure mode</th><td>Plausible, confident, wrong</td><td class="col-mind">Explicit refusal. Never a fabricated number</td></tr>
+                    <tr><th>Cost / latency</th><td>Many model calls per task</td><td class="col-mind">One intent pass, then deterministic execution</td></tr>
+                    <tr><th>Auditability</th><td>Opaque chain of thought</td><td class="col-mind">Inspectable IR for every single turn</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">What this session proves we can do</h2>
+        <div class="proof-grid">
+            <div class="proof">
+                <h3>Sustained operational coherence</h3>
+                <p>102 dependent operations in one session with no context reset, no entity drift, and a 29-node dependency graph held intact end to end.</p>
+            </div>
+            <div class="proof">
+                <h3>Natural language as the interface</h3>
+                <p>A full CSAR scenario planned from plain-English requests. No GIS menus, no scripting, no coordinate wrangling beyond stating them once.</p>
+            </div>
+            <div class="proof">
+                <h3>Real geospatial depth</h3>
+                <p>27 distinct operations &mdash; elevation, slope, hillshade, contours, viewshed and line-of-sight, least-cost paths, buffers and corridors, unions, convex hull, centroid, reprojection to UTM &mdash; run on real SRTM terrain.</p>
+            </div>
+            <div class="proof">
+                <h3>Trustworthy by construction</h3>
+                <p>Zero failed and zero confident-wrong results across the entire run, because the model never executes. It only declares intent that deterministic machinery verifies.</p>
+            </div>
+            <div class="proof">
+                <h3>A defensible architecture</h3>
+                <p>The compiler design is cheaper, faster, and far more auditable than an agent loop &mdash; every operation leaves an inspectable typed record of exactly what was asked.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="closer">
+    <div class="container">
+        <h2>The short version</h2>
+        <p>
+            Given a generated search-and-rescue scenario, ForgeMind planned the entire recovery from plain-English
+            requests. It understood every step, remembered everything it built, executed real geospatial analysis
+            against real terrain, and at no point made something up &mdash; 102 consecutive operations, zero failures.
+        </p>
+        <div class="cta-group">
+            <a href="downloads/forgemind-showcase-marathon.pdf" class="btn btn-primary">Download the full showcase (PDF)</a>
+            <a href="/products/forgemind/" class="btn btn-outline">Back to ForgeMind</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/products/">Products</a>
+            <a href="/products/forgemind/">ForgeMind</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/forgedata/">ForgeData</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            ForgeMind&trade;, ForgeGIS&trade;, ForgeData&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            Elevation analysis shown was computed on SRTM 1-arc-second (SRTMGL1) data &mdash; Shuttle Radar Topography Mission, NASA / USGS, in the public domain.
+            Java and the Model Context Protocol are trademarks or registered trademarks of their respective owners.
+            Other product and company names referenced &mdash; including UH-60 Black Hawk &mdash; are the property of their respective owners.
+            S-MARATHON-22 is a generated test scenario, not a record of a real operation; reference to any mark does not imply endorsement.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) links.classList.remove('open');
+    });
+})();
+</script>
+</body>
+</html>
