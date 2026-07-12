@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seaglass Control Center — One Download That Installs, Configures, and Operates the Forge Suite</title>
+    <meta name="description" content="The Seaglass Control Center is the Forge suite installer — a single Windows installer that is also a living dashboard. One download lays down a private Java runtime and the full Forge suite, makes API-key setup trivial, runs the services, manages data, and lets an operator chat with the agent — all from one window, with no prerequisites on the target machine.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/control-center/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/control-center/">
+    <meta property="og:title" content="Seaglass Control Center — One Download That Installs, Configures, and Operates the Forge Suite">
+    <meta property="og:description" content="A single installer that is also a living dashboard: install the Forge suite, paste one API key, start the services, and ask the agent a question — one window, no prerequisites on the target machine.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Seaglass Control Center — The Forge Suite Installer">
+    <meta name="twitter:description" content="One download that installs, configures, and operates the Forge suite. 1 installer · 3 modes · 1 key.">
+    <meta name="keywords" content="Seaglass Control Center, Forge suite installer, geospatial AI suite install, one-click GIS suite, bundled JRE installer, MCP suite dashboard, air-gap evaluation">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Seaglass Control Center",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Windows (x64)",
+        "url": "https://seaglassfoundry.com/products/control-center/",
+        "description": "The Seaglass Control Center is the Forge suite installer — a single installer that is also a living dashboard. One download lays down a private Java runtime and the full Forge suite, makes API-key setup trivial, runs the services, manages data, and lets an operator chat with the agent, all from one window, with no prerequisites on the target machine. Installs and operates the Forge suite; not sold separately.",
+        "creator": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        }
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+            --code-bg: #1e293b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; }
+        p code, li code, td code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--navy); }
+
+        /* ── Nav ── */
+        nav { background: var(--navy); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+        nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+        nav .brand { color: var(--white); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Product subnav ── */
+        .subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .subnav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 44px; font-size: 0.88rem; }
+        .subnav .crumb { color: #8eaec6; }
+        .subnav .crumb a { color: #a8c4d8; }
+        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+        .subnav .sep { color: #5a6a7a; }
+        .subnav .flagship-tag { margin-left: auto; color: var(--amber); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* ── Hero ── */
+        .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: var(--white); padding: 80px 24px 90px; text-align: center; }
+        .hero .flagship-badge { display: inline-block; background: rgba(216, 151, 60, 0.15); color: var(--amber); border: 1px solid rgba(216, 151, 60, 0.4); padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+        .hero h1 span { color: var(--teal); }
+        .hero .tagline { font-size: 1.3rem; color: #a8c4d8; margin-bottom: 24px; font-weight: 400; }
+        .hero .categorical-claim { max-width: 720px; margin: 0 auto 36px; color: var(--white); font-size: 1.1rem; line-height: 1.65; font-weight: 500; }
+        .hero .categorical-claim em { color: var(--teal); font-style: normal; font-weight: 700; }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 13px 28px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.1s, border-color 0.2s; }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+
+        /* ── Stats strip ── */
+        .stats { background: var(--white); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .stats-grid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .stat { text-align: center; padding: 0 12px; }
+        .stat .number { font-size: 2.4rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+        .stat .number .accent { color: var(--teal); }
+        .stat .label { font-size: 0.95rem; color: var(--text-light); line-height: 1.5; }
+
+        /* ── Generic section ── */
+        section.block { padding: 70px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 { font-size: 1.9rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.02em; }
+        section.block .section-intro { color: var(--text-light); font-size: 1.02rem; margin-bottom: 32px; max-width: 760px; }
+        section.block h2.center, section.block .center { text-align: center; }
+        section.block .center.section-intro { margin-left: auto; margin-right: auto; }
+
+        /* ── 3-up content blocks ── */
+        .three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 8px; }
+        .three-up .item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px 26px; }
+        section.block.tinted .three-up .item { background: var(--white); }
+        .three-up h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.01em; }
+        .three-up p { color: var(--text); font-size: 0.95rem; line-height: 1.7; }
+
+        /* ── Feature grid ── */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 8px; }
+        .feature-card { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: 10px; padding: 24px 24px; }
+        section.block.tinted .feature-card { background: var(--white); }
+        .feature-card .feat-tag { font-size: 0.72rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .feature-card h3 { font-size: 1.08rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; }
+        .feature-card p { color: var(--text); font-size: 0.93rem; line-height: 1.65; }
+
+        /* ── Numbered workflow ── */
+        .steps-wrap { max-width: 820px; margin: 0 auto; }
+        ol.rank { list-style: none; counter-reset: rank; }
+        ol.rank li { counter-increment: rank; position: relative; padding: 18px 0 18px 56px; border-bottom: 1px solid var(--border); }
+        ol.rank li:last-child { border-bottom: none; }
+        ol.rank li::before { content: counter(rank); position: absolute; left: 0; top: 20px; width: 34px; height: 34px; background: var(--teal-light); color: var(--teal-dark); border-radius: 50%; font-weight: 800; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+        ol.rank li strong { color: var(--navy); display: block; font-size: 1.05rem; margin-bottom: 4px; }
+        ol.rank li .step-desc { color: var(--text); font-size: 0.95rem; line-height: 1.65; }
+
+        /* ── Tables ── */
+        .table-wrap { max-width: 940px; margin: 0 auto; overflow-x: auto; }
+        table.spec { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 0.93rem; }
+        table.spec th { background: var(--navy); color: var(--white); text-align: left; padding: 12px 18px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+        table.spec td { padding: 14px 18px; border-bottom: 1px solid var(--border); vertical-align: top; }
+        table.spec tr:last-child td { border-bottom: none; }
+        table.spec td:first-child { font-weight: 700; color: var(--navy); white-space: nowrap; }
+        table.spec .muted { color: var(--text-light); font-size: 0.86rem; }
+        .routing-note { max-width: 940px; margin: 22px auto 0; color: var(--text-light); font-size: 0.92rem; text-align: center; }
+
+        /* ── Downloads ── */
+        .downloads-grid { max-width: 720px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 22px; }
+        .download-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 26px 24px 22px; display: flex; flex-direction: column; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+        .download-card:hover { text-decoration: none; border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26, 58, 92, 0.06); }
+        .download-card .dl-type { font-size: 0.72rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .download-card h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 8px; letter-spacing: -0.01em; }
+        .download-card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; margin-bottom: 18px; flex: 1; }
+        .download-card .dl-cta { color: var(--teal-dark); font-weight: 600; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 6px; }
+        .download-card .dl-cta::after { content: "↓"; }
+
+        /* ── Licensing note ── */
+        .lic-note { max-width: 880px; margin: 36px auto 0; background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 6px; padding: 16px 22px; color: var(--text); font-size: 0.92rem; line-height: 1.6; }
+        .lic-note strong { color: var(--amber-dark); }
+
+        /* ── Contact strip ── */
+        .contact-strip { background: var(--white); padding: 60px 24px; text-align: center; border-top: 1px solid var(--border); }
+        .contact-strip h2 { font-size: 1.5rem; color: var(--navy); margin-bottom: 12px; }
+        .contact-strip p { color: var(--text-light); font-size: 1rem; margin-bottom: 20px; }
+
+        /* ── Footer ── */
+        footer { background: var(--navy-dark); color: #8eaec6; padding: 40px 24px; font-size: 0.9rem; }
+        footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks { width: 100%; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #7790a8; font-size: 0.8rem; line-height: 1.6; }
+        .footer-copy { width: 100%; text-align: center; margin-top: 12px; color: #8eaec6; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .three-up { grid-template-columns: 1fr; }
+            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+            .subnav .flagship-tag { margin-left: 0; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+        <div class="nav-links">
+            <a href="/products/">Products</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<div class="subnav">
+    <div class="subnav-inner">
+        <div class="crumb">
+            <a href="/products/">Products</a>
+            <span class="sep">/</span>
+            <span>Seaglass Control Center</span>
+        </div>
+        <span class="flagship-tag">The Suite Installer</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <div class="flagship-badge">New &middot; Forge Suite &middot; v1.2.2</div>
+        <h1>Seaglass <span>Control Center</span><sup class="tm">&trade;</sup></h1>
+        <p class="tagline">One download that installs, configures, and operates the Forge suite</p>
+        <p class="categorical-claim">
+            A single installer that is also a living dashboard. One download lays down a private Java runtime and
+            the full Forge suite, makes API-key setup trivial, runs the services, manages data, and lets an
+            operator chat with the agent &mdash; <em>all from one window, with no prerequisites on the target
+            machine</em>.
+        </p>
+        <div class="cta-group">
+            <a href="downloads/seaglass-control-center-datasheet.pdf" class="btn btn-primary">Download Datasheet</a>
+            <a href="mailto:rich@seaglassfoundry.com?subject=Forge%20suite%20evaluation" class="btn btn-outline">Request Evaluation Access</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat">
+            <div class="number">1<span class="accent"> installer</span></div>
+            <div class="label">A single NSIS package carrying a private JRE 17 and every suite JAR &mdash; no prerequisites on the host</div>
+        </div>
+        <div class="stat">
+            <div class="number">3<span class="accent"> modes</span></div>
+            <div class="label">Install &rarr; Configure &rarr; Operate, all in one window &mdash; light onboarding, dark dashboard</div>
+        </div>
+        <div class="stat">
+            <div class="number">1<span class="accent"> key</span></div>
+            <div class="label">Paste one API key, live-validated and vaulted; the suite is running moments later</div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">What it is, why it matters, how it's built differently</h2>
+        <p class="section-intro center">Three short answers for the technical evaluator.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>What it is</h3>
+                <p>
+                    The Seaglass Control Center is the Forge suite's installer and its operations console in one
+                    application. It is built for people who would rather evaluate a running system in minutes than
+                    assemble one over an afternoon.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Why it matters</h3>
+                <p>
+                    A suite of engines is only evaluable if it can be stood up. The Control Center removes every
+                    prerequisite: no JRE to install, no dependency hunt, no config files to hand-edit. Paste one API
+                    key and you are running &mdash; including on a machine that never touches the network, thanks to
+                    a bundled offline elevation dataset.
+                </p>
+            </div>
+            <div class="item">
+                <h3>How it's built differently</h3>
+                <p>
+                    The same window that installs the suite also runs it: service control, health, live logs, a data
+                    gallery, and agent chat. The UI shifts from a light &ldquo;front of house&rdquo; onboarding to a
+                    dark &ldquo;engine room&rdquo; dashboard once the suite goes live, so the mode you are in is
+                    always obvious.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">From download to first result</h2>
+        <p class="section-intro center">Four steps, one window.</p>
+        <div class="steps-wrap">
+            <ol class="rank">
+                <li>
+                    <strong>Run one installer</strong>
+                    <span class="step-desc">
+                        A single NSIS installer carrying a private Temurin JRE 17, the four suite JARs, the Studio
+                        bridge, and a sample DEM. No prerequisites on the machine.
+                    </span>
+                </li>
+                <li>
+                    <strong>Pass live preflight</strong>
+                    <span class="step-desc">
+                        Free-disk, RAM, GPU, port, and write-permission checks run <em>before</em> install; a port
+                        already in use can be changed inline, so a conflict never dead-ends the install.
+                    </span>
+                </li>
+                <li>
+                    <strong>Paste one key</strong>
+                    <span class="step-desc">
+                        A provider picker (Claude / OpenAI) with the key validated live against the provider's
+                        <code>/v1/models</code> endpoint, then stored in the Windows Credential Manager &mdash; never
+                        written to disk &mdash; and injected into child processes at launch.
+                    </span>
+                </li>
+                <li>
+                    <strong>Start the suite &amp; ask a question</strong>
+                    <span class="step-desc">
+                        One click launches ForgeMind, which spawns ForgeGIS and ForgeData as MCP children &mdash;
+                        health, uptime, live tool count, and a colored log tail appear at once. The streaming Ask tab
+                        shows tool-by-tool progress and the answer; a bundled offline DEM means elevation and slope
+                        work with no first-run network.
+                    </span>
+                </li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">The suite it manages</h2>
+        <p class="section-intro center">The Control Center runs ForgeMind &mdash; which spawns ForgeGIS and ForgeData as MCP children &mdash; and the opt-in Studio, giving each JVM a RAM-aware heap cap. Ports are configurable and persisted through every launch and health check, and a one-click data gallery fronts 13 ingesters (OpenTopography, Copernicus, STAC, PostGIS, and more).</p>
+        <div class="table-wrap">
+            <table class="spec">
+                <thead>
+                    <tr><th>Component</th><th>Role</th><th>Port</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ForgeMind</td>
+                        <td>Agent orchestrator (HTTP + MCP host); spawns the others</td>
+                        <td><code>8080</code> <span class="muted">loopback</span></td>
+                    </tr>
+                    <tr>
+                        <td>ForgeGIS</td>
+                        <td>GPU geospatial compute engine (MCP stdio child)</td>
+                        <td><span class="muted">stdio</span></td>
+                    </tr>
+                    <tr>
+                        <td>ForgeData</td>
+                        <td>Dataset catalog + ingesters (MCP stdio child)</td>
+                        <td><span class="muted">stdio</span></td>
+                    </tr>
+                    <tr>
+                        <td>ForgeGIS Studio <span class="muted">(opt-in)</span></td>
+                        <td>Web workspace for building and running pipelines</td>
+                        <td><code>8081</code> <span class="muted">loopback</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="routing-note">v1.2.0 was the first coordinated suite release &mdash; all suite applications and the installer unified at one version, with all three lifecycle modes shipping end to end.</p>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Security posture</h2>
+        <p class="section-intro center">Local-only by construction, with the groundwork for scaling named up front.</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feat-tag">Loopback + token-authed</div>
+                <h3>Never exposed to the LAN</h3>
+                <p>
+                    ForgeMind's HTTP API binds <code>127.0.0.1</code> and requires a per-install bearer token; the
+                    agent API is never exposed to the LAN.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Secrets never on disk</div>
+                <h3>Vaulted, not written</h3>
+                <p>
+                    LLM keys, data-source keys, and the bearer token all live in the Windows Credential Manager;
+                    the webview runs under a strict CSP.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Foundation to scale</div>
+                <h3>Groundwork, not promises</h3>
+                <p>
+                    A future multi-user tier &mdash; Studio behind a reverse proxy with TLS, auth, and tenancy
+                    &mdash; is a distinct shape. Env-driven ports and token auth are its groundwork, named honestly
+                    rather than shipped as a promise.
+                </p>
+            </div>
+        </div>
+        <p class="routing-note">
+            Run the whole suite on one evaluation host, disconnected if required, exercising install, configure,
+            and operate through a single window.
+        </p>
+    </div>
+</section>
+
+<section class="block" id="downloads">
+    <div class="container">
+        <h2 class="center">Downloads</h2>
+        <p class="section-intro center">Direct download &mdash; no email gate, no form wall.</p>
+        <div class="downloads-grid">
+            <a href="downloads/seaglass-control-center-datasheet.pdf" class="download-card">
+                <div class="dl-type">Technical Datasheet &middot; 2 pages</div>
+                <h3>Seaglass Control Center Datasheet</h3>
+                <p>
+                    The full lifecycle &mdash; install, configure, operate &mdash; plus the download-to-first-result
+                    workflow, the architecture of the suite it manages, and the security posture. The first-touch
+                    document for evaluators.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+        </div>
+        <div class="lic-note">
+            <strong>A note on licensing.</strong> The Seaglass Control Center installs and operates the Forge suite
+            and is not sold separately. The suite's license is not yet finalized; nothing here should be read as a
+            grant of rights. Evaluation builds are available to qualified teams on request.
+        </div>
+    </div>
+</section>
+
+<section class="contact-strip">
+    <div class="container">
+        <h2>Evaluate the Forge suite &mdash; see it install and run on one machine</h2>
+        <p>One download, one window, first result in minutes &mdash; on Windows x64, disconnected if required. We read every email.</p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=Seaglass%20Control%20Center%20inquiry" class="btn btn-primary">rich@seaglassfoundry.com</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/products/">Products</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/forgemind/">ForgeMind</a>
+            <a href="/products/forgedata/">ForgeData</a>
+            <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
+            <a href="downloads/seaglass-control-center-datasheet.pdf">Datasheet</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Control Center&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            Windows, the Windows Credential Manager, Temurin, Java, NSIS, Claude, OpenAI, the Model Context Protocol, OpenTopography, Copernicus, STAC, PostGIS, and other third-party products and marks referenced are the property of their respective owners.
+            Reference to these marks does not imply endorsement.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) links.classList.remove('open');
+    });
+})();
+</script>
+</body>
+</html>

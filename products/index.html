@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products — Seaglass Foundry</title>
-    <meta name="description" content="Products from Seaglass Foundry — the Forge suite: ForgeMind (the GIS Intent Compiler), ForgeGIS (GPU-accelerated geospatial compute and MCP server), and ForgeData (the data-intelligence layer). Plus SwingToPDF (vector PDF output from Java Swing), and Worldwind Reforged, our community modernization of NASA WorldWind under our Cannonforge banner.">
+    <meta name="description" content="Products from Seaglass Foundry — the Forge suite: ForgeGIS (GPU-accelerated geospatial compute and MCP server), ForgeMind (the GIS Intent Compiler), ForgeData (the data-intelligence layer), ForgeGIS Studio (the operator surface), and the Seaglass Control Center (the suite installer). Plus SwingToPDF (vector PDF output from Java Swing), and Worldwind Reforged, our community modernization of NASA WorldWind under our Cannonforge banner.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/">
     <meta property="og:title" content="Products — Seaglass Foundry">
-    <meta property="og:description" content="The Forge suite — ForgeMind, ForgeGIS, and ForgeData — plus SwingToPDF. And Worldwind Reforged, our community modernization of NASA WorldWind under the Cannonforge banner.">
+    <meta property="og:description" content="The Forge suite — ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, and the Seaglass Control Center — plus SwingToPDF. And Worldwind Reforged, our community modernization of NASA WorldWind under the Cannonforge banner.">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Products — Seaglass Foundry">
-    <meta name="twitter:description" content="The Forge suite — ForgeMind, ForgeGIS, ForgeData — plus SwingToPDF. And Worldwind Reforged, our community contribution to NASA WorldWind.">
+    <meta name="twitter:description" content="The Forge suite — ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, and the Seaglass Control Center — plus SwingToPDF. And Worldwind Reforged, our community contribution to NASA WorldWind.">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -304,65 +304,66 @@
 
 <section class="page-header">
     <h1>Our Products</h1>
-    <p>The Forge suite &mdash; ForgeMind, ForgeGIS, and ForgeData &mdash; plus SwingToPDF<sup class="tm">&trade;</sup>, and an open-source modernization of NASA WorldWind we maintain as a community contribution under our Cannonforge banner.</p>
+    <p>The Forge suite &mdash; ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, and the Seaglass Control Center &mdash; plus SwingToPDF<sup class="tm">&trade;</sup>, and an open-source modernization of NASA WorldWind we maintain as a community contribution under our Cannonforge banner.</p>
 </section>
 
 <section class="products-section">
     <div class="group-header">
         <span class="g-eyebrow">The Forge suite</span>
-        <h2>Natural-language intent, GPU compute, and data intelligence</h2>
-        <p>Three components built for each other &mdash; the geospatial stack for the agent era.</p>
+        <h2>Three engines, one operator surface, one download</h2>
+        <p>The geospatial stack for the agent era &mdash; now installed by the Seaglass Control Center and operated through ForgeGIS Studio.</p>
     </div>
     <div class="products-grid">
 
-        <a href="/products/forgemind/" class="product-card flagship">
-            <span class="card-badge badge-flagship">Forge Suite &middot; The GIS Intent Compiler</span>
+        <a href="/products/forgegis/" class="product-card flagship">
+            <span class="card-badge badge-flagship">Forge Suite &middot; Flagship &middot; Compute engine</span>
             <div class="card-body">
                 <div>
-                    <h2>Forge<span>Mind</span><sup class="tm">&trade;</sup></h2>
-                    <p class="tagline">Natural language to validated GPU geospatial pipelines &mdash; or an honest refusal</p>
+                    <h2>Forge<span>GIS</span><sup class="tm">&trade;</sup></h2>
+                    <p class="tagline">GPU-accelerated geospatial compute &amp; native MCP server &mdash; pure Java</p>
                     <p class="description">
-                        ForgeMind is the natural-language control plane for ForgeGIS. It compiles a spoken or typed
-                        request into a validated, executed pipeline on the GPU-accelerated engine, and refuses by
-                        construction when a request cannot be honored correctly &mdash; never a plausible-but-wrong
-                        product. Built on a proprietary GIS Intent Compiler that confines the model to intent and
-                        hands everything that must be correct to deterministic machinery. LLM-agnostic; native to
-                        the Model Context Protocol in both directions.
+                        239 user-facing operations across 11 geospatial categories, 237 callable by AI agents
+                        through a native Model Context Protocol server. Pure-Java Maven artifacts, no GDAL native
+                        bindings &mdash; and as of May 2026, the only commercially-supported GPU-accelerated
+                        geospatial MCP server we have been able to identify. Release 1.1 adds a non-linear DAG
+                        pipeline engine that imports QGIS models and runs branching raster/vector workflows
+                        GPU-resident.
                     </p>
                     <div class="meta">
-                        <strong>Java 17+</strong> &middot; License TBD &middot; New &middot; v1.0
+                        <strong>Java 17+</strong> &middot; License TBD &middot; v1.1
                     </div>
                     <span class="card-cta">Learn more</span>
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <div class="num">Zero</div>
-                        <div class="lbl">confident-wrong results across 6,696 turns</div>
+                        <div class="num">239<span class="accent">&nbsp;/&nbsp;11</span></div>
+                        <div class="lbl">operations across 11 geospatial categories</div>
                     </div>
                     <div class="stat-item">
-                        <div class="num">~25<span class="accent">&times;</span></div>
-                        <div class="lbl">lower LLM cost vs an agent loop</div>
+                        <div class="num">237<span class="accent">&nbsp;/&nbsp;239</span></div>
+                        <div class="lbl">agent-callable through native MCP</div>
                     </div>
                     <div class="stat-item">
-                        <div class="num">97</div>
-                        <div class="lbl">voice-routable capabilities exercised</div>
+                        <div class="num">9&times;&ndash;65&times;</div>
+                        <div class="lbl">multi-stage pipeline speedup vs GDAL CLI</div>
                     </div>
                 </div>
             </div>
         </a>
 
-        <a href="/products/forgegis/" class="product-card">
-            <span class="card-badge badge-dev">Forge Suite &middot; Compute engine</span>
-            <h2>Forge<span>GIS</span><sup class="tm">&trade;</sup></h2>
-            <p class="tagline">GPU-accelerated geospatial compute &amp; native MCP server &mdash; pure Java</p>
+        <a href="/products/forgemind/" class="product-card">
+            <span class="card-badge badge-dev">Forge Suite &middot; The GIS Intent Compiler</span>
+            <h2>Forge<span>Mind</span><sup class="tm">&trade;</sup></h2>
+            <p class="tagline">Natural language to validated GPU pipelines &mdash; or an honest refusal</p>
             <p class="description">
-                239 user-facing operations across 11 geospatial categories, 237 callable by AI agents through a
-                native Model Context Protocol server. Pure-Java Maven artifacts, no GDAL native bindings &mdash; the
-                GPU-resident engine ForgeMind is purpose-built to drive. 9&times;&ndash;65&times; multi-stage
-                pipeline speedups vs GDAL.
+                The natural-language control plane for ForgeGIS. It compiles a spoken or typed request into a
+                validated, executed pipeline on the GPU-accelerated engine, and refuses by construction when a
+                request cannot be honored correctly. Zero confident-wrong results across 79 conversations and
+                6,696 validated turns &mdash; at roughly 25&times; lower model cost than an agent loop.
+                LLM-agnostic; native to the Model Context Protocol in both directions.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; License TBD &middot; v1.1
+                <strong>Java 17+</strong> &middot; License TBD &middot; v1.0
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -378,6 +379,37 @@
             </p>
             <div class="meta">
                 <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v0.1
+            </div>
+            <span class="card-cta">Learn more</span>
+        </a>
+
+        <a href="/products/forgegis-studio/" class="product-card">
+            <span class="card-badge badge-dev">Forge Suite &middot; Operator surface &middot; New</span>
+            <h2>ForgeGIS <span>Studio</span><sup class="tm">&trade;</sup></h2>
+            <p class="tagline">Where you see the Forge suite work &mdash; and shape it to your mission</p>
+            <p class="description">
+                One browser workspace where data is loaded, raster/vector/mixed pipelines are composed on a node
+                canvas and run in batch, and a natural-language agent acts on a live map &mdash; the one the
+                operator is looking at, not a copy. Single host, loopback-bound, air-gap capable. Bundled with the
+                suite, not sold separately.
+            </p>
+            <div class="meta">
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; New &middot; v1.2.2
+            </div>
+            <span class="card-cta">Learn more</span>
+        </a>
+
+        <a href="/products/control-center/" class="product-card">
+            <span class="card-badge badge-dev">Forge Suite &middot; Installer &middot; New</span>
+            <h2>Seaglass <span>Control Center</span><sup class="tm">&trade;</sup></h2>
+            <p class="tagline">One download that installs, configures, and operates the Forge suite</p>
+            <p class="description">
+                A single installer that is also a living dashboard: a private Java runtime and the full suite laid
+                down with no prerequisites on the target machine, one live-validated API key, then service control,
+                health, live logs, a data gallery, and agent chat &mdash; all from one window.
+            </p>
+            <div class="meta">
+                <strong>Windows x64</strong> &middot; Not sold separately &middot; New &middot; v1.2.2
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -441,16 +473,18 @@
     <div class="footer-inner">
         <div class="footer-links">
             <a href="/products/">Products</a>
-            <a href="/products/forgemind/">ForgeMind</a>
             <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/forgemind/">ForgeMind</a>
             <a href="/products/forgedata/">ForgeData</a>
+            <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
+            <a href="/products/control-center/">Control Center</a>
             <a href="/products/swingtopdf/">SwingToPDF</a>
             <a href="/products/worldwind-reforged/">Worldwind Reforged</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
         <div class="footer-marks">
-            ForgeMind&trade;, ForgeGIS&trade;, ForgeData&trade;, SwingToPDF&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Control Center&trade;, SwingToPDF&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
             NASA WorldWind, GDAL, Apache PDFBox, GeoPackage, the Model Context Protocol, Java, and other third-party products and marks referenced are the property of their respective owners.
             Worldwind Reforged is an independent community modernization and is not affiliated with or endorsed by NASA.
         </div>

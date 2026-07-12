@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeGIS Studio — The Operator Surface for the Forge Suite</title>
+    <meta name="description" content="ForgeGIS Studio is the operator surface for the Forge suite: one browser workspace where data is loaded, GPU pipelines are composed and run, and a natural-language agent acts on a live map. Whole suite on a single host — loopback-bound, air-gap capable. Bundled with the Forge suite.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis-studio/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis-studio/">
+    <meta property="og:title" content="ForgeGIS Studio — The Operator Surface for the Forge Suite">
+    <meta property="og:description" content="One browser workspace where the Forge suite becomes visible: a live map, a pipeline canvas, a batch runner, and a natural-language agent that acts on the operator's own map. Single host, loopback-bound, air-gap capable.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ForgeGIS Studio — The Operator Surface for the Forge Suite">
+    <meta name="twitter:description" content="Where you see the Forge suite work — a live map, a pipeline canvas, and an agent that draws on the map you're looking at. Bundled with the Forge suite.">
+    <meta name="keywords" content="ForgeGIS Studio, Forge suite operator surface, GPU geospatial workbench, pipeline canvas, node editor GIS, batch raster processing, MCP agent map, air-gap GIS, single-host GIS">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "ForgeGIS Studio",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Cross-platform (JVM, browser-based UI)",
+        "url": "https://seaglassfoundry.com/products/forgegis-studio/",
+        "description": "ForgeGIS Studio is the operator surface for the Forge suite: a browser workspace backed by a local server where data is loaded through the ForgeData catalog, raster/vector/mixed GPU pipelines are composed on a node canvas and run in batch, and the ForgeMind natural-language agent acts on a live map through an authenticated bridge. Single-user, single-host by design — loopback-bound and air-gap capable. Bundled with the Forge suite; not sold separately.",
+        "programmingLanguage": "Java",
+        "creator": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        }
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+            --code-bg: #1e293b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; }
+        p code, li code, td code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--navy); }
+
+        /* ── Nav ── */
+        nav { background: var(--navy); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+        nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+        nav .brand { color: var(--white); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Product subnav ── */
+        .subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .subnav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 44px; font-size: 0.88rem; }
+        .subnav .crumb { color: #8eaec6; }
+        .subnav .crumb a { color: #a8c4d8; }
+        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+        .subnav .sep { color: #5a6a7a; }
+        .subnav .flagship-tag { margin-left: auto; color: var(--amber); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* ── Hero ── */
+        .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: var(--white); padding: 80px 24px 90px; text-align: center; }
+        .hero .flagship-badge { display: inline-block; background: rgba(216, 151, 60, 0.15); color: var(--amber); border: 1px solid rgba(216, 151, 60, 0.4); padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+        .hero h1 span { color: var(--teal); }
+        .hero .tagline { font-size: 1.3rem; color: #a8c4d8; margin-bottom: 24px; font-weight: 400; }
+        .hero .categorical-claim { max-width: 720px; margin: 0 auto 36px; color: var(--white); font-size: 1.1rem; line-height: 1.65; font-weight: 500; }
+        .hero .categorical-claim em { color: var(--teal); font-style: normal; font-weight: 700; }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 13px 28px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.1s, border-color 0.2s; }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+
+        /* ── Stats strip ── */
+        .stats { background: var(--white); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .stats-grid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .stat { text-align: center; padding: 0 12px; }
+        .stat .number { font-size: 2.4rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+        .stat .number .accent { color: var(--teal); }
+        .stat .label { font-size: 0.95rem; color: var(--text-light); line-height: 1.5; }
+
+        /* ── Generic section ── */
+        section.block { padding: 70px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 { font-size: 1.9rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.02em; }
+        section.block .section-intro { color: var(--text-light); font-size: 1.02rem; margin-bottom: 32px; max-width: 760px; }
+        section.block h2.center, section.block .center { text-align: center; }
+        section.block .center.section-intro { margin-left: auto; margin-right: auto; }
+
+        /* ── Screenshots ── */
+        figure.shot { max-width: 1000px; margin: 0 auto; }
+        figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 30px rgba(15, 38, 64, 0.12); }
+        figure.shot figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .shot-band { background: var(--grey-bg); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .split { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+        .split figure.shot { margin: 0; }
+        .split .split-text h3 { font-size: 1.1rem; color: var(--navy); margin: 18px 0 8px; }
+        .split .split-text h3:first-child { margin-top: 0; }
+        .split .split-text p { font-size: 0.95rem; line-height: 1.7; }
+        .split.narrow-img { grid-template-columns: 1.6fr 1fr; }
+        .split.narrow-img figure.shot { max-width: 360px; justify-self: center; }
+
+        /* ── 3-up content blocks ── */
+        .three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 8px; }
+        .three-up .item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px 26px; }
+        section.block.tinted .three-up .item { background: var(--white); }
+        .three-up h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.01em; }
+        .three-up p { color: var(--text); font-size: 0.95rem; line-height: 1.7; }
+
+        /* ── Feature grid ── */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 8px; }
+        .feature-card { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: 10px; padding: 24px 24px; }
+        section.block.tinted .feature-card { background: var(--white); }
+        .feature-card .feat-tag { font-size: 0.72rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .feature-card h3 { font-size: 1.08rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; }
+        .feature-card p { color: var(--text); font-size: 0.93rem; line-height: 1.65; }
+
+        /* ── Suite-fit grid ── */
+        .suite-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 1000px; margin: 0 auto; }
+        .suite-item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 22px 20px; text-align: center; }
+        .suite-item.is-self { border-top: 3px solid var(--teal); }
+        .suite-item .s-name { font-size: 1.05rem; font-weight: 800; color: var(--navy); letter-spacing: -0.01em; }
+        .suite-item .s-name .x { color: var(--teal); }
+        .suite-item .s-role { font-size: 0.82rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.06em; margin: 6px 0 10px; }
+        .suite-item .s-desc { font-size: 0.88rem; color: var(--text); line-height: 1.55; }
+        .routing-note { max-width: 940px; margin: 22px auto 0; color: var(--text-light); font-size: 0.92rem; text-align: center; }
+
+        /* ── Downloads ── */
+        .downloads-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+        .download-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 26px 24px 22px; display: flex; flex-direction: column; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+        .download-card:hover { text-decoration: none; border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26, 58, 92, 0.06); }
+        .download-card .dl-type { font-size: 0.72rem; font-weight: 700; color: var(--teal-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .download-card .dl-type.tech { color: var(--navy); }
+        .download-card h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 8px; letter-spacing: -0.01em; }
+        .download-card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; margin-bottom: 18px; flex: 1; }
+        .download-card .dl-cta { color: var(--teal-dark); font-weight: 600; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 6px; }
+        .download-card .dl-cta::after { content: "↓"; }
+
+        /* ── Licensing note ── */
+        .lic-note { max-width: 880px; margin: 36px auto 0; background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 6px; padding: 16px 22px; color: var(--text); font-size: 0.92rem; line-height: 1.6; }
+        .lic-note strong { color: var(--amber-dark); }
+
+        /* ── Contact strip ── */
+        .contact-strip { background: var(--white); padding: 60px 24px; text-align: center; border-top: 1px solid var(--border); }
+        .contact-strip h2 { font-size: 1.5rem; color: var(--navy); margin-bottom: 12px; }
+        .contact-strip p { color: var(--text-light); font-size: 1rem; margin-bottom: 20px; }
+
+        /* ── Footer ── */
+        footer { background: var(--navy-dark); color: #8eaec6; padding: 40px 24px; font-size: 0.9rem; }
+        footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks { width: 100%; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #7790a8; font-size: 0.8rem; line-height: 1.6; }
+        .footer-copy { width: 100%; text-align: center; margin-top: 12px; color: #8eaec6; }
+
+        @media (max-width: 900px) {
+            .suite-grid { grid-template-columns: repeat(2, 1fr); }
+            .split, .split.narrow-img { grid-template-columns: 1fr; }
+            .split.narrow-img figure.shot { justify-self: start; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .three-up { grid-template-columns: 1fr; }
+            .suite-grid { grid-template-columns: 1fr; }
+            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+            .subnav .flagship-tag { margin-left: 0; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+        <div class="nav-links">
+            <a href="/products/">Products</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<div class="subnav">
+    <div class="subnav-inner">
+        <div class="crumb">
+            <a href="/products/">Products</a>
+            <span class="sep">/</span>
+            <span>ForgeGIS Studio</span>
+        </div>
+        <span class="flagship-tag">Operator Surface</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <div class="flagship-badge">New &middot; Forge Suite &middot; v1.2.2</div>
+        <h1>ForgeGIS <span>Studio</span><sup class="tm">&trade;</sup></h1>
+        <p class="tagline">Where you see the Forge suite work &mdash; and shape it to your mission</p>
+        <p class="categorical-claim">
+            ForgeGIS computes, ForgeData catalogs, and ForgeMind reasons &mdash; but each speaks only libraries
+            and machine protocols. Studio is the operator surface that unifies them: <em>one browser
+            workspace</em> where data is loaded, pipelines are composed and run, and a natural-language agent
+            acts on a live map.
+        </p>
+        <div class="cta-group">
+            <a href="downloads/forgegis-studio-technical-brief.pdf" class="btn btn-primary">Download Technical Brief</a>
+            <a href="#downloads" class="btn btn-outline">All Downloads</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat">
+            <div class="number">1<span class="accent"> host</span></div>
+            <div class="label">Whole suite runs on a single workstation &mdash; loopback-bound, air-gap capable</div>
+        </div>
+        <div class="stat">
+            <div class="number">3<span class="accent"> engines</span></div>
+            <div class="label">GPU compute, spatial catalog, and a natural-language agent behind one surface</div>
+        </div>
+        <div class="stat">
+            <div class="number">R <span class="accent">&middot;</span> V <span class="accent">&middot;</span> M</div>
+            <div class="label">Raster, vector &amp; mixed pipelines &mdash; non-linear DAGs authored and run in batch</div>
+        </div>
+    </div>
+</section>
+
+<div class="shot-band">
+    <figure class="shot">
+        <img src="img/01-overview.webp" alt="The ForgeGIS Studio workspace: catalog rail, live map with a computed least-cost path, measure and analysis panel, pipeline thumbnails, and a status bar reporting GPU device, VRAM, and heap" width="1600" height="1000" loading="eager">
+        <figcaption>
+            The Studio workspace: a least-cost path computed on a GPU-resident Arizona elevation dataset and drawn
+            between two points on the live map. The catalog rail (left) browses ForgeData; the measure and analysis
+            panel (right) drives ForgeGIS operations; the status bar reports the GPU device, VRAM, heap, and live handles.
+        </figcaption>
+    </figure>
+</div>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">What it is, why it exists, how it's built differently</h2>
+        <p class="section-intro center">Three short answers for the technical evaluator.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>What it is</h3>
+                <p>
+                    Studio is the browser workspace that puts a live map, a pipeline canvas, and a conversational
+                    agent in front of a person, so the suite's capabilities can be seen, run, and evaluated through
+                    one interface. It is a demonstration and operator surface &mdash; not a general-purpose GIS
+                    desktop, and it does not try to be one.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Why it exists</h3>
+                <p>
+                    The engines are deliberately headless &mdash; libraries and MCP servers with no UI. That keeps
+                    each engine focused and independently deployable, but it means a person needs somewhere to
+                    stand. Studio is that place: the one component whose job is to make the suite usable and
+                    visible, so the engines never have to grow a UI each.
+                </p>
+            </div>
+            <div class="item">
+                <h3>How it's built differently</h3>
+                <p>
+                    Studio is thin over stable engines on purpose. Operations flow through from the ForgeGIS
+                    catalog and render as nodes automatically; workflows are saved artifacts, not code; the agent's
+                    on-map actions extend through a clean bridge. Tailoring the surface to your program is
+                    composing known pieces &mdash; not building a platform.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Compose pipelines by hand</h2>
+        <p class="section-intro center">A node editor where ForgeGIS operations become nodes. Raster, vector, and mixed raster-to-vector graphs &mdash; with branches and joins &mdash; are authored on the canvas, run, saved to a library, and replayed. Topology, not a single linear chain.</p>
+        <div class="split">
+            <figure class="shot">
+                <img src="img/03-pipeline-graph.webp" alt="ForgeGIS Studio pipeline canvas showing a non-linear node graph of geospatial operations" width="1600" height="1000" loading="lazy">
+                <figcaption>A non-linear graph on the canvas &mdash; branches, merges, and cross-type steps, saved as one versioned, replayable artifact.</figcaption>
+            </figure>
+            <div class="split-text">
+                <h3>Type-valid by construction</h3>
+                <p>
+                    The palette gates operations by the selected node's kind &mdash; vector operations off a vector
+                    node, a raster-to-vector operation off a raster node &mdash; so the graph the operator builds is
+                    always type-valid. A <code>Polygonize &rarr; Buffer</code> chain that crosses from raster into
+                    vector is expressed directly.
+                </p>
+                <h3>A format that carries topology</h3>
+                <p>
+                    Pipelines serialize to a versioned format that records the pipeline type, each operation's kind,
+                    its inputs, and its dependencies. One pipeline representation serves interactive and batch
+                    execution &mdash; not two.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Run one, then run hundreds</h2>
+        <p class="section-intro center">The batch runner executes the same saved pipelines across a folder of inputs &mdash; so a graph proven on one file scales to production without a memory surprise.</p>
+        <div class="split">
+            <figure class="shot">
+                <img src="img/12-batch.webp" alt="ForgeGIS Studio batch runner executing a saved pipeline across many input files with live progress" width="1600" height="1000" loading="lazy">
+                <figcaption>The batch runner: saved pipelines over many inputs, with per-tile resource pre-flight and a CSV run report.</figcaption>
+            </figure>
+            <div class="split-text">
+                <h3>Resource pre-flight, not trial and error</h3>
+                <p>
+                    Before committing a batch, Studio estimates each tile's peak VRAM through the shared
+                    resource-estimation contract exposed by ForgeGIS, and gates the run against the available budget
+                    rather than discovering the ceiling by crashing. Interactive applies use the same estimator
+                    &mdash; one memory ceiling across both.
+                </p>
+                <h3>Built to run unattended</h3>
+                <p>
+                    A priority queue, progress events per operation, out-of-bounds inputs skipped rather than failing
+                    the whole batch, and a CSV report with estimated and actual VRAM per tile so a run can be audited
+                    after the fact.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Let the agent drive the map</h2>
+        <p class="section-intro center">The most distinctive thing Studio does: a natural-language agent acts on the operator's own map &mdash; not a copy.</p>
+        <div class="split narrow-img">
+            <div class="split-text">
+                <h3>Two paths, one deliberately more capable</h3>
+                <p>
+                    Over the plain chat rail, ForgeMind answers in text and runs read-only operations. To
+                    <em>act</em> on the canvas &mdash; place markers, draw overlays, push reports &mdash; the agent
+                    connects through the <code>studio-mcp</code> bridge, an authenticated channel that exposes
+                    Studio's map as MCP tools. Reading the map is lightweight and always available; driving the map
+                    requires the bridge and its credential.
+                </p>
+                <h3>Work that persists</h3>
+                <p>
+                    Named artifacts the agent places on the map are recorded as durable scene entities in the
+                    ForgeData catalog &mdash; the source of truth, not session scratch. Restart the suite and the
+                    agent's cached handles still resolve. Work is not lost when the process cycles.
+                </p>
+            </div>
+            <figure class="shot">
+                <img src="img/17-forgemind-chat.webp" alt="The ForgeMind chat rail inside ForgeGIS Studio, showing a conversation that reads and acts on the live map" width="724" height="1786" loading="lazy">
+                <figcaption>The ForgeMind chat rail &mdash; conversation on the left of the operator's map, actions through the authenticated bridge.</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Data through one catalog</h2>
+        <p class="section-intro center">Studio reads through ForgeData rather than owning file I/O &mdash; one catalog and one extraction strategy across the suite.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>Catalog-backed loads</h3>
+                <p>
+                    An operator browses ForgeData's registered datasets and loads one into the session. Studio does
+                    not reimplement the catalog's knowledge of where data lives or how to reach remote tiers &mdash;
+                    it routes through it.
+                </p>
+            </div>
+            <div class="item">
+                <h3>AOI-windowed reads</h3>
+                <p>
+                    Supply an area of interest and Studio asks ForgeData for just that window rather than the full
+                    source tile &mdash; a canyon's worth of pixels, not a continental raster. The windowed extract is
+                    sized to fit under Studio's raster cap before it ever reaches the GPU.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Presence verification</h3>
+                <p>
+                    A catalog can register more than is actually on disk. Studio consumes ForgeData's
+                    presence-verification signal so a registered-but-missing dataset is caught at pick time with a
+                    clear message &mdash; not at read time with an opaque file-not-found.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Security posture</h2>
+        <p class="section-intro center">Single-user, single-host is a security decision, not a limitation &mdash; and it is enforced, not assumed.</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feat-tag">Loopback by default</div>
+                <h3>The server binds to 127.0.0.1</h3>
+                <p>
+                    Other hosts on the network cannot reach it. Rebind outward and Studio warns on every boot until
+                    hosted-deployment prerequisites &mdash; auth, CSRF, rate limiting, TLS, audit &mdash; are in
+                    place. The warning is deliberate.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Mediated paths</div>
+                <h3>A sandbox on every path route</h3>
+                <p>
+                    Every route accepting a caller-controlled path runs it through a sandbox. Uploads are confined
+                    and extension-checked; user-added roots are canonicalized and rejected if they reach sensitive
+                    locations; agent tool calls run operator-only.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Bounded resources</div>
+                <h3>The worst case is capped</h3>
+                <p>
+                    Upload, pixel, and dimension caps plus a pre-dispatch VRAM gate, a bounded op-executor pool that
+                    refuses rather than thrashes, and per-operation timeouts bound the worst case a single
+                    workstation must absorb.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">A separate door</div>
+                <h3>The agent has its own credential</h3>
+                <p>
+                    The browser session is safe only under loopback. The agent reaches the map through a distinct,
+                    token-validated bridge with an agent-key exchange &mdash; the stronger credential guards the
+                    ability to act on the map.
+                </p>
+            </div>
+        </div>
+        <p class="routing-note">
+            On an unclassified on-premises network, the whole suite runs on one host, reachable only from that
+            host's own browser, with no external calls required for the core workflow &mdash; including on a
+            disconnected network.
+        </p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Built to be customized, fast</h2>
+        <p class="section-intro center">The compute, the catalog, and the natural-language control plane are the hard, stable parts of the suite. Studio is the layer that decides what a particular customer sees and touches &mdash; and re-cutting that layer does not disturb anything underneath.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>Capabilities flow through</h3>
+                <p>
+                    Operations are not enumerated by hand in Studio; they arrive from the ForgeGIS catalog, stamped
+                    with kind and input ports, and render as nodes automatically. When the engine gains an
+                    operation, it appears in Studio without a Studio code change.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Workflows are data, not code</h3>
+                <p>
+                    A workflow tuned for a customer is a saved artifact that ships with a deployment and replays
+                    faithfully, on the canvas or in the batch runner. Curating a library of mission-specific
+                    pipelines is a configuration task, not an engineering one.
+                </p>
+            </div>
+            <div class="item">
+                <h3>The agent surface composes too</h3>
+                <p>
+                    The <code>studio-mcp</code> bridge exposes Studio's map to ForgeMind as MCP tools. Extending
+                    what the agent can do on the canvas &mdash; a new overlay, a customer-specific report &mdash; is
+                    adding a tool to that bridge, cleanly separated from both engine and browser UI.
+                </p>
+            </div>
+        </div>
+        <p class="routing-note">
+            A customer engagement typically does not begin with &ldquo;build a GIS application.&rdquo; It begins
+            with a working suite and a working Studio, and the work is shaping the surface &mdash; views, palette,
+            curated workflows, agent actions &mdash; to the customer's task. Seaglass Foundry turns that
+            customization around directly.
+        </p>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Where Studio sits in the suite</h2>
+        <p class="section-intro center">Studio is the operator surface of the Forge suite and is not sold separately. Its value is realized with the engines behind it.</p>
+        <div class="suite-grid">
+            <div class="suite-item">
+                <div class="s-name">Forge<span class="x">GIS</span></div>
+                <div class="s-role">Computes</div>
+                <div class="s-desc">GPU-accelerated geospatial compute engine &mdash; raster, terrain, spectral, point clouds.</div>
+            </div>
+            <div class="suite-item">
+                <div class="s-name">Forge<span class="x">Mind</span></div>
+                <div class="s-role">Reasons</div>
+                <div class="s-desc">The GIS Intent Compiler &mdash; natural-language orchestration across tools.</div>
+            </div>
+            <div class="suite-item">
+                <div class="s-name">Forge<span class="x">Data</span></div>
+                <div class="s-role">Decides the data</div>
+                <div class="s-desc">Catalog, cost routing, sync, derived-product memory, window extraction.</div>
+            </div>
+            <div class="suite-item is-self">
+                <div class="s-name">ForgeGIS <span class="x">Studio</span></div>
+                <div class="s-role">The operator surface</div>
+                <div class="s-desc">One workspace &mdash; live map, pipeline canvas, batch runner, and agent chat over the same session.</div>
+            </div>
+        </div>
+        <p class="routing-note">
+            One session, many surfaces: the browser, the batch runner, and the agent bridge all act within the same
+            session, over the same handles. The agent draws on the map the operator is looking at &mdash; not a
+            copy. The suite behaves as one system because Studio makes it one workspace.
+        </p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Single-host today, built to scale outward</h2>
+        <p class="section-intro center">The single-host model is the first configuration, not the only intended one. Three configurations describe the vision &mdash; a stated direction, not shipping features, with the hard work named honestly.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>One GPU, multiple clients</h3>
+                <p>
+                    A single accelerator-equipped host serving several operators. The hard problems: fair scheduling
+                    of a shared VRAM budget across concurrent sessions, isolation between operators, and real
+                    multi-user authentication.
+                </p>
+            </div>
+            <div class="item">
+                <h3>One client, multiple GPUs</h3>
+                <p>
+                    A single operator's heavy pipeline spread across several accelerators &mdash; for the
+                    large-area, high-resolution work where one GPU's memory is the limit. The hard problems:
+                    partitioning a pipeline across devices and reconciling resource estimation with a multi-device
+                    budget.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Multiple clients, multiple GPUs</h3>
+                <p>
+                    The general case: a pool of operators drawing on a pool of accelerators. Composes the first two
+                    and adds placement and scheduling across a device pool, plus the full hosted-deployment security
+                    posture Studio's design already names as prerequisites.
+                </p>
+            </div>
+        </div>
+        <p class="routing-note">
+            What makes the progression credible is the architecture Studio already has: a thin surface over engines
+            that own their own resource accounting, and a security model explicit about exactly what must be added
+            before the port leaves the loopback. The foundation was built to be grown from.
+        </p>
+    </div>
+</section>
+
+<section class="block tinted" id="downloads">
+    <div class="container">
+        <h2 class="center">Downloads</h2>
+        <p class="section-intro center">All ForgeGIS Studio collateral. Direct download &mdash; no email gate, no form wall.</p>
+        <div class="downloads-grid">
+            <a href="downloads/forgegis-studio-technical-brief.pdf" class="download-card">
+                <div class="dl-type tech">Technical Brief &middot; 18 pages</div>
+                <h3>ForgeGIS Studio Technical Brief</h3>
+                <p>
+                    What Studio demonstrates, how it is built, how quickly it can be tailored to a customer's
+                    workflow, and the security posture that makes its surface safe for on-premises and air-gapped
+                    environments.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgegis-studio-suite-onepager.pdf" class="download-card">
+                <div class="dl-type">Suite One-Pager &middot; 2 pages</div>
+                <h3>For Suite Evaluators</h3>
+                <p>
+                    Leads on Studio as the human-visible layer that makes the Forge suite one product, not three
+                    &mdash; one session across surfaces, one catalog, and work that persists.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgegis-studio-sales-onepager.pdf" class="download-card">
+                <div class="dl-type">Sales One-Pager &middot; 2 pages</div>
+                <h3>General Sales One-Pager</h3>
+                <p>
+                    Front/back overview: the pipeline canvas, the batch runner, the agent on the map, and the
+                    single-host security posture &mdash; positioning and proof points at a glance.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/forgegis-studio-defense-onepager.pdf" class="download-card">
+                <div class="dl-type">Defense One-Pager &middot; 2 pages</div>
+                <h3>Defense &amp; Intelligence Variant</h3>
+                <p>
+                    For defense and civil-works programs: one host, on-premises, air-gap capable &mdash; loopback by
+                    default, a mediated path perimeter, and a separate authenticated door for the agent.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+        </div>
+        <div class="lic-note">
+            <strong>A note on licensing.</strong> ForgeGIS Studio is the operator surface of the Forge suite and is
+            not sold separately. Its license is not yet finalized; nothing here should be read as a grant of rights.
+            Contact the maintainer about evaluation access.
+        </div>
+    </div>
+</section>
+
+<section class="contact-strip">
+    <div class="container">
+        <h2>Evaluate the Forge suite &mdash; see it work on one machine</h2>
+        <p>Run the whole suite on one evaluation host, disconnected if required, and exercise every part of it &mdash; compute, catalog, and agent &mdash; through one interface.</p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20Studio%20inquiry" class="btn btn-primary">rich@seaglassfoundry.com</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/products/">Products</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/forgemind/">ForgeMind</a>
+            <a href="/products/forgedata/">ForgeData</a>
+            <a href="/products/control-center/">Control Center</a>
+            <a href="downloads/forgegis-studio-technical-brief.pdf">Technical Brief</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Control Center&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            Model Context Protocol, Java, React, MapLibre, ReactFlow, Javalin, Jetty, GeoPackage, GeoJSON, and other third-party products and marks referenced are the property of their respective owners.
+            Reference to these marks does not imply endorsement.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) links.classList.remove('open');
+    });
+})();
+</script>
+</body>
+</html>
