@@ -135,6 +135,9 @@
         dialog.lightbox { border: none; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; }
         dialog.lightbox::backdrop { background: rgba(15, 38, 64, 0.88); }
         dialog.lightbox img { display: block; max-width: 94vw; max-height: 94vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); cursor: zoom-out; }
+        dialog.lightbox .lightbox-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(15, 38, 64, 0.65); color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+        dialog.lightbox .lightbox-close:hover, dialog.lightbox .lightbox-close:focus-visible { background: rgba(15, 38, 64, 0.95); }
+        html:has(dialog.lightbox[open]) { overflow: hidden; }
         figure.shot figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
         .shot-band { background: var(--grey-bg); padding: 56px 24px; border-bottom: 1px solid var(--border); }
         .split { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
@@ -223,8 +226,8 @@
 <nav>
     <div class="nav-inner">
         <a href="/" class="brand">Seaglass <span>Foundry</span></a>
-        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
-        <div class="nav-links">
+        <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
             <a href="/products/">Products</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
@@ -248,7 +251,8 @@
         <h1>ForgeGIS <span>Studio</span><sup class="tm">&trade;</sup></h1>
         <p class="tagline">Where you see the Forge suite work &mdash; and shape it to your mission</p>
         <p class="categorical-claim">
-            ForgeGIS computes, ForgeData catalogs, and ForgeMind reasons &mdash; but each speaks only libraries
+            ForgeGIS<sup class="tm">&trade;</sup> computes, ForgeData<sup class="tm">&trade;</sup> catalogs, and
+            ForgeMind<sup class="tm">&trade;</sup> reasons &mdash; but each speaks only libraries
             and machine protocols. Studio is the operator surface that unifies them: <em>one browser
             workspace</em> where data is loaded, pipelines are composed and run, and a natural-language agent
             acts on a live map.
@@ -525,7 +529,7 @@
         <p class="routing-note">
             A customer engagement typically does not begin with &ldquo;build a GIS application.&rdquo; It begins
             with a working suite and a working Studio, and the work is shaping the surface &mdash; views, palette,
-            curated workflows, agent actions &mdash; to the customer's task. Seaglass Foundry turns that
+            curated workflows, agent actions &mdash; to the customer's task. Seaglass Foundry<sup class="tm">&trade;</sup> turns that
             customization around directly.
         </p>
     </div>
@@ -685,17 +689,23 @@
 </footer>
 
 <dialog class="lightbox" id="shot-lightbox" aria-label="Screenshot preview">
+    <button class="lightbox-close" type="button" aria-label="Close preview">&times;</button>
     <img alt="">
 </dialog>
 
 <script>
 (function() {
     var links = document.querySelector('.nav-links');
+    var burger = document.querySelector('.hamburger');
+    function closeNav() {
+        links.classList.remove('open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+    }
     links.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function() { links.classList.remove('open'); });
+        a.addEventListener('click', closeNav);
     });
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('nav')) links.classList.remove('open');
+        if (!e.target.closest('nav')) closeNav();
     });
 })();
 (function() {

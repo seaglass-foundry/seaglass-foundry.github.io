@@ -107,6 +107,9 @@
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 28px;
         }
+        @media (min-width: 769px) {
+            .products-grid.suite { grid-template-columns: repeat(2, 1fr); }
+        }
         .product-card {
             background: var(--white);
             border: 1px solid var(--border);
@@ -313,7 +316,7 @@
         <h2>Three engines, one operator surface, one download</h2>
         <p>The geospatial stack for the agent era &mdash; now installed by the Seaglass Control Center and operated through ForgeGIS Studio.</p>
     </div>
-    <div class="products-grid">
+    <div class="products-grid suite">
 
         <a href="/products/forgegis/" class="product-card flagship">
             <span class="card-badge badge-flagship">Forge Suite &middot; Flagship &middot; Compute engine</span>

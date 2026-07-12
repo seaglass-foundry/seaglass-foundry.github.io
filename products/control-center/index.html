@@ -126,6 +126,9 @@
         dialog.lightbox { border: none; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; }
         dialog.lightbox::backdrop { background: rgba(15, 38, 64, 0.88); }
         dialog.lightbox img { display: block; max-width: 94vw; max-height: 94vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); cursor: zoom-out; }
+        dialog.lightbox .lightbox-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(15, 38, 64, 0.65); color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+        dialog.lightbox .lightbox-close:hover, dialog.lightbox .lightbox-close:focus-visible { background: rgba(15, 38, 64, 0.95); }
+        html:has(dialog.lightbox[open]) { overflow: hidden; }
         figure.shot figcaption { margin-top: 12px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
         .shot-band { background: var(--grey-bg); padding: 56px 24px; border-bottom: 1px solid var(--border); }
         .shot-pair { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
@@ -222,8 +225,8 @@
 <nav>
     <div class="nav-inner">
         <a href="/" class="brand">Seaglass <span>Foundry</span></a>
-        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
-        <div class="nav-links">
+        <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
             <a href="/products/">Products</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
@@ -359,7 +362,7 @@
                 <li>
                     <strong>Start the suite &amp; ask a question</strong>
                     <span class="step-desc">
-                        One click launches ForgeMind, which spawns ForgeGIS and ForgeData as MCP children &mdash;
+                        One click launches ForgeMind<sup class="tm">&trade;</sup>, which spawns ForgeGIS<sup class="tm">&trade;</sup> and ForgeData<sup class="tm">&trade;</sup> as MCP children &mdash;
                         health, uptime, live tool count, and a colored log tail appear at once. The streaming Ask tab
                         shows tool-by-tool progress and the answer; a bundled offline DEM means elevation and slope
                         work with no first-run network.
@@ -417,7 +420,7 @@
                 </tbody>
             </table>
         </div>
-        <p class="routing-note">v1.2.0 was the first coordinated suite release &mdash; all suite applications and the installer unified at one version, with all three lifecycle modes shipping end to end.</p>
+        <p class="routing-note">v1.2.0 was the first coordinated suite release, with all three lifecycle modes shipping end to end.</p>
         <div class="shot-row" style="grid-template-columns: 1fr; max-width: 940px;">
             <figure class="shot">
                 <a href="img/cc-06-data-gallery.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-06-data-gallery.webp" alt="The Data tab: active catalog summary and a data source gallery of elevation, vector, and imagery ingesters" width="1387" height="981" loading="lazy"></a>
@@ -519,17 +522,23 @@
 </footer>
 
 <dialog class="lightbox" id="shot-lightbox" aria-label="Screenshot preview">
+    <button class="lightbox-close" type="button" aria-label="Close preview">&times;</button>
     <img alt="">
 </dialog>
 
 <script>
 (function() {
     var links = document.querySelector('.nav-links');
+    var burger = document.querySelector('.hamburger');
+    function closeNav() {
+        links.classList.remove('open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+    }
     links.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function() { links.classList.remove('open'); });
+        a.addEventListener('click', closeNav);
     });
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('nav')) links.classList.remove('open');
+        if (!e.target.closest('nav')) closeNav();
     });
 })();
 (function() {
