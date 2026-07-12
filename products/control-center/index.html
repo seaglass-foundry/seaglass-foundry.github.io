@@ -119,6 +119,15 @@
         .stat .number .accent { color: var(--teal); }
         .stat .label { font-size: 0.95rem; color: var(--text-light); line-height: 1.5; }
 
+        /* ── Screenshots ── */
+        figure.shot { margin: 0; }
+        figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 30px rgba(15, 38, 64, 0.12); }
+        figure.shot figcaption { margin-top: 12px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .shot-band { background: var(--grey-bg); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .shot-pair { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+        .shot-pair-caption { max-width: 760px; margin: 18px auto 0; color: var(--text-light); font-size: 0.9rem; line-height: 1.6; text-align: center; }
+        .shot-row { max-width: 1040px; margin: 36px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+
         /* ── Generic section ── */
         section.block { padding: 70px 24px; }
         section.block.tinted { background: var(--grey-bg); }
@@ -194,6 +203,8 @@
             .hero .tagline { font-size: 1.05rem; }
             .stats-grid { grid-template-columns: 1fr; gap: 24px; }
             .three-up { grid-template-columns: 1fr; }
+            .shot-pair { grid-template-columns: 1fr; }
+            .shot-row { grid-template-columns: 1fr; }
             .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
             .subnav .flagship-tag { margin-left: 0; }
             .hamburger { display: block; }
@@ -260,6 +271,23 @@
         </div>
     </div>
 </section>
+
+<div class="shot-band">
+    <div class="shot-pair">
+        <figure class="shot">
+            <img src="img/cc-01-welcome.webp" alt="The Forge Suite installer welcome screen — light onboarding with the Seaglass Foundry globe and a Begin button" width="1391" height="986" loading="eager">
+            <figcaption>Front of house: the light onboarding that installs and configures the suite.</figcaption>
+        </figure>
+        <figure class="shot">
+            <img src="img/cc-05-dashboard.webp" alt="The dark Control Center dashboard — Services tab with ForgeMind and ForgeGIS Studio service cards, MCP children, and a log rail" width="1386" height="977" loading="eager">
+            <figcaption>Engine room: the dark dashboard that runs it &mdash; services, MCP children, logs.</figcaption>
+        </figure>
+    </div>
+    <p class="shot-pair-caption">
+        One window, two moods. The UI shifts from light &ldquo;front of house&rdquo; onboarding to the dark
+        &ldquo;engine room&rdquo; dashboard once the suite goes live, so the mode you are in is always obvious.
+    </p>
+</div>
 
 <section class="block">
     <div class="container">
@@ -335,6 +363,20 @@
                 </li>
             </ol>
         </div>
+        <div class="shot-row">
+            <figure class="shot">
+                <img src="img/cc-02-preflight.webp" alt="Live preflight screen checking disk space, memory, graphics, write access, and Java runtime, with editable service ports" width="1392" height="975" loading="lazy">
+                <figcaption>Live preflight &mdash; system checks and inline port fixes before anything installs.</figcaption>
+            </figure>
+            <figure class="shot">
+                <img src="img/cc-03-install.webp" alt="Install progress at 100% staged, listing the Temurin JRE 17 and each suite component being laid down" width="1392" height="982" loading="lazy">
+                <figcaption>The install: a private JRE 17 and every suite component, staged step by step.</figcaption>
+            </figure>
+            <figure class="shot">
+                <img src="img/cc-04-keys.webp" alt="Connect your AI provider screen with Claude and OpenAI picker and a live-validated API key field" width="1396" height="982" loading="lazy">
+                <figcaption>One key &mdash; picked, validated live, and vaulted in the Windows Credential Manager.</figcaption>
+            </figure>
+        </div>
     </div>
 </section>
 
@@ -372,6 +414,12 @@
             </table>
         </div>
         <p class="routing-note">v1.2.0 was the first coordinated suite release &mdash; all suite applications and the installer unified at one version, with all three lifecycle modes shipping end to end.</p>
+        <div class="shot-row" style="grid-template-columns: 1fr; max-width: 940px;">
+            <figure class="shot">
+                <img src="img/cc-06-data-gallery.webp" alt="The Data tab: active catalog summary and a data source gallery of elevation, vector, and imagery ingesters" width="1387" height="981" loading="lazy">
+                <figcaption>The Data tab: one active catalog, and a one-click gallery over the suite's ingesters &mdash; elevation, vector, and imagery sources behind one interface.</figcaption>
+            </figure>
+        </div>
     </div>
 </section>
 
