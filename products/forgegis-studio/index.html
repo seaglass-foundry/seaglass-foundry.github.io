@@ -334,8 +334,8 @@
         <p class="section-intro center">A node editor where ForgeGIS operations become nodes. Raster, vector, and mixed raster-to-vector graphs &mdash; with branches and joins &mdash; are authored on the canvas, run, saved to a library, and replayed. Topology, not a single linear chain.</p>
         <div class="split">
             <figure class="shot">
-                <a href="img/03-pipeline-graph.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/03-pipeline-graph.webp" alt="ForgeGIS Studio pipeline canvas showing a non-linear node graph of geospatial operations" width="1600" height="1000" loading="lazy"></a>
-                <figcaption>A non-linear graph on the canvas &mdash; branches, merges, and cross-type steps, saved as one versioned, replayable artifact.</figcaption>
+                <a href="img/03-pipeline-graph.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/03-pipeline-graph.webp" alt="ForgeGIS Studio pipeline canvas: a DEM source node connected to a GPU hillshade operation node, each with a live result thumbnail" width="1600" height="1000" loading="lazy"></a>
+                <figcaption>The pipeline canvas: a DEM source node feeding a GPU hillshade operation, each with a live result thumbnail. Graphs built here save to a library and replay &mdash; on the canvas or in batch.</figcaption>
             </figure>
             <div class="split-text">
                 <h3>Type-valid by construction</h3>
@@ -362,8 +362,8 @@
         <p class="section-intro center">The batch runner executes the same saved pipelines across a folder of inputs &mdash; so a graph proven on one file scales to production without a memory surprise.</p>
         <div class="split">
             <figure class="shot">
-                <a href="img/12-batch.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/12-batch.webp" alt="ForgeGIS Studio batch runner executing a saved pipeline across many input files with live progress" width="1600" height="1000" loading="lazy"></a>
-                <figcaption>The batch runner: saved pipelines over many inputs, with per-tile resource pre-flight and a CSV run report.</figcaption>
+                <a href="img/12-batch.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/12-batch.webp" alt="ForgeGIS Studio batch tab: configure a saved pipeline over filesystem or catalog inputs, with output directory, error handling, and a live per-tile log" width="1600" height="1000" loading="lazy"></a>
+                <figcaption>Configuring a batch: a saved pipeline, filesystem or catalog inputs, an output directory, and error handling &mdash; per-tile completions stream into the live log once it runs.</figcaption>
             </figure>
             <div class="split-text">
                 <h3>Resource pre-flight, not trial and error</h3>
