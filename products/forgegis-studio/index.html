@@ -130,7 +130,11 @@
 
         /* ── Screenshots ── */
         figure.shot { max-width: 1000px; margin: 0 auto; }
+        figure.shot a.shot-link { display: block; cursor: zoom-in; }
         figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 30px rgba(15, 38, 64, 0.12); }
+        dialog.lightbox { border: none; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; }
+        dialog.lightbox::backdrop { background: rgba(15, 38, 64, 0.88); }
+        dialog.lightbox img { display: block; max-width: 94vw; max-height: 94vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); cursor: zoom-out; }
         figure.shot figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
         .shot-band { background: var(--grey-bg); padding: 56px 24px; border-bottom: 1px solid var(--border); }
         .split { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
@@ -275,7 +279,7 @@
 
 <div class="shot-band">
     <figure class="shot">
-        <img src="img/01-overview.webp" alt="The ForgeGIS Studio workspace: catalog rail, live map with a computed least-cost path, measure and analysis panel, pipeline thumbnails, and a status bar reporting GPU device, VRAM, and heap" width="1600" height="1000" loading="eager">
+        <a href="img/01-overview.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/01-overview.webp" alt="The ForgeGIS Studio workspace: catalog rail, live map with a computed least-cost path, measure and analysis panel, pipeline thumbnails, and a status bar reporting GPU device, VRAM, and heap" width="1600" height="1000" loading="eager"></a>
         <figcaption>
             The Studio workspace: a least-cost path computed on a GPU-resident Arizona elevation dataset and drawn
             between two points on the live map. The catalog rail (left) browses ForgeData; the measure and analysis
@@ -326,7 +330,7 @@
         <p class="section-intro center">A node editor where ForgeGIS operations become nodes. Raster, vector, and mixed raster-to-vector graphs &mdash; with branches and joins &mdash; are authored on the canvas, run, saved to a library, and replayed. Topology, not a single linear chain.</p>
         <div class="split">
             <figure class="shot">
-                <img src="img/03-pipeline-graph.webp" alt="ForgeGIS Studio pipeline canvas showing a non-linear node graph of geospatial operations" width="1600" height="1000" loading="lazy">
+                <a href="img/03-pipeline-graph.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/03-pipeline-graph.webp" alt="ForgeGIS Studio pipeline canvas showing a non-linear node graph of geospatial operations" width="1600" height="1000" loading="lazy"></a>
                 <figcaption>A non-linear graph on the canvas &mdash; branches, merges, and cross-type steps, saved as one versioned, replayable artifact.</figcaption>
             </figure>
             <div class="split-text">
@@ -354,7 +358,7 @@
         <p class="section-intro center">The batch runner executes the same saved pipelines across a folder of inputs &mdash; so a graph proven on one file scales to production without a memory surprise.</p>
         <div class="split">
             <figure class="shot">
-                <img src="img/12-batch.webp" alt="ForgeGIS Studio batch runner executing a saved pipeline across many input files with live progress" width="1600" height="1000" loading="lazy">
+                <a href="img/12-batch.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/12-batch.webp" alt="ForgeGIS Studio batch runner executing a saved pipeline across many input files with live progress" width="1600" height="1000" loading="lazy"></a>
                 <figcaption>The batch runner: saved pipelines over many inputs, with per-tile resource pre-flight and a CSV run report.</figcaption>
             </figure>
             <div class="split-text">
@@ -398,7 +402,7 @@
                 </p>
             </div>
             <figure class="shot">
-                <img src="img/17-forgemind-chat.webp" alt="The ForgeMind chat rail inside ForgeGIS Studio, showing a conversation that reads and acts on the live map" width="724" height="1786" loading="lazy">
+                <a href="img/17-forgemind-chat.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/17-forgemind-chat.webp" alt="The ForgeMind chat rail inside ForgeGIS Studio, showing a conversation that reads and acts on the live map" width="724" height="1786" loading="lazy"></a>
                 <figcaption>The ForgeMind chat rail &mdash; conversation on the left of the operator's map, actions through the authenticated bridge.</figcaption>
             </figure>
         </div>
@@ -680,6 +684,10 @@
     </div>
 </footer>
 
+<dialog class="lightbox" id="shot-lightbox" aria-label="Screenshot preview">
+    <img alt="">
+</dialog>
+
 <script>
 (function() {
     var links = document.querySelector('.nav-links');
@@ -689,6 +697,23 @@
     document.addEventListener('click', function(e) {
         if (!e.target.closest('nav')) links.classList.remove('open');
     });
+})();
+(function() {
+    var dlg = document.getElementById('shot-lightbox');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var pic = dlg.querySelector('img');
+    document.querySelectorAll('a.shot-link').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            var thumb = a.querySelector('img');
+            pic.src = a.getAttribute('href');
+            pic.alt = thumb ? thumb.alt : '';
+            dlg.showModal();
+        });
+    });
+    dlg.addEventListener('click', function() { dlg.close(); });
+    dlg.addEventListener('close', function() { pic.removeAttribute('src'); });
 })();
 </script>
 </body>

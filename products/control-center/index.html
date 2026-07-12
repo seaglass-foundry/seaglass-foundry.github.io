@@ -121,7 +121,11 @@
 
         /* ── Screenshots ── */
         figure.shot { margin: 0; }
+        figure.shot a.shot-link { display: block; cursor: zoom-in; }
         figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 30px rgba(15, 38, 64, 0.12); }
+        dialog.lightbox { border: none; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; }
+        dialog.lightbox::backdrop { background: rgba(15, 38, 64, 0.88); }
+        dialog.lightbox img { display: block; max-width: 94vw; max-height: 94vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); cursor: zoom-out; }
         figure.shot figcaption { margin-top: 12px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
         .shot-band { background: var(--grey-bg); padding: 56px 24px; border-bottom: 1px solid var(--border); }
         .shot-pair { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
@@ -275,11 +279,11 @@
 <div class="shot-band">
     <div class="shot-pair">
         <figure class="shot">
-            <img src="img/cc-01-welcome.webp" alt="The Forge Suite installer welcome screen — light onboarding with the Seaglass Foundry globe and a Begin button" width="1391" height="986" loading="eager">
+            <a href="img/cc-01-welcome.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-01-welcome.webp" alt="The Forge Suite installer welcome screen — light onboarding with the Seaglass Foundry globe and a Begin button" width="1391" height="986" loading="eager"></a>
             <figcaption>Front of house: the light onboarding that installs and configures the suite.</figcaption>
         </figure>
         <figure class="shot">
-            <img src="img/cc-05-dashboard.webp" alt="The dark Control Center dashboard — Services tab with ForgeMind and ForgeGIS Studio service cards, MCP children, and a log rail" width="1386" height="977" loading="eager">
+            <a href="img/cc-05-dashboard.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-05-dashboard.webp" alt="The dark Control Center dashboard — Services tab with ForgeMind and ForgeGIS Studio service cards, MCP children, and a log rail" width="1386" height="977" loading="eager"></a>
             <figcaption>Engine room: the dark dashboard that runs it &mdash; services, MCP children, logs.</figcaption>
         </figure>
     </div>
@@ -365,15 +369,15 @@
         </div>
         <div class="shot-row">
             <figure class="shot">
-                <img src="img/cc-02-preflight.webp" alt="Live preflight screen checking disk space, memory, graphics, write access, and Java runtime, with editable service ports" width="1392" height="975" loading="lazy">
+                <a href="img/cc-02-preflight.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-02-preflight.webp" alt="Live preflight screen checking disk space, memory, graphics, write access, and Java runtime, with editable service ports" width="1392" height="975" loading="lazy"></a>
                 <figcaption>Live preflight &mdash; system checks and inline port fixes before anything installs.</figcaption>
             </figure>
             <figure class="shot">
-                <img src="img/cc-03-install.webp" alt="Install progress at 100% staged, listing the Temurin JRE 17 and each suite component being laid down" width="1392" height="982" loading="lazy">
+                <a href="img/cc-03-install.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-03-install.webp" alt="Install progress at 100% staged, listing the Temurin JRE 17 and each suite component being laid down" width="1392" height="982" loading="lazy"></a>
                 <figcaption>The install: a private JRE 17 and every suite component, staged step by step.</figcaption>
             </figure>
             <figure class="shot">
-                <img src="img/cc-04-keys.webp" alt="Connect your AI provider screen with Claude and OpenAI picker and a live-validated API key field" width="1396" height="982" loading="lazy">
+                <a href="img/cc-04-keys.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-04-keys.webp" alt="Connect your AI provider screen with Claude and OpenAI picker and a live-validated API key field" width="1396" height="982" loading="lazy"></a>
                 <figcaption>One key &mdash; picked, validated live, and vaulted in the Windows Credential Manager.</figcaption>
             </figure>
         </div>
@@ -416,7 +420,7 @@
         <p class="routing-note">v1.2.0 was the first coordinated suite release &mdash; all suite applications and the installer unified at one version, with all three lifecycle modes shipping end to end.</p>
         <div class="shot-row" style="grid-template-columns: 1fr; max-width: 940px;">
             <figure class="shot">
-                <img src="img/cc-06-data-gallery.webp" alt="The Data tab: active catalog summary and a data source gallery of elevation, vector, and imagery ingesters" width="1387" height="981" loading="lazy">
+                <a href="img/cc-06-data-gallery.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-06-data-gallery.webp" alt="The Data tab: active catalog summary and a data source gallery of elevation, vector, and imagery ingesters" width="1387" height="981" loading="lazy"></a>
                 <figcaption>The Data tab: one active catalog, and a one-click gallery over the suite's ingesters &mdash; elevation, vector, and imagery sources behind one interface.</figcaption>
             </figure>
         </div>
@@ -514,6 +518,10 @@
     </div>
 </footer>
 
+<dialog class="lightbox" id="shot-lightbox" aria-label="Screenshot preview">
+    <img alt="">
+</dialog>
+
 <script>
 (function() {
     var links = document.querySelector('.nav-links');
@@ -523,6 +531,23 @@
     document.addEventListener('click', function(e) {
         if (!e.target.closest('nav')) links.classList.remove('open');
     });
+})();
+(function() {
+    var dlg = document.getElementById('shot-lightbox');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var pic = dlg.querySelector('img');
+    document.querySelectorAll('a.shot-link').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            var thumb = a.querySelector('img');
+            pic.src = a.getAttribute('href');
+            pic.alt = thumb ? thumb.alt : '';
+            dlg.showModal();
+        });
+    });
+    dlg.addEventListener('click', function() { dlg.close(); });
+    dlg.addEventListener('close', function() { pic.removeAttribute('src'); });
 })();
 </script>
 </body>
