@@ -16,6 +16,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://seaglassfoundry.com/products/forgegis/digital-twin.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://seaglassfoundry.com/products/forgegis/downloads/forgegis-technical-brief.pdf</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

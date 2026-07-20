@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeGIS Digital Twin — Hoover Dam, Both Ways</title>
+    <meta name="description" content="A capability preview of the ForgeGIS digital twin: pause a running GPU flood simulation mid-event, fork it zero-copy, override one decision, and get two worlds that share every epoch of history before the anchor and diverge cleanly after — with a ledger that conserves water across the split.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/digital-twin.html">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/digital-twin.html">
+    <meta property="og:title" content="ForgeGIS Digital Twin — Hoover Dam, Both Ways">
+    <meta property="og:description" content="Pause a running flood simulation. Change one decision. Keep both worlds. A capability preview of forkable, ledger-backed digital twins in ForgeGIS.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ForgeGIS Digital Twin — Hoover Dam, Both Ways">
+    <meta name="twitter:description" content="Two worlds that share every epoch of history before the fork anchor and diverge cleanly after it — with a conserved ledger between them.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "ForgeGIS Digital Twin — Hoover Dam, Both Ways",
+        "url": "https://seaglassfoundry.com/products/forgegis/digital-twin.html",
+        "description": "A self-published technical demonstration of the ForgeGIS digital twin capability: deterministic epoch-based GPU-resident geospatial state, zero-copy forking for what-if scenarios, and a conserved audit ledger, demonstrated over SRTM terrain around Hoover Dam.",
+        "about": "Geospatial digital twin simulation",
+        "author": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        }
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; }
+        p code, li code, td code, dd code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--navy); }
+
+        /* ── Nav ── */
+        nav { background: var(--navy); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+        nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+        nav .brand { color: var(--white); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Product subnav ── */
+        .subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .subnav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 44px; font-size: 0.88rem; }
+        .subnav .crumb { color: #8eaec6; }
+        .subnav .crumb a { color: #a8c4d8; }
+        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+        .subnav .sep { color: #5a6a7a; }
+        .subnav .flagship-tag { margin-left: auto; color: var(--amber); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* ── Hero ── */
+        .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: var(--white); padding: 80px 24px 90px; text-align: center; }
+        .hero .flagship-badge { display: inline-block; background: rgba(216, 151, 60, 0.15); color: var(--amber); border: 1px solid rgba(216, 151, 60, 0.4); padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+        .hero h1 span { color: var(--teal); }
+        .hero .tagline { font-size: 1.3rem; color: #a8c4d8; margin-bottom: 24px; font-weight: 400; }
+        .hero .categorical-claim { max-width: 720px; margin: 0 auto 36px; color: var(--white); font-size: 1.1rem; line-height: 1.65; font-weight: 500; }
+        .hero .categorical-claim em { color: var(--teal); font-style: normal; font-weight: 700; }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 13px 28px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.1s, border-color 0.2s; }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+
+        /* ── Stats strip ── */
+        .stats { background: var(--white); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .stats-grid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .stat { text-align: center; padding: 0 12px; }
+        .stat .number { font-size: 2.4rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+        .stat .number .accent { color: var(--teal); }
+        .stat .label { font-size: 0.95rem; color: var(--text-light); line-height: 1.5; }
+
+        /* ── Generic section ── */
+        section.block { padding: 70px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 { font-size: 1.9rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.02em; }
+        section.block .section-intro { color: var(--text-light); font-size: 1.02rem; margin-bottom: 32px; max-width: 760px; }
+        section.block h2.center, section.block .center { text-align: center; }
+        section.block .center.section-intro { margin-left: auto; margin-right: auto; }
+
+        /* ── Screenshots ── */
+        figure.shot { max-width: 1000px; margin: 0 auto; }
+        figure.shot a.shot-link { display: block; cursor: zoom-in; }
+        figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 30px rgba(15, 38, 64, 0.12); }
+        dialog.lightbox { border: none; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; }
+        dialog.lightbox::backdrop { background: rgba(15, 38, 64, 0.88); }
+        dialog.lightbox img { display: block; max-width: 94vw; max-height: 94vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); cursor: zoom-out; }
+        dialog.lightbox .lightbox-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(15, 38, 64, 0.65); color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+        dialog.lightbox .lightbox-close:hover, dialog.lightbox .lightbox-close:focus-visible { background: rgba(15, 38, 64, 0.95); }
+        html:has(dialog.lightbox[open]) { overflow: hidden; }
+        figure.shot figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .shot-band { background: var(--grey-bg); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .split { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+        .split figure.shot { margin: 0; }
+        .split .split-text h3 { font-size: 1.1rem; color: var(--navy); margin: 18px 0 8px; }
+        .split .split-text h3:first-child { margin-top: 0; }
+        .split .split-text p { font-size: 0.95rem; line-height: 1.7; }
+        .split.narrow-img { grid-template-columns: 1.6fr 1fr; }
+        .split.narrow-img figure.shot { max-width: 360px; justify-self: center; }
+
+        /* ── The same-epoch pair and the interlude triptych ──
+           These deliberately do NOT collapse to one column on small screens:
+           side-by-side comparison IS the content. Gaps tighten instead. */
+        .shot-pair { max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .shot-pair figure.shot { margin: 0; }
+        .shot-pair .pair-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; text-align: center; }
+        .shot-pair .pair-label.base { color: var(--teal-dark); }
+        .shot-pair .pair-label.emerg { color: var(--amber-dark); }
+        .pair-caption { max-width: 820px; margin: 16px auto 0; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .strip { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        .strip figure { margin: 0; }
+        .strip a.shot-link { display: block; cursor: zoom-in; }
+        .strip img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; }
+        .strip figcaption { margin-top: 7px; text-align: center; color: var(--text-light); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+        .strip-caption { max-width: 940px; margin: 18px auto 0; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .trip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+        .trip-grid figure { margin: 0; }
+        .trip-grid img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; }
+        .trip-grid figcaption { margin-top: 8px; color: var(--text-light); font-size: 0.8rem; line-height: 1.45; text-align: center; }
+
+        /* ── 3-up content blocks ── */
+        .three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 8px; }
+        .three-up .item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px 26px; }
+        section.block.tinted .three-up .item { background: var(--white); }
+        .three-up h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.01em; }
+        .three-up p { color: var(--text); font-size: 0.95rem; line-height: 1.7; }
+
+        /* ── Feature grid ── */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 8px; }
+        .feature-card { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: 10px; padding: 24px 24px; }
+        section.block.tinted .feature-card { background: var(--white); }
+        .feature-card .feat-tag { font-size: 0.72rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .feature-card h3 { font-size: 1.08rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; }
+        .feature-card p { color: var(--text); font-size: 0.93rem; line-height: 1.65; }
+
+        .routing-note { max-width: 940px; margin: 22px auto 0; color: var(--text-light); font-size: 0.92rem; text-align: center; }
+
+        /* ── "How to read the numbers" callout ── */
+        .lic-note { max-width: 880px; margin: 36px auto 0; background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 6px; padding: 16px 22px; color: var(--text); font-size: 0.92rem; line-height: 1.6; }
+        .lic-note strong { color: var(--amber-dark); }
+        .read-box { margin-top: 0; padding: 26px 30px; }
+        .read-box dl { margin: 0; }
+        .read-box dt { font-weight: 700; color: var(--amber-dark); margin-top: 16px; }
+        .read-box dt:first-child { margin-top: 0; }
+        .read-box dd { margin: 2px 0 0; }
+
+        /* ── Interlude aside ── */
+        .aside-box { max-width: 940px; margin: 0 auto; background: var(--grey-bg); border: 1px solid var(--border); border-left: 3px solid var(--teal); border-radius: 10px; padding: 30px 34px; }
+        .aside-box .feat-tag { font-size: 0.72rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+        .aside-box h3 { font-size: 1.25rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; }
+        .aside-box p { font-size: 0.95rem; line-height: 1.7; }
+
+        /* ── Charts (inline SVG) ─────────────────────────────────
+           Self-contained block: no dependencies, no script, no image.
+           Lifts verbatim into any other page on this site. */
+        figure.chart { max-width: 680px; margin: 32px auto 0; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 22px 18px 10px; }
+        figure.chart.wide { max-width: 940px; }
+        figure.chart.plain { background: none; border: none; padding: 0; }
+        figure.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+        figure.chart figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .chart text { font-size: 13px; fill: var(--text-light); font-family: inherit; }
+        .ch-grid line { stroke: var(--border); stroke-width: 1; }
+        .ch-axis, .ch-tick { stroke: #c6d2dd; stroke-width: 1; }
+        .ch-base { stroke: var(--teal); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+        .ch-emerg { stroke: var(--amber-dark); stroke-width: 2.5; fill: none; stroke-dasharray: 7 4; }
+        .ch-fork { stroke: var(--navy); stroke-width: 1.5; stroke-dasharray: 4 4; opacity: 0.55; }
+        .ch-bracket { stroke: var(--amber-dark); stroke-width: 1; opacity: 0.5; }
+        .ch-wedge { fill: var(--amber); opacity: 0.12; }
+        .ch-lbl { fill: var(--text-light); }
+        .ch-end { font-weight: 700; }
+        .ch-base-t { fill: var(--teal-dark); }
+        .ch-emerg-t { fill: var(--amber-dark); }
+        .ch-fork-t { fill: var(--navy); font-weight: 600; opacity: 0.8; }
+        .ch-axis-title { fill: var(--navy); font-weight: 600; }
+        .ch-narrow { display: none; }
+
+        /* ── Contact strip ── */
+        .contact-strip { background: var(--white); padding: 60px 24px; text-align: center; border-top: 1px solid var(--border); }
+        .contact-strip h2 { font-size: 1.5rem; color: var(--navy); margin-bottom: 12px; }
+        .contact-strip p { color: var(--text-light); font-size: 1rem; margin-bottom: 20px; max-width: 640px; margin-left: auto; margin-right: auto; }
+
+        /* ── Footer ── */
+        footer { background: var(--navy-dark); color: #8eaec6; padding: 40px 24px; font-size: 0.9rem; }
+        footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks { width: 100%; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #7790a8; font-size: 0.8rem; line-height: 1.6; }
+        .footer-copy { width: 100%; text-align: center; margin-top: 12px; color: #8eaec6; }
+
+        @media (max-width: 900px) {
+            .split, .split.narrow-img { grid-template-columns: 1fr; }
+            .split.narrow-img figure.shot { justify-self: start; }
+            .chart text { font-size: 18px; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .three-up { grid-template-columns: 1fr; }
+            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+            .subnav .flagship-tag { margin-left: 0; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
+            .shot-pair { gap: 12px; }
+            .trip-grid { gap: 8px; }
+            .strip { gap: 5px; }
+            .strip figcaption { font-size: 0.66rem; margin-top: 5px; }
+            .aside-box { padding: 24px 20px; }
+            .read-box { padding: 22px 20px; }
+        }
+        @media (max-width: 640px) {
+            .chart text { font-size: 26px; }
+            .ch-legend, .ch-t-minor, .ch-wide, .ch-ytitle { display: none; }
+            .ch-narrow { display: block; }
+            figure.chart { padding: 16px 10px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="/products/">Products</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<div class="subnav">
+    <div class="subnav-inner">
+        <div class="crumb">
+            <a href="/products/">Products</a>
+            <span class="sep">/</span>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <span class="sep">/</span>
+            <span>Digital Twin</span>
+        </div>
+        <span class="flagship-tag">Capability Preview</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <span class="flagship-badge">ForgeGIS &middot; Digital Twin &middot; Capability Preview</span>
+        <h1>Hoover Dam, <span>both ways</span></h1>
+        <p class="tagline">Pause a running flood simulation. Change one decision. Keep both worlds.</p>
+        <p class="categorical-claim">
+            A ForgeGIS<sup class="tm">&trade;</sup> GPU flood simulation over real SRTM terrain &mdash; Boulder Basin, the dam site,
+            all of Black Canyon, upper Lake Mohave &mdash; runs to epoch 54 and is paused mid-event, then forked in place
+            with no copy of its history. One decision is overridden in the branch: release rate, ten times higher.
+            What comes back is <em>two worlds that share every epoch before the anchor and diverge cleanly after it</em>,
+            with a ledger that conserves water across the split.
+        </p>
+        <div class="cta-group">
+            <a href="#the-fork" class="btn btn-primary">See the fork</a>
+            <a href="#read-the-numbers" class="btn btn-outline">How to read the numbers</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat">
+            <div class="number">2<span class="accent"> worlds</span></div>
+            <div class="label">One paused run, forked in place at epoch 54 &mdash; identical history before the anchor, clean divergence after it</div>
+        </div>
+        <div class="stat">
+            <div class="number">10<span class="accent">&times;</span></div>
+            <div class="label">The single decision overridden in the branch: release rate. Everything else held constant.</div>
+        </div>
+        <div class="stat">
+            <div class="number">&asymp;1.3<span class="accent"> km&sup3;</span></div>
+            <div class="label">The wedge between the two worlds after 32 epochs &mdash; about 4% of a full Lake Mead, and what the closed-form law predicts</div>
+        </div>
+    </div>
+</section>
+
+<div class="shot-band">
+    <figure class="shot">
+        <a href="img/dt-03-breach-lake-dam-gorge.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/dt-03-breach-lake-dam-gorge.webp" alt="The ForgeGIS Studio browser workspace: a dataset catalog on the left, a satellite map of Lake Mead and the canyon running south through the centre, and a Digital Twin panel overlaid at the top right showing a running twin at epoch 10" width="1440" height="900" loading="eager"></a>
+        <figcaption>The Digital Twin panel inside the ForgeGIS Studio<sup class="tm">&trade;</sup> canvas, running a constant-rate release twin at epoch&nbsp;10. Lake Mead sits at the top of the frame, the gorge runs south. <strong>Pause</strong> and <strong>Stop</strong> are live; <strong>Resume</strong> and <strong>Fork what-if</strong> are dimmed &mdash; a run has to be paused before it can be forked.</figcaption>
+    </figure>
+</div>
+
+<section class="block" id="what">
+    <div class="container">
+        <h2 class="center">What a digital twin is here</h2>
+        <p class="section-intro center">Not a rendering, and not a one-shot simulation. A running, inspectable, branchable state.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>Deterministic epochs</h3>
+                <p>
+                    State lives on the GPU and advances in discrete epochs. The same twin definition and the same
+                    terrain produce the same sequence of epochs every time, which is what makes two runs comparable
+                    at all &mdash; and what lets a branch inherit a history rather than re-simulate one.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Zero-copy forking</h3>
+                <p>
+                    A paused run can be forked in place. The branch does not copy the parent's history; it anchors to
+                    it. Branches differ by parameters only, so everything the two worlds disagree about after the
+                    anchor is attributable to the one value that was overridden.
+                </p>
+            </div>
+            <div class="item">
+                <h3>A ledger that balances</h3>
+                <p>
+                    Every epoch's water is accounted in a single conserved quantity across the whole corridor, so the
+                    difference between two worlds is a number you can check against a closed-form prediction rather
+                    than a picture you have to trust.
+                </p>
+            </div>
+        </div>
+        <p class="routing-note">
+            Three runs over two SRTM tiles. Every figure on this page is read back off the recordings,
+            not from a design document &mdash; including the ones that are inconvenient.
+        </p>
+    </div>
+</section>
+
+<section class="block tinted" id="read-the-numbers">
+    <div class="container">
+        <h2 class="center">How to read the numbers</h2>
+        <p class="section-intro center">What the units mean, and where the model stops being literal. Worth two minutes before the charts.</p>
+        <div class="lic-note read-box">
+            <dl>
+                <dt>The corridor</dt>
+                <dd>
+                    The channel that carries water from the basin over the dam site is <strong>an engineered routing
+                    surface for demonstration, not a surveyed breach profile</strong>. It is a minimax path held to a
+                    strictly monotone fall &mdash; real channel lows kept, flats given 0.3&nbsp;m/km, an 8&nbsp;m trench.
+                    Treat &ldquo;where water goes&rdquo; as qualitatively scoped, the same as the timing below.
+                </dd>
+                <dt>The clock</dt>
+                <dd>
+                    The sim clock is <strong>a model tick, not a calibrated second</strong>. Read totals and
+                    comparisons; never &ldquo;flows per second.&rdquo; For scale: one epoch of baseline release
+                    (&asymp;4.4 million&nbsp;m&sup3;) is roughly 52 minutes of Hoover&rsquo;s real maximum outlet
+                    capacity (~1,400&nbsp;m&sup3;/s).
+                </dd>
+                <dt>The ledger&rsquo;s unit</dt>
+                <dd>
+                    Meter-cells. One metre of water standing on one cell &asymp; 73,000&nbsp;m&sup3; &asymp; 59 acre-feet.
+                    Every volume quoted here is that bookkeeping, exact to rounding &mdash; the conversion is pure geometry.
+                </dd>
+                <dt>The grid</dt>
+                <dd>
+                    The forked run is 256&nbsp;&times;&nbsp;256 over a 0.6&deg;&nbsp;&times;&nbsp;0.8&deg; corridor;
+                    one cell covers &asymp;0.073&nbsp;km&sup2; (~18 acres). Depths and stages are in metres &mdash;
+                    SRTM&rsquo;s native unit &mdash; with feet alongside, since the Colorado is managed in feet and acre-feet.
+                </dd>
+            </dl>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Act I &mdash; where water stands</h2>
+        <p class="section-intro center">
+            The simpler question first, because it produces the curve every reservoir manager already reads. The level
+            rides a ramp from 200&nbsp;m to 320&nbsp;m (656&ndash;1,050&nbsp;ft), baked into the twin&rsquo;s identity
+            rather than offered as a knob, and at every stage the run asks one question: which cells sit below the line?
+        </p>
+        <div class="strip">
+            <figure>
+                <a href="img/dt-11-stage-207.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/dt-11-stage-207.webp" alt="Black Canyon from above: a thin dark thread of water follows the channel floor, with one small pool widening mid-canyon" width="274" height="661" loading="lazy"></a>
+                <figcaption>207 m (679 ft)</figcaption>
+            </figure>
+            <figure>
+                <a href="img/dt-12-stage-214.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/dt-12-stage-214.webp" alt="The same view one stage higher: the thread has thickened and the mid-canyon pool has grown" width="274" height="661" loading="lazy"></a>
+                <figcaption>214 m (702 ft)</figcaption>
+            </figure>
+            <figure>
+                <a href="img/dt-13-stage-221.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/dt-13-stage-221.webp" alt="The same view higher again: water now fills more of the canyon floor and begins reaching into side pockets" width="274" height="661" loading="lazy"></a>
+                <figcaption>221 m (725 ft)</figcaption>
+            </figure>
+            <figure>
+                <a href="img/dt-14-stage-228.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/dt-14-stage-228.webp" alt="The same view higher still: the water body is visibly wider along its whole length and its colour has shifted toward blue" width="274" height="661" loading="lazy"></a>
+                <figcaption>228 m (748 ft)</figcaption>
+            </figure>
+            <figure>
+                <a href="img/dt-15-stage-261.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/dt-15-stage-261.webp" alt="The highest stage shown: water fills the gorge broadly, with the depth ramp climbing through blue into green at the widest reaches" width="274" height="661" loading="lazy"></a>
+                <figcaption>261 m (856 ft)</figcaption>
+            </figure>
+        </div>
+        <p class="strip-caption">
+            Five stages of one ramp, same frame each time. At the lowest stage a thin thread of water follows the
+            channel floor; by the highest it has widened through the gorge and reached into the side drainages, and the
+            depth ramp has climbed from purple through blue into green. Nothing moves between these frames but the line.
+        </p>
+        <p class="routing-note">
+            <strong>The honest tell:</strong> by the pause the baseline stands &asymp;489&nbsp;km&sup2; of water in the
+            valley &mdash; against a real Lake Mohave of about 114&nbsp;km&sup2;. That gap is the point. The upper
+            stages here are screening geometry, not an operating scenario, and the curve below says so plainly.
+        </p>
+        <figure class="chart plain">
+            <svg viewBox="0 0 720 400" role="img" aria-labelledby="c2-t c2-d">
+                <title id="c2-t">Stage-area curve: standing water against stage, 200 to 262 metres</title>
+                <desc id="c2-d">Standing water rises monotonically from about 222 square kilometres at stage 200 metres to about 489 square kilometres at stage 262 metres, steepening gently as the pool climbs the gorge walls.</desc>
+                <g class="ch-grid" shape-rendering="crispEdges">
+                    <line x1="62" y1="354" x2="702" y2="354"/>
+                    <line x1="62" y1="242" x2="702" y2="242"/>
+                    <line x1="62" y1="130" x2="702" y2="130"/>
+                    <line x1="62" y1="18" x2="702" y2="18"/>
+                </g>
+                <line class="ch-axis" x1="62" y1="354" x2="702" y2="354" shape-rendering="crispEdges" vector-effect="non-scaling-stroke"/>
+                <text x="52" y="358" text-anchor="end">0</text>
+                <text x="52" y="246" text-anchor="end">200</text>
+                <text x="52" y="134" text-anchor="end">400</text>
+                <text x="52" y="22" text-anchor="end">600</text>
+                <text x="62" y="381" text-anchor="middle">200</text>
+                <text x="217" y="381" text-anchor="middle" class="ch-t-minor">215</text>
+                <text x="372" y="381" text-anchor="middle" class="ch-t-minor">230</text>
+                <text x="537" y="381" text-anchor="middle" class="ch-t-minor">246</text>
+                <text x="702" y="381" text-anchor="middle">262</text>
+                <polyline class="ch-base" vector-effect="non-scaling-stroke" points="62.0,229.9 72.3,227.9 82.6,224.4 93.0,221.1 103.3,218.7 113.6,214.2 123.9,213.5 134.3,211.8 144.6,207.6 154.9,205.0 165.2,203.9 175.5,201.9 185.9,199.1 196.2,195.8 206.5,193.8 216.8,191.9 227.2,190.6 237.5,187.8 247.8,184.9 258.1,183.2 268.5,181.0 278.8,178.4 289.1,174.6 299.4,172.9 309.7,168.8 320.1,167.2 330.4,166.1 340.7,160.9 351.0,157.2 361.4,155.9 371.7,153.5 382.0,151.5 392.3,148.3 402.6,146.3 413.0,142.6 423.3,141.0 433.6,138.2 443.9,136.0 454.3,133.8 464.6,131.5 474.9,130.6 485.2,126.6 495.5,123.0 505.9,121.4 516.2,116.2 526.5,114.6 536.8,112.2 547.2,109.4 557.5,107.4 567.8,105.0 578.1,104.0 588.5,101.3 598.8,99.6 609.1,96.5 619.4,94.4 629.7,92.8 640.1,90.7 650.4,89.6 660.7,87.0 671.0,84.8 681.4,83.9 691.7,82.2 702.0,80.2"/>
+                <text class="ch-axis-title" x="382" y="396" text-anchor="middle">stage (m)</text>
+                <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">standing water (km&sup2;)</text>
+            </svg>
+            <figcaption>
+                The stage-area curve, read off the recording. Standing water climbs from &asymp;222&nbsp;km&sup2; at
+                200&nbsp;m to &asymp;489&nbsp;km&sup2; at the pause near 262&nbsp;m, and never once decreases &mdash;
+                a bathtub&rsquo;s one law. For scale, Lake Mead&rsquo;s full-pool surface is &asymp;640&nbsp;km&sup2;.
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+<section class="block tinted" id="the-fork">
+    <div class="container">
+        <h2 class="center">Act II &mdash; one decision, two worlds</h2>
+        <p class="section-intro center">
+            Now the terrain spans both source tiles as one corridor mosaic &mdash; Boulder Basin, the dam site, all of
+            Black Canyon, upper Lake Mohave &mdash; so the story is connected end to end: water leaves the lake,
+            crosses the dam site, and runs the gorge under one conserved ledger.
+        </p>
+        <div class="split narrow-img">
+            <div class="split-text">
+                <h3>Pause, then branch</h3>
+                <p>
+                    At epoch 54 the run is paused. The what-if form opens on the paused branch and exposes exactly
+                    what is forkable: the promoted parameter. Here that is the release rate, raised ten times.
+                    Nothing else is touched &mdash; not the terrain, not the clock, not the history.
+                </p>
+                <h3>What &ldquo;zero-copy&rdquo; buys</h3>
+                <p>
+                    The branch anchors to the parent rather than duplicating it, so forking a long-running twin costs
+                    almost nothing and can be done mid-event, while the operator is still watching. The two worlds
+                    share every epoch up to the anchor and nothing after it.
+                </p>
+                <p>
+                    The form states the contract in one line: <em>branches differ by parameters only; the fork anchors
+                    where this branch paused.</em>
+                </p>
+            </div>
+            <figure class="shot">
+                <a href="img/dt-05-fork-form.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/dt-05-fork-form.webp" alt="The Digital Twin panel showing a Paused badge, the Fork what-if control active, an inflowRate field set to 600, and a Create fork button, with the status line reading main: PAUSED at epoch 54" width="346" height="298" loading="lazy"></a>
+                <figcaption>The what-if form on a run paused at epoch&nbsp;54. <code>inflowRate</code> is set to 600 for the branch, and the note under the field states the rule the whole capability rests on.</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Same epoch. Two rivers.</h2>
+        <p class="section-intro center">Both frames are the same epoch in the two worlds &mdash; same terrain, same imagery, same history up to epoch 54.</p>
+        <div class="shot-pair">
+            <div>
+                <div class="pair-label base">Baseline world</div>
+                <figure class="shot">
+                    <a href="img/dt-01-baseline-epoch86.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/dt-01-baseline-epoch86.webp" alt="Satellite view with Lake Mead at upper right and Black Canyon running south; a narrow blue and purple ribbon of water threads down the canyon" width="368" height="600" loading="lazy"></a>
+                </figure>
+            </div>
+            <div>
+                <div class="pair-label emerg">Emergency fork</div>
+                <figure class="shot">
+                    <a href="img/dt-02-emergency-epoch86.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/dt-02-emergency-epoch86.webp" alt="The same satellite view at the same epoch; the water is far wider, spreading across the canyon floor with a bright green and yellow core indicating greater depth" width="368" height="600" loading="lazy"></a>
+                </figure>
+            </div>
+        </div>
+        <p class="pair-caption">
+            Left, the baseline release threads a narrow ribbon south down Black Canyon. Right, the branch at ten times
+            the rate: wider everywhere the baseline reached, further down-canyon, and its core has climbed the depth
+            ramp from blue into green and yellow. The only difference between these two frames is one number,
+            changed once, 32 epochs earlier.
+        </p>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">The ledger says the same thing</h2>
+        <p class="section-intro center">
+            The pictures are persuasive; the ledger is checkable. Water in the gorge, per world, per epoch &mdash;
+            the decision as a number.
+        </p>
+        <figure class="chart wide" id="divergence">
+            <svg viewBox="0 0 720 400" role="img" aria-labelledby="c1-t c1-d">
+                <title id="c1-t">Water in the gorge, baseline versus emergency fork, epochs 0 to 99</title>
+                <desc id="c1-d">Both worlds share one history until epoch 54, where the run is forked. The baseline continues linearly to about 0.44 cubic kilometres at epoch 99. The emergency fork rises at ten times that rate to about 1.65 cubic kilometres by epoch 86, opening a wedge of roughly 1.3 cubic kilometres between them.</desc>
+                <g class="ch-grid" shape-rendering="crispEdges">
+                    <line x1="62" y1="354" x2="702" y2="354"/>
+                    <line x1="62" y1="270" x2="702" y2="270"/>
+                    <line x1="62" y1="186" x2="702" y2="186"/>
+                    <line x1="62" y1="102" x2="702" y2="102"/>
+                    <line x1="62" y1="18" x2="702" y2="18"/>
+                </g>
+                <line class="ch-axis" x1="62" y1="354" x2="702" y2="354" shape-rendering="crispEdges" vector-effect="non-scaling-stroke"/>
+                <text x="52" y="358" text-anchor="end">0.0</text>
+                <text x="52" y="274" text-anchor="end">0.5</text>
+                <text x="52" y="190" text-anchor="end">1.0</text>
+                <text x="52" y="106" text-anchor="end">1.5</text>
+                <text x="52" y="22" text-anchor="end">2.0</text>
+                <text x="62" y="381" text-anchor="middle">0</text>
+                <text x="190" y="381" text-anchor="middle" class="ch-t-minor">20</text>
+                <text x="318" y="381" text-anchor="middle">40</text>
+                <text x="446" y="381" text-anchor="middle" class="ch-t-minor">60</text>
+                <text x="574" y="381" text-anchor="middle">80</text>
+                <text x="702" y="381" text-anchor="middle">100</text>
+
+                <polygon class="ch-wedge" points="407.6,313.4 612.4,77.0 612.4,289.7"/>
+                <line class="ch-fork" x1="407.6" y1="18" x2="407.6" y2="354" vector-effect="non-scaling-stroke"/>
+                <line class="ch-bracket" x1="612.4" y1="77.0" x2="612.4" y2="289.7" vector-effect="non-scaling-stroke"/>
+
+                <polyline class="ch-base" vector-effect="non-scaling-stroke" points="62.0,353.3 695.6,280.1"/>
+                <polyline class="ch-emerg" vector-effect="non-scaling-stroke" points="407.6,313.4 612.4,77.0"/>
+
+                <text class="ch-fork-t ch-wide" x="414" y="30">fork anchor &middot; epoch 54</text>
+                <text class="ch-fork-t ch-narrow" x="414" y="30">epoch 54</text>
+                <text class="ch-end ch-emerg-t" x="606" y="62" text-anchor="end">Emergency &mdash; 1.6 km&sup3;</text>
+                <text class="ch-end ch-base-t" x="692" y="326" text-anchor="end">Baseline &mdash; 0.4 km&sup3;</text>
+                <text class="ch-wide" x="604" y="252" text-anchor="end">&asymp;1.3 km&sup3; wedge</text>
+                <text class="ch-narrow" x="604" y="252" text-anchor="end">1.3 km&sup3;</text>
+
+                <g class="ch-legend">
+                    <line class="ch-base" x1="76" y1="32" x2="102" y2="32" vector-effect="non-scaling-stroke"/>
+                    <text class="ch-lbl" x="110" y="36">Baseline release</text>
+                    <line class="ch-emerg" x1="76" y1="52" x2="102" y2="52" vector-effect="non-scaling-stroke"/>
+                    <text class="ch-lbl" x="110" y="56">Emergency release (10&times;)</text>
+                </g>
+
+                <text class="ch-axis-title" x="382" y="396" text-anchor="middle">epoch</text>
+                <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">water in gorge (km&sup3;)</text>
+            </svg>
+            <figcaption>
+                One line until epoch 54, then two. The baseline world ends holding &asymp;0.4&nbsp;km&sup3;
+                (0.4 million acre-feet, around 1% of a full Lake Mead); the emergency world &asymp;1.6&nbsp;km&sup3;
+                (1.3 million acre-feet). The shaded wedge between them is &asymp;1.3&nbsp;km&sup3;.
+            </figcaption>
+        </figure>
+        <p class="routing-note">
+            The branch accumulates at exactly ten times the baseline rate from the anchor on &mdash; so the wedge is
+            not an emergent surprise, it is what the closed-form law predicts, and the ledger lands on it.
+            That agreement is the actual claim being made here.
+        </p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <div class="aside-box">
+            <div class="feat-tag">Interlude &middot; a data-archaeology finding</div>
+            <h3>SRTM remembers a full lake</h3>
+            <p>
+                Run the same bathtub over the Lake Mead tile and the method exposes its own input. In February 2000
+                the SRTM radar mission measured the water surface of a nearly full reservoir &mdash; pixel-verified at
+                about 372&nbsp;m, dead flat, across Boulder Basin. There is no lakebed in that terrain. So a stage ramp
+                from 273&nbsp;m to 375&nbsp;m shows almost nothing at all, until it crosses the frozen surface and the
+                whole basin snaps wet in a single step. The cliff measures &asymp;564&nbsp;km&sup2; against a real
+                full-pool surface of &asymp;640&nbsp;km&sup2; &mdash; the radar&rsquo;s lake and the model&rsquo;s cliff
+                are the same object, measured 26 years apart. We keep this in because a method worth trusting is one
+                honest enough to expose quirks in its own inputs.
+            </p>
+            <div class="trip-grid">
+                <figure>
+                    <img src="img/dt-08-srtm-below.webp" alt="A near-empty frame: almost the entire tile is dry, with only a few wet pixels at the lower edge" width="768" height="768" loading="lazy">
+                    <figcaption>Below the frozen surface &mdash; almost nothing is wet</figcaption>
+                </figure>
+                <figure>
+                    <img src="img/dt-09-srtm-at.webp" alt="The same frame with the entire Lake Mead basin appearing at once in green, including the arm reaching north and the basins to east and west" width="768" height="768" loading="lazy">
+                    <figcaption>At the frozen surface &mdash; the whole basin appears in one step</figcaption>
+                </figure>
+                <figure>
+                    <img src="img/dt-10-srtm-above.webp" alt="The same basin footprint one step later, rendered in yellow to indicate greater depth" width="768" height="768" loading="lazy">
+                    <figcaption>Above it &mdash; the same footprint, now deeper</figcaption>
+                </figure>
+            </div>
+            <figure class="chart plain">
+                <svg viewBox="0 0 720 400" role="img" aria-labelledby="c3-t c3-d">
+                    <title id="c3-t">Wet area against stage over the Lake Mead tile, 273 to 375 metres</title>
+                    <desc id="c3-d">Wet area stays near zero across the entire ramp from 273 metres, then jumps by about 566 square kilometres in a single step at stage 373.3 metres, the water surface frozen into the terrain by the February 2000 radar mission.</desc>
+                    <g class="ch-grid" shape-rendering="crispEdges">
+                        <line x1="62" y1="354" x2="702" y2="354"/>
+                        <line x1="62" y1="270" x2="702" y2="270"/>
+                        <line x1="62" y1="186" x2="702" y2="186"/>
+                        <line x1="62" y1="102" x2="702" y2="102"/>
+                        <line x1="62" y1="18" x2="702" y2="18"/>
+                    </g>
+                    <line class="ch-axis" x1="62" y1="354" x2="702" y2="354" shape-rendering="crispEdges" vector-effect="non-scaling-stroke"/>
+                    <text x="52" y="358" text-anchor="end">0</text>
+                    <text x="52" y="274" text-anchor="end">200</text>
+                    <text x="52" y="190" text-anchor="end">400</text>
+                    <text x="52" y="106" text-anchor="end">600</text>
+                    <text x="52" y="22" text-anchor="end">800</text>
+                    <text x="62" y="381" text-anchor="middle">273</text>
+                    <text x="219" y="381" text-anchor="middle" class="ch-t-minor">298</text>
+                    <text x="382" y="381" text-anchor="middle" class="ch-t-minor">324</text>
+                    <text x="539" y="381" text-anchor="middle" class="ch-t-minor">349</text>
+                    <text x="702" y="381" text-anchor="middle">375</text>
+                    <line class="ch-fork" x1="691.2" y1="18" x2="691.2" y2="354" vector-effect="non-scaling-stroke"/>
+                    <polyline class="ch-base" vector-effect="non-scaling-stroke" points="62.0,354.0 72.8,354.0 83.7,354.0 94.5,354.0 105.4,354.0 116.2,354.0 127.1,354.0 137.9,354.0 148.8,354.0 159.6,354.0 170.5,354.0 181.3,354.0 192.2,354.0 203.0,354.0 213.9,354.0 224.7,354.0 235.6,354.0 246.4,354.0 257.3,354.0 268.1,354.0 278.9,354.0 289.8,354.0 300.6,354.0 311.5,354.0 322.3,354.0 333.2,354.0 344.0,354.0 354.9,354.0 365.7,354.0 376.6,354.0 387.4,354.0 398.3,354.0 409.1,353.8 420.0,353.4 430.8,353.4 441.7,353.4 452.5,353.4 463.4,353.4 474.2,353.4 485.1,353.4 495.9,353.4 506.7,353.4 517.6,353.4 528.4,353.4 539.3,353.4 550.1,353.4 561.0,353.4 571.8,353.4 582.7,353.4 593.5,353.4 604.4,353.4 615.2,353.4 626.1,353.4 636.9,353.4 647.8,353.4 658.6,353.4 669.5,353.4 680.3,352.7 691.2,114.9 702.0,109.4"/>
+                    <text class="ch-fork-t ch-wide" x="684" y="88" text-anchor="end">the frozen surface &mdash; ~373.3 m (1,225 ft)</text>
+                    <text class="ch-fork-t ch-narrow" x="684" y="88" text-anchor="end">~373.3 m</text>
+                    <text class="ch-axis-title" x="382" y="396" text-anchor="middle">stage (m)</text>
+                    <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">standing water (km&sup2;)</text>
+                </svg>
+                <figcaption>
+                    Flat for a hundred metres of stage, then a single-step jump of &asymp;566&nbsp;km&sup2; at
+                    373.3&nbsp;m. The cliff is February 2000, seen from a flood model run in 2026.
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">What this makes possible</h2>
+        <p class="section-intro center">The dam is the demonstration. These are the properties it is demonstrating.</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feat-tag">Branch a live run</div>
+                <h3>What-ifs during the event</h3>
+                <p>
+                    Because forking is cheap and happens on a paused run, an operator can ask &ldquo;what if we opened
+                    it further?&rdquo; while the event is still unfolding &mdash; not in a post-hoc study run days later.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">History without copies</div>
+                <h3>Many branches, one past</h3>
+                <p>
+                    Branches anchor to a shared history instead of duplicating it, so comparing several courses of
+                    action does not multiply the cost of the run that produced them.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">A ledger that balances</div>
+                <h3>Differences you can audit</h3>
+                <p>
+                    One conserved quantity across the corridor means the gap between two worlds is a checkable number.
+                    Here it matches the closed-form prediction; where it would not, that is a finding, not a rounding error.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Corridor-scale terrain</div>
+                <h3>Across tile boundaries</h3>
+                <p>
+                    The state grid spans a mosaic built from more than one source tile, so a twin can follow water from
+                    a reservoir, across a structure, and down a gorge under a single ledger.
+                </p>
+            </div>
+        </div>
+        <p class="routing-note">
+            The digital twin is a ForgeGIS engine capability, driven from the ForgeGIS Studio canvas, and is
+            targeted for an upcoming release. It is a stated direction, not a shipping feature &mdash; everything
+            shown on this page is a real recording, but it is not yet in your hands.
+        </p>
+    </div>
+</section>
+
+<section class="contact-strip">
+    <div class="container">
+        <h2>Want the depth behind this?</h2>
+        <p>
+            The full technical showcase carries the validation blocks this page leaves out &mdash; definition hashes,
+            run identifiers, wet-cell counts, the fork ordinal, and the recorded API exchanges behind every figure above.
+            Seaglass Foundry<sup class="tm">&trade;</sup> is happy to walk an evaluator through it.
+        </p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20digital%20twin%20inquiry" class="btn btn-primary">rich@seaglassfoundry.com</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/products/">Products</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/forgemind/">ForgeMind</a>
+            <a href="/products/forgedata/">ForgeData</a>
+            <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
+            <a href="/products/forgegis/downloads/forgegis-technical-brief.pdf">Technical Brief</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Control Center&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            SRTM and Landsat data are products of NASA and the U.S. Geological Survey. Map tiles and imagery in the screenshots above are &copy; Esri and its data providers, sourced from Esri, Maxar, Earthstar Geographics and the GIS User Community; MapLibre, Java, and other third-party products and marks referenced are the property of their respective owners.
+            Reference to these marks does not imply endorsement. This page is a self-published technical demonstration by Seaglass Foundry LLC and is not affiliated with, endorsed by, or produced for the Bureau of Reclamation or any other agency.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+    </div>
+</footer>
+
+<dialog class="lightbox" id="shot-lightbox" aria-label="Screenshot preview">
+    <button class="lightbox-close" type="button" aria-label="Close preview">&times;</button>
+    <img alt="">
+</dialog>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    var burger = document.querySelector('.hamburger');
+    function closeNav() {
+        links.classList.remove('open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+    }
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', closeNav);
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) closeNav();
+    });
+})();
+(function() {
+    var dlg = document.getElementById('shot-lightbox');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var pic = dlg.querySelector('img');
+    document.querySelectorAll('a.shot-link').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            var thumb = a.querySelector('img');
+            pic.src = a.getAttribute('href');
+            pic.alt = thumb ? thumb.alt : '';
+            dlg.showModal();
+        });
+    });
+    dlg.addEventListener('click', function() { dlg.close(); });
+    dlg.addEventListener('close', function() { pic.removeAttribute('src'); });
+})();
+</script>
+</body>
+</html>
