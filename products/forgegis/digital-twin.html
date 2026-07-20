@@ -551,7 +551,7 @@
         <figure class="chart wide" id="divergence">
             <svg viewBox="0 0 720 400" role="img" aria-labelledby="c1-t c1-d">
                 <title id="c1-t">Water in the gorge, baseline versus emergency fork, epochs 0 to 99</title>
-                <desc id="c1-d">Both worlds share one history until epoch 54, where the run is forked. The baseline continues linearly to about 0.44 cubic kilometres at epoch 99. The emergency fork rises at ten times that rate to about 1.65 cubic kilometres by epoch 86, opening a wedge of roughly 1.3 cubic kilometres between them.</desc>
+                <desc id="c1-d">Both worlds share one history until epoch 54, where the run is forked. The emergency fork then rises at ten times the baseline rate, reaching about 1.65 cubic kilometres by epoch 86, where the forked run ends. At that same epoch the baseline holds about 0.38 cubic kilometres, so the wedge between the two worlds is roughly 1.3 cubic kilometres. The baseline run continues alone to epoch 99, finishing near 0.44 cubic kilometres.</desc>
                 <g class="ch-grid" shape-rendering="crispEdges">
                     <line x1="62" y1="354" x2="702" y2="354"/>
                     <line x1="62" y1="270" x2="702" y2="270"/>
@@ -597,9 +597,12 @@
                 <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">water in gorge (km&sup3;)</text>
             </svg>
             <figcaption>
-                One line until epoch 54, then two. The baseline world ends holding &asymp;0.4&nbsp;km&sup3;
-                (0.4 million acre-feet, around 1% of a full Lake Mead); the emergency world &asymp;1.6&nbsp;km&sup3;
-                (1.3 million acre-feet). The shaded wedge between them is &asymp;1.3&nbsp;km&sup3;.
+                One line until epoch 54, then two. At <strong>epoch 86</strong> &mdash; the epoch shown in both frames
+                above, and where the forked run ends &mdash; the baseline holds &asymp;0.38&nbsp;km&sup3; and the
+                emergency world &asymp;1.6&nbsp;km&sup3; (&asymp;1.3 million acre-feet). The shaded wedge between them
+                at that shared epoch is <strong>&asymp;1.3&nbsp;km&sup3;</strong> of water &mdash; about
+                1.0 million acre-feet, or roughly 4% of a full Lake Mead. The baseline run continues alone to epoch 99,
+                finishing at &asymp;0.44&nbsp;km&sup3; (&asymp;0.36 million acre-feet).
             </figcaption>
         </figure>
         <p class="routing-note">
@@ -620,7 +623,10 @@
                 the SRTM radar mission measured the water surface of a nearly full reservoir &mdash; pixel-verified at
                 about 372&nbsp;m, dead flat, across Boulder Basin. There is no lakebed in that terrain. So a stage ramp
                 from 273&nbsp;m to 375&nbsp;m shows almost nothing at all, until it crosses the frozen surface and the
-                whole basin snaps wet in a single step. The cliff measures &asymp;564&nbsp;km&sup2; against a real
+                whole basin snaps wet in a single step. That step lands at 373.3&nbsp;m rather than 372&nbsp;m because
+                the ramp advances in 1.7&nbsp;m increments &mdash; 373.3&nbsp;m is simply the first stage above the
+                frozen surface, and the gap is the ramp&rsquo;s resolution, not a disagreement in the measurement.
+                The cliff measures &asymp;564&nbsp;km&sup2; against a real
                 full-pool surface of &asymp;640&nbsp;km&sup2; &mdash; the radar&rsquo;s lake and the model&rsquo;s cliff
                 are the same object, measured 26 years apart. We keep this in because a method worth trusting is one
                 honest enough to expose quirks in its own inputs.
@@ -642,7 +648,7 @@
             <figure class="chart plain">
                 <svg viewBox="0 0 720 400" role="img" aria-labelledby="c3-t c3-d">
                     <title id="c3-t">Wet area against stage over the Lake Mead tile, 273 to 375 metres</title>
-                    <desc id="c3-d">Wet area stays near zero across the entire ramp from 273 metres, then jumps by about 566 square kilometres in a single step at stage 373.3 metres, the water surface frozen into the terrain by the February 2000 radar mission.</desc>
+                    <desc id="c3-d">Wet area stays near zero across the entire ramp from 273 metres, then jumps by about 564 square kilometres in a single step at stage 373.3 metres, the water surface frozen into the terrain by the February 2000 radar mission.</desc>
                     <g class="ch-grid" shape-rendering="crispEdges">
                         <line x1="62" y1="354" x2="702" y2="354"/>
                         <line x1="62" y1="270" x2="702" y2="270"/>
@@ -669,7 +675,7 @@
                     <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">standing water (km&sup2;)</text>
                 </svg>
                 <figcaption>
-                    Flat for a hundred metres of stage, then a single-step jump of &asymp;566&nbsp;km&sup2; at
+                    Flat for a hundred metres of stage, then a single-step jump of &asymp;564&nbsp;km&sup2; at
                     373.3&nbsp;m. The cliff is February 2000, seen from a flood model run in 2026.
                 </figcaption>
             </figure>
