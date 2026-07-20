@@ -635,9 +635,10 @@
             <h2>GPU-accelerated geospatial compute, <span class="product">for the agent era</span></h2>
             <p class="fc-tagline">239 user-facing operations across 11 categories. 237 callable by AI agents through a native MCP server.</p>
             <p class="fc-description">
-                ForgeGIS runs raster, vector, hydrology, visibility, spectral, ML, and point-cloud workloads on the GPU
-                through Java-side compute kernels &mdash; and exposes 237 of its 239 operations to AI agents through
-                a native Model Context Protocol server. Distributed as pure-Java Maven artifacts with no first-party native code, no GDAL native bindings, and no separate native install step &mdash; GPU dispatch is via the JOCL OpenCL bindings (JNI bridge bundled in the JOCL JAR). Release 1.1 adds a non-linear DAG pipeline engine that imports QGIS models and runs branching raster/vector workflows GPU-resident.
+                ForgeGIS runs raster, hydrology, visibility, spectral, ML, and point-cloud workloads on the GPU
+                through Java-side compute kernels, alongside a large vector and topology surface in pure Java
+                &mdash; and exposes 237 of its 239 operations to AI agents through
+                a native Model Context Protocol server. Distributed as pure-Java Maven artifacts with no first-party native code, no GDAL native bindings, and no separate native install step &mdash; GPU dispatch is via the JOCL OpenCL bindings (JNI bridge bundled in the JOCL JAR). Release 1.1 adds a non-linear DAG pipeline engine that imports QGIS models and runs branching raster/vector workflows, with the raster data plane GPU-resident end to end.
             </p>
             <span class="fc-claim">
                 As of May 2026, <em>the only commercially-supported GPU-accelerated geospatial MCP server we have been able to identify</em>.

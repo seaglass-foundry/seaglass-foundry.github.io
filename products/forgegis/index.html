@@ -773,9 +773,9 @@
                 <h3>What it is</h3>
                 <p>
                     ForgeGIS is a GPU-accelerated geospatial compute library and a native Model Context Protocol server,
-                    both written in Java. It runs raster, vector, hydrology, visibility, spectral, ML, and point-cloud
-                    workloads on the GPU through Java-side compute kernels &mdash; and exposes 237 of its 239 operations
-                    to AI agents through MCP.
+                    both written in Java. It runs raster, hydrology, visibility, spectral, ML, and point-cloud
+                    workloads on the GPU through Java-side compute kernels, alongside a large vector and topology
+                    surface in pure Java &mdash; and exposes 237 of its 239 operations to AI agents through MCP.
                 </p>
             </div>
             <div class="item">
@@ -850,9 +850,9 @@
                 <p>
                     The GPU-resident pipeline extends from linear chains to arbitrary directed acyclic graphs.
                     Three executors &mdash; raster, vector, and mixed &mdash; run branching workflows where a stage
-                    fans out to multiple consumers and multiple inputs converge on one operation, with every
-                    intermediate staying resident on the device. A SavedPipeline v2 wire format carries typed slot
-                    references, conditionals, and nested pipelines.
+                    fans out to multiple consumers and multiple inputs converge on one operation, with raster
+                    intermediates staying resident on the device across the graph. A SavedPipeline v2 wire format
+                    carries typed slot references, conditionals, and nested pipelines.
                 </p>
             </div>
             <div class="feature-card">
