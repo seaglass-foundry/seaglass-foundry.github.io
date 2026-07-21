@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeGIS Vector at Scale — A Million Buildings, One Immutable Chain</title>
+    <meta name="description" content="A scale study of the ForgeGIS parallel-CPU vector engine: one million real building footprints through a seven-operation chain — reproject, shape metrics, setback buffer, points-in-polygons join, classify — at 124,785 features/sec, through immutable in-process handles with no per-stage file I/O.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/vector-at-scale.html">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/vector-at-scale.html">
+    <meta property="og:title" content="ForgeGIS Vector at Scale — A Million Buildings, One Immutable Chain">
+    <meta property="og:description" content="Seven vector operations over a million real building footprints on the parallel-CPU engine — near-flat features/sec from 100k to 1M, and a ceiling that refuses honestly instead of falling over.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ForgeGIS Vector at Scale — A Million Buildings, One Immutable Chain">
+    <meta name="twitter:description" content="A scale study of the parallel-CPU vector engine: 124,785 features/sec at 1M, 2.03× flatness across an order of magnitude, no per-stage file I/O.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "ForgeGIS Vector at Scale — A Million Buildings, One Immutable Chain",
+        "url": "https://seaglassfoundry.com/products/forgegis/vector-at-scale.html",
+        "description": "A self-published scale study of the ForgeGIS parallel-CPU vector engine: a seven-operation chain over real Microsoft building footprints at 10k, 100k and 1M features, measured server-side around each operation, with the memory ceiling stated rather than hidden.",
+        "about": "Vector geospatial processing at scale",
+        "author": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        }
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; }
+        p code, li code, td code, dd code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--navy); }
+
+        /* ── Nav ── */
+        nav { background: var(--navy); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+        nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+        nav .brand { color: var(--white); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Product subnav ── */
+        .subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .subnav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 44px; font-size: 0.88rem; }
+        .subnav .crumb { color: #8eaec6; }
+        .subnav .crumb a { color: #a8c4d8; }
+        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+        .subnav .sep { color: #5a6a7a; }
+        .subnav .flagship-tag { margin-left: auto; color: var(--amber); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* ── Hero ── */
+        .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: var(--white); padding: 80px 24px 90px; text-align: center; }
+        .hero .flagship-badge { display: inline-block; background: rgba(216, 151, 60, 0.15); color: var(--amber); border: 1px solid rgba(216, 151, 60, 0.4); padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+        .hero h1 span { color: var(--teal); }
+        .hero .tagline { font-size: 1.3rem; color: #a8c4d8; margin-bottom: 24px; font-weight: 400; }
+        .hero .categorical-claim { max-width: 720px; margin: 0 auto 36px; color: var(--white); font-size: 1.1rem; line-height: 1.65; font-weight: 500; }
+        .hero .categorical-claim em { color: var(--teal); font-style: normal; font-weight: 700; }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 13px 28px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.1s, border-color 0.2s; }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+
+        /* ── Stats strip ── */
+        .stats { background: var(--white); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .stats-grid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .stat { text-align: center; padding: 0 12px; }
+        .stat .number { font-size: 2.4rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+        .stat .number .accent { color: var(--teal); }
+        .stat .label { font-size: 0.95rem; color: var(--text-light); line-height: 1.5; }
+
+        /* ── Generic section ── */
+        section.block { padding: 70px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 { font-size: 1.9rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.02em; }
+        section.block .section-intro { color: var(--text-light); font-size: 1.02rem; margin-bottom: 32px; max-width: 760px; }
+        section.block h2.center, section.block .center { text-align: center; }
+        section.block .center.section-intro { margin-left: auto; margin-right: auto; }
+
+        /* ── Screenshots ── */
+        figure.shot { max-width: 1000px; margin: 0 auto; }
+        figure.shot a.shot-link { display: block; cursor: zoom-in; }
+        figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 30px rgba(15, 38, 64, 0.12); }
+        dialog.lightbox { border: none; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; }
+        dialog.lightbox::backdrop { background: rgba(15, 38, 64, 0.88); }
+        dialog.lightbox img { display: block; max-width: 94vw; max-height: 94vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); cursor: zoom-out; }
+        dialog.lightbox .lightbox-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(15, 38, 64, 0.65); color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+        dialog.lightbox .lightbox-close:hover, dialog.lightbox .lightbox-close:focus-visible { background: rgba(15, 38, 64, 0.95); }
+        html:has(dialog.lightbox[open]) { overflow: hidden; }
+        figure.shot figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .shot-band { background: var(--grey-bg); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .shot-band figure.shot { max-width: 700px; }
+        .split { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+        .split figure.shot { margin: 0; }
+        .split .split-text h3 { font-size: 1.1rem; color: var(--navy); margin: 18px 0 8px; }
+        .split .split-text h3:first-child { margin-top: 0; }
+        .split .split-text p { font-size: 0.95rem; line-height: 1.7; }
+        .split.narrow-img { grid-template-columns: 1.6fr 1fr; }
+        .split.narrow-img figure.shot { max-width: 360px; justify-self: center; }
+        .split.spaced { margin-top: 44px; }
+        figure.shot.inset { margin-top: 18px; }
+        figure.shot.narrow { max-width: 346px; margin-top: 22px; }
+
+        /* ── Comparison pairs / tier strip ──
+           Deliberately do NOT collapse on small screens: the side-by-side
+           comparison is the content. Gaps tighten instead. */
+        .shot-pair { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .shot-pair figure.shot { margin: 0; }
+        .shot-pair .pair-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; text-align: center; }
+        .shot-pair .pair-label.a { color: var(--teal-dark); }
+        .shot-pair .pair-label.b { color: var(--amber-dark); }
+        .pair-caption { max-width: 900px; margin: 16px auto 0; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .trio { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .trio figure { margin: 0; }
+        .trio img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; }
+        .trio figcaption { margin-top: 8px; color: var(--text-light); font-size: 0.8rem; line-height: 1.5; text-align: center; }
+
+        /* ── 3-up content blocks ── */
+        .three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 8px; }
+        .three-up .item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px 26px; }
+        section.block.tinted .three-up .item { background: var(--white); }
+        .three-up h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.01em; }
+        .three-up p { color: var(--text); font-size: 0.95rem; line-height: 1.7; }
+
+        /* ── Feature grid ── */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 8px; }
+        .feature-card { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: 10px; padding: 24px 24px; }
+        section.block.tinted .feature-card { background: var(--white); }
+        .feature-card .feat-tag { font-size: 0.72rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .feature-card h3 { font-size: 1.08rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; }
+        .feature-card p { color: var(--text); font-size: 0.93rem; line-height: 1.65; }
+
+        .routing-note { max-width: 940px; margin: 22px auto 0; color: var(--text-light); font-size: 0.92rem; text-align: center; }
+
+        /* ── Scope / disclosure callout ── */
+        .lic-note { max-width: 880px; margin: 36px auto 0; background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 6px; padding: 16px 22px; color: var(--text); font-size: 0.92rem; line-height: 1.6; }
+        .lic-note strong { color: var(--amber-dark); }
+        .read-box { margin-top: 0; padding: 26px 30px; }
+        .read-box dl { margin: 0; }
+        .read-box dt { font-weight: 700; color: var(--amber-dark); margin-top: 16px; }
+        .read-box dt:first-child { margin-top: 0; }
+        .read-box dd { margin: 2px 0 0; }
+        .read-box.spaced { margin-top: 36px; }
+
+        /* ── Ceiling callout ── */
+        .aside-box { max-width: 940px; margin: 0 auto; background: var(--grey-bg); border: 1px solid var(--border); border-left: 3px solid var(--teal); border-radius: 10px; padding: 30px 34px; }
+        section.block.tinted .aside-box { background: var(--white); }
+        .aside-box .feat-tag { font-size: 0.72rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+        .aside-box h3 { font-size: 1.25rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; }
+        .aside-box p { font-size: 0.95rem; line-height: 1.7; }
+        .gate-msg { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.82rem; line-height: 1.6; background: var(--navy-dark); color: #cfe0d8; border-radius: 8px; padding: 14px 18px; margin: 16px 0 0; overflow-x: auto; }
+        .gate-msg .warn { color: var(--amber); }
+        .aside-box p.after-gate { margin-top: 18px; }
+
+        /* ── Spec table ── */
+        .table-wrap { max-width: 940px; margin: 0 auto; overflow-x: auto; }
+        table.spec { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+        table.spec th { text-align: left; color: var(--navy); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 14px; border-bottom: 2px solid var(--border); white-space: nowrap; }
+        table.spec td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+        table.spec td:first-child { font-weight: 600; color: var(--navy); white-space: nowrap; }
+        table.spec tr:last-child td { border-bottom: none; }
+
+        /* ── Charts (inline SVG) ─────────────────────────────────
+           Self-contained block: no dependencies, no script, no image.
+           Lifts verbatim into any other page on this site. */
+        figure.chart { max-width: 680px; margin: 32px auto 0; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 22px 18px 10px; }
+        figure.chart.wide { max-width: 940px; }
+        figure.chart.plain { background: none; border: none; padding: 0; }
+        figure.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+        figure.chart figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .chart text { font-size: 13px; fill: var(--text-light); font-family: inherit; }
+        .ch-grid line { stroke: var(--border); stroke-width: 1; }
+        .ch-axis, .ch-tick { stroke: #c6d2dd; stroke-width: 1; }
+        .ch-base { stroke: var(--teal); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .ch-emerg { stroke: var(--amber-dark); stroke-width: 2.5; fill: none; stroke-dasharray: 7 4; stroke-linejoin: round; }
+        .ch-dot { fill: var(--teal); }
+        .ch-dot2 { fill: var(--amber-dark); }
+        .ch-fork { stroke: var(--navy); stroke-width: 1.5; stroke-dasharray: 4 4; opacity: 0.55; }
+        .ch-lbl { fill: var(--text-light); }
+        .ch-end { font-weight: 700; }
+        .ch-base-t { fill: var(--teal-dark); }
+        .ch-emerg-t { fill: var(--amber-dark); }
+        .ch-fork-t { fill: var(--navy); font-weight: 600; opacity: 0.8; }
+        .ch-axis-title { fill: var(--navy); font-weight: 600; }
+        .ch-narrow { display: none; }
+        .ch-seg { stroke: var(--white); stroke-width: 1; }
+        .ch-row-t { fill: var(--navy); font-weight: 700; }
+        .ch-row-sub { fill: var(--text-light); }
+
+        /* ── Contact strip ── */
+        .contact-strip { background: var(--white); padding: 60px 24px; text-align: center; border-top: 1px solid var(--border); }
+        .contact-strip h2 { font-size: 1.5rem; color: var(--navy); margin-bottom: 12px; }
+        .contact-strip p { color: var(--text-light); font-size: 1rem; margin-bottom: 20px; max-width: 640px; margin-left: auto; margin-right: auto; }
+
+        /* ── Footer ── */
+        footer { background: var(--navy-dark); color: #8eaec6; padding: 40px 24px; font-size: 0.9rem; }
+        footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks { width: 100%; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #7790a8; font-size: 0.8rem; line-height: 1.6; }
+        .footer-copy { width: 100%; text-align: center; margin-top: 12px; color: #8eaec6; }
+
+        @media (max-width: 900px) {
+            .split, .split.narrow-img { grid-template-columns: 1fr; }
+            .split.narrow-img figure.shot { justify-self: start; }
+            .chart text { font-size: 18px; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .three-up { grid-template-columns: 1fr; }
+            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+            .subnav .flagship-tag { margin-left: 0; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
+            .shot-pair { gap: 12px; }
+            .trio { gap: 8px; }
+            .aside-box { padding: 24px 20px; }
+            .read-box { padding: 22px 20px; }
+        }
+        @media (max-width: 640px) {
+            .chart text { font-size: 26px; }
+            .ch-legend, .ch-t-minor, .ch-wide, .ch-ytitle { display: none; }
+            .ch-narrow { display: block; }
+            figure.chart { padding: 16px 10px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="/products/">Products</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<div class="subnav">
+    <div class="subnav-inner">
+        <div class="crumb">
+            <a href="/products/">Products</a>
+            <span class="sep">/</span>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <span class="sep">/</span>
+            <span>Vector at Scale</span>
+        </div>
+        <span class="flagship-tag">Scale Study</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <span class="flagship-badge">ForgeGIS &middot; Vector Engine &middot; Scale Study</span>
+        <h1>A million buildings, <span>one immutable chain</span></h1>
+        <p class="tagline">Seven vector operations over real building footprints &mdash; and the work mix barely moves across two orders of magnitude.</p>
+        <p class="categorical-claim">
+            Real Microsoft building footprints for Houston, run through a seven-operation chain on the
+            ForgeGIS<sup class="tm">&trade;</sup> <em>parallel-CPU vector engine</em> &mdash; reproject, shape metrics,
+            setback buffer, points-in-polygons join, classify, reproject back &mdash; entirely through immutable
+            in-process handles, with <em>no per-stage file I/O</em>. Every number on this page was read from a
+            server-side timing path, never from pixels.
+        </p>
+        <div class="cta-group">
+            <a href="#the-curve" class="btn btn-primary">See the curve</a>
+            <a href="#scope" class="btn btn-outline">What this claims</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat">
+            <div class="number">124,785</div>
+            <div class="label"><span class="accent">features/sec</span> at one million footprints, measured headless around each operation</div>
+        </div>
+        <div class="stat">
+            <div class="number">2.03<span class="accent">&times;</span></div>
+            <div class="label">the entire spread in features/sec between 100k and 1M &mdash; near-flat across an order of magnitude</div>
+        </div>
+        <div class="stat">
+            <div class="number">0</div>
+            <div class="label">files written between stages. Every intermediate is an <span class="accent">immutable in-process handle</span></div>
+        </div>
+    </div>
+</section>
+
+<div class="shot-band">
+    <figure class="shot">
+        <a href="img/vs-06-map-1m.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-06-map-1m.webp" alt="A dense city block grid of Houston seen from above, with every building footprint filled in shades of teal and dark green over an OpenStreetMap basemap, streets and highways visible between them" width="700" height="828" loading="eager"></a>
+        <figcaption>One million real footprints served as vector tiles, filled straight from the class codes the engine wrote. Every visible polygon is a real building &mdash; no sampling and no decimation anywhere on this page. Scale bar reads 300&nbsp;m.</figcaption>
+    </figure>
+</div>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">What the chain does</h2>
+        <p class="section-intro center">Seven operations, run identically at every tier. Two file ingests bracket it and are disclosed separately &mdash; they are not counted as engine time.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>The data</h3>
+                <p>
+                    Microsoft US Building Footprints for Texas, clipped to nested bounding boxes around Houston at
+                    10,000 / 100,000 / 1,000,000 features. Stored in EPSG:4326; the chain reprojects to UTM 15N so
+                    that buffers and areas are in honest metres, then back again.
+                </p>
+            </div>
+            <div class="item">
+                <h3>The chain</h3>
+                <p>
+                    Points to UTM, reproject to UTM, shape metrics, a 5&nbsp;m setback buffer, a points-in-polygons
+                    join, classify, reproject to WGS84. Each stage hands the next an immutable in-process handle;
+                    nothing is written to disk between operations.
+                </p>
+            </div>
+            <div class="item">
+                <h3>What &ldquo;measured&rdquo; means</h3>
+                <p>
+                    Engine time is the per-operation elapsed time recorded server-side around each call, with one
+                    warmup and three measured runs, mean reported. Wall time including HTTP is kept beside it and
+                    never blended in. Features/sec is simply features divided by engine total.
+                </p>
+            </div>
+        </div>
+        <div class="lic-note read-box spaced" id="scope">
+            <dl>
+                <dt>What this page claims</dt>
+                <dd>
+                    That the ForgeGIS parallel-CPU vector engine runs a seven-operation chain over real building
+                    footprints at a near-flat features/sec from 100k to 1M, through immutable in-process handles with
+                    no per-stage file I/O, and that every number here was read from a server-side timing path.
+                </dd>
+                <dt>What it does not claim</dt>
+                <dd>
+                    Any comparison to other software. <strong>No comparison to any external system is made or
+                    implied</strong> &mdash; the curve compares the engine only to itself across N.
+                </dd>
+                <dt>Where it runs</dt>
+                <dd>
+                    This is the <strong>CPU</strong> vector surface: pure Java, parallel across worker threads, with
+                    no GPU dispatch in the chain at all. The profiler confirms it &mdash; zero bytes of video memory
+                    moved across the whole run.
+                </dd>
+                <dt>The demonstration panel</dt>
+                <dd>
+                    The Building Stock panel shown throughout was built for this study to drive the chain
+                    interactively and read the timings back. It is a demonstration harness, not a shipping part of
+                    ForgeGIS Studio<sup class="tm">&trade;</sup>.
+                </dd>
+            </dl>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted" id="the-curve">
+    <div class="container">
+        <h2 class="center">The curve</h2>
+        <p class="section-intro center">
+            The official numbers come from a headless run &mdash; no server and no HTTP in the loop. The same chain
+            through the live panel is shown alongside it, dimmed, carrying session overhead by design, so the gap
+            between the two is on the record rather than hidden.
+        </p>
+        <figure class="chart wide" id="curve">
+            <svg viewBox="0 0 720 400" role="img" aria-labelledby="c1-t c1-d">
+                <title id="c1-t">Features per second through the vector engine, 10k to 1M features</title>
+                <desc id="c1-d">Headless throughput rises from 107,730 features per second at 10,000 features to 253,212 at 100,000, then settles at 124,785 at one million — a 2.03 times spread across the top two tiers. The interactive panel run, carrying session overhead, tracks below it at 19,881, 56,117 and 63,857. The five million tier is memory-gated and not run.</desc>
+                <g class="ch-grid" shape-rendering="crispEdges">
+                    <line x1="62" y1="354" x2="702" y2="354"/>
+                    <line x1="62" y1="242" x2="702" y2="242"/>
+                    <line x1="62" y1="130" x2="702" y2="130"/>
+                    <line x1="62" y1="18" x2="702" y2="18"/>
+                </g>
+                <line class="ch-axis" x1="62" y1="354" x2="702" y2="354" shape-rendering="crispEdges" vector-effect="non-scaling-stroke"/>
+                <text x="52" y="358" text-anchor="end">0</text>
+                <text x="52" y="246" text-anchor="end">100k</text>
+                <text x="52" y="134" text-anchor="end">200k</text>
+                <text x="52" y="22" text-anchor="end">300k</text>
+                <text x="62" y="381" text-anchor="middle">10k</text>
+                <text x="299" y="381" text-anchor="middle">100k</text>
+                <text x="536" y="381" text-anchor="middle">1M</text>
+                <text x="702" y="381" text-anchor="middle">5M</text>
+
+                <line class="ch-fork" x1="702" y1="18" x2="702" y2="354" vector-effect="non-scaling-stroke"/>
+                <text class="ch-fork-t ch-wide" x="694" y="344" text-anchor="end">5M &mdash; memory-gated, not run</text>
+                <text class="ch-fork-t ch-narrow" x="694" y="344" text-anchor="end">gated</text>
+
+                <polyline class="ch-base" vector-effect="non-scaling-stroke" points="62.0,233.3 299.1,70.4 536.3,214.2"/>
+                <polyline class="ch-emerg" vector-effect="non-scaling-stroke" points="62.0,331.7 299.1,291.1 536.3,282.5"/>
+                <circle class="ch-dot" cx="62" cy="233.3" r="4"/><circle class="ch-dot" cx="299.1" cy="70.4" r="4"/><circle class="ch-dot" cx="536.3" cy="214.2" r="4"/>
+                <circle class="ch-dot2" cx="62" cy="331.7" r="3.5"/><circle class="ch-dot2" cx="299.1" cy="291.1" r="3.5"/><circle class="ch-dot2" cx="536.3" cy="282.5" r="3.5"/>
+
+                <text class="ch-end ch-base-t ch-wide" x="299" y="56" text-anchor="middle">253,212</text>
+                <text class="ch-end ch-base-t ch-wide" x="556" y="204" text-anchor="start">124,785</text>
+                <text class="ch-end ch-emerg-t ch-wide" x="556" y="288" text-anchor="start">63,857</text>
+                <text class="ch-fork-t ch-wide" x="62" y="256" text-anchor="start">fixed per-op overhead at small N</text>
+
+                <g class="ch-legend">
+                    <line class="ch-base" x1="548" y1="36" x2="574" y2="36" vector-effect="non-scaling-stroke"/>
+                    <text class="ch-lbl" x="582" y="40">headless</text>
+                    <line class="ch-emerg" x1="548" y1="60" x2="574" y2="60" vector-effect="non-scaling-stroke"/>
+                    <text class="ch-lbl" x="582" y="64">interactive panel</text>
+                </g>
+
+                <text class="ch-axis-title" x="382" y="398" text-anchor="middle">features per tier (log scale)</text>
+                <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">features / second</text>
+            </svg>
+            <figcaption>
+                Headless: 107,730 &rarr; 253,212 &rarr; 124,785 features/sec. The flat right side &mdash; a
+                <strong>2.03&times;</strong> spread from 100k to 1M &mdash; is the claim. The dip at 10k is fixed
+                per-operation overhead against too few features to amortise it, and is kept on the chart on purpose.
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">The same chain, live</h2>
+        <p class="section-intro center">
+            Each tier also runs interactively through all nine stages. Every row shows the split this study stands
+            on: engine milliseconds in bold, wall time including HTTP dimmed beside it, never blended.
+        </p>
+        <div class="trio">
+            <figure>
+                <a href="img/vs-01-panel-10k.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-01-panel-10k.webp" alt="Demonstration panel at the 10k tier: nine stage rows each showing engine milliseconds in bold with wall time in parentheses, totalling 503 ms engine and 19,881 features per second" width="346" height="611" loading="lazy"></a>
+                <figcaption><strong>10k</strong> &mdash; 503&nbsp;ms engine, 655&nbsp;ms wall, 19,881 f/s</figcaption>
+            </figure>
+            <figure>
+                <a href="img/vs-02-panel-100k.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-02-panel-100k.webp" alt="The same panel at the 100k tier, the same nine stages, totalling 1.78 s engine and 56,117 features per second" width="346" height="611" loading="lazy"></a>
+                <figcaption><strong>100k</strong> &mdash; 1.78&nbsp;s engine, 2.04&nbsp;s wall, 56,117 f/s</figcaption>
+            </figure>
+            <figure>
+                <a href="img/vs-03-panel-1m.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-03-panel-1m.webp" alt="The panel at the 1M tier, all nine stages complete, totalling 15.66 s engine and 63,857 features per second, with a three-point throughput curve below" width="346" height="654" loading="lazy"></a>
+                <figcaption><strong>1M</strong> &mdash; 15.66&nbsp;s engine, 18.03&nbsp;s wall, 63,857 f/s</figcaption>
+            </figure>
+        </div>
+
+        <figure class="chart wide plain" id="opmix">
+            <svg viewBox="0 0 720 400" role="img" aria-labelledby="c2-t c2-d">
+                <title id="c2-t">Share of engine time by operation, at each tier</title>
+                <desc id="c2-d">At all three tiers the setback buffer and the points-in-polygons join together take roughly two thirds of engine time: 62.8 percent at 10,000 features, 74.7 percent at 100,000 and 68.1 percent at one million. The remaining five operations divide the rest, and the overall mix barely changes across two orders of magnitude.</desc>
+
+                <text class="ch-row-t" x="62" y="48">10k</text><text class="ch-row-sub" x="104" y="48">503 ms engine total &middot; buffer + join = 62.8%</text>
+                <g class="ch-seg">
+                    <rect x="62.0" y="60" width="60.8" height="44" fill="#cfe3dd"/>
+                    <rect x="122.8" y="60" width="10.2" height="44" fill="#a8cfc5"/>
+                    <rect x="133.0" y="60" width="69.8" height="44" fill="#7fbcae"/>
+                    <rect x="202.8" y="60" width="202.2" height="44" fill="#4a9e8e"/>
+                    <rect x="405.0" y="60" width="199.7" height="44" fill="#3b8273"/>
+                    <rect x="604.7" y="60" width="48.6" height="44" fill="#2c6470"/>
+                    <rect x="653.4" y="60" width="48.6" height="44" fill="#1a3a5c"/>
+                </g>
+
+                <text class="ch-row-t" x="62" y="138">100k</text><text class="ch-row-sub" x="110" y="138">1.78 s engine total &middot; buffer + join = 74.7%</text>
+                <g class="ch-seg">
+                    <rect x="62.0" y="150" width="8.9" height="44" fill="#cfe3dd"/>
+                    <rect x="70.9" y="150" width="16.6" height="44" fill="#a8cfc5"/>
+                    <rect x="87.5" y="150" width="62.0" height="44" fill="#7fbcae"/>
+                    <rect x="149.5" y="150" width="227.4" height="44" fill="#4a9e8e"/>
+                    <rect x="376.9" y="150" width="249.7" height="44" fill="#3b8273"/>
+                    <rect x="626.6" y="150" width="42.8" height="44" fill="#2c6470"/>
+                    <rect x="669.4" y="150" width="32.6" height="44" fill="#1a3a5c"/>
+                </g>
+
+                <text class="ch-row-t" x="62" y="228">1M</text><text class="ch-row-sub" x="100" y="228">15.66 s engine total &middot; buffer + join = 68.1%</text>
+                <g class="ch-seg">
+                    <rect x="62.0" y="240" width="6.4" height="44" fill="#cfe3dd"/>
+                    <rect x="68.4" y="240" width="17.3" height="44" fill="#a8cfc5"/>
+                    <rect x="85.7" y="240" width="55.7" height="44" fill="#7fbcae"/>
+                    <rect x="141.4" y="240" width="197.8" height="44" fill="#4a9e8e"/>
+                    <rect x="339.1" y="240" width="238.1" height="44" fill="#3b8273"/>
+                    <rect x="577.2" y="240" width="62.1" height="44" fill="#2c6470"/>
+                    <rect x="639.3" y="240" width="62.7" height="44" fill="#1a3a5c"/>
+                </g>
+
+                <g class="ch-legend">
+                    <rect x="62" y="312" width="12" height="12" fill="#cfe3dd"/><text class="ch-lbl" x="80" y="322">points &rarr; UTM</text>
+                    <rect x="212" y="312" width="12" height="12" fill="#a8cfc5"/><text class="ch-lbl" x="230" y="322">reproject &rarr; UTM</text>
+                    <rect x="382" y="312" width="12" height="12" fill="#7fbcae"/><text class="ch-lbl" x="400" y="322">shape metrics</text>
+                    <rect x="530" y="312" width="12" height="12" fill="#4a9e8e"/><text class="ch-lbl" x="548" y="322">setback buffer</text>
+                    <rect x="62" y="340" width="12" height="12" fill="#3b8273"/><text class="ch-lbl" x="80" y="350">points-in-polygons join</text>
+                    <rect x="282" y="340" width="12" height="12" fill="#2c6470"/><text class="ch-lbl" x="300" y="350">classify</text>
+                    <rect x="402" y="340" width="12" height="12" fill="#1a3a5c"/><text class="ch-lbl" x="420" y="350">reproject &rarr; WGS84</text>
+                </g>
+            </svg>
+            <figcaption>
+                Share of engine time per operation, by tier. The setback buffer and the points-in-polygons join
+                dominate at every scale, and the shape of the mix barely moves across two orders of magnitude &mdash;
+                which is what a near-flat throughput curve looks like from the inside.
+            </figcaption>
+        </figure>
+
+        <div class="split spaced">
+            <figure class="shot">
+                <a href="img/vs-04-dag-100k.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-04-dag-100k.webp" alt="A dark pipeline canvas holding a grid of connected operation nodes, each card showing a feature count and an elapsed time in milliseconds" width="380" height="828" loading="lazy"></a>
+                <figcaption>The chain as canvas nodes, each carrying its own engine-time reading.</figcaption>
+            </figure>
+            <div class="split-text">
+                <h3>Handles, not files</h3>
+                <p>
+                    Between every pair of stages the result stays in process as an immutable handle. Nothing is
+                    serialised, nothing is written to disk, and nothing is re-read. That is the whole reason the
+                    per-feature cost stays flat as N grows &mdash; there is no per-stage I/O term to grow with it.
+                </p>
+                <h3>Confirmed by the profiler</h3>
+                <p>
+                    The CPU lane accounts for the full run and reports <strong>zero bytes of video memory
+                    moved</strong>. This chain never touches the GPU; the throughput above is what the parallel-CPU
+                    vector surface does on its own.
+                </p>
+                <figure class="shot inset">
+                    <a href="img/vs-05-flame-100k.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-05-flame-100k.webp" alt="A flame-graph strip titled CPU vector lane, 14 operations, 2285 ms total, annotated with immutable in-process handles, no per-stage file I/O, and 0 B VRAM delta; the widest bars are BufferVectorOp at 634 ms and PointsInPolygonsJoinVectorOp at 696 ms" width="380" height="281" loading="lazy"></a>
+                    <figcaption>The CPU lane at 100k: the two widest bars are the buffer and the join.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">On the map &mdash; two costs, never conflated</h2>
+        <p class="section-intro center">
+            Past 150,000 features the map renders through a vector-tile route. Restyling and reclassifying look
+            similar on screen and are completely different work, so the page separates them by request count rather
+            than by adjective.
+        </p>
+        <div class="shot-pair">
+            <div>
+                <div class="pair-label a">Ocean palette</div>
+                <figure class="shot">
+                    <a href="img/vs-06-map-1m.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-06-map-1m.webp" alt="The Houston block grid with building footprints filled in teal and dark green shades" width="700" height="828" loading="lazy"></a>
+                </figure>
+            </div>
+            <div>
+                <div class="pair-label b">Ember palette</div>
+                <figure class="shot">
+                    <a href="img/vs-08-recolor-ember.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-08-recolor-ember.webp" alt="The identical view and identical building shapes, repainted in oranges and browns" width="700" height="828" loading="lazy"></a>
+                </figure>
+            </div>
+        </div>
+        <p class="pair-caption">
+            <strong>The restyle is free.</strong> Same tiles, same classes, repainted in the client &mdash; the
+            request log recorded <strong>zero API calls</strong> across the click. The buildings did not change; only
+            the paint did.
+        </p>
+        <div class="split spaced">
+            <figure class="shot">
+                <a href="img/vs-09-reclassify.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-09-reclassify.webp" alt="The same city view in the ember palette but with a visibly different distribution of colour across the buildings, more of them falling into the darker classes" width="700" height="828" loading="lazy"></a>
+                <figcaption>After reclassifying on the server: the same footprints, redistributed across new class breaks.</figcaption>
+            </figure>
+            <div class="split-text">
+                <h3>The reclassify is engine work</h3>
+                <p>
+                    Changing the class breaks recomputes the class code for every feature in the engine, mints a new
+                    immutable handle, and the map refetches tiles under a new URL. It took <strong>2.58&nbsp;s</strong>
+                    and it is labelled as engine work, because that is what it is.
+                </p>
+                <h3>Stale tiles are impossible</h3>
+                <p>
+                    Because the new result is a new handle with a new tile URL, the cache flush is structural rather
+                    than a policy someone has to remember. There is no path by which the map can show tiles from a
+                    superseded classification.
+                </p>
+                <figure class="shot inset">
+                    <a href="img/vs-10-panel-beats.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-10-panel-beats.webp" alt="The panel after both operations, showing a chip that reads 2.58 s engine recompute beneath the class-break field" width="346" height="651" loading="lazy"></a>
+                    <figcaption>The panel keeps the two costs on separate chips.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <div class="aside-box">
+            <div class="feat-tag">The ceiling, stated</div>
+            <h3>Where the curve stops, and why</h3>
+            <p>
+                The 5M tier is memory-bound on this machine, and the system says so before reading a single byte.
+                The 1M tier peaked at 7.9&nbsp;GB of heap with intermediates freed as they were consumed; five layers
+                of five million features do not fit in 12.9&nbsp;GB. So the curve tops out at 1M and states the
+                arithmetic instead of quietly ending. A scale curve that hides where it stops is a marketing curve.
+            </p>
+            <p class="gate-msg">
+                <span class="warn">SKIPPED tier 5m:</span> predicted heap 45.4 GB &gt;= 80% of max 12.9 GB
+                (1M peak 7.9 GB). Pass --force to try anyway.
+            </p>
+            <p class="after-gate">
+                Two refusals guard two different quantities. The headless gate&rsquo;s <strong>45.4&nbsp;GB</strong> is
+                a measured extrapolation from this run&rsquo;s 1M peak; the panel&rsquo;s <strong>~50&nbsp;GB</strong>
+                is a configured refusal floor set above the worst extrapolation seen across runs. The gate measures;
+                the panel guards. A 10M tier was dropped at design time for the same reason.
+            </p>
+            <figure class="shot narrow">
+                <a href="img/vs-11-refusal-5m.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/vs-11-refusal-5m.webp" alt="The panel with the tier slider pushed to 5M, showing an amber message explaining that the tier needs about 50 GB of server heap while this server has 12.9 GB" width="346" height="511" loading="lazy"></a>
+                <figcaption>The 5M attempt, refused before any features were read, with the arithmetic in the message.</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Methodology</h2>
+        <p class="section-intro center">Every claim above traces to one of these.</p>
+        <div class="table-wrap">
+            <table class="spec">
+                <tr>
+                    <th>Item</th>
+                    <th>Detail</th>
+                </tr>
+                <tr>
+                    <td>Buildings</td>
+                    <td>Microsoft US Building Footprints, Texas &mdash; &copy; Microsoft, released under the Open Database License (ODbL) 1.0. Multi-part geometries exploded at preparation; tiers are an exact first-N cap in file order.</td>
+                </tr>
+                <tr>
+                    <td>Incident points</td>
+                    <td><strong>Synthetic.</strong> Seeded, two per building at every tier &mdash; centroid plus roughly 60&nbsp;m of jitter. They exist to exercise the join, not to describe Houston.</td>
+                </tr>
+                <tr>
+                    <td>Projection</td>
+                    <td>Tiers stored in EPSG:4326; the chain reprojects to UTM 15N so buffers and areas are in metres, then back to WGS84 for display.</td>
+                </tr>
+                <tr>
+                    <td>Engine time</td>
+                    <td>Per-operation elapsed time measured server-side around each call. Headless: one warmup, three measured, mean reported. Wall time including HTTP is reported separately and never blended in.</td>
+                </tr>
+                <tr>
+                    <td>File ingest</td>
+                    <td>Excluded from engine totals and reported on its own row. Features/sec is features divided by engine total.</td>
+                </tr>
+                <tr>
+                    <td>Hardware</td>
+                    <td>Intel Core 7 240H, 16 logical cores, 15.7&nbsp;GB RAM. Server heap <code>-Xmx12g</code> (12.9&nbsp;GB measured maximum), 15 worker threads. Results are specific to this stack.</td>
+                </tr>
+                <tr>
+                    <td>Known limit</td>
+                    <td>The saved pipeline for this chain is a two-source graph, and the batch lane currently binds a single source &mdash; so the chain runs interactively but not in batch. That is the batch lane&rsquo;s limitation, stated rather than worked around.</td>
+                </tr>
+            </table>
+        </div>
+        <p class="routing-note">
+            No comparison to any external system is made or implied. The curve compares the engine only to itself
+            across N.
+        </p>
+    </div>
+</section>
+
+<section class="contact-strip">
+    <div class="container">
+        <h2>Want to see it against your data?</h2>
+        <p>
+            The per-operation timings behind every figure here, and the harness that produced them, are available to
+            evaluators under NDA. Seaglass Foundry<sup class="tm">&trade;</sup> is happy to walk through the
+            methodology or run the chain against a footprint set of your choosing.
+        </p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20vector%20scale%20study" class="btn btn-primary">rich@seaglassfoundry.com</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/products/">Products</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="digital-twin.html">Digital Twin</a>
+            <a href="/products/forgemind/">ForgeMind</a>
+            <a href="/products/forgedata/">ForgeData</a>
+            <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
+            <a href="downloads/forgegis-technical-brief.pdf">Technical Brief</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Control Center&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            Building footprint data &copy; Microsoft, released under the Open Database License (ODbL) 1.0. Basemap tiles &copy; OpenStreetMap contributors. Java, MapLibre, and other third-party products and marks referenced are the property of their respective owners.
+            Reference to these marks does not imply endorsement. This page is a self-published technical demonstration by Seaglass Foundry LLC; the buildings are real open data, the incident points are synthetic, and no claim is made about Houston or any organisation operating there.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+    </div>
+</footer>
+
+<dialog class="lightbox" id="shot-lightbox" aria-label="Screenshot preview">
+    <button class="lightbox-close" type="button" aria-label="Close preview">&times;</button>
+    <img alt="">
+</dialog>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    var burger = document.querySelector('.hamburger');
+    function closeNav() {
+        links.classList.remove('open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+    }
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', closeNav);
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) closeNav();
+    });
+})();
+(function() {
+    var dlg = document.getElementById('shot-lightbox');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var pic = dlg.querySelector('img');
+    document.querySelectorAll('a.shot-link').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            var thumb = a.querySelector('img');
+            pic.src = a.getAttribute('href');
+            pic.alt = thumb ? thumb.alt : '';
+            dlg.showModal();
+        });
+    });
+    dlg.addEventListener('click', function() { dlg.close(); });
+    dlg.addEventListener('close', function() { pic.removeAttribute('src'); });
+})();
+</script>
+</body>
+</html>

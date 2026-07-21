@@ -971,6 +971,44 @@
     </div>
 </section>
 
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Vector at scale</h2>
+        <p class="section-intro center">
+            The figures above are the GPU raster surface. The vector and topology surface is pure Java and runs on
+            the CPU &mdash; so we measured it the same way, on real data, and published where it stops.
+        </p>
+        <div class="three-up">
+            <div class="item">
+                <h3>A million real footprints</h3>
+                <p>
+                    Microsoft building footprints for Houston through a seven-operation chain &mdash; reproject,
+                    shape metrics, setback buffer, points-in-polygons join, classify &mdash; at
+                    <strong>124,785 features/sec</strong> measured around each operation.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Near-flat across an order of magnitude</h3>
+                <p>
+                    Throughput varies by just <strong>2.03&times;</strong> between 100k and 1M features, because
+                    every intermediate stays in process as an immutable handle and there is no per-stage file I/O
+                    term to grow with N.
+                </p>
+            </div>
+            <div class="item">
+                <h3>A ceiling that says so</h3>
+                <p>
+                    The 5M tier is refused before a byte is read, with the heap arithmetic in the message. A scale
+                    curve that hides where it stops is a marketing curve, so this one states it.
+                </p>
+            </div>
+        </div>
+        <p class="twin-cta">
+            <a href="vector-at-scale.html" class="btn btn-primary">See the vector scale study</a>
+        </p>
+    </div>
+</section>
+
 <section class="block" id="performance-demo">
     <div class="container">
         <h2 class="center">Performance demonstration</h2>
@@ -1140,6 +1178,7 @@
             <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
             <a href="/products/control-center/">Control Center</a>
             <a href="digital-twin.html">Digital Twin</a>
+            <a href="vector-at-scale.html">Vector at Scale</a>
             <a href="downloads/forgegis-technical-brief.pdf">Technical Brief</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
