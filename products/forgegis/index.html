@@ -190,6 +190,9 @@
         .btn-primary:hover { background: var(--teal-dark); }
         .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
         .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+        /* Outline button for use on light/tinted sections, where .btn-outline's white would vanish */
+        .btn-quiet { border: 2px solid var(--border); color: var(--navy); background: var(--white); }
+        .btn-quiet:hover { border-color: var(--teal); color: var(--teal-dark); }
         .btn-light { background: var(--white); color: var(--navy); border: 1px solid var(--border); }
         .btn-light:hover { border-color: var(--teal); }
 
@@ -243,7 +246,7 @@
         section.block h2.center, section.block .center { text-align: center; }
         section.block .center.section-intro { margin-left: auto; margin-right: auto; }
 
-        .twin-cta { text-align: center; margin-top: 32px; }
+        .twin-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
 
         /* ── 3-up content blocks ── */
         .three-up {
@@ -732,7 +735,7 @@
 
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">Flagship Release &middot; v1.1</div>
+        <div class="flagship-badge">Flagship Release &middot; v1.2.3</div>
         <h1>ForgeGIS<sup class="tm">&trade;</sup></h1>
         <p class="tagline">GPU-Accelerated Geospatial Compute for the Agent Era</p>
         <p class="categorical-claim">
@@ -898,12 +901,12 @@
 
 <section class="block tinted">
     <div class="container">
-        <h2 class="center">Coming next: the digital twin</h2>
+        <h2 class="center">New in 1.2.3: the digital twin</h2>
         <p class="section-intro center">
-            A capability preview. GPU flood simulators exist; what a running ForgeGIS twin adds is the ability to
-            branch one mid-event. Demonstrated over real SRTM terrain around Hoover Dam: a routed release paused at
-            epoch 54 and forked at ten times the rate, opening a &asymp;1.3&nbsp;km&sup3; wedge between the two
-            worlds &mdash; exactly what the closed-form law predicts.
+            GPU simulators exist; what a running ForgeGIS twin adds is the ability to branch one mid-event, and a
+            recording that proves what you were shown. Demonstrated over real SRTM terrain around Hoover Dam: a routed
+            release paused at epoch 54 and forked at ten times the rate, opening a &asymp;1.3&nbsp;km&sup3; wedge
+            between the two worlds &mdash; exactly what the closed-form law predicts.
         </p>
         <div class="three-up">
             <div class="item">
@@ -930,7 +933,8 @@
             </div>
         </div>
         <p class="twin-cta">
-            <a href="digital-twin.html" class="btn btn-primary">See the capability preview</a>
+            <a href="digital-twin.html" class="btn btn-primary">What the digital twin is</a>
+            <a href="hoover-dam.html" class="btn btn-quiet">Hoover Dam showcase</a>
         </p>
     </div>
 </section>
