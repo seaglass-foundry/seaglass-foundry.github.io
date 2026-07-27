@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The ForgeGIS Digital Twin — Streams Like Video, Auditable Like a Ledger</title>
+    <title>ForgeGIS Digital Twin — Streams Like Video, Auditable Like a Ledger</title>
     <meta name="description" content="A living geospatial simulation that runs on the GPU and records itself as it goes. Replay it frame by frame, fork it into what-if timelines that share history byte-for-byte, and verify that what you were shown is what was computed. Shipped in ForgeGIS 1.2.3.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/digital-twin.html">
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -187,7 +187,7 @@
         /* ── Diagrams (inline SVG) ─────────────────────────────────
            Self-contained: no dependencies, no script, no image. */
         figure.diagram { max-width: 940px; margin: 30px auto 0; }
-        figure.diagram svg { display: block; width: 100%; height: auto; }
+        figure.diagram svg { display: block; width: 100%; height: auto; overflow: visible; }
         figure.diagram figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
         .dg-box { fill: var(--white); stroke: var(--border); stroke-width: 1; }
         .dg-box-accent { fill: var(--teal-light); stroke: var(--teal); stroke-width: 1; }
@@ -297,7 +297,7 @@
     <div class="stats-grid">
         <div class="stat">
             <div class="number">1<span class="accent"> file</span></div>
-            <div class="label">A finished run is a standard GeoPackage. Its presentation snapshots open directly in QGIS with no ForgeGIS software installed at all.</div>
+            <div class="label">A finished run is a standard GeoPackage. Its presentation snapshots open directly in QGIS with no ForgeGIS<sup class="tm">&trade;</sup> software installed at all.</div>
         </div>
         <div class="stat">
             <div class="number">5<span class="accent"> contracts</span></div>
@@ -346,8 +346,8 @@
                 <div class="feat-tag">Open anywhere</div>
                 <h3>No reader of ours required</h3>
                 <p>
-                    A finished run is a standard GeoPackage file. Presentation snapshots open directly in QGIS
-                    with no ForgeGIS software installed at all.
+                    The recording is a published format, not a private one. Hand a finished run to a reviewer who
+                    has never installed anything of ours, and the GIS tools they already have will open it.
                 </p>
             </div>
         </div>
@@ -690,8 +690,8 @@
                 <rect class="dg-box" x="620" y="28" width="150" height="60" rx="6"/>
                 <text class="dg-t" x="695" y="52" text-anchor="middle">Viewer GPU</text>
                 <text class="dg-s" x="695" y="72" text-anchor="middle">uploads, then draws it</text>
-                <text class="dg-s" x="784" y="52">4 copies of every frame &mdash;</text>
-                <text class="dg-s" x="784" y="70">cost grows with scene size</text>
+                <text class="dg-s" x="932" y="52" text-anchor="end">4 copies of every frame &mdash;</text>
+                <text class="dg-s" x="932" y="70" text-anchor="end">cost grows with scene size</text>
 
                 <line class="dg-dash" x1="8" y1="118" x2="932" y2="118"/>
 
@@ -871,7 +871,7 @@
         </div>
         <div class="footer-marks">
             ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Globe&trade;, Seaglass Control Center&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
-            SRTM data is a product of NASA and the U.S. Geological Survey. Map tiles and imagery in the screenshots linked from this page are &copy; Esri and its data providers, sourced from Esri, Maxar, Earthstar Geographics and the GIS User Community; MapLibre, QGIS, Java, and other third-party products and marks referenced are the property of their respective owners.
+            SRTM data is a product of NASA and the U.S. Geological Survey. Map tiles and imagery in the screenshots on and linked from this page are &copy; Esri and its data providers, sourced from Esri, Maxar, Earthstar Geographics and the GIS User Community; MapLibre, QGIS, Java, and other third-party products and marks referenced are the property of their respective owners.
             Reference to these marks does not imply endorsement.
         </div>
         <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
