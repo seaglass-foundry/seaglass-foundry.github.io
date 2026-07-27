@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeGIS Digital Twin — The Plume That Checks Its Own Math</title>
+    <meta name="description" content="A conserved scalar carried on a wind while it spreads: the ForgeGIS twin engine's transport op held against the closed-form Gaussian solutions and reported to the decimal, then taken to a coastal what-if where one paused run becomes six worlds in a single recording.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/plume.html">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/plume.html">
+    <meta property="og:title" content="The Plume That Checks Its Own Math">
+    <meta property="og:description" content="Transport validated against closed-form analytic solutions to five decimal places, then one paused run forked five ways off a single anchor — with the divergence read off the conservation ledger.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="The Plume That Checks Its Own Math">
+    <meta name="twitter:description" content="A twin engine transport op with a closed-form external truth: 0.0005% off the analytic variance law, and six worlds sharing one history in one recording.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "The Plume That Checks Its Own Math",
+        "url": "https://seaglassfoundry.com/products/forgegis/plume.html",
+        "description": "A self-published technical demonstration of the ForgeGIS digital twin transport operator: advection-diffusion validated against closed-form analytic Gaussian solutions, and a six-timeline fork ensemble anchored at a single epoch within one recording.",
+        "about": "Geospatial digital twin simulation",
+        "author": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        }
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+            --ok: #2e7d4f;
+            --ok-bg: #eaf5ee;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; }
+        p code, li code, td code, dd code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--navy); }
+
+        /* ── Nav ── */
+        nav { background: var(--navy); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+        nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+        nav .brand { color: var(--white); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Product subnav ── */
+        .subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .subnav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 44px; font-size: 0.88rem; }
+        .subnav .crumb { color: #8eaec6; }
+        .subnav .crumb a { color: #a8c4d8; }
+        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+        .subnav .sep { color: #5a6a7a; }
+        .subnav .flagship-tag { margin-left: auto; color: var(--amber); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* ── Hero ── */
+        .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: var(--white); padding: 80px 24px 90px; text-align: center; }
+        .hero .flagship-badge { display: inline-block; background: rgba(216, 151, 60, 0.15); color: var(--amber); border: 1px solid rgba(216, 151, 60, 0.4); padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+        .hero h1 span { color: var(--teal); }
+        .hero .tagline { font-size: 1.3rem; color: #a8c4d8; margin-bottom: 24px; font-weight: 400; }
+        .hero .categorical-claim { max-width: 760px; margin: 0 auto 36px; color: var(--white); font-size: 1.08rem; line-height: 1.65; font-weight: 500; }
+        .hero .categorical-claim em { color: var(--teal); font-style: normal; font-weight: 700; }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 13px 28px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.1s, border-color 0.2s; }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+
+        /* ── Stats strip ── */
+        .stats { background: var(--white); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .stats-grid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .stat { text-align: center; padding: 0 12px; }
+        .stat .number { font-size: 2.4rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+        .stat .number .accent { color: var(--teal); }
+        .stat .label { font-size: 0.95rem; color: var(--text-light); line-height: 1.5; }
+
+        /* ── Generic section ── */
+        section.block { padding: 70px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 { font-size: 1.9rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.02em; }
+        section.block .section-intro { color: var(--text-light); font-size: 1.02rem; margin-bottom: 32px; max-width: 780px; }
+        section.block h2.center, section.block .center { text-align: center; }
+        section.block .center.section-intro { margin-left: auto; margin-right: auto; }
+        .act-num { display: block; font-size: 0.78rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; text-align: center; }
+
+        /* ── Screenshots ── */
+        figure.shot { max-width: 1000px; margin: 0 auto; }
+        figure.shot a.shot-link { display: block; cursor: zoom-in; }
+        figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 30px rgba(15, 38, 64, 0.12); }
+        dialog.lightbox { border: none; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; }
+        dialog.lightbox::backdrop { background: rgba(15, 38, 64, 0.88); }
+        dialog.lightbox img { display: block; max-width: 94vw; max-height: 94vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); cursor: zoom-out; }
+        dialog.lightbox .lightbox-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(15, 38, 64, 0.65); color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+        dialog.lightbox .lightbox-close:hover, dialog.lightbox .lightbox-close:focus-visible { background: rgba(15, 38, 64, 0.95); }
+        html:has(dialog.lightbox[open]) { overflow: hidden; }
+        figure.shot figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .shot-band { background: var(--grey-bg); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .split { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+        .split figure.shot { margin: 0; }
+        .split .split-text h3 { font-size: 1.1rem; color: var(--navy); margin: 18px 0 8px; }
+        .split .split-text h3:first-child { margin-top: 0; }
+        .split .split-text p { font-size: 0.95rem; line-height: 1.7; }
+        .split.narrow-img { grid-template-columns: 1.6fr 1fr; }
+        .split.narrow-img figure.shot { max-width: 346px; justify-self: center; }
+
+        /* ── The same-epoch pair and the tile strip ──
+           The pair deliberately does NOT collapse to one column on small
+           screens: side-by-side comparison IS the content. */
+        .shot-pair { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .shot-pair figure.shot { margin: 0; }
+        .shot-pair .pair-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; text-align: center; }
+        .shot-pair .pair-label.base { color: var(--teal-dark); }
+        .shot-pair .pair-label.emerg { color: var(--amber-dark); }
+        .pair-caption { max-width: 900px; margin: 16px auto 0; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .strip { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+        .strip figure { margin: 0; }
+        .strip a.shot-link { display: block; cursor: zoom-in; }
+        .strip img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; }
+        .strip figcaption { margin-top: 7px; text-align: center; color: var(--text-light); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+        .strip-caption { max-width: 940px; margin: 18px auto 0; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+
+        /* ── 3-up content blocks ── */
+        .three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 8px; }
+        .three-up .item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px 26px; }
+        section.block.tinted .three-up .item { background: var(--white); }
+        .three-up h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.01em; }
+        .three-up p { color: var(--text); font-size: 0.95rem; line-height: 1.7; }
+
+        /* ── Feature grid ── */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 8px; }
+        .feature-card { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: 10px; padding: 24px 24px; }
+        section.block.tinted .feature-card { background: var(--white); }
+        .feature-card .feat-tag { font-size: 0.72rem; font-weight: 700; color: var(--amber-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .feature-card h3 { font-size: 1.08rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; }
+        .feature-card p { color: var(--text); font-size: 0.93rem; line-height: 1.65; }
+
+        .routing-note { max-width: 940px; margin: 22px auto 0; color: var(--text-light); font-size: 0.92rem; text-align: center; }
+
+        /* ── Scope + "how to read" callouts ── */
+        .lic-note { max-width: 900px; margin: 36px auto 0; background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 6px; padding: 16px 22px; color: var(--text); font-size: 0.92rem; line-height: 1.6; }
+        .lic-note strong { color: var(--amber-dark); }
+        .read-box { margin-top: 0; padding: 26px 30px; }
+        .read-box dl { margin: 0; }
+        .read-box dt { font-weight: 700; color: var(--amber-dark); margin-top: 16px; }
+        .read-box dt:first-child { margin-top: 0; }
+        .read-box dd { margin: 2px 0 0; }
+        .scope-note { max-width: 900px; margin: 30px auto 0; background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--amber-dark); border-radius: 6px; padding: 16px 22px; font-size: 0.92rem; line-height: 1.65; color: var(--text-light); }
+        .scope-note strong { color: var(--navy); }
+        section.block.tinted .scope-note { background: var(--white); }
+
+        /* ── Verification cards ── */
+        .checks { max-width: 940px; margin: 30px auto 0; display: grid; gap: 10px; }
+        .check { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--ok); border-radius: 8px; padding: 12px 16px; display: grid; grid-template-columns: 22px 1fr; gap: 8px; }
+        section.block.tinted .check { background: var(--white); }
+        .check .mark { color: var(--ok); font-weight: 700; line-height: 1.5; }
+        .check .name { font-size: 0.92rem; font-weight: 600; color: var(--navy); line-height: 1.5; }
+        .check .detail { margin-top: 5px; font-size: 0.8rem; color: var(--text-light); line-height: 1.7; overflow-wrap: anywhere; }
+        .check .detail .lbl { font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; margin-right: 5px; }
+        .check .detail code { background: var(--grey-bg); border-radius: 4px; padding: 1px 6px; margin-right: 14px; color: var(--navy); }
+
+        /* ── Charts (inline SVG) ─────────────────────────────────
+           Self-contained block: no dependencies, no script, no image.
+           Lifts verbatim into any other page on this site. */
+        figure.chart { max-width: 680px; margin: 32px auto 0; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 22px 18px 10px; }
+        figure.chart.wide { max-width: 940px; }
+        figure.chart.plain { background: none; border: none; padding: 0; }
+        section.block.tinted figure.chart { background: var(--white); }
+        figure.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+        figure.chart figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .chart text { font-size: 13px; fill: var(--text-light); font-family: inherit; }
+        .ch-grid line { stroke: var(--border); stroke-width: 1; }
+        .ch-axis, .ch-tick { stroke: #c6d2dd; stroke-width: 1; }
+        .ch-base { stroke: var(--teal); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+        .ch-emerg { stroke: var(--amber-dark); stroke-width: 2.5; fill: none; stroke-dasharray: 7 4; }
+        .ch-analytic { stroke: var(--navy); stroke-width: 7; fill: none; opacity: 0.16; stroke-linecap: round; }
+        .ch-fit { stroke: var(--navy); stroke-width: 1.5; fill: none; stroke-dasharray: 4 3; opacity: 0.75; }
+        .ch-fan { stroke: #8fa3b5; stroke-width: 1.5; fill: none; }
+        .ch-src { stroke: var(--navy); stroke-width: 2; fill: none; }
+        .ch-fork { stroke: var(--navy); stroke-width: 1.5; stroke-dasharray: 4 4; opacity: 0.55; }
+        .ch-bracket { stroke: var(--amber-dark); stroke-width: 1; opacity: 0.5; }
+        .ch-wedge { fill: var(--amber); opacity: 0.12; }
+        .ch-lbl { fill: var(--text-light); }
+        .ch-end { font-weight: 700; }
+        .ch-base-t { fill: var(--teal-dark); }
+        .ch-emerg-t { fill: var(--amber-dark); }
+        .ch-fork-t { fill: var(--navy); font-weight: 600; opacity: 0.8; }
+        .ch-axis-title { fill: var(--navy); font-weight: 600; }
+        .ch-narrow { display: none; }
+
+        /* ── Contact strip ── */
+        .contact-strip { background: var(--white); padding: 60px 24px; text-align: center; border-top: 1px solid var(--border); }
+        .contact-strip h2 { font-size: 1.5rem; color: var(--navy); margin-bottom: 12px; }
+        .contact-strip p { color: var(--text-light); font-size: 1rem; margin-bottom: 20px; max-width: 660px; margin-left: auto; margin-right: auto; }
+
+        /* ── Footer ── */
+        footer { background: var(--navy-dark); color: #8eaec6; padding: 40px 24px; font-size: 0.9rem; }
+        footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks { width: 100%; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #7790a8; font-size: 0.8rem; line-height: 1.6; }
+        .footer-copy { width: 100%; text-align: center; margin-top: 12px; color: #8eaec6; }
+
+        @media (max-width: 900px) {
+            .split, .split.narrow-img { grid-template-columns: 1fr; }
+            .split.narrow-img figure.shot { justify-self: start; }
+            .chart text { font-size: 18px; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .three-up { grid-template-columns: 1fr; }
+            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+            .subnav .flagship-tag { margin-left: 0; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
+            .shot-pair { gap: 12px; }
+            .strip { gap: 6px; }
+            .strip figcaption { font-size: 0.68rem; margin-top: 5px; }
+            .read-box { padding: 22px 20px; }
+            .check { padding: 12px 14px; }
+        }
+        @media (max-width: 640px) {
+            .chart text { font-size: 26px; }
+            .ch-legend, .ch-t-minor, .ch-wide, .ch-ytitle { display: none; }
+            .ch-narrow { display: block; }
+            figure.chart { padding: 16px 10px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="/products/">Products</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<div class="subnav">
+    <div class="subnav-inner">
+        <div class="crumb">
+            <a href="/products/">Products</a>
+            <span class="sep">/</span>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <span class="sep">/</span>
+            <a href="digital-twin.html">Digital Twin</a>
+            <span class="sep">/</span>
+            <span>Plume</span>
+        </div>
+        <span class="flagship-tag">Showcase</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <span class="flagship-badge">ForgeGIS &middot; Digital Twin &middot; Transport</span>
+        <h1>The plume that <span>checks its own math</span></h1>
+        <p class="tagline">A conserved scalar carried on a wind while it spreads.</p>
+        <p class="categorical-claim">
+            The twin engine&rsquo;s transport operator has something most simulation code never gets:
+            <em>a closed-form external truth</em>. Act I holds it against the analytic Gaussian solutions and reports
+            the errors to the decimal. Act II takes it to the coast &mdash; one hypothetical release, paused
+            mid-event, forked five ways off a single anchor &mdash; with the divergence read off the conservation
+            ledger. Every claim on this page is checked against the recordings.
+        </p>
+        <div class="cta-group">
+            <a href="#act-two" class="btn btn-primary">Six worlds, one anchor</a>
+            <a href="#read-the-numbers" class="btn btn-outline">How to read the numbers</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat">
+            <div class="number">0.0005<span class="accent">%</span></div>
+            <div class="label">Error in the simulated variance slope against the analytic law &sigma;&sup2;(t) = &sigma;&#8320;&sup2; + 2Dt &mdash; on both axes</div>
+        </div>
+        <div class="stat">
+            <div class="number">2.1<span class="accent">e-8</span></div>
+            <div class="label">Worst per-epoch mass drift over 60 epochs behind closed walls &mdash; float32 rounding, not a leak</div>
+        </div>
+        <div class="stat">
+            <div class="number">6<span class="accent"> worlds</span></div>
+            <div class="label">One paused run, five sibling forks off a single anchor epoch, all living in one recording</div>
+        </div>
+    </div>
+</section>
+
+<div class="shot-band">
+    <figure class="shot">
+        <a href="img/pl-01-decision-moment.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-01-decision-moment.webp" alt="The ForgeGIS Studio browser workspace: a dataset catalog on the left, a satellite map of the Panama City Beach coastline in the centre with a compact bright plume running inland from the shore, and a Digital Twin panel at the top right showing branch main at epoch 20 of 39" width="1440" height="900" loading="eager"></a>
+        <figcaption>
+            The decision moment, replayed from the recording: the main branch at the fork anchor, epoch&nbsp;20 of 39,
+            about 6.8&nbsp;km of plume up the 20&deg; track from the hypothetical coastal release. The panel is holding a
+            loaded recording &mdash; <strong>40 epochs, 6 branches</strong> &mdash; with the branch thumbnails at the
+            bottom showing the same cursor epoch in each world.
+        </figcaption>
+    </figure>
+</div>
+
+<section class="block" id="read-the-numbers">
+    <div class="container">
+        <h2 class="center">How to read the numbers</h2>
+        <p class="section-intro center">What the units mean, and where the model stops being literal. Worth two minutes before the charts.</p>
+        <div class="lic-note read-box">
+            <dl>
+                <dt>The conserved quantity</dt>
+                <dd>
+                    A <strong>dimensionless transport quantum</strong>. The ledger counts &ldquo;stuff per cell,&rdquo;
+                    not &micro;g/m&sup3;, and this page never pretends otherwise.
+                </dd>
+                <dt>Distance</dt>
+                <dd>
+                    Grid cells. Act II&rsquo;s 256&sup2; grid over a 0.30&deg;&nbsp;&times;&nbsp;0.25&deg; box puts one
+                    cell at &asymp;113&nbsp;m &mdash; that conversion is geometry, and it is the only physical unit on
+                    the page.
+                </dd>
+                <dt>The clock</dt>
+                <dd>
+                    A <strong>model tick, not a calibrated second</strong>. Wind speed is cells-per-tick, with the CFL
+                    bound <code>windSpeed&middot;&Delta;t/substeps &le; 1</code> enforced by refusal rather than
+                    clamping. So read shapes, ratios and conservation bookkeeping &mdash; never
+                    &ldquo;concentration at 3&nbsp;PM.&rdquo;
+                </dd>
+            </dl>
+        </div>
+        <div class="scope-note">
+            <strong>Scope, stated everywhere it matters:</strong> this page validates the <strong>transport
+            engine</strong> against closed-form analytic solutions. It is <strong>not a calibrated dispersion
+            model</strong> &mdash; no turbulence closure, no Pasquill&ndash;Gifford stability classes, no buoyancy, no
+            deposition, no meteorological data &mdash; and it is not comparable to HPAC, HYSPLIT, or AERMOD.
+        </div>
+    </div>
+</section>
+
+<section class="block tinted" id="act-one">
+    <div class="container">
+        <span class="act-num">Act I</span>
+        <h2 class="center">The analytic validation</h2>
+        <p class="section-intro center">
+            Three runs on a synthetic flat world &mdash; no terrain, because the operator is deliberately terrain-free
+            in v1 &mdash; registered directly against the twin API and read back through the same endpoints the Studio
+            panel uses: exact cell values and mass-weighted moments, never pixel luminance. The operator under test is
+            corner-transport upwind advection plus explicit five-point diffusion, operator-split, substepped, behind
+            closed walls.
+        </p>
+        <div class="strip">
+            <figure>
+                <a href="img/pl-02-diffusion-t02.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-02-diffusion-t02.webp" alt="A compact bright disc of concentration with a hard-edged yellow core on a dark field" width="384" height="384" loading="lazy"></a>
+                <figcaption>t = 2</figcaption>
+            </figure>
+            <figure>
+                <a href="img/pl-03-diffusion-t16.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-03-diffusion-t16.webp" alt="The same bump, slightly broader, its yellow core smaller and its blue-green halo wider" width="384" height="384" loading="lazy"></a>
+                <figcaption>t = 16</figcaption>
+            </figure>
+            <figure>
+                <a href="img/pl-04-diffusion-t31.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-04-diffusion-t31.webp" alt="The bump broader again, the yellow core reduced and the surrounding gradient softer" width="384" height="384" loading="lazy"></a>
+                <figcaption>t = 31</figcaption>
+            </figure>
+            <figure>
+                <a href="img/pl-05-diffusion-t46.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-05-diffusion-t46.webp" alt="A wider, softer bump with a small dim yellow centre and a broad graded halo" width="384" height="384" loading="lazy"></a>
+                <figcaption>t = 46</figcaption>
+            </figure>
+            <figure>
+                <a href="img/pl-06-diffusion-t60.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-06-diffusion-t60.webp" alt="The widest and softest of the five: a broad graded bump whose yellow centre has nearly faded into the green surround" width="384" height="384" loading="lazy"></a>
+                <figcaption>t = 60</figcaption>
+            </figure>
+        </div>
+        <p class="strip-caption">
+            One bump, no wind, closed walls, five sampled ticks of the same run. The core dims and the halo widens
+            &mdash; and the total never changes. Both of those are laws with closed forms, and the run is held to both.
+        </p>
+
+        <figure class="chart wide">
+            <svg viewBox="0 0 720 400" role="img" aria-labelledby="c1-t c1-d">
+                <title id="c1-t">Simulated variance against the analytic diffusion law, sim time 0 to 60</title>
+                <desc id="c1-d">Measured variance on both the x and y axes rises linearly from about 106 square cells at t equals 1 to about 165 at t equals 60, lying on top of the analytic law sigma-zero squared plus 2Dt with D equal to 0.5. The fitted slope is 0.999995 against an analytic 2D of 1 — 0.0005 percent off — so the three curves are drawn on top of one another and are visually indistinguishable.</desc>
+                <g class="ch-grid" shape-rendering="crispEdges">
+                    <line x1="62" y1="354" x2="702" y2="354"/>
+                    <line x1="62" y1="270" x2="702" y2="270"/>
+                    <line x1="62" y1="186" x2="702" y2="186"/>
+                    <line x1="62" y1="102" x2="702" y2="102"/>
+                    <line x1="62" y1="18" x2="702" y2="18"/>
+                </g>
+                <line class="ch-axis" x1="62" y1="354" x2="702" y2="354" shape-rendering="crispEdges" vector-effect="non-scaling-stroke"/>
+                <text x="52" y="358" text-anchor="end">0</text>
+                <text x="52" y="274" text-anchor="end">50</text>
+                <text x="52" y="190" text-anchor="end">100</text>
+                <text x="52" y="106" text-anchor="end">150</text>
+                <text x="52" y="22" text-anchor="end">200</text>
+                <text x="62" y="381" text-anchor="middle">0</text>
+                <text x="222" y="381" text-anchor="middle" class="ch-t-minor">15</text>
+                <text x="382" y="381" text-anchor="middle">30</text>
+                <text x="542" y="381" text-anchor="middle" class="ch-t-minor">45</text>
+                <text x="702" y="381" text-anchor="middle">60</text>
+
+                <polyline class="ch-analytic" vector-effect="non-scaling-stroke" points="72.6,176.2 702.0,77.1"/>
+                <polyline class="ch-base" vector-effect="non-scaling-stroke" points="72.6,176.2 702.0,77.1"/>
+                <polyline class="ch-emerg" vector-effect="non-scaling-stroke" points="72.6,176.2 702.0,77.1"/>
+
+                <text class="ch-end ch-base-t ch-wide" x="694" y="62" text-anchor="end">measured &sigma;x&sup2; and &sigma;y&sup2; &mdash; on the line</text>
+                <text class="ch-end ch-base-t ch-narrow" x="694" y="62" text-anchor="end">on the line</text>
+
+                <g class="ch-legend">
+                    <line class="ch-analytic" x1="80" y1="46" x2="106" y2="46" vector-effect="non-scaling-stroke"/>
+                    <text class="ch-lbl" x="116" y="50">analytic &sigma;&#8320;&sup2; + 2D&middot;t (D = 0.5)</text>
+                    <line class="ch-base" x1="80" y1="70" x2="106" y2="70" vector-effect="non-scaling-stroke"/>
+                    <text class="ch-lbl" x="116" y="74">measured &sigma;x&sup2;</text>
+                    <line class="ch-emerg" x1="80" y1="94" x2="106" y2="94" vector-effect="non-scaling-stroke"/>
+                    <text class="ch-lbl" x="116" y="98">measured &sigma;y&sup2;</text>
+                </g>
+
+                <text class="ch-axis-title" x="382" y="396" text-anchor="middle">sim time t (model ticks)</text>
+                <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">variance (cell&sup2;)</text>
+            </svg>
+            <figcaption>
+                The flagship check. Discrete five-point diffusion is exactly linear in the interior, so the variance of
+                the bump must grow at exactly 2D per unit of sim time. The fitted slope is <strong>0.999995</strong>
+                against an analytic <strong>2D&nbsp;=&nbsp;1</strong> &mdash; on both axes, with no fitting in the line
+                drawn. All three curves lie on top of one another; that is the result.
+            </figcaption>
+        </figure>
+
+        <div class="checks">
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">Per-axis variance grows at 2D per unit of sim time</div>
+                    <div class="detail"><span class="lbl">observed</span><code>slopeX 0.999995, slopeY 0.999995</code><span class="lbl">expected</span><code>2D = 1 &plusmn; 2%</code></div>
+                </div>
+            </div>
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">Diffusion is isotropic &mdash; the two axes agree</div>
+                    <div class="detail"><span class="lbl">observed</span><code>|slopeX &minus; slopeY| = 4.08e-8</code><span class="lbl">expected</span><code>&lt; 1e-3 &middot; 2D</code></div>
+                </div>
+            </div>
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">Conservation oracle: closed walls, no source, total mass flat across all 60 epochs</div>
+                    <div class="detail"><span class="lbl">observed</span><code>worst per-epoch relative deviation 2.103e-8</code><span class="lbl">expected</span><code>&lt; 1e-5 (float32 rounding)</code></div>
+                </div>
+            </div>
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">Determinism: raw frames of a re-run hash byte-identical at every sampled epoch</div>
+                    <div class="detail"><span class="lbl">observed</span><code>e0 4a3658fd &middot; e20 eee871ba &middot; e40 9d4ec274 &middot; e59 c365c06d &mdash; all equal</code><span class="lbl">expected</span><code>same sha256 per epoch</code></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="split narrow-img" style="margin-top: 56px;">
+            <div class="split-text">
+                <h3>The second solution: a plume in a wind</h3>
+                <p>
+                    A continuous source in a steady wind, run to steady state. The Gaussian plume has three signatures,
+                    and each is read off the final frame&rsquo;s raw cells rather than fitted to them: column mass
+                    exactly equal to the injection (conservation), width growing linearly downwind (the width law), and
+                    the centerline falling as 1/&sigma;y &mdash; the 1/&radic;x law.
+                </p>
+                <h3>Why this run is holdable at all</h3>
+                <p>
+                    At CFL&nbsp;=&nbsp;1 the advection pass is an <em>exact</em> one-cell shift, which is what lets the
+                    steady plume be held against the pure-diffusion Gaussian with no numerical-diffusion correction
+                    applied anywhere.
+                </p>
+            </div>
+            <figure class="shot">
+                <a href="img/pl-07-steady-plume.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-07-steady-plume.webp" alt="A dark field with a narrow bright streak running from a source near the left edge due east, broadening and fading downwind, with a thin bright band at the right edge of the frame" width="384" height="384" loading="lazy"></a>
+                <figcaption>
+                    The steady plume: source near the left edge, wind due east, the cone the Gaussian predicts. The
+                    bright band at the right edge is the closed wall doing exactly what a closed wall does &mdash;
+                    mass that reaches it piles up rather than leaving.
+                </figcaption>
+            </figure>
+        </div>
+
+        <figure class="chart wide">
+            <svg viewBox="0 0 720 400" role="img" aria-labelledby="c2-t c2-d">
+                <title id="c2-t">Cross-wind sections at two downwind distances against their moment-fitted Gaussians</title>
+                <desc id="c2-d">Two measured cross-sections through the steady plume, one at 40 cells downwind peaking near 0.25 quanta per cell and one at 70 cells downwind peaking near 0.19, each plotted against a Gaussian fitted from its own moments. Measured and fitted curves overlie one another; the normalized RMS residual is 0.20 percent of peak at 40 cells and 0.10 percent at 70 cells. The section further downwind is lower and wider, which is the plume width law.</desc>
+                <g class="ch-grid" shape-rendering="crispEdges">
+                    <line x1="62" y1="354" x2="702" y2="354"/>
+                    <line x1="62" y1="242" x2="702" y2="242"/>
+                    <line x1="62" y1="130" x2="702" y2="130"/>
+                    <line x1="62" y1="18" x2="702" y2="18"/>
+                </g>
+                <line class="ch-axis" x1="62" y1="354" x2="702" y2="354" shape-rendering="crispEdges" vector-effect="non-scaling-stroke"/>
+                <text x="52" y="358" text-anchor="end">0.00</text>
+                <text x="52" y="246" text-anchor="end">0.10</text>
+                <text x="52" y="134" text-anchor="end">0.20</text>
+                <text x="52" y="22" text-anchor="end">0.30</text>
+                <text x="62" y="381" text-anchor="middle">&minus;16</text>
+                <text x="222" y="381" text-anchor="middle" class="ch-t-minor">&minus;8</text>
+                <text x="382" y="381" text-anchor="middle">0</text>
+                <text x="542" y="381" text-anchor="middle" class="ch-t-minor">8</text>
+                <text x="702" y="381" text-anchor="middle">16</text>
+
+                <polyline class="ch-fit" vector-effect="non-scaling-stroke" points="62.0,354.0 82.0,354.0 102.0,354.0 122.0,354.0 142.0,353.8 162.0,353.3 182.0,352.0 202.0,349.0 222.0,342.4 242.0,329.3 262.0,306.9 282.0,272.6 302.0,226.8 322.0,173.8 342.0,123.0 362.0,85.9 382.0,72.3 402.0,85.9 422.0,123.0 442.0,173.8 462.0,226.8 482.0,272.6 502.0,306.9 522.0,329.3 542.0,342.4 562.0,349.0 582.0,352.0 602.0,353.3 622.0,353.8 642.0,354.0 662.0,354.0 682.0,354.0 702.0,354.0"/>
+                <polyline class="ch-base" vector-effect="non-scaling-stroke" points="62.0,354.0 82.0,354.0 102.0,354.0 122.0,354.0 142.0,353.8 162.0,353.3 182.0,352.0 202.0,348.8 222.0,342.2 242.0,329.4 262.0,307.3 282.0,273.5 302.0,227.7 322.0,174.4 342.0,122.7 362.0,84.6 382.0,70.6 402.0,84.6 422.0,122.7 442.0,174.4 462.0,227.7 482.0,273.5 502.0,307.3 522.0,329.4 542.0,342.2 562.0,348.8 582.0,352.0 602.0,353.3 622.0,353.8 642.0,354.0 662.0,354.0 682.0,354.0 702.0,354.0"/>
+                <polyline class="ch-fit" vector-effect="non-scaling-stroke" points="62.0,353.8 82.0,353.6 102.0,353.3 122.0,352.3 142.0,350.5 162.0,347.2 182.0,341.6 202.0,332.8 222.0,319.7 242.0,301.2 262.0,277.6 282.0,249.3 302.0,218.9 322.0,189.0 342.0,163.7 362.0,146.7 382.0,140.6 402.0,146.7 422.0,163.7 442.0,189.0 462.0,218.9 482.0,249.3 502.0,277.6 522.0,301.2 542.0,319.7 562.0,332.8 582.0,341.6 602.0,347.2 622.0,350.5 642.0,352.3 662.0,353.3 682.0,353.6 702.0,353.8"/>
+                <polyline class="ch-emerg" vector-effect="non-scaling-stroke" points="62.0,353.8 82.0,353.6 102.0,353.1 122.0,352.2 142.0,350.3 162.0,347.2 182.0,341.6 202.0,332.8 222.0,319.7 242.0,301.6 262.0,277.9 282.0,249.7 302.0,219.0 322.0,189.0 342.0,163.3 362.0,146.1 382.0,140.0 402.0,146.1 422.0,163.3 442.0,189.0 462.0,219.0 482.0,249.7 502.0,277.9 522.0,301.6 542.0,319.7 562.0,332.8 582.0,341.6 602.0,347.2 622.0,350.3 642.0,352.2 662.0,353.1 682.0,353.6 702.0,353.8"/>
+
+                <text class="ch-end ch-base-t ch-wide" x="396" y="62">measured @ 40 cells downwind</text>
+                <text class="ch-end ch-emerg-t ch-wide" x="396" y="132">measured @ 70 cells downwind</text>
+
+                <g class="ch-legend">
+                    <line class="ch-fit" x1="80" y1="46" x2="106" y2="46" vector-effect="non-scaling-stroke"/>
+                    <text class="ch-lbl" x="116" y="50">Gaussian fitted from the section&rsquo;s own moments</text>
+                </g>
+
+                <text class="ch-axis-title" x="382" y="396" text-anchor="middle">cross-wind offset from centerline (cells)</text>
+                <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">concentration (quanta/cell)</text>
+            </svg>
+            <figcaption>
+                Two slices across the plume, each against a Gaussian fitted from its own moments. The measured curves
+                sit on the fitted ones to within <strong>0.20%</strong> of peak at 40 cells and <strong>0.10%</strong>
+                at 70 &mdash; and the further slice is lower and wider by exactly the amount the width law requires.
+            </figcaption>
+        </figure>
+
+        <div class="checks">
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">Steady column mass equals the per-substep injection exactly &mdash; a conservation law, not a fit</div>
+                    <div class="detail"><span class="lbl">observed</span><code>col d=40: 2.0000 &middot; col d=70: 1.9998</code><span class="lbl">expected</span><code>2 &plusmn; 2%</code></div>
+                </div>
+            </div>
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">Plume width grows at the analytic rate per downwind cell (the width law)</div>
+                    <div class="detail"><span class="lbl">observed</span><code>&Delta;&sigma;y&sup2; = 7.4721</code><span class="lbl">expected</span><code>7.5 &plusmn; 10%</code></div>
+                </div>
+            </div>
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">Centerline decays as 1/&sigma;y &mdash; the 1/&radic;x law</div>
+                    <div class="detail"><span class="lbl">observed</span><code>C(40)/C(70) = 1.3245</code><span class="lbl">expected</span><code>&sigma;y(70)/&sigma;y(40) = 1.3201 &plusmn; 10%</code></div>
+                </div>
+            </div>
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">The cross-sections really are Gaussian</div>
+                    <div class="detail"><span class="lbl">observed</span><code>NRMS 0.20% @ d=40, 0.10% @ d=70</code><span class="lbl">expected</span><code>&le; 5% of peak</code></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block" id="act-two">
+    <div class="container">
+        <span class="act-num">Act II</span>
+        <h2 class="center">One anchor, six futures</h2>
+        <p class="section-intro center">
+            A hypothetical release at a point on the coast &mdash; no real facility; the coordinates are a stage, not a
+            scenario &mdash; carried inland on a 20&deg; wind at 3 cells per tick. At epoch&nbsp;20 the run pauses, and
+            the operator&rsquo;s question is the one that actually gets asked in a room: <em>which way does the sky go,
+            and how big is the source really?</em> So the run forks five sibling branches off that one anchor: a
+            wind-shift through the panel&rsquo;s fork form, a three-branch wind-direction fan, and a 10&times; source
+            fork through the API.
+        </p>
+        <div class="scope-note" style="margin-bottom: 10px;">
+            <strong>Scope, again, because it matters here most:</strong> the wind is a <em>constant twin
+            parameter</em> &mdash; a what-if knob, not weather. There is no met data, no sea-breeze cycle and no
+            boundary layer anywhere in this run, and nothing on this page is a forecast for anywhere.
+        </div>
+
+        <div class="split narrow-img" style="margin-top: 46px;">
+            <div class="split-text">
+                <h3>Pause, then branch</h3>
+                <p>
+                    The what-if form opens on the paused branch and exposes exactly what is forkable: the twin was
+                    registered with <code>windSpeed</code>, <code>windDirDeg</code> and <code>sourceRate</code> as
+                    declared constants, and that is precisely what makes them fork knobs. Here the wind direction is
+                    backed 30&deg;, from 20&deg; to &minus;10&deg;. Nothing else is touched.
+                </p>
+                <h3>The rule, stated on the form</h3>
+                <p>
+                    The note under the fields states the contract the whole capability rests on:
+                    <em>branches differ by parameters only; the fork anchors where this branch paused.</em> The status
+                    line reads <code>main: PAUSED @ epoch 20</code>, and that is the anchor every one of the five
+                    siblings inherits.
+                </p>
+            </div>
+            <figure class="shot">
+                <a href="img/pl-10-fork-form.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-10-fork-form.webp" alt="The Digital Twin panel with a Paused badge, the Fork what-if control active, fields for windSpeed set to 3, windDirDeg set to -10 and sourceRate set to 8, a Create fork button, and a status line reading main: PAUSED at epoch 20" width="346" height="377" loading="lazy"></a>
+                <figcaption>
+                    The what-if form on a run paused at epoch&nbsp;20. All three declared constants are present as
+                    editable knobs; <code>windDirDeg</code> is being taken from 20&deg; to &minus;10&deg; for the
+                    branch.
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Same epoch. Different sky.</h2>
+        <p class="section-intro center">
+            Both frames are epoch&nbsp;39 in two worlds that share every byte of history to epoch&nbsp;20 and nothing
+            after it.
+        </p>
+        <div class="shot-pair">
+            <div>
+                <div class="pair-label base">Baseline &mdash; wind 20&deg;</div>
+                <figure class="shot">
+                    <a href="img/pl-08-baseline-e39.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-08-baseline-e39.webp" alt="Satellite view of the coastline with a bright plume running inland from the shore to the north-northeast, over the built-up strip and toward the bay at the upper right" width="692" height="600" loading="lazy"></a>
+                </figure>
+            </div>
+            <div>
+                <div class="pair-label emerg">Backed wind &mdash; &minus;10&deg;</div>
+                <figure class="shot">
+                    <a href="img/pl-09-backed-wind-e39.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-09-backed-wind-e39.webp" alt="The same satellite view at the same epoch with the plume running almost due north instead, staying west of the bay" width="692" height="600" loading="lazy"></a>
+                </figure>
+            </div>
+        </div>
+        <p class="pair-caption">
+            Left, the baseline track runs inland to the north-northeast. Right, the branch after the wind backs
+            30&deg;: the same source, the same history, a plume that leans almost due north and misses everything the
+            baseline crossed. The only difference between these two frames is one number, changed once, 19 epochs
+            earlier.
+        </p>
+
+        <figure class="chart wide" style="margin-top: 44px;">
+            <svg viewBox="0 0 720 400" role="img" aria-labelledby="c3-t c3-d">
+                <title id="c3-t">Concentration at the receptor across six worlds sharing one history to epoch 20</title>
+                <desc id="c3-d">Six timelines share one history until epoch 20, where the run is forked. The baseline rises from zero after epoch 16 and settles near 0.17 quanta per cell. The 10x source fork follows the baseline and then climbs steeply past epoch 36 to about 0.54. The backed-wind branch and the three-branch wind fan all rise briefly and then collapse to zero — on-track winds arrive at the receptor; the backed wind never does.</desc>
+                <g class="ch-grid" shape-rendering="crispEdges">
+                    <line x1="62" y1="354" x2="702" y2="354"/>
+                    <line x1="62" y1="242" x2="702" y2="242"/>
+                    <line x1="62" y1="130" x2="702" y2="130"/>
+                    <line x1="62" y1="18" x2="702" y2="18"/>
+                </g>
+                <line class="ch-axis" x1="62" y1="354" x2="702" y2="354" shape-rendering="crispEdges" vector-effect="non-scaling-stroke"/>
+                <text x="52" y="358" text-anchor="end">0.00</text>
+                <text x="52" y="246" text-anchor="end">0.20</text>
+                <text x="52" y="134" text-anchor="end">0.40</text>
+                <text x="52" y="22" text-anchor="end">0.60</text>
+                <text x="62" y="381" text-anchor="middle">0</text>
+                <text x="222" y="381" text-anchor="middle" class="ch-t-minor">10</text>
+                <text x="382" y="381" text-anchor="middle">20</text>
+                <text x="542" y="381" text-anchor="middle" class="ch-t-minor">30</text>
+                <text x="702" y="381" text-anchor="middle">40</text>
+
+                <line class="ch-fork" x1="382" y1="18" x2="382" y2="354" vector-effect="non-scaling-stroke"/>
+
+                <polyline class="ch-fan" vector-effect="non-scaling-stroke" points="382.0,313.9 398.0,310.6 414.0,315.8 430.0,325.8 446.0,336.3 462.0,344.2 478.0,349.2 494.0,352.0 510.0,353.3 526.0,353.6 542.0,353.8 558.0,354.0 574.0,354.0 590.0,354.0 606.0,354.0 622.0,354.0 638.0,354.0 654.0,354.0 670.0,354.0 686.0,354.0 702.0,354.0"/>
+                <polyline class="ch-fan" vector-effect="non-scaling-stroke" points="382.0,313.9 398.0,299.5 414.0,291.6 430.0,291.6 446.0,298.2 462.0,308.2 478.0,318.9 494.0,328.9 510.0,336.8 526.0,342.7 542.0,347.0 558.0,349.8 574.0,351.6 590.0,352.7 606.0,353.3 622.0,353.6 638.0,353.8 654.0,354.0 670.0,354.0 686.0,354.0 702.0,354.0"/>
+                <polyline class="ch-fan" vector-effect="non-scaling-stroke" points="382.0,313.9 398.0,308.6 414.0,312.8 430.0,323.4 446.0,334.8 462.0,343.8 478.0,349.2 494.0,352.0 510.0,353.3 526.0,353.8 542.0,354.0 558.0,354.0 574.0,354.0 590.0,354.0 606.0,354.0 622.0,354.0 638.0,354.0 654.0,354.0 670.0,354.0 686.0,354.0"/>
+
+                <polyline class="ch-src" vector-effect="non-scaling-stroke" points="382.0,313.9 398.0,295.8 414.0,280.5 430.0,270.0 446.0,263.5 462.0,260.4 478.0,258.9 494.0,258.4 510.0,258.2 526.0,258.2 542.0,258.0 558.0,258.0 574.0,258.0 590.0,258.0 606.0,258.0 622.0,258.0 638.0,257.1 654.0,251.0 670.0,227.0 686.0,164.8 702.0,51.2"/>
+
+                <polyline class="ch-base" vector-effect="non-scaling-stroke" points="62.0,354.0 78.0,354.0 94.0,354.0 110.0,354.0 126.0,354.0 142.0,354.0 158.0,354.0 174.0,354.0 190.0,354.0 206.0,354.0 222.0,354.0 238.0,354.0 254.0,354.0 270.0,354.0 286.0,354.0 302.0,353.8 318.0,353.3 334.0,350.5 350.0,343.7 366.0,330.9 382.0,313.9 398.0,295.8 414.0,280.5 430.0,270.0 446.0,263.5 462.0,260.4 478.0,258.9 494.0,258.4 510.0,258.2 526.0,258.2 542.0,258.0 558.0,258.0 574.0,258.0 590.0,258.0 606.0,258.0 622.0,258.0 638.0,258.0 654.0,258.0 670.0,258.0 686.0,258.0"/>
+
+                <polyline class="ch-emerg" vector-effect="non-scaling-stroke" points="382.0,313.9 398.0,300.5 414.0,293.6 430.0,294.6 446.0,301.8 462.0,312.1 478.0,322.8 494.0,332.4 510.0,340.0 526.0,345.5 542.0,349.0 558.0,351.2 574.0,352.5 590.0,353.3 606.0,353.6 622.0,353.8 638.0,354.0 654.0,354.0 670.0,354.0 686.0,354.0"/>
+
+                <text class="ch-fork-t ch-wide" x="388" y="30">the fork anchor &middot; epoch 20</text>
+                <text class="ch-fork-t ch-narrow" x="388" y="30">epoch 20</text>
+                <text class="ch-end ch-base-t" x="682" y="250" text-anchor="end">baseline &mdash; 0.17</text>
+                <text class="ch-end ch-emerg-t ch-wide" x="600" y="344" text-anchor="end">backed wind &mdash; never arrives</text>
+                <text class="ch-end ch-emerg-t ch-narrow" x="600" y="344" text-anchor="end">backed wind</text>
+                <text class="ch-end ch-fork-t ch-wide" x="700" y="44" text-anchor="end">source 10&times;</text>
+
+                <g class="ch-legend">
+                    <line class="ch-fan" x1="80" y1="46" x2="106" y2="46" vector-effect="non-scaling-stroke"/>
+                    <text class="ch-lbl" x="116" y="50">wind-direction fan &mdash; 320&deg;, 50&deg;, 80&deg;</text>
+                </g>
+
+                <text class="ch-axis-title" x="382" y="396" text-anchor="middle">epoch</text>
+                <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">receptor concentration (quanta/cell)</text>
+            </svg>
+            <figcaption>
+                The decision study: concentration at a receptor about 7&nbsp;km downwind on the baseline track, in all
+                six worlds. One line to epoch&nbsp;20, then six. On-track winds arrive; the backed wind never does
+                &mdash; <strong>1.713e-1 against 5.694e-6</strong> at epoch&nbsp;39, a collapse of more than four
+                orders of magnitude from one number changed once.
+            </figcaption>
+        </figure>
+
+        <figure class="chart wide">
+            <svg viewBox="0 0 720 400" role="img" aria-labelledby="c4-t c4-d">
+                <title id="c4-t">Total scalar mass, baseline against the 10x source fork</title>
+                <desc id="c4-d">Total scalar mass in the domain rises linearly in the baseline at 8 quanta per tick, reaching about 320 quanta by epoch 39. The 10x source fork leaves the baseline at the epoch 20 anchor and rises at 80 quanta per tick, reaching about 1688 by epoch 39. The gap between them at epoch 39 is 1368 quanta, which is exactly what the closed form predicts.</desc>
+                <g class="ch-grid" shape-rendering="crispEdges">
+                    <line x1="62" y1="354" x2="702" y2="354"/>
+                    <line x1="62" y1="270" x2="702" y2="270"/>
+                    <line x1="62" y1="186" x2="702" y2="186"/>
+                    <line x1="62" y1="102" x2="702" y2="102"/>
+                    <line x1="62" y1="18" x2="702" y2="18"/>
+                </g>
+                <line class="ch-axis" x1="62" y1="354" x2="702" y2="354" shape-rendering="crispEdges" vector-effect="non-scaling-stroke"/>
+                <text x="52" y="358" text-anchor="end">0</text>
+                <text x="52" y="274" text-anchor="end">500</text>
+                <text x="52" y="190" text-anchor="end">1.0k</text>
+                <text x="52" y="106" text-anchor="end">1.5k</text>
+                <text x="52" y="22" text-anchor="end">2.0k</text>
+                <text x="62" y="381" text-anchor="middle">0</text>
+                <text x="222" y="381" text-anchor="middle" class="ch-t-minor">10</text>
+                <text x="382" y="381" text-anchor="middle">20</text>
+                <text x="542" y="381" text-anchor="middle" class="ch-t-minor">30</text>
+                <text x="702" y="381" text-anchor="middle">40</text>
+
+                <polygon class="ch-wedge" points="382.0,325.8 686.0,70.4 686.0,300.3"/>
+                <line class="ch-fork" x1="382" y1="18" x2="382" y2="354" vector-effect="non-scaling-stroke"/>
+                <line class="ch-bracket" x1="686" y1="70.4" x2="686" y2="300.3" vector-effect="non-scaling-stroke"/>
+
+                <polyline class="ch-base" vector-effect="non-scaling-stroke" points="62.0,352.7 686.0,300.3"/>
+                <polyline class="ch-emerg" vector-effect="non-scaling-stroke" points="382.0,325.8 702.0,57.0"/>
+
+                <text class="ch-fork-t ch-wide" x="388" y="30">the fork anchor &middot; epoch 20</text>
+                <text class="ch-fork-t ch-narrow" x="388" y="30">epoch 20</text>
+                <text class="ch-end ch-emerg-t" x="680" y="56" text-anchor="end">source fork &mdash; 80/tick</text>
+                <text class="ch-end ch-base-t" x="680" y="322" text-anchor="end">baseline &mdash; 8/tick</text>
+                <text class="ch-wide" x="676" y="196" text-anchor="end">1,368 quanta</text>
+                <text class="ch-narrow" x="676" y="196" text-anchor="end">1,368</text>
+
+                <text class="ch-axis-title" x="382" y="396" text-anchor="middle">epoch</text>
+                <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">total scalar mass (quanta)</text>
+            </svg>
+            <figcaption>
+                The same fork, quantified by the ledger instead of the picture. The branch injects at ten times the
+                baseline rate from the anchor on, so the wedge between the two worlds is not an emergent surprise
+                &mdash; it is a closed form. At the shared epoch&nbsp;39 the ledger measures
+                <strong>1367.998 quanta</strong> against a predicted <strong>1368.000</strong>. Conservation is the
+                divergence oracle.
+            </figcaption>
+        </figure>
+
+        <div class="checks">
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">All three declared constants are fork knobs in the form</div>
+                    <div class="detail"><span class="lbl">observed</span><code>windDirDeg + sourceRate + windSpeed fields present</code><span class="lbl">expected</span><code>3 fields</code></div>
+                </div>
+            </div>
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">Six worlds off one anchor: baseline plus five sibling forks, every one anchored at epoch 20</div>
+                    <div class="detail"><span class="lbl">observed</span><code>5 forks created &mdash; wind &minus;10&deg;, 320&deg;, 50&deg;, 80&deg;, source 10&times;</code><span class="lbl">expected</span><code>wind-shift + 3-fan + 10&times;-rate, all siblings of timeline 0</code></div>
+                </div>
+            </div>
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">The recording&rsquo;s own rows say fan, not chain: every fork is a child of timeline 0 at the same anchor</div>
+                    <div class="detail"><span class="lbl">observed</span><code>t1&larr;0@20 t2&larr;0@20 t3&larr;0@20 t4&larr;0@20 t5&larr;0@20</code><span class="lbl">expected</span><code>all &larr;0@20</code></div>
+                </div>
+            </div>
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">The 10&times; wedge equals the closed form &mdash; conservation as the divergence oracle</div>
+                    <div class="detail"><span class="lbl">observed</span><code>measured 1367.998 vs closed form 1368.000 @ shared epoch 39</code><span class="lbl">expected</span><code>equal to 1%</code></div>
+                </div>
+            </div>
+            <div class="check">
+                <div class="mark">&#10003;</div>
+                <div>
+                    <div class="name">The wind-shift what-if is the receptor&rsquo;s whole story: the backed wind carries the plume away</div>
+                    <div class="detail"><span class="lbl">observed</span><code>baseline 1.713e-1 vs backed-wind 5.694e-6 at epoch 39</code><span class="lbl">expected</span><code>shifted &lt; 25% of baseline</code></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="shot-band">
+    <figure class="shot">
+        <a href="img/pl-11-nup-replay.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/pl-11-nup-replay.webp" alt="The ForgeGIS Studio workspace zoomed in on the coastline with a large plume curving inland to the north, the Digital Twin panel showing the branch selector set to windDirDeg=-10 at epoch 39 of 39 and a row of four branch thumbnails at the same epoch" width="1440" height="900" loading="lazy"></a>
+        <figcaption>
+            The backed-wind branch on the canvas at the last epoch of the run, with the branch selector reading
+            <code>windDirDeg=&minus;10 @20</code> and the note <em>diverged from main at epoch 20</em>. The thumbnail
+            row underneath is the n-up replay: every branch rendered at the one cursor epoch, so worlds are compared
+            at the same moment rather than from memory.
+        </figcaption>
+    </figure>
+</div>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">What this page is honest about</h2>
+        <p class="section-intro center">
+            The limits are part of the result. A validation that hides its regime is not a validation.
+        </p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feat-tag">Engine validation, not dispersion modeling</div>
+                <h3>The real comparators are elsewhere</h3>
+                <p>
+                    Operational plume work belongs to HPAC, HYSPLIT and AERMOD &mdash; models with turbulence
+                    closures, stability classes, source physics and decades of field calibration. This page is none of
+                    that. It demonstrates that the twin engine&rsquo;s transport is <em>exactly</em> the equation it
+                    claims to solve &mdash; the property those models assume of their own solvers &mdash; and that the
+                    twin contract holds around it.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Uniform wind, no weather</div>
+                <h3>One constant vector, whole grid</h3>
+                <p>
+                    No met data, no sea-breeze cycle, no boundary layer. That is exactly what makes the wind-shift
+                    fork honest: it is a parameter study over an idealized field, not a forecast for anywhere.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">Terrain-free, closed walls</div>
+                <h3>The coast is a basemap, not physics</h3>
+                <p>
+                    v1 transport ignores topography entirely, and the domain edge is a closed wall &mdash; mass that
+                    reaches it piles up rather than leaving. Validation runs are sized so nothing reaches a wall, and
+                    the conservation check depends on the walls being closed.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feat-tag">First-order scheme, disclosed regime</div>
+                <h3>Where the extra spreading is, and isn&rsquo;t</h3>
+                <p>
+                    Corner-transport upwind is first-order: off the CFL&nbsp;=&nbsp;1 axis it adds numerical diffusion
+                    with a known closed form. The validation runs sit where that term is exactly zero; the Act II
+                    worlds run where the extra spreading is real but small &mdash; and disclosed, not hidden.
+                </p>
+            </div>
+        </div>
+        <p class="routing-note">
+            Display settings on the screenshots are disclosed and display-only: a shallow boost, because the
+            10&times; fork&rsquo;s source otherwise dominates the shared colour ramp, and a display floor at 0.1% of
+            the ramp, because a diffusing scalar stays float32-nonzero far past anything meaningful and that underflow
+            halo would paint as an opaque disc that reads like a footprint. The floor is a fraction of the ramp, not a
+            threshold of concern &mdash; <strong>the ledger is untouched by either</strong>.
+        </p>
+    </div>
+</section>
+
+<section class="contact-strip">
+    <div class="container">
+        <h2>Want the depth behind this?</h2>
+        <p>
+            The full technical showcase carries the blocks this page condenses &mdash; definition hashes, run
+            identifiers, every recorded API exchange, and the Java probes that pin the same cards cell-by-cell.
+            Seaglass Foundry<sup class="tm">&trade;</sup> is happy to walk an evaluator through it.
+        </p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20digital%20twin%20plume%20inquiry" class="btn btn-primary">rich@seaglassfoundry.com</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/products/">Products</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="digital-twin.html">Digital Twin</a>
+            <a href="hoover-dam.html">Hoover Dam</a>
+            <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
+            <a href="/products/forgegis/downloads/forgegis-technical-brief.pdf">Technical Brief</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Globe&trade;, Seaglass Control Center&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            Map tiles and imagery in the screenshots above are &copy; Esri and its data providers, sourced from Esri, Maxar, Earthstar Geographics and the GIS User Community; MapLibre, QGIS, Java, HPAC, HYSPLIT, AERMOD, and other third-party products and marks referenced are the property of their respective owners.
+            Reference to these marks does not imply endorsement. This page is a self-published technical demonstration by Seaglass Foundry LLC. The release modelled here is hypothetical and the coordinates are a stage, not a scenario; nothing on this page describes a real facility, event, or forecast.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+    </div>
+</footer>
+
+<dialog class="lightbox" id="shot-lightbox" aria-label="Screenshot preview">
+    <button class="lightbox-close" type="button" aria-label="Close preview">&times;</button>
+    <img alt="">
+</dialog>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    var burger = document.querySelector('.hamburger');
+    function closeNav() {
+        links.classList.remove('open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+    }
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', closeNav);
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) closeNav();
+    });
+})();
+(function() {
+    var dlg = document.getElementById('shot-lightbox');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var pic = dlg.querySelector('img');
+    document.querySelectorAll('a.shot-link').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            var thumb = a.querySelector('img');
+            pic.src = a.getAttribute('href');
+            pic.alt = thumb ? thumb.alt : '';
+            dlg.showModal();
+        });
+    });
+    dlg.addEventListener('click', function() { dlg.close(); });
+    dlg.addEventListener('close', function() { pic.removeAttribute('src'); });
+})();
+</script>
+
+</body>
+</html>

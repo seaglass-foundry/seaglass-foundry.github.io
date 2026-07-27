@@ -18,6 +18,16 @@
   <url>
     <loc>https://seaglassfoundry.com/products/forgegis/digital-twin.html</loc>
     <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://seaglassfoundry.com/products/forgegis/hoover-dam.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://seaglassfoundry.com/products/forgegis/plume.html</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
