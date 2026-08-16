@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seaglass Foundry — Forged For Speed. Refined by Craft.</title>
-    <meta name="description" content="Seaglass Foundry — Forged For Speed. Refined by Craft. Now shipping: ForgeGIS Studio, the operator surface for the Forge suite, and the Seaglass Control Center — one download that installs, configures, and operates the suite. Home of ForgeGIS, ForgeMind, ForgeData, and SwingToPDF. Maintainers of Worldwind Reforged, our community modernization of NASA WorldWind.">
+    <meta name="description" content="Seaglass Foundry — Forged For Speed. Refined by Craft. New in 1.2.4: Seaglass Globe, a precision WGS-84 virtual globe and the Forge suite's optional 3D view — alongside ForgeGIS Studio, the operator surface, and the Seaglass Control Center, one download that installs, configures, and operates the suite. Home of ForgeGIS, ForgeMind, ForgeData, and SwingToPDF. Maintainers of Worldwind Reforged, our community modernization of NASA WorldWind.">
     <link rel="canonical" href="https://seaglassfoundry.com/">
     <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="preconnect" href="https://www.youtube-nocookie.com">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/">
     <meta property="og:title" content="Seaglass Foundry — Forged For Speed. Refined by Craft.">
-    <meta property="og:description" content="Forged For Speed. Refined by Craft. Now shipping: ForgeGIS Studio — the operator surface for the Forge suite — and the Seaglass Control Center, one download that installs, configures, and operates the suite.">
+    <meta property="og:description" content="Forged For Speed. Refined by Craft. New in 1.2.4: Seaglass Globe — a precision WGS-84 virtual globe, twenty thousand kilometres to a rooftop in one move — the Forge suite's optional 3D view, alongside ForgeGIS Studio and the Seaglass Control Center.">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Seaglass Foundry — Forged For Speed. Refined by Craft.">
-    <meta name="twitter:description" content="Now shipping: ForgeGIS Studio and the Seaglass Control Center — the Forge suite, installed by one download and run through one workspace.">
+    <meta name="twitter:description" content="New in 1.2.4: Seaglass Globe — the Forge suite's precision 3D view. Watch the release film.">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -24,7 +25,7 @@
         "slogan": "Forged For Speed. Refined by Craft.",
         "url": "https://seaglassfoundry.com",
         "email": "rich@seaglassfoundry.com",
-        "description": "An independent studio building GPU-accelerated developer libraries and tools. Maker of the Forge suite — ForgeGIS (GPU-accelerated geospatial compute and MCP server), ForgeMind (the GIS Intent Compiler), ForgeData (the data-intelligence layer), ForgeGIS Studio (the operator surface), and the Seaglass Control Center (one download that installs, configures, and operates the suite) — plus SwingToPDF and Worldwind Reforged.",
+        "description": "An independent studio building GPU-accelerated developer libraries and tools. Maker of the Forge suite — ForgeGIS (GPU-accelerated geospatial compute and MCP server), ForgeMind (the GIS Intent Compiler), ForgeData (the data-intelligence layer), ForgeGIS Studio (the operator surface), Seaglass Globe (the suite's optional 3D view and the agent's presentation surface), and the Seaglass Control Center (one download that installs, configures, and operates the suite) — plus SwingToPDF and Worldwind Reforged.",
         "sameAs": [
             "https://github.com/seaglass-foundry"
         ]
@@ -139,6 +140,17 @@
         .btn-primary:hover { background: var(--teal-dark); }
         .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
         .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+        /* ── Hero film: poster facade → youtube-nocookie iframe on click ── */
+        .hero .hero-video { max-width: 880px; margin: 44px auto 0; scroll-margin-top: 76px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 18px 50px rgba(0,0,0,0.45); background: #000; }
+        .hero .hero-video-caption { color: #8eaec6; font-size: 0.85rem; margin: 12px auto 0; text-align: center; }
+        .film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; }
+        .film-frame iframe, .film-frame .film-facade { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+        .film-facade { cursor: pointer; }
+        .film-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .film-facade .film-play { position: absolute; left: 50%; top: 68%; width: 78px; height: 54px; transform: translate(-50%, -50%); border-radius: 14px; background: rgba(15, 38, 64, 0.82); border: 1px solid rgba(255, 255, 255, 0.25); transition: background 0.15s, transform 0.15s; }
+        .film-facade .film-play::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-38%, -50%); border-style: solid; border-width: 11px 0 11px 19px; border-color: transparent transparent transparent #fff; }
+        .film-facade:hover .film-play, .film-facade:focus-visible .film-play { background: var(--teal); transform: translate(-50%, -50%) scale(1.06); }
+        .film-facade:focus-visible { outline: 3px solid var(--teal); outline-offset: -3px; }
 
         /* ── Flagship section ── */
         .flagship {
@@ -492,6 +504,8 @@
             .hero { padding: 80px 24px 70px; }
             .hero h1 { font-size: 2.1rem; }
             .hero .eyebrow { font-size: 0.7rem; }
+            .hero .hero-video { margin-top: 30px; border-radius: 8px; }
+            .film-facade .film-play { width: 60px; height: 42px; border-radius: 10px; }
             .flagship-card .fc-left h2 { font-size: 1.7rem; }
             .products-grid { grid-template-columns: 1fr; }
             .hamburger { display: block; }
@@ -532,30 +546,78 @@
             <span class="craft">Refined by Craft.</span>
         </h1>
         <p class="subline">
-            New in 1.2.3: the <strong style="color:#fff;">ForgeGIS<sup class="tm">&trade;</sup> digital twin</strong>
-            &mdash; a living geospatial simulation that runs on the GPU and <strong style="color:#fff;">records itself
-            as it goes</strong>. Pause it mid-event, branch it into a what-if that shares history byte-for-byte, and
-            replay or prove any of it afterwards from a single file. Driven from
-            <strong style="color:#fff;">ForgeGIS Studio<sup class="tm">&trade;</sup></strong>, on the suite that runs
-            on one machine: <strong style="color:#fff;">ForgeMind<sup class="tm">&trade;</sup></strong>,
+            New in 1.2.4: <strong style="color:#fff;">Seaglass Globe<sup class="tm">&trade;</sup></strong> &mdash; a
+            precision WGS-84 virtual globe, in double precision, all the way down. <strong style="color:#fff;">Twenty
+            thousand kilometres to a rooftop in one move</strong>; real geodesy with the algorithm named beside every
+            number; your own data on the stack; live feeds; and compute that runs where you are looking. The optional
+            3D view of the Forge suite and the surface <strong style="color:#fff;">ForgeMind<sup class="tm">&trade;</sup></strong>
+            draws on &mdash; installed by the <strong style="color:#fff;">Seaglass Control Center<sup class="tm">&trade;</sup></strong>
+            alongside <strong style="color:#fff;">ForgeGIS<sup class="tm">&trade;</sup></strong>,
             <strong style="color:#fff;">ForgeData<sup class="tm">&trade;</sup></strong>, and
-            <strong style="color:#fff;">Seaglass Control Center<sup class="tm">&trade;</sup></strong>.
+            <strong style="color:#fff;">ForgeGIS Studio<sup class="tm">&trade;</sup></strong>.
         </p>
         <div class="cta-group">
-            <a href="/products/forgegis/digital-twin.html" class="btn btn-primary">See the digital twin</a>
+            <a href="/products/seaglass-globe/" class="btn btn-primary">Meet Seaglass Globe</a>
             <a href="#now-shipping" class="btn btn-outline">What else is shipping</a>
         </div>
+        <div class="hero-video" id="film">
+            <div class="film-frame">
+                <a class="film-facade" href="https://www.youtube.com/watch?v=4msA76n453A" target="_blank" rel="noopener" data-video="4msA76n453A" data-title="Seaglass Globe &mdash; the release film" aria-label="Play the Seaglass Globe release film (5:09)">
+                    <img src="/products/seaglass-globe/img/film-poster.webp" alt="Title card of the Seaglass Globe release film: the Earth over the Atlantic on a dark navy field, with SEAGLASS FOUNDRY above and SEAGLASS GLOBE in letter-spaced cyan type across it" width="1280" height="720" fetchpriority="high" decoding="async">
+                    <span class="film-play" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+        <p class="hero-video-caption">The Seaglass Globe release film (5:09) &mdash; Seaglass Foundry on YouTube.</p>
     </div>
 </section>
 
 <section class="flagship" id="now-shipping">
     <div class="products-header">
         <h2>Now shipping: the Forge suite, runnable</h2>
-        <p>Three engines. One surface. One download.</p>
+        <p>Three engines. Two surfaces. One download.</p>
     </div>
     <div class="flagship-card">
         <div class="fc-left">
-            <span class="badge">New in 1.2.3 &middot; The Digital Twin</span>
+            <span class="badge">New in 1.2.4 &middot; Seaglass Globe</span>
+            <h2>Seaglass Globe<sup class="tm">&trade;</sup> &mdash; <span class="product">the Earth in double precision, all the way down</span></h2>
+            <p class="fc-tagline">A precision WGS-84 virtual globe &mdash; the Forge suite's optional 3D view, and the surface the agent draws on.</p>
+            <p class="fc-description">
+                Twenty thousand kilometres to a rooftop in one continuous move, on a WGS-84 ellipsoid whose precision is
+                held relative to the camera. Real elevation and imagery, real geodesy with the algorithm named beside
+                every number, your own GeoJSON, KML and shapefiles on a layer stack that is yours, tile services you
+                name, live feeds, and the suite's GPU compute run from a workflow editor docked under the map &mdash; a
+                hillshade re-computed while you are still holding the slider. When it is running, ForgeMind's visual
+                answers &mdash; contours, profiles, draped rasters, scene entities &mdash; are drawn on the globe instead
+                of only described. Needs a real GPU; Windows x64; opt-in in the Control Center installer.
+            </p>
+            <span class="fc-claim">
+                One engine. Real geodesy, your data, and compute that runs <em>where you are looking</em>.
+            </span>
+            <div class="fc-cta-group">
+                <a href="/products/seaglass-globe/" class="btn btn-product">See Seaglass Globe</a>
+                <a href="/products/seaglass-globe/#suite" class="btn btn-ghost">How it fits the suite</a>
+            </div>
+            <a href="#film" class="fc-demo-link">Watch the release film &mdash; 20&#8239;000&nbsp;km to a rooftop, no cut. <span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="fc-right">
+            <div class="fc-stat">
+                <div class="fc-stat-num">20&#8239;000&nbsp;km <span class="accent">&rarr; rooftop</span></div>
+                <div class="fc-stat-label">one continuous move &mdash; no cut, no dissolve, no swapping one scene for another; the same globe the whole way down</div>
+            </div>
+            <div class="fc-stat">
+                <div class="fc-stat-num">f64 <span class="accent">all the way down</span></div>
+                <div class="fc-stat-label">precision held relative to the camera, so the ground stops shimmering exactly where a single-precision engine starts to</div>
+            </div>
+            <div class="fc-stat">
+                <div class="fc-stat-num">WGS-84 <span class="accent">ellipsoid</span></div>
+                <div class="fc-stat-label">a = 6&#8239;378&#8239;137&nbsp;m; Vincenty inverse and Karney area, with the algorithm named beside every measurement</div>
+            </div>
+        </div>
+    </div>
+    <div class="flagship-card">
+        <div class="fc-left">
+            <span class="badge">Now Shipping &middot; The Digital Twin</span>
             <h2>ForgeGIS<sup class="tm">&trade;</sup> digital twin &mdash; <span class="product">streams like video, auditable like a ledger</span></h2>
             <p class="fc-tagline">A living geospatial simulation that records itself as it runs.</p>
             <p class="fc-description">
@@ -662,7 +724,7 @@
 <section class="flagship suite-section">
     <div class="products-header">
         <h2>The Forge suite</h2>
-        <p>Three engines built for each other &mdash; surfaced by Studio, delivered by the Control Center.</p>
+        <p>Three engines built for each other &mdash; surfaced by Studio, flown on Seaglass Globe, delivered by the Control Center.</p>
     </div>
     <div class="flagship-card">
         <div class="fc-left">
@@ -711,7 +773,7 @@
                 6,696 validated turns &mdash; at roughly 25&times; lower model cost than an agent loop.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; License TBD &middot; v1.2.3
+                <strong>Java 17+</strong> &middot; License TBD &middot; v1.2.4
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -725,7 +787,7 @@
                 access cost as the deciding tiebreaker.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.3
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.4
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -741,7 +803,8 @@
             geospatial stack for the agent era: <a href="/products/forgegis/">ForgeGIS</a> (the GPU-accelerated
             compute engine), <a href="/products/forgemind/">ForgeMind</a> (the GIS Intent Compiler), and
             <a href="/products/forgedata/">ForgeData</a> (the data-intelligence layer) &mdash; made one product by
-            <a href="/products/forgegis-studio/">ForgeGIS Studio</a> (the operator surface) and delivered by the
+            <a href="/products/forgegis-studio/">ForgeGIS Studio</a> (the operator surface), given a 3D view by
+            <a href="/products/seaglass-globe/">Seaglass Globe</a> (the agent's presentation surface), and delivered by the
             <a href="/products/control-center/">Seaglass Control Center</a> (one download that installs, configures,
             and operates the suite). We also ship
             <a href="/products/swingtopdf/">SwingToPDF<sup class="tm">&trade;</sup></a> (vector PDF output from
@@ -821,6 +884,7 @@
             <a href="/products/forgedata/">ForgeData</a>
             <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
             <a href="/products/control-center/">Control Center</a>
+            <a href="/products/seaglass-globe/">Seaglass Globe</a>
             <a href="/products/swingtopdf/">SwingToPDF</a>
             <a href="/products/worldwind-reforged/">Worldwind Reforged</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
@@ -828,7 +892,7 @@
         </div>
         <div class="footer-tag">Forged For Speed. Refined by Craft.</div>
         <div class="footer-marks">
-            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Control Center&trade;, SwingToPDF&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Globe&trade;, Seaglass Control Center&trade;, SwingToPDF&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
             NASA WorldWind, GDAL, Apache PDFBox, GeoPackage, the Model Context Protocol, Java, and other third-party products and marks referenced are the property of their respective owners.
             Worldwind Reforged is an independent community modernization and is not affiliated with or endorsed by NASA.
         </div>
@@ -844,6 +908,24 @@
     });
     document.addEventListener('click', function(e) {
         if (!e.target.closest('nav')) links.classList.remove('open');
+    });
+})();
+(function() {
+    function play(a) {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + a.getAttribute('data-video') + '?autoplay=1&rel=0';
+        f.title = a.getAttribute('data-title') || 'Seaglass Globe';
+        f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        f.setAttribute('allowfullscreen', '');
+        f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        a.parentNode.replaceChild(f, a);
+        f.focus();
+    }
+    document.querySelectorAll('.film-facade').forEach(function(a) {
+        a.addEventListener('click', function(e) { if (e.ctrlKey || e.metaKey || e.shiftKey) return; e.preventDefault(); play(a); });
+    });
+    document.querySelectorAll('a[href="#film"]').forEach(function(a) {
+        a.addEventListener('click', function(e) { if (e.ctrlKey || e.metaKey || e.shiftKey) return; var f = document.querySelector('.film-facade'); if (f) play(f); });
     });
 })();
 </script>

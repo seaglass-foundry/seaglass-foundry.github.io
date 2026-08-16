@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seaglass Globe — A Precision WGS-84 Virtual Globe, and the Forge Suite's 3D View</title>
+    <meta name="description" content="Seaglass Globe is a precision WGS-84 virtual globe: twenty thousand kilometres to a rooftop in one continuous move, precision held relative to the camera, real geodesy with the algorithm named beside every number, your own GeoJSON, KML and shapefiles, live feeds, and compute that runs on the globe. The optional 3D view of the Forge suite and the agent's presentation surface. Windows x64; needs a real GPU.">
+    <link rel="canonical" href="https://seaglassfoundry.com/products/seaglass-globe/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="preconnect" href="https://www.youtube-nocookie.com">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seaglassfoundry.com/products/seaglass-globe/">
+    <meta property="og:title" content="Seaglass Globe — A Precision WGS-84 Virtual Globe, and the Forge Suite's 3D View">
+    <meta property="og:description" content="Twenty thousand kilometres to a rooftop in one move, on a WGS-84 ellipsoid in double precision. Real geodesy, your data, live feeds, compute on the globe — the optional 3D view of the Forge suite. Watch the release film.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Seaglass Globe — The Forge Suite's 3D View">
+    <meta name="twitter:description" content="A precision WGS-84 virtual globe — 20 000 km to a rooftop, no cut. The Forge suite's optional 3D view and the surface the agent draws on. Watch the film.">
+    <meta name="keywords" content="Seaglass Globe, WGS-84 virtual globe, 3D globe Rust wgpu, precision globe f64, Vincenty Karney geodesy, GeoJSON KML shapefile globe, WMS WMTS XYZ MVT viewer, live earthquake NWS AIS globe, digital twin zero-copy globe, Forge suite 3D view, agent presentation surface MCP, GPU globe Windows x64">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Seaglass Globe",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Windows (x64)",
+        "softwareRequirements": "A real GPU (Vulkan or DirectX 12); an RDP or remote-desktop session usually cannot drive it. Installed as an opt-in component of the Seaglass Control Center.",
+        "url": "https://seaglassfoundry.com/products/seaglass-globe/",
+        "description": "Seaglass Globe is a precision WGS-84 virtual globe — geodetic-to-ECEF in double precision with precision held relative to the camera, screen-space-error level of detail over a quadtree, reverse-Z depth, Vincenty and Karney geodesy, analytic ellipsoid picking, a globe plus five flat projections switched live, and a Rust/wgpu renderer. It reads XYZ, WMS, WMTS, MVT, 3D Tiles, glTF, GeoJSON, KML and shapefiles, runs the suite's GPU compute on the globe, shows live feeds, and streams digital-twin state zero-copy. The optional 3D view of the Forge suite and the agent's presentation surface. Not sold separately.",
+        "programmingLanguage": "Rust",
+        "creator": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "legalName": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "Seaglass Globe — the release film",
+        "description": "The Seaglass Globe release film: a precision WGS-84 virtual globe — twenty thousand kilometres to a rooftop in one move, real geodesy, your data, compute on the globe, live feeds, and a digital twin streamed zero-copy.",
+        "thumbnailUrl": "https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp",
+        "uploadDate": "2026-08-12",
+        "duration": "PT5M9S",
+        "embedUrl": "https://www.youtube-nocookie.com/embed/4msA76n453A",
+        "contentUrl": "https://www.youtube.com/watch?v=4msA76n453A",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Seaglass Foundry LLC",
+            "url": "https://seaglassfoundry.com"
+        }
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1a3a5c;
+            --navy-dark: #0f2640;
+            --teal: #4a9e8e;
+            --teal-dark: #3b8273;
+            --teal-light: #e8f5f1;
+            --amber: #d8973c;
+            --amber-light: #fef3e6;
+            --amber-dark: #9a5c1e;
+            --grey-bg: #f4f7f9;
+            --text: #2c3e50;
+            --text-light: #5a6a7a;
+            --white: #ffffff;
+            --border: #dce3ea;
+            --code-bg: #1e293b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        a { color: var(--teal-dark); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; }
+        p code, li code, td code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--navy); }
+
+        /* ── Nav ── */
+        nav { background: var(--navy); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+        nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+        nav .brand { color: var(--white); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+        nav .brand span { color: var(--teal); }
+        nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
+        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* ── Product subnav ── */
+        .subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .subnav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 44px; font-size: 0.88rem; }
+        .subnav .crumb { color: #8eaec6; }
+        .subnav .crumb a { color: #a8c4d8; }
+        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+        .subnav .sep { color: #5a6a7a; }
+        .subnav .flagship-tag { margin-left: auto; color: var(--amber); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* ── Hero ── */
+        .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: var(--white); padding: 80px 24px 90px; text-align: center; }
+        .hero .flagship-badge { display: inline-block; background: rgba(216, 151, 60, 0.15); color: var(--amber); border: 1px solid rgba(216, 151, 60, 0.4); padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+        .hero h1 span { color: var(--teal); }
+        .hero .tagline { font-size: 1.3rem; color: #a8c4d8; margin-bottom: 24px; font-weight: 400; }
+        .hero .categorical-claim { max-width: 720px; margin: 0 auto 36px; color: var(--white); font-size: 1.1rem; line-height: 1.65; font-weight: 500; }
+        .hero .categorical-claim em { color: var(--teal); font-style: normal; font-weight: 700; }
+        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 13px 28px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.1s, border-color 0.2s; }
+        .btn:hover { text-decoration: none; transform: translateY(-1px); }
+        .btn-primary { background: var(--teal); color: var(--white); }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+        /* Outline button for use on light/tinted sections, where .btn-outline's white would vanish */
+        .btn-quiet { border: 2px solid var(--border); color: var(--navy); background: var(--white); }
+        .btn-quiet:hover { border-color: var(--teal); color: var(--teal-dark); }
+
+        /* ── Stats strip ── */
+        .stats { background: var(--white); padding: 56px 24px; border-bottom: 1px solid var(--border); }
+        .stats-grid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+        .stat { text-align: center; padding: 0 12px; }
+        .stat .number { font-size: 2.1rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+        .stat .number .accent { color: var(--teal); }
+        .stat .label { font-size: 0.95rem; color: var(--text-light); line-height: 1.5; }
+
+        /* ── Generic section ── */
+        section.block { padding: 70px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 { font-size: 1.9rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.02em; }
+        section.block .section-intro { color: var(--text-light); font-size: 1.02rem; margin-bottom: 32px; max-width: 760px; }
+        section.block h2.center, section.block .center { text-align: center; }
+        section.block .center.section-intro { margin-left: auto; margin-right: auto; }
+        .twin-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+
+        /* ── The film (poster facade → youtube-nocookie iframe on click) ── */
+        .demo-embed { max-width: 880px; margin: 0 auto; background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--amber); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(15, 38, 64, 0.04); }
+        .film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; }
+        .film-frame iframe, .film-frame .film-facade { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+        .film-facade { cursor: pointer; }
+        .film-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .film-facade .film-play { position: absolute; left: 50%; top: 68%; width: 78px; height: 54px; transform: translate(-50%, -50%); border-radius: 14px; background: rgba(15, 38, 64, 0.82); border: 1px solid rgba(255, 255, 255, 0.25); transition: background 0.15s, transform 0.15s; }
+        .film-facade .film-play::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-38%, -50%); border-style: solid; border-width: 11px 0 11px 19px; border-color: transparent transparent transparent #fff; }
+        .film-facade:hover .film-play, .film-facade:focus-visible .film-play { background: var(--teal); transform: translate(-50%, -50%) scale(1.06); }
+        .film-facade:focus-visible { outline: 3px solid var(--teal); outline-offset: -3px; }
+        .demo-methodology { max-width: 880px; margin: 28px auto 0; background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--amber); border-radius: 10px; padding: 22px 28px; }
+        .demo-methodology h3 { font-size: 1.05rem; font-weight: 800; color: var(--navy); letter-spacing: -0.01em; margin-bottom: 12px; }
+        .demo-methodology ul { list-style: disc; padding-left: 22px; color: var(--text); font-size: 0.95rem; line-height: 1.65; }
+        .demo-methodology li { margin-bottom: 6px; }
+        .demo-methodology li:last-child { margin-bottom: 0; }
+        .demo-rig { max-width: 880px; margin: 18px auto 0; text-align: center; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; }
+        .demo-attribution { max-width: 880px; margin: 22px auto 0; color: var(--text-light); font-size: 0.82rem; line-height: 1.55; text-align: center; }
+
+        /* ── The spec sheet ── */
+        .spec-sheet { max-width: 880px; margin: 0 auto; background: var(--code-bg); color: #dce8f2; border-radius: 12px; padding: 26px 32px 30px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9rem; box-shadow: 0 8px 30px rgba(15, 38, 64, 0.12); }
+        .spec-sheet .prompt { color: #7790a8; margin-bottom: 12px; }
+        .spec-sheet dl { display: grid; grid-template-columns: 9em 1fr; column-gap: 24px; row-gap: 10px; }
+        .spec-sheet dt { color: var(--teal); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; font-size: 0.78rem; padding-top: 3px; }
+        .spec-sheet dd { line-height: 1.55; }
+        .spec-sheet dd .n { color: #ffd591; }
+        .spec-sheet-note { max-width: 880px; margin: 18px auto 0; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+
+        /* ── Screenshots ── */
+        figure.shot { max-width: 1000px; margin: 0 auto; }
+        figure.shot a.shot-link { display: block; cursor: zoom-in; }
+        figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 30px rgba(15, 38, 64, 0.12); }
+        dialog.lightbox { border: none; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; }
+        dialog.lightbox::backdrop { background: rgba(15, 38, 64, 0.88); }
+        dialog.lightbox img { display: block; max-width: 94vw; max-height: 94vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); cursor: zoom-out; }
+        dialog.lightbox .lightbox-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(15, 38, 64, 0.65); color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+        dialog.lightbox .lightbox-close:hover, dialog.lightbox .lightbox-close:focus-visible { background: rgba(15, 38, 64, 0.95); }
+        html:has(dialog.lightbox[open]) { overflow: hidden; }
+        figure.shot figcaption { margin-top: 14px; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .shot-pair { max-width: 1040px; margin: 0 auto 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+        .split { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+        .split figure.shot { margin: 0; }
+        .split .split-text h3 { font-size: 1.1rem; color: var(--navy); margin: 18px 0 8px; }
+        .split .split-text h3:first-child { margin-top: 0; }
+        .split .split-text p { font-size: 0.95rem; line-height: 1.7; }
+
+        /* ── 3-up content blocks ── */
+        .three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 8px; }
+        .three-up .item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px 26px; }
+        section.block.tinted .three-up .item { background: var(--white); }
+        .three-up h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.01em; }
+        .three-up p { color: var(--text); font-size: 0.95rem; line-height: 1.7; }
+        .three-up p + p { margin-top: 10px; }
+
+        /* ── Tables ── */
+        .table-wrap { max-width: 940px; margin: 36px auto 0; overflow-x: auto; }
+        table.spec { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 0.93rem; }
+        table.spec th { background: var(--navy); color: var(--white); text-align: left; padding: 12px 18px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+        table.spec td { padding: 14px 18px; border-bottom: 1px solid var(--border); vertical-align: top; }
+        table.spec tr:last-child td { border-bottom: none; }
+        table.spec td:first-child { font-weight: 700; color: var(--navy); white-space: nowrap; }
+        table.spec td:last-child { white-space: nowrap; }
+        table.spec tr.is-self td { background: var(--teal-light); }
+        table.spec .muted { color: var(--text-light); font-size: 0.86rem; }
+        .routing-note { max-width: 940px; margin: 22px auto 0; color: var(--text-light); font-size: 0.92rem; text-align: center; }
+
+        /* ── Licensing note ── */
+        .lic-note { max-width: 880px; margin: 36px auto 0; background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 6px; padding: 16px 22px; color: var(--text); font-size: 0.92rem; line-height: 1.6; }
+        .lic-note strong { color: var(--amber-dark); }
+
+        /* ── Contact strip ── */
+        .contact-strip { background: var(--white); padding: 60px 24px; text-align: center; border-top: 1px solid var(--border); }
+        .contact-strip h2 { font-size: 1.5rem; color: var(--navy); margin-bottom: 12px; }
+        .contact-strip p { color: var(--text-light); font-size: 1rem; margin-bottom: 20px; }
+
+        /* ── Footer ── */
+        footer { background: var(--navy-dark); color: #8eaec6; padding: 40px 24px; font-size: 0.9rem; }
+        footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+        footer a { color: #a8c4d8; }
+        footer a:hover { color: var(--white); }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks { width: 100%; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #7790a8; font-size: 0.8rem; line-height: 1.6; }
+        .footer-copy { width: 100%; text-align: center; margin-top: 12px; color: #8eaec6; }
+
+        @media (max-width: 900px) {
+            .split { grid-template-columns: 1fr; }
+            .shot-pair { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .three-up { grid-template-columns: 1fr; }
+            .spec-sheet { padding: 22px 20px 24px; font-size: 0.85rem; }
+            .spec-sheet dl { grid-template-columns: 1fr; row-gap: 4px; }
+            .spec-sheet dt { margin-top: 10px; }
+            .spec-sheet dt:first-of-type { margin-top: 0; }
+            .demo-methodology { padding: 18px 20px; }
+            .demo-methodology ul { font-size: 0.92rem; }
+            .film-facade .film-play { width: 60px; height: 42px; border-radius: 10px; }
+            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+            .subnav .flagship-tag { margin-left: 0; }
+            .hamburger { display: block; }
+            nav .nav-links { display: none; }
+            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="/products/">Products</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<div class="subnav">
+    <div class="subnav-inner">
+        <div class="crumb">
+            <a href="/products/">Products</a>
+            <span class="sep">/</span>
+            <span>Seaglass Globe</span>
+        </div>
+        <span class="flagship-tag">The 3D View</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <div class="flagship-badge">New in 1.2.4 &middot; Forge Suite</div>
+        <h1>Seaglass <span>Globe</span><sup class="tm">&trade;</sup></h1>
+        <p class="tagline">A WGS-84 ellipsoid, in double precision, all the way down</p>
+        <p class="categorical-claim">
+            Twenty thousand kilometres to a rooftop, in one move &mdash; <em>no cut, no dissolve, no swapping one
+            scene for another</em> &mdash; the same globe the whole way down. Real elevation, real imagery, real
+            geodesy with the algorithm named beside every number, your own data on the stack, live feeds, and
+            compute that runs where you are looking. The optional 3D view of the Forge suite, and the surface the
+            agent draws on.
+        </p>
+        <div class="cta-group">
+            <a href="#film" class="btn btn-primary">Watch the film</a>
+            <a href="#suite" class="btn btn-outline">How it fits the Forge suite</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat">
+            <div class="number">20&#8239;000&nbsp;km<br><span class="accent">&rarr; rooftop</span></div>
+            <div class="label">One continuous move &mdash; no cut, no scene swap; the same globe the whole way down</div>
+        </div>
+        <div class="stat">
+            <div class="number">f64<br><span class="accent">all the way down</span></div>
+            <div class="label">Precision held relative to the camera &mdash; world space stays double until the subtraction, so the ground stops shimmering exactly where a single-precision engine starts to</div>
+        </div>
+        <div class="stat">
+            <div class="number">WGS-84<br><span class="accent">ellipsoid</span></div>
+            <div class="label">a = 6&#8239;378&#8239;137&nbsp;m &middot; geodetic &harr; ECEF in f64 &middot; Vincenty inverse and Karney area, named beside every measurement</div>
+        </div>
+    </div>
+</section>
+
+<section class="block" id="film">
+    <div class="container">
+        <h2 class="center">The release film</h2>
+        <p class="section-intro center">
+            Seven acts, hard cuts between beats, and no cut inside the descent: the Earth, a real coordinate system,
+            your data, compute on the globe, scale, the world live &mdash; with the digital twin as its last
+            demonstration &mdash; and the close. Every panel, readout and credit strip on screen is the application's
+            own, and every number a viewer could re-verify is one the render is displaying itself.
+        </p>
+        <div class="demo-embed">
+            <div class="film-frame">
+                <a class="film-facade" href="https://www.youtube.com/watch?v=4msA76n453A" target="_blank" rel="noopener" data-video="4msA76n453A" data-title="Seaglass Globe &mdash; the release film" aria-label="Play the Seaglass Globe release film (5:09)">
+                    <img src="img/film-poster.webp" alt="Title card of the Seaglass Globe release film: the Earth over the Atlantic on a dark navy field, with SEAGLASS FOUNDRY above and SEAGLASS GLOBE in letter-spaced cyan type across it" width="1280" height="720" fetchpriority="high" decoding="async">
+                    <span class="film-play" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+        <div class="demo-methodology">
+            <h3>What you're watching &mdash; 5:09</h3>
+            <ul>
+                <li><strong>Act I &mdash; the Earth.</strong> Twenty thousand kilometres to a rooftop, at native speed, no cut. Terrain that doesn't stop at the waterline; a canyon whose shadows are where the depth is.</li>
+                <li><strong>Act II &mdash; a real coordinate system.</strong> New York to Los Angeles bows north, because on an ellipsoid that is the short way. Two clicks and the answer names its method &mdash; Vincenty (WGS-84); close a polygon and the badge flips to Karney. The same point as DD, DMS, UTM and MGRS. Four projections of one planet &mdash; the flat views are spherical projections; the ellipsoid lives in the geodesy and the measure tool.</li>
+                <li><strong>Act III &mdash; your data.</strong> A layer stack you drag, fade and hide; GeoJSON, KML and three-file shapefiles read as one layer; any WMS, WMTS, XYZ or MVT service you can name. The dark wedges in the MODIS layer are real: one day of a polar orbit, and where two passes did not meet, nobody took a picture.</li>
+                <li><strong>Act IV &mdash; compute on the globe.</strong> Ask the ground what elevation data exists there; contours at a typed 250&nbsp;m; a hillshade that re-computes and re-drapes at about 70&nbsp;ms per re-run while you are still holding the slider; a pipeline that forks into a graph.</li>
+                <li><strong>Act V &mdash; scale.</strong> An export bigger than the screen; thirty days of the USGS catalogue replayed as a moving window &mdash; real data, replayed, not synthetic and not live.</li>
+                <li><strong>Act VI &mdash; the world, live.</strong> Earthquakes as reported, severe-weather warnings over the radar that produced them, ships under way &mdash; whatever the feeds said that day. Then two that are <em>not</em> live, kept apart under their own cards: a satellite catalogue <em>propagated</em> by SGP4 from cached elements, and a <em>modelled</em> flood &mdash; a hydraulic model, not a real event &mdash; streamed zero-copy from a digital twin.</li>
+            </ul>
+        </div>
+        <p class="demo-rig">
+            Recorded at 1920&times;1080/60 from the application itself. The recorder drives a virtual clock &mdash; the scene advances exactly 1/60&nbsp;s per emitted frame &mdash; which is why the motion is unnaturally smooth. Nothing is composited over the footage except the title cards and the opening spec sheet.
+        </p>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">The spec sheet</h2>
+        <p class="section-intro center">The film opens on a spec sheet &mdash; this is it, minus a tool count &mdash; and the acts that follow are the evidence for it.</p>
+        <div class="spec-sheet">
+            <div class="prompt">&gt; spec</div>
+            <dl>
+            <dt>Datum</dt><dd>WGS-84 ellipsoid &middot; <span class="n">a = 6&#8239;378&#8239;137&nbsp;m</span> &middot; geodetic &harr; ECEF in f64</dd>
+            <dt>Precision</dt><dd>relative-to-centre split-float &mdash; world space stays <span class="n">f64</span> until the subtraction</dd>
+            <dt>LOD</dt><dd>screen-space error over a quadtree descent &middot; <span class="n">256&nbsp;px</span> target</dd>
+            <dt>Depth</dt><dd>reverse-Z &middot; <span class="n">Depth32Float</span> &middot; infinite far plane</dd>
+            <dt>Geodesy</dt><dd><span class="n">Vincenty</span> inverse &middot; <span class="n">Karney</span> polygon area</dd>
+            <dt>Picking</dt><dd>analytic ray &cap; ellipsoid</dd>
+            <dt>View</dt><dd>globe + five flat projections, switched live</dd>
+            <dt>GPU</dt><dd>Rust &middot; wgpu &middot; Vulkan or DX12, whichever wgpu picks on the machine</dd>
+            <dt>Data</dt><dd>XYZ &middot; WMS &middot; WMTS &middot; MVT &middot; 3D Tiles &middot; glTF &middot; GeoJSON &middot; KML &middot; Shapefile</dd>
+            <dt>Control</dt><dd>every layer, every panel, every colour</dd>
+            <dt>Agents</dt><dd>it can be flown by software &mdash; MCP tools for the suite's agent</dd>
+            </dl>
+        </div>
+        <p class="spec-sheet-note">Naming WGS-84 is table stakes; printing its semi-major axis is the claim that you implemented it. The flat projections use that axis as a sphere radius &mdash; the ellipsoid is in the geodesy and the measure tool, not the map projections.</p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">What it is, why it exists, how it's built differently</h2>
+        <p class="section-intro center">Three short answers for the technical evaluator.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>What it is</h3>
+                <p>
+                    Seaglass Globe is a precision virtual globe: a WGS-84 ellipsoid held in double precision and
+                    rendered on the GPU through Rust and wgpu, with real elevation above and below the waterline, real imagery,
+                    and geodesy that names its algorithm. It is the Forge suite's optional 3D view &mdash; install
+                    it with the Seaglass Control Center<sup class="tm">&trade;</sup> and it starts alongside the
+                    engines.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Why it exists</h3>
+                <p>
+                    The engines are headless, and ForgeGIS Studio<sup class="tm">&trade;</sup> is where a person
+                    operates them on a flat map &mdash; but some answers want the Earth. When the Globe is running
+                    it is the agent's presentation surface: ForgeMind<sup class="tm">&trade;</sup>'s visual answers
+                    &mdash; contours, elevation profiles, draped rasters, scene entities &mdash; are drawn on the
+                    globe instead of only described. It has its own chat panel too, talking to the same agent.
+                </p>
+            </div>
+            <div class="item">
+                <h3>How it's built differently</h3>
+                <p>
+                    The numbers on screen are the render's own: precision held relative to the camera so a rooftop
+                    does not shimmer, a measurement that prints its method, a spec sheet with a semi-major axis on
+                    it. It reads what you already have &mdash; GeoJSON, KML, shapefiles, any tile service you can
+                    name &mdash; runs the suite's GPU compute engine, ForgeGIS<sup class="tm">&trade;</sup>, from a
+                    workflow editor docked under the map, and can be flown by software over MCP.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">The Earth</h2>
+        <p class="section-intro center">The founding claim, and the one nothing else in the film makes: the same globe, at every altitude.</p>
+        <div class="shot-pair">
+            <figure class="shot">
+                <a href="img/04-canyon-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/04-canyon-b.webp" alt="Oblique view across the Grand Canyon in Seaglass Globe: layered canyon walls in red, grey and green stepping down into shadowed side canyons, a forested rim toward the top of the frame, flat desert plateau to the horizon under a pale sky, with a scale bar and imagery credit strip along the bottom edge" width="1280" height="720" loading="lazy"></a>
+                <figcaption>An oblique look across the Grand Canyon: layered walls in red, grey and green stepping down into shadowed side canyons, a forested rim toward the top of the frame, and the plateau running out to a flat horizon under a pale sky. Bare globe &mdash; nothing drawn but the scene, a 2.1&nbsp;km scale bar and the imagery credit along the bottom edge.</figcaption>
+            </figure>
+            <figure class="shot">
+                <a href="img/03-terrain-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/03-terrain-b.webp" alt="The Hawaiian island chain seen from altitude in Seaglass Globe: small green-brown islands on a blue ocean whose floor is shown in relief under a depth tint, with the Earth's curved limb against dark sky at the top and a scale bar and imagery credit strip along the bottom" width="1280" height="720" loading="lazy"></a>
+                <figcaption>The Hawaiian chain from altitude. The islands are the small green-brown shapes; everything else is seafloor &mdash; the ridge they sit on, the seamounts, the abyssal plain &mdash; in relief under the ocean-depth tint, with the Earth's limb against dark sky at the top and an 86.8&nbsp;km scale bar bottom-left.</figcaption>
+            </figure>
+        </div>
+        <div class="three-up">
+            <div class="item">
+                <h3>20&#8239;000&nbsp;km &rarr; a rooftop &middot; no cut</h3>
+                <p>Twenty thousand kilometres to a rooftop, in one move. No cut, no dissolve, no swapping one scene for another &mdash; the same globe the whole way down. Precision is held relative to the camera, so the ground stops shimmering exactly where a single-precision engine starts to.</p>
+            </div>
+            <div class="item">
+                <h3>It doesn't stop at the waterline</h3>
+                <p>Terrain doesn't stop at the waterline. Below it, the depth tint is reading the same elevation data as the mountains above &mdash; the ridge, the seamounts, the abyssal plain, in relief.</p>
+            </div>
+            <div class="item">
+                <h3>The shadows are where the depth is</h3>
+                <p>Eighteen hundred metres of relief across sixteen kilometres, lit by the real sun at the real hour. The shading is not painted on: it is the light, the terrain, and the time of day.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">It is a real coordinate system</h2>
+        <p class="section-intro center">A number without its method is not a measurement. Every measurement on the globe names the algorithm that produced it.</p>
+        <div class="split">
+            <figure class="shot">
+                <a href="img/06-measure-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/06-measure-b.webp" alt="Seaglass Globe measuring across the Gulf of Corinth: the View menu open with Measure highlighted, a yellow line between two cyan points on the water, and the MEASURE panel on the right reading 103 km, forward azimuth 65.1 degrees, back azimuth 245.7 degrees, method Vincenty (WGS-84)" width="1280" height="720" loading="lazy"></a>
+                <figcaption>Two clicks across the Gulf of Corinth. The View &#9656; Measure menu is still open on the left; the MEASURE panel on the right reads 103&nbsp;km, forward azimuth 65.1&deg;, back azimuth 245.7&deg; &mdash; and the method badge: Vincenty (WGS-84).</figcaption>
+            </figure>
+            <div class="split-text">
+                <h3>The name of the algorithm</h3>
+                <p>Two clicks on open water. Distance, forward azimuth, back azimuth &mdash; and the name of the algorithm that computed them: Vincenty's inverse solution, on the WGS-84 ellipsoid. Close a polygon and the method changes with the question. Area is Karney's, on the same ellipsoid.</p>
+                <h3>The same point, four ways of writing it down</h3>
+                <p>Decimal degrees, degrees-minutes-seconds, UTM, and the military grid reference the last one is built from &mdash; the status-bar readout re-forms each time. New York to Los Angeles bows north on the flat map, because on an ellipsoid that <em>is</em> the short way; the engine draws the geodesic, not the line that looks straight.</p>
+                <h3>Flatten it, and come back</h3>
+                <p>Globe plus five flat projections, switched live. Flatten it and the projection changes what you see without changing what is underneath; right-click the same screen position in each and it tells you where on the Earth that is. Come back to the globe and the camera never moved. The flat views are spherical projections &mdash; the ellipsoid lives in the geodesy and the measure tool.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">Your data</h2>
+        <p class="section-intro center">Bring your own files and your own services. The layer stack is yours, and it survives the next launch.</p>
+        <div class="shot-pair">
+            <figure class="shot">
+                <a href="img/13-vectors-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/13-vectors-b.webp" alt="Seaglass Globe over western Europe with two vector files loaded: an orange filled triangle and a yellow line over the Bay of Biscay, blue circle markers labelled Rotterdam, Southampton and Lisboa, and the Layers rail on the left listing uc20.geojson and uc25-ports.shp" width="1280" height="720" loading="lazy"></a>
+                <figcaption>Two files on the layer stack &mdash; <code>uc20.geojson</code> and <code>uc25-ports.shp</code> &mdash; drawn over the base imagery of western Europe: an orange filled triangle and a yellow line over the Bay of Biscay, blue circle markers labelled Rotterdam, Southampton and Lisboa, and the Layers rail listing both files with their zoom and remove controls.</figcaption>
+            </figure>
+            <figure class="shot">
+                <a href="img/14-imagery-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/14-imagery-b.webp" alt="Seaglass Globe showing North America under a NASA GIBS MODIS true-colour cloud layer at 0.60 opacity, with dark curved swath gaps across the globe and the add-by-URL form open on the left offering XYZ, WMS, WMTS and MVT and a CRS choice" width="1280" height="720" loading="lazy"></a>
+                <figcaption>NASA GIBS MODIS true colour (layer <code>gibs_modis</code>, opacity 0.60) draped over the base imagery: North America under that day's real cloud. The dark curved wedges are not missing tiles &mdash; they are the gaps between passes of a polar-orbiting instrument's one-day swath. On the left, the add-by-URL form that fetched it: XYZ / WMS / WMTS / MVT and the CRS choice.</figcaption>
+            </figure>
+        </div>
+        <div class="three-up">
+            <div class="item">
+                <h3>The stack is yours</h3>
+                <p>A map is a stack, and the stack is yours. Drag one layer over another and the order is the order they draw in. Pull the opacity down and the layer beneath comes through. Hide it, and it is still there. The arrangement survives the next launch.</p>
+            </div>
+            <div class="item">
+                <h3>GeoJSON &middot; KML &middot; Shapefile</h3>
+                <p>Bring your own data. GeoJSON, KML, shapefiles &mdash; the three-file kind, read as one layer. Click a feature and the attributes come back: the same table that was in the file, not a summary of it.</p>
+            </div>
+            <div class="item">
+                <h3>Any service you can name</h3>
+                <p>Any tile service you can name &mdash; XYZ, WMS, WMTS, MVT. Point it at a standards server and it asks what that server has, then draws the layer you pick straight over the base imagery. The gaps are real: that is one day of a polar orbit, and where two passes did not meet, nobody took a picture.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Compute on the globe</h2>
+        <p class="section-intro center">The suite's GPU compute engine, run from a workflow editor docked under the map &mdash; and re-run while you are still holding the slider.</p>
+        <div class="split">
+            <figure class="shot">
+                <a href="img/17-scrub-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/17-scrub-b.webp" alt="Seaglass Globe with the workflow editor docked under the map: a purple HillshadeOp card showing azimuth 315, altitude 18.44, variant REGULAR and gradient HORN with the pointer on the altitude row, a grey hillshade draped over the Lake Mead basin in the map band above with Las Vegas at the left, and a parameter rail on the right" width="1280" height="720" loading="lazy"></a>
+                <figcaption>The workflow editor docked under the map: a <code>HillshadeOp</code> card &mdash; azimuth 315, altitude 18.44, variant REGULAR, gradient HORN &mdash; with the pointer on the altitude row, and the hillshade draped over the basin in the map band above (Las Vegas at the left, Lake Mead at the centre). The right-hand rail carries the same step, its source raster, the <code>auto: hillshade</code> colour ramp, and a contour-interval field.</figcaption>
+            </figure>
+            <div class="split-text">
+                <h3>Ask the ground what it knows</h3>
+                <p>Point at the ground and ask what elevation data exists there. It ranks what it can reach, cuts the window you asked for, and hands you a document with that file already set as its source &mdash; named, with its resolution, so &ldquo;best available&rdquo; is checkable rather than claimed.</p>
+                <h3>Type a number &middot; 250&nbsp;m</h3>
+                <p>Then type a number. Two hundred and fifty metres &mdash; a real interval against real elevation, and the labels are the elevations, not decoration.</p>
+                <h3>~70&nbsp;ms per re-run</h3>
+                <p>Now change your mind. Drag the sun's altitude and the shading re-computes and re-drapes while you are still holding it &mdash; that is the engine running, the result coming back, and the globe re-texturing, for a value you have not let go of.</p>
+                <h3>A pipeline is not always a line</h3>
+                <p>Take an edge off, feed the same output into two branches, and it stops being a chain &mdash; so it runs as a graph.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">The world, live</h2>
+        <p class="section-intro center">It does not have to be a file. Three feeds that are live &mdash; and two that are not, kept apart under their own cards.</p>
+        <div class="shot-pair">
+            <figure class="shot">
+                <a href="img/22-storm-watch-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/22-storm-watch-b.webp" alt="Seaglass Globe over the eastern United States with a NEXRAD radar mosaic in green through red, warning polygons labelled Severe Thunderstorm Warning and Flash Flood Warning, and a STORM WATCH panel top-right listing alert families with a LIVE NWS badge beneath them" width="1280" height="720" loading="lazy"></a>
+                <figcaption>A snapshot of the feed on the day this frame was captured: the radar mosaic in green through red over the eastern United States, warning polygons labelled <em>Severe Thunderstorm Warning</em> and <em>Flash Flood Warning</em> by the Weather Service that issued them, and the STORM WATCH panel top-right tallying that day's active alerts by family, with a LIVE &middot; NWS badge beneath them. Run it and the feed will say something else &mdash; the panel is the point, not the storm.</figcaption>
+            </figure>
+            <figure class="shot">
+                <a href="img/20-seismic-month-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/20-seismic-month-b.webp" alt="Seaglass Globe showing the Pacific with earthquake epicentres drawn as red, purple and green discs along the plate boundaries, and a SEISMIC MONTH panel on the right with the current instant, a 3.0-day window, playback speed, a scrub bar and a weight toggle" width="1280" height="720" loading="lazy"></a>
+                <figcaption>Thirty days of the USGS catalogue replayed as a moving window over the Pacific: epicentres drawn as discs along the plate boundaries, and the SEISMIC MONTH panel showing the current instant, a 3.0-day window, playback at 2.5 days per second, the scrub, and the weight toggle. Real data, replayed &mdash; not synthetic, and not live.</figcaption>
+            </figure>
+        </div>
+        <div class="three-up">
+            <div class="item">
+                <h3>Three feeds, live</h3>
+                <p>Earthquakes as reported, sized by magnitude and coloured by how deep they were. Severe-weather warnings as the Weather Service issued them, over the radar that produced them. Ships under way, reporting themselves. Each shows whatever its feed says the day you run it.</p>
+            </div>
+            <div class="item">
+                <h3>A month, measured</h3>
+                <p>A month of earthquakes, and every one of them measured. Thirty days of the USGS catalogue, replayed as a moving window &mdash; real data, replayed; not synthetic, and not live seismicity.</p>
+            </div>
+            <div class="item">
+                <h3>SGP4 &mdash; propagated, not live</h3>
+                <p>A whole catalogue of orbits, propagated from real elements by SGP4 &mdash; and sorted, so you can take a whole shell out of the sky and put it back. The catalogue is cached and the propagation is genuine &mdash; propagated, not live, and the narration says so.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Digital twin &middot; zero-copy</h2>
+        <p class="section-intro center">The last demonstration in the film: a modelled flood, streaming from a ForgeGIS digital twin straight into shared video memory.</p>
+        <div class="split">
+            <figure class="shot">
+                <a href="img/26-twin-replay-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/26-twin-replay-b.webp" alt="Seaglass Globe replaying a modelled flood over the Grand Canyon: blue water drawn along the canyon, a cyan gauge marker labelled level 1172 m, and a TWIN REPLAY panel reading STREAMING, twin studio.bathtub.grandcanyon REPLAY, mode PLAY 2 eps, epoch 38 of 38, level 1172.5 m, and CO-RES HELD STATE no re-upload" width="1280" height="720" loading="lazy"></a>
+                <figcaption>A modelled flood, not a real one: the <code>studio.bathtub.grandcanyon</code> replay at epoch 38 of 38, the water drawn in blue along the canyon at level 1&#8239;172.5&nbsp;m with a gauge marker labelled <em>level 1172 m</em>, and the TWIN REPLAY panel reading STREAMING, PLAY &middot; 2 eps, and CO-RES &equiv; HELD STATE &mdash; no re-upload.</figcaption>
+            </figure>
+            <div class="split-text">
+                <h3>A modelled flood, streaming from a digital twin</h3>
+                <p>A hydraulic model &mdash; not a real event &mdash; replayed over a wire at an accelerated pace, straight into shared video memory. The Globe is the remote consumer of the twin's published wire contract: it never embeds the engine, and it renders live and replayed runs the same way, because a replay is indistinguishable from live by design.</p>
+                <h3>We pin Vulkan for this one</h3>
+                <p>In co-resident mode &mdash; on a large-VRAM workstation, and off by default &mdash; the adapter is pinned to Vulkan so the twin's memory can be <em>imported</em> rather than copied: the globe samples it where it already sits. Meaning and the durable record still travel the normal path.</p>
+            </div>
+        </div>
+        <div class="twin-cta">
+            <a href="/products/forgegis/digital-twin.html" class="btn btn-primary">What the digital twin is</a>
+            <a href="/products/forgegis/hoover-dam.html" class="btn btn-quiet">Hoover Dam showcase</a>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted" id="suite">
+    <div class="container">
+        <h2 class="center">Where the Globe sits in the Forge suite</h2>
+        <p class="section-intro center">Optional, opt-in, and the agent's presentation surface. Everything runs locally: the Globe's API, like the agent's, is bound to loopback and protected by a per-install token.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>The presentation surface</h3>
+                <p>When it's running, answers that produce something visual &mdash; contours, elevation profiles, draped rasters, scene entities &mdash; get drawn on the globe instead of only described. Ask the agent from the Control Center, from Studio, or from the Globe's own chat panel; it is the same agent either way.</p>
+            </div>
+            <div class="item">
+                <h3>Launch order matters</h3>
+                <p><em>Start suite</em> launches the Globe first, so the agent adopts it as its drawing surface, then ForgeMind &mdash; which spawns ForgeGIS and ForgeData<sup class="tm">&trade;</sup> as tool servers &mdash; then Studio. Start the Globe after ForgeMind and you restart ForgeMind: it picks its drawing surface at launch.</p>
+            </div>
+            <div class="item">
+                <h3>It needs a real GPU</h3>
+                <p>A hardware-accelerated globe you can fly around &mdash; and an RDP or remote-desktop session usually can't drive it. Leave the window open and unminimized while the agent works: minimized, it stops rendering and drawing requests time out.</p>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table class="spec">
+                <thead>
+                    <tr><th>Component</th><th>Role</th><th>Port</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ForgeMind</td>
+                        <td>Agent orchestrator (HTTP + MCP host); spawns the others</td>
+                        <td><code>8080</code> <span class="muted">loopback</span></td>
+                    </tr>
+                    <tr>
+                        <td>ForgeGIS</td>
+                        <td>GPU geospatial compute engine (MCP stdio child)</td>
+                        <td><span class="muted">stdio</span></td>
+                    </tr>
+                    <tr>
+                        <td>ForgeData</td>
+                        <td>Dataset catalog + ingesters (MCP stdio child)</td>
+                        <td><span class="muted">stdio</span></td>
+                    </tr>
+                    <tr>
+                        <td>ForgeGIS Studio <span class="muted">(opt-in)</span></td>
+                        <td>Web workspace for building and running pipelines</td>
+                        <td><code>8081</code> <span class="muted">loopback</span></td>
+                    </tr>
+                    <tr class="is-self">
+                        <td>Seaglass Globe <span class="muted">(opt-in)</span></td>
+                        <td>The 3D view and the agent's presentation surface; runs its own copy of the GIS engines</td>
+                        <td><code>7900</code> <span class="muted">loopback + bearer</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="routing-note">The suite wants 8&nbsp;GB of RAM with the Globe installed (4&nbsp;GB without) &mdash; it runs its own copy of the GIS engines, and the Control Center caps each service's heap from your machine's RAM and re-plans it when the Globe is installed.</p>
+        <div class="lic-note">
+            <strong>A note on licensing.</strong> Seaglass Globe is an opt-in component of the Forge suite, installed by
+            the Seaglass Control Center, and is not sold separately. The suite's license is not yet finalized; nothing
+            here should be read as a grant of rights. Contact the maintainer about evaluation access.
+        </div>
+        <div class="twin-cta">
+            <a href="/products/control-center/" class="btn btn-primary">Meet the Control Center</a>
+            <a href="/products/forgegis-studio/" class="btn btn-quiet">See ForgeGIS Studio</a>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2 class="center">Data &amp; imagery</h2>
+        <p class="section-intro center">Attribution is burned into every frame of the film and every still on this page &mdash; never covered, never cropped. In legible form:</p>
+        <p class="demo-attribution">
+            Imagery: &copy; OpenStreetMap contributors &middot; Esri, Maxar, Earthstar Geographics, and the GIS User Community &middot; &copy; CARTO &middot; Mapzen Terrain Tiles, hosted by AWS Open Data &middot; NASA Earth Observatory &middot; NASA GIBS.<br>
+            Data: USGS &middot; NOAA/NWS &middot; Iowa Environmental Mesonet NEXRAD &middot; Digitraffic (Finnish Transport Infrastructure Agency) &middot; CelesTrak.<br>
+            Type in the application: JetBrains Mono, SIL Open Font License 1.1.
+        </p>
+    </div>
+</section>
+
+<section class="contact-strip">
+    <div class="container">
+        <h2>Evaluate the Forge suite &mdash; with the Earth in the room</h2>
+        <p>Run the whole suite on one Windows x64 workstation with a real GPU, and watch the agent draw its answers on the globe. Seaglass Foundry<sup class="tm">&trade;</sup> reads every email.</p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=Seaglass%20Globe%20inquiry" class="btn btn-primary">rich@seaglassfoundry.com</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/products/">Products</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/forgemind/">ForgeMind</a>
+            <a href="/products/forgedata/">ForgeData</a>
+            <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
+            <a href="/products/control-center/">Control Center</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            Seaglass Globe&trade;, ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Control Center&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            Windows, DirectX, Vulkan, Rust, wgpu, YouTube, OpenStreetMap, Esri, Maxar, Earthstar Geographics, CARTO, Mapzen, AWS, NASA, USGS, NOAA, CelesTrak, JetBrains Mono, the Model Context Protocol, and other third-party products and marks referenced are the property of their respective owners.
+            Reference to these marks does not imply endorsement.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+    </div>
+</footer>
+
+<dialog class="lightbox" id="shot-lightbox" aria-label="Screenshot preview">
+    <button class="lightbox-close" type="button" aria-label="Close preview">&times;</button>
+    <img alt="">
+</dialog>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    var burger = document.querySelector('.hamburger');
+    function closeNav() {
+        links.classList.remove('open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+    }
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', closeNav);
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav')) closeNav();
+    });
+})();
+(function() {
+    var dlg = document.getElementById('shot-lightbox');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var pic = dlg.querySelector('img');
+    document.querySelectorAll('a.shot-link').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            var thumb = a.querySelector('img');
+            pic.src = a.getAttribute('href');
+            pic.alt = thumb ? thumb.alt : '';
+            dlg.showModal();
+        });
+    });
+    dlg.addEventListener('click', function() { dlg.close(); });
+    dlg.addEventListener('close', function() { pic.removeAttribute('src'); });
+})();
+(function() {
+    function play(a) {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + a.getAttribute('data-video') + '?autoplay=1&rel=0';
+        f.title = a.getAttribute('data-title') || 'Seaglass Globe';
+        f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        f.setAttribute('allowfullscreen', '');
+        f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        a.parentNode.replaceChild(f, a);
+        f.focus();
+    }
+    document.querySelectorAll('.film-facade').forEach(function(a) {
+        a.addEventListener('click', function(e) { if (e.ctrlKey || e.metaKey || e.shiftKey) return; e.preventDefault(); play(a); });
+    });
+    document.querySelectorAll('a[href="#film"]').forEach(function(a) {
+        a.addEventListener('click', function(e) { if (e.ctrlKey || e.metaKey || e.shiftKey) return; var f = document.querySelector('.film-facade'); if (f) play(f); });
+    });
+})();
+</script>
+</body>
+</html>

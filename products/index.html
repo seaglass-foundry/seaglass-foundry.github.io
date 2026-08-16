@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products — Seaglass Foundry</title>
-    <meta name="description" content="Products from Seaglass Foundry — the Forge suite: ForgeGIS (GPU-accelerated geospatial compute and MCP server), ForgeMind (the GIS Intent Compiler), ForgeData (the data-intelligence layer), ForgeGIS Studio (the operator surface), and the Seaglass Control Center (the suite installer). Plus SwingToPDF (vector PDF output from Java Swing), and Worldwind Reforged, our community modernization of NASA WorldWind under our Cannonforge banner.">
+    <meta name="description" content="Products from Seaglass Foundry — the Forge suite: ForgeGIS (GPU-accelerated geospatial compute and MCP server), ForgeMind (the GIS Intent Compiler), ForgeData (the data-intelligence layer), ForgeGIS Studio (the operator surface), Seaglass Globe (the 3D view), and the Seaglass Control Center (the suite installer). Plus SwingToPDF (vector PDF output from Java Swing), and Worldwind Reforged, our community modernization of NASA WorldWind under our Cannonforge banner.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/">
     <meta property="og:title" content="Products — Seaglass Foundry">
-    <meta property="og:description" content="The Forge suite — ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, and the Seaglass Control Center — plus SwingToPDF. And Worldwind Reforged, our community modernization of NASA WorldWind under the Cannonforge banner.">
+    <meta property="og:description" content="The Forge suite — ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, Seaglass Globe, and the Seaglass Control Center — plus SwingToPDF. And Worldwind Reforged, our community modernization of NASA WorldWind under the Cannonforge banner.">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Products — Seaglass Foundry">
-    <meta name="twitter:description" content="The Forge suite — ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, and the Seaglass Control Center — plus SwingToPDF. And Worldwind Reforged, our community contribution to NASA WorldWind.">
+    <meta name="twitter:description" content="The Forge suite — ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, Seaglass Globe, and the Seaglass Control Center — plus SwingToPDF. And Worldwind Reforged, our community contribution to NASA WorldWind.">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -109,6 +109,7 @@
         }
         @media (min-width: 769px) {
             .products-grid.suite { grid-template-columns: repeat(2, 1fr); }
+            .products-grid.suite > .product-card:last-child { grid-column: 1 / -1; max-width: calc(50% - 14px); width: 100%; justify-self: center; }
         }
         .product-card {
             background: var(--white);
@@ -307,14 +308,14 @@
 
 <section class="page-header">
     <h1>Our Products</h1>
-    <p>The Forge suite &mdash; ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, and the Seaglass Control Center &mdash; plus SwingToPDF<sup class="tm">&trade;</sup>, and an open-source modernization of NASA WorldWind we maintain as a community contribution under our Cannonforge banner.</p>
+    <p>The Forge suite &mdash; ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, Seaglass Globe, and the Seaglass Control Center &mdash; plus SwingToPDF<sup class="tm">&trade;</sup>, and an open-source modernization of NASA WorldWind we maintain as a community contribution under our Cannonforge banner.</p>
 </section>
 
 <section class="products-section">
     <div class="group-header">
         <span class="g-eyebrow">The Forge suite</span>
-        <h2>Three engines, one operator surface, one download</h2>
-        <p>The geospatial stack for the agent era &mdash; now installed by the Seaglass Control Center and operated through ForgeGIS Studio.</p>
+        <h2>Three engines, two surfaces, one download</h2>
+        <p>The geospatial stack for the agent era &mdash; installed by the Seaglass Control Center, operated through ForgeGIS Studio, and, when you want the 3D view, flown on Seaglass Globe.</p>
     </div>
     <div class="products-grid suite">
 
@@ -334,7 +335,7 @@
                         verified against itself afterwards.
                     </p>
                     <div class="meta">
-                        <strong>Java 17+</strong> &middot; License TBD &middot; v1.2.3
+                        <strong>Java 17+</strong> &middot; License TBD &middot; v1.2.4
                     </div>
                     <span class="card-cta">Learn more</span>
                 </div>
@@ -367,7 +368,7 @@
                 LLM-agnostic; native to the Model Context Protocol in both directions.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; License TBD &middot; v1.2.3
+                <strong>Java 17+</strong> &middot; License TBD &middot; v1.2.4
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -382,7 +383,7 @@
                 access cost as the deciding tiebreaker. Bundled with the Forge suite.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.3
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.4
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -398,7 +399,25 @@
                 suite, not sold separately.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.3
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.4
+            </div>
+            <span class="card-cta">Learn more</span>
+        </a>
+
+        <a href="/products/seaglass-globe/" class="product-card">
+            <span class="card-badge badge-dev">Forge Suite &middot; The 3D view &middot; New in 1.2.4</span>
+            <h2>Seaglass <span>Globe</span><sup class="tm">&trade;</sup></h2>
+            <p class="tagline">A precision WGS-84 virtual globe &mdash; the suite's optional 3D view</p>
+            <p class="description">
+                Twenty thousand kilometres to a rooftop in one continuous move, on a WGS-84 ellipsoid held in double
+                precision. Real geodesy with the algorithm named beside every number, your own GeoJSON, KML and
+                shapefiles on the layer stack, live feeds, and the suite's GPU compute run on the globe. It is also
+                the agent's presentation surface: when it is running, ForgeMind's visual answers are drawn on the
+                globe rather than only described. Needs a real GPU; installed as an opt-in component of the Seaglass
+                Control Center.
+            </p>
+            <div class="meta">
+                <strong>Windows x64</strong> &middot; Optional suite component &middot; v1.2.4
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -413,7 +432,7 @@
                 health, live logs, a data gallery, and agent chat &mdash; all from one window.
             </p>
             <div class="meta">
-                <strong>Windows x64</strong> &middot; Not sold separately &middot; v1.2.3
+                <strong>Windows x64</strong> &middot; Not sold separately &middot; v1.2.4
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -482,13 +501,14 @@
             <a href="/products/forgedata/">ForgeData</a>
             <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
             <a href="/products/control-center/">Control Center</a>
+            <a href="/products/seaglass-globe/">Seaglass Globe</a>
             <a href="/products/swingtopdf/">SwingToPDF</a>
             <a href="/products/worldwind-reforged/">Worldwind Reforged</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
         <div class="footer-marks">
-            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Control Center&trade;, SwingToPDF&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Globe&trade;, Seaglass Control Center&trade;, SwingToPDF&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
             NASA WorldWind, GDAL, Apache PDFBox, GeoPackage, the Model Context Protocol, Java, and other third-party products and marks referenced are the property of their respective owners.
             Worldwind Reforged is an independent community modernization and is not affiliated with or endorsed by NASA.
         </div>
