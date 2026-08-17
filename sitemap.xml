@@ -156,6 +156,26 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://seaglassfoundry.com/products/seaglass-globe/downloads/seaglass-globe-technical-brief.pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://seaglassfoundry.com/products/seaglass-globe/downloads/seaglass-globe-sales-onepager.pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://seaglassfoundry.com/products/seaglass-globe/downloads/seaglass-globe-defense-onepager.pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://seaglassfoundry.com/products/seaglass-globe/downloads/seaglass-globe-agent-onepager.pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://seaglassfoundry.com/products/swingtopdf/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

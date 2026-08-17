@@ -179,6 +179,24 @@
         .spec-sheet dd .n { color: #ffd591; }
         .spec-sheet-note { max-width: 880px; margin: 18px auto 0; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
 
+        /* ── Downloads ── */
+        .downloads-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+        .download-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 26px 24px 22px; display: flex; flex-direction: column; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+        .download-card:hover { text-decoration: none; border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26, 58, 92, 0.06); }
+        .download-card .dl-type { font-size: 0.72rem; font-weight: 700; color: var(--teal-dark); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .download-card .dl-type.tech { color: var(--navy); }
+        .download-card h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 8px; letter-spacing: -0.01em; }
+        .download-card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; margin-bottom: 18px; flex: 1; }
+        .download-card .dl-cta { color: var(--teal-dark); font-weight: 600; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 6px; }
+        .download-card .dl-cta::after { content: "↓"; }
+        .downloads-note { max-width: 880px; margin: 22px auto 0; color: var(--text-light); font-size: 0.9rem; line-height: 1.6; text-align: center; }
+
+        /* ── Capability spec table (two columns, wrapping) ── */
+        table.spec.wrap td:last-child { white-space: normal; }
+        table.spec.wrap td:first-child { width: 22%; }
+        table.spec.wrap code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.86em; }
+        .three-up .item code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.86em; }
+
         /* ── Screenshots ── */
         figure.shot { max-width: 1000px; margin: 0 auto; }
         figure.shot a.shot-link { display: block; cursor: zoom-in; }
@@ -297,6 +315,7 @@
         </p>
         <div class="cta-group">
             <a href="#film" class="btn btn-primary">Watch the film</a>
+            <a href="downloads/seaglass-globe-technical-brief.pdf" class="btn btn-outline">Download Technical Brief</a>
             <a href="#suite" class="btn btn-outline">How it fits the Forge suite</a>
         </div>
     </div>
@@ -412,6 +431,93 @@
                     workflow editor docked under the map, and can be flown by software over MCP.
                 </p>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted" id="application">
+    <div class="container">
+        <h2 class="center">What's in the application</h2>
+        <p class="section-intro center">Beyond the film &mdash; the operator workstation, the compute surface and the agent surface, as documented in the <a href="downloads/seaglass-globe-technical-brief.pdf">Technical Brief</a>.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>The workstation</h3>
+                <p>
+                    A docked workstation: Layers and Catalog on the left; Settings and Views on the right, joined by
+                    Entities, Assistant and Reports under the suite. Every panel docks in any region or tears off into
+                    its own operating-system window. A command palette (<code>Ctrl+K</code>) lists everything the
+                    application can do; <em>Go to</em> (<code>Ctrl+G</code>) searches your data. Four look axes &mdash;
+                    palette, surface, density, type &mdash; with Studio and Tactical presets. A project is a working
+                    directory: layers, view, panels, saved views, settings and workflows are small files written on
+                    change, so there is no <em>Save</em>.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Measure and coordinates</h3>
+                <p>
+                    Nine measure modes &mdash; distance, path, area, bearing, slant range, circle, square, ellipse,
+                    quad &mdash; with the method named beside the number: Vincenty's inverse for distance and azimuth,
+                    Karney's for area, on the WGS-84 ellipsoid. Metric, US or nautical units switch live; paths run
+                    geodesic, rhumb or linear; freehand tracing; measurements save and load as GeoJSON. The cursor
+                    readout cycles decimal degrees, DMS, UTM and MGRS.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Your data</h3>
+                <p>
+                    GeoJSON, KML/KMZ and three-file shapefiles with their attributes; XYZ, WMS 1.3.0, WMTS 1.0.0 and MVT
+                    sources added by URL, with a <em>Discover</em> step that reads a WMS or WMTS server's capabilities;
+                    glTF/GLB models and 3D Tiles. The layer stack reorders, hides, fades and promotes any layer to base,
+                    and persists between launches; click any feature and its attributes come back.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Compute on the globe</h3>
+                <p>
+                    The Workflow editor is a node canvas over a real graph of ForgeGIS operations: drag ports to wire,
+                    pick up an edge to fork, add steps from a menu grouped by the engine's own categories. Every
+                    parameter gets a control built from the engine's schema; drag a number on a card and the result
+                    re-computes and re-drapes as you drag &mdash; on a branching document only the downstream part
+                    re-runs. Batch runs the chain over a folder; <em>Contours</em> draws labelled lines from the source;
+                    right-click the terrain and <em>load DEM here</em> fetches the best elevation data covering that
+                    point.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Catalog, entities and the agent</h3>
+                <p>
+                    The Catalog panel browses what ForgeData<sup class="tm">&trade;</sup> knows about; one click drapes
+                    a raster and makes it the workflow's source. Draw a point, line or polygon and name it: it is a
+                    scene entity of the same kind the agent places, listed beside them, referenceable by name in chat,
+                    and &mdash; when the catalog is up &mdash; written through so it survives a restart with the same
+                    id. The Assistant panel is the conversation with ForgeMind; Reports show what it wrote.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Flown by software</h3>
+                <p>
+                    One MCP endpoint on the running application &mdash; <code>POST /mcp</code> on loopback,
+                    bearer-protected in the suite &mdash; for camera, layers, projection, scene entities, reports,
+                    raster overlays and the full compute bridge: ForgeGIS operations, pipelines and batch; ForgeData
+                    catalog, elevation and publish. Clients attach to a running globe rather than launching one;
+                    compute tools return <em>queued</em> and the result lands on the globe a moment later; every
+                    object result also travels as <code>structuredContent</code>.
+                </p>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table class="spec wrap">
+                <thead><tr><th>At a glance</th><th>Seaglass Globe 1.2.4</th></tr></thead>
+                <tbody>
+                    <tr><td>Data in</td><td>XYZ &middot; WMS 1.3.0 &middot; WMTS 1.0.0 &middot; MVT &middot; 3D Tiles &middot; glTF 2.0/GLB &middot; Terrarium elevation &middot; GeoJSON &middot; KML 2.2/KMZ &middot; Esri Shapefile (+DBF); the tile cache serves visited regions without a network</td></tr>
+                    <tr><td>Projections</td><td>WGS-84 globe; five spherical flat views &mdash; equirectangular, Mercator, sinusoidal, orthographic, polar stereographic; independent map-view windows</td></tr>
+                    <tr><td>Coordinates &amp; measure</td><td>DD &middot; DMS &middot; UTM &middot; MGRS readouts; nine measure modes; Vincenty inverse and Karney area on the ellipsoid; metric, US, nautical; GeoJSON round-trip</td></tr>
+                    <tr><td>Compute</td><td>ForgeGIS operations, chains and graphs from a node-graph editor with live parameter scrubbing, batch, contours and load-DEM-here; ForgeData catalog, extraction, elevation and publish; results draped, drawn as entities, or reported</td></tr>
+                    <tr><td>Agent surface</td><td><code>POST /mcp</code> on <code>127.0.0.1:7900</code> (configurable), MCP Streamable HTTP, bearer-authenticated per install; ForgeMind on 8080; engines over stdio</td></tr>
+                    <tr><td>Digital twin</td><td>Spec D wire client; Spec E shared-VRAM co-residency &mdash; opt-in, Vulkan-pinned, wire-only fallback</td></tr>
+                    <tr><td>Platform</td><td>Windows x64 with a real GPU (Vulkan or DirectX&nbsp;12 as wgpu selects); 8&nbsp;GB RAM for the suite with the Globe installed; ~4&nbsp;GB disk for a tile cache that grows with use</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
@@ -641,6 +747,58 @@
     </div>
 </section>
 
+<section class="block" id="downloads">
+    <div class="container">
+        <h2 class="center">Downloads</h2>
+        <p class="section-intro center">All Seaglass Globe collateral, v1.2.4. Direct download &mdash; no email gate, no form wall.</p>
+        <div class="downloads-grid">
+            <a href="downloads/seaglass-globe-technical-brief.pdf" class="download-card">
+                <div class="dl-type tech">Technical Brief &middot; 22 pages</div>
+                <h3>Seaglass Globe Technical Brief</h3>
+                <p>
+                    A capability reference written from the repository: architecture and precision, rendering,
+                    navigation, geodesy and the measure tool, projections, providers and the layer stack, vector data,
+                    3D content, live feeds, the workflow editor and compute, the catalog, entities, the MCP surface,
+                    the digital twin, export, projects, the shell &mdash; then measured performance, security
+                    posture, deployment, and what is deliberately not claimed.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/seaglass-globe-sales-onepager.pdf" class="download-card">
+                <div class="dl-type">Sales One-Pager &middot; 2 pages</div>
+                <h3>General Sales One-Pager</h3>
+                <p>
+                    Front/back overview: twenty thousand kilometres to a rooftop, f64 all the way down, the WGS-84
+                    ellipsoid with its semi-major axis printed; who it is for, what is on screen, the live feeds and
+                    the two that are not, and what it reads.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/seaglass-globe-defense-onepager.pdf" class="download-card">
+                <div class="dl-type">Defense One-Pager &middot; 2 pages</div>
+                <h3>Defense &amp; Intelligence Variant</h3>
+                <p>
+                    A real coordinate system behind a loopback-only boundary: MGRS and UTM from one cursor, geodesy an
+                    evaluator can check, the compute engines contained under a path sandbox, two bearer tokens, a
+                    zero-copy digital twin, and the deployment footprint.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+            <a href="downloads/seaglass-globe-agent-onepager.pdf" class="download-card">
+                <div class="dl-type">AI Agent Builder One-Pager &middot; 2 pages</div>
+                <h3>For AI Agent Builders</h3>
+                <p>
+                    The agent's presentation surface: one loopback MCP endpoint, attach-don't-spawn, results that land
+                    on the globe by shape, named answers that survive a restart, fire-and-queue by design, and the
+                    read-back gaps stated.
+                </p>
+                <span class="dl-cta">Download PDF</span>
+            </a>
+        </div>
+        <p class="downloads-note">The Globe is an opt-in component of the Forge suite and is not sold separately; see the licensing note above.</p>
+    </div>
+</section>
+
 <section class="block">
     <div class="container">
         <h2 class="center">Data &amp; imagery</h2>
@@ -670,6 +828,7 @@
             <a href="/products/forgedata/">ForgeData</a>
             <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
             <a href="/products/control-center/">Control Center</a>
+            <a href="downloads/seaglass-globe-technical-brief.pdf">Technical Brief</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
