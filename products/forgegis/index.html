@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era</title>
-    <meta name="description" content="ForgeGIS is a GPU-accelerated geospatial library and native MCP server distributed as pure-Java Maven artifacts — no first-party native code, no GDAL native bindings, no separate native install step. 239 user-facing operations across 11 categories, 237 callable by AI agents. 9×–56× multi-stage pipeline speedups vs GDAL.">
+    <meta name="description" content="ForgeGIS: GPU-accelerated geospatial compute and a native MCP server in pure Java. 239 operations, 237 agent-callable, 9×–56× multi-stage pipeline speedups vs GDAL.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/">
     <meta property="og:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
     <meta property="og:description" content="GPU-accelerated geospatial compute and a native Model Context Protocol server, distributed as pure-Java Maven artifacts. 239 operations across 11 categories, 237 callable by AI agents, 9×–56× multi-stage pipeline speedups vs GDAL.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://seaglassfoundry.com/products/forgegis/img/dt-03-breach-lake-dam-gorge.webp">
+    <meta property="og:image:width" content="1440">
+    <meta property="og:image:height" content="900">
+    <meta property="og:image:alt" content="The ForgeGIS Studio workspace running a digital-twin flood simulation over Lake Mead and Black Canyon">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://seaglassfoundry.com/products/forgegis/img/dt-03-breach-lake-dam-gorge.webp">
     <meta name="twitter:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
     <meta name="twitter:description" content="GPU-accelerated geospatial library and native MCP server, pure-Java Maven artifacts. 239 ops, 237 agent-callable, 9×–56× multi-stage pipeline speedups vs GDAL.">
     <meta name="keywords" content="GPU-accelerated geospatial library, MCP geospatial server, Java GPU GIS, geospatial Model Context Protocol, GDAL alternative, Java GIS library, GPU GIS compute, agent-callable geospatial">
@@ -717,6 +722,8 @@
         <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
         <div class="nav-links">
             <a href="/products/">Products</a>
+            <a href="/#evaluate">Evaluate</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
     </div>
@@ -739,12 +746,13 @@
         <h1>ForgeGIS<sup class="tm">&trade;</sup></h1>
         <p class="tagline">GPU-Accelerated Geospatial Compute for the Agent Era</p>
         <p class="categorical-claim">
-            As of May 2026, <em>the only commercially-supported GPU-accelerated geospatial MCP server we have been able to identify</em>.
+            As of August 2026, <em>the only commercially-supported GPU-accelerated geospatial MCP server we have been able to identify</em>.
             Distributed as pure-Java Maven artifacts &mdash; no first-party native code, no GDAL native bindings, no separate native install step.
             239 user-facing operations across 11 geospatial categories; 237 callable by AI agents through a native Model Context Protocol server.
         </p>
         <div class="cta-group">
-            <a href="downloads/forgegis-sales-onepager.pdf" class="btn btn-primary">Download Sales One-Pager</a>
+            <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20evaluation" class="btn btn-primary">Request evaluation access</a>
+            <a href="downloads/forgegis-sales-onepager.pdf" class="btn btn-outline">Download Sales One-Pager</a>
             <a href="#downloads" class="btn btn-outline">All Downloads</a>
         </div>
     </div>
@@ -844,8 +852,8 @@
 
 <section class="block">
     <div class="container">
-        <h2 class="center">New in ForgeGIS 1.1</h2>
-        <p class="section-intro center">Release 1.1 adds 19 user-facing operations over 1.0 &mdash; concentrated in the vector and raster&rarr;vector surface &mdash; and extends the architecture in five ways.</p>
+        <h2 class="center">Beyond the catalog: the pipeline engine and the vector surface</h2>
+        <p class="section-intro center">A non-linear DAG pipeline engine, QGIS model import, a doubled vector surface, a bundled geoid, and profile-gated discovery &mdash; five ways the architecture extends beyond the operation catalog.</p>
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="feat-tag">Pipeline</div>
@@ -1052,7 +1060,7 @@
     </div>
 </section>
 
-<section class="block tinted">
+<section class="block tinted" id="audiences">
     <div class="container">
         <h2 class="center">Who it's for</h2>
         <p class="section-intro center">Three audiences, three one-pagers. Each leads with the parts of ForgeGIS that matter most to that reader.</p>
@@ -1063,7 +1071,7 @@
                 <p>
                     No first-party native code, no GDAL native bindings, no separate native install step &mdash;
                     deployable in regulated environments without coordinating separate native library distribution
-                    for ForgeGIS itself. License terms are being finalized.
+                    for ForgeGIS itself. Commercially licensed; evaluation builds available.
                 </p>
                 <span class="card-cta">Download defense one-pager (PDF)</span>
             </a>
@@ -1147,7 +1155,7 @@
                 <h3>Defense &amp; Intelligence Variant</h3>
                 <p>
                     For defense and intelligence contractors, prime integrators, and SI shops.
-                    Leads on the regulated-deployment story; licensing terms are being finalized.
+                    Leads on the regulated-deployment story, commercial licensing, and evaluation access.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>

@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ForgeMind — The GIS Intent Compiler | Natural Language to Validated GPU Geospatial Pipelines</title>
-    <meta name="description" content="ForgeMind is the natural-language control plane for ForgeGIS — a GIS Intent Compiler that turns a spoken or typed request into a validated, executed geospatial pipeline, or an explicit refusal. Zero confident-wrong results across 6,696 validated turns, ~25× lower LLM cost than an agent loop, LLM-agnostic, pure-JVM and local-disk.">
+    <meta name="description" content="ForgeMind, the GIS Intent Compiler: natural language to validated GPU geospatial pipelines — or an honest refusal. Zero confident-wrong results across 6,696 turns.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgemind/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgemind/">
     <meta property="og:title" content="ForgeMind — The GIS Intent Compiler">
     <meta property="og:description" content="The natural-language control plane for ForgeGIS. Natural language in, validated GPU geospatial pipeline out — or an honest refusal. Zero confident-wrong results across 6,696 validated turns; ~25× lower LLM cost than an agent loop; LLM-agnostic.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta property="og:image:alt" content="Title card of the Seaglass Globe release film: the Earth over the Atlantic on a dark navy field">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta name="twitter:title" content="ForgeMind — The GIS Intent Compiler">
     <meta name="twitter:description" content="Natural language to validated GPU geospatial pipelines, or an honest refusal. Zero confident-wrong results across 6,696 turns; ~25× lower LLM cost; LLM-agnostic; pure-JVM.">
     <meta name="keywords" content="GIS intent compiler, natural language GIS, geospatial LLM agent, MCP geospatial, refusal by construction, ForgeGIS control plane, agent geospatial pipeline, LLM-agnostic GIS">
@@ -23,7 +28,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform (JVM)",
         "url": "https://seaglassfoundry.com/products/forgemind/",
-        "description": "ForgeMind is the GIS Intent Compiler and natural-language control plane for ForgeGIS. It turns a spoken or typed request into a validated, executed geospatial pipeline against the GPU-accelerated ForgeGIS engine, or — when a request cannot be honored correctly — into an explicit, machine-readable refusal. LLM-agnostic, native to the Model Context Protocol in both directions, pure-JVM with local-disk persistence.",
+        "description": "ForgeMind is the GIS Intent Compiler and natural-language control plane for ForgeGIS. It turns a plain-language request into a validated, executed geospatial pipeline against the GPU-accelerated ForgeGIS engine, or — when a request cannot be honored correctly — into an explicit, machine-readable refusal. LLM-agnostic, native to the Model Context Protocol in both directions, pure-JVM with local-disk persistence.",
         "programmingLanguage": "Java",
         "creator": {
             "@type": "Organization",
@@ -675,6 +680,8 @@
         <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
         <div class="nav-links">
             <a href="/products/">Products</a>
+            <a href="/#evaluate">Evaluate</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
     </div>
@@ -698,12 +705,13 @@
         <p class="tagline">The GIS Intent Compiler</p>
         <p class="categorical-claim">
             Natural language in. Correct geospatial pipelines out. <em>Or an honest refusal.</em>
-            ForgeMind is the natural-language control plane for ForgeGIS &mdash; it turns a spoken or typed
+            ForgeMind is the natural-language control plane for ForgeGIS &mdash; it turns a plain-language
             request into a validated, executed pipeline on the GPU-accelerated engine, and when a request
             cannot be honored correctly it returns an explicit refusal rather than a confident guess.
         </p>
         <div class="cta-group">
-            <a href="downloads/forgemind-sales-onepager.pdf" class="btn btn-primary">Download Sales One-Pager</a>
+            <a href="mailto:rich@seaglassfoundry.com?subject=ForgeMind%20evaluation" class="btn btn-primary">Request evaluation access</a>
+            <a href="downloads/forgemind-sales-onepager.pdf" class="btn btn-outline">Download Sales One-Pager</a>
             <a href="#downloads" class="btn btn-outline">All Downloads</a>
         </div>
     </div>
@@ -721,7 +729,7 @@
         </div>
         <div class="stat">
             <div class="number">97</div>
-            <div class="label">voice-routable capabilities exercised end to end</div>
+            <div class="label">intent-routable capabilities exercised end to end</div>
         </div>
         <div class="stat">
             <div class="number">~94<span class="accent">%</span></div>
@@ -980,7 +988,7 @@
             <li>
                 <div class="perf-num">97</div>
                 <div class="perf-text">
-                    <strong>voice-routable capabilities exercised end to end</strong> &mdash; the figure the
+                    <strong>intent-routable capabilities exercised end to end</strong> &mdash; the figure the
                     campaign actually ran, not a speculative tool list. The same refusal discipline that declines
                     an ambiguous request governs how the capability surface grows.
                 </div>
@@ -1029,14 +1037,15 @@
                     A pure-JVM application with local-disk persistence and no required external services beyond
                     the language-provider endpoint. The memory store is a single local database file; backends run
                     over stdio, not the network. For programs hosting their own models, the provider abstraction
-                    is the single integration point.
+                    is the single integration point &mdash; an air-gapped site runs its own model behind it, so the
+                    cloud-provider key is only the connected-evaluation path.
                 </p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="block tinted">
+<section class="block tinted" id="audiences">
     <div class="container">
         <h2 class="center">Who it's for</h2>
         <p class="section-intro center">One product, three readers. Each one-pager leads with the parts of ForgeMind that matter most to that audience.</p>
@@ -1134,7 +1143,7 @@
 <section class="contact-strip">
     <div class="container">
         <h2>Talk to us about ForgeMind</h2>
-        <p>Licensing questions, evaluation access, partnership and distribution inquiries &mdash; we read every email. License terms are being finalized; an evaluation build is available to qualified teams on request.</p>
+        <p>Licensing questions, evaluation access, partnership and distribution inquiries &mdash; we read every email. ForgeMind is commercially licensed; terms are provided on request, and an evaluation build is available to qualified teams.</p>
         <a href="mailto:rich@seaglassfoundry.com?subject=ForgeMind%20inquiry" class="btn btn-primary">rich@seaglassfoundry.com</a>
     </div>
 </section>

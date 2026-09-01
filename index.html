@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seaglass Foundry — Forged For Speed. Refined by Craft.</title>
-    <meta name="description" content="Seaglass Foundry — Forged For Speed. Refined by Craft. New in 1.2.4: Seaglass Globe, a precision WGS-84 virtual globe and the Forge suite's optional 3D view — alongside ForgeGIS Studio, the operator surface, and the Seaglass Control Center, one download that installs, configures, and operates the suite. Home of ForgeGIS, ForgeMind, ForgeData, and SwingToPDF. Maintainers of Worldwind Reforged, our community modernization of NASA WorldWind.">
+    <title>Seaglass Foundry — GPU-Accelerated Geospatial Software for the Agent Era</title>
+    <meta name="description" content="GPU-accelerated geospatial software for the agent era. The Forge suite runs on one workstation, and every operation is callable by a person or an AI agent.">
     <link rel="canonical" href="https://seaglassfoundry.com/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="preconnect" href="https://www.youtube-nocookie.com">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/">
-    <meta property="og:title" content="Seaglass Foundry — Forged For Speed. Refined by Craft.">
-    <meta property="og:description" content="Forged For Speed. Refined by Craft. New in 1.2.4: Seaglass Globe — a precision WGS-84 virtual globe, twenty thousand kilometres to a rooftop in one move — the Forge suite's optional 3D view, alongside ForgeGIS Studio and the Seaglass Control Center.">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Seaglass Foundry — Forged For Speed. Refined by Craft.">
-    <meta name="twitter:description" content="New in 1.2.4: Seaglass Globe — the Forge suite's precision 3D view. Watch the release film.">
+    <meta property="og:title" content="Seaglass Foundry — GPU-Accelerated Geospatial Software for the Agent Era">
+    <meta property="og:description" content="The Forge suite — GPU compute, a data layer, and a natural-language agent that refuses rather than guesses — on one workstation. New in 1.2.4: Seaglass Globe, the suite's optional 3D view.">
+    <meta property="og:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta property="og:image:alt" content="Title card of the Seaglass Globe release film: the Earth over the Atlantic on a dark navy field">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
+    <meta name="twitter:title" content="Seaglass Foundry — GPU-Accelerated Geospatial Software for the Agent Era">
+    <meta name="twitter:description" content="The Forge suite on one workstation, callable by a person or an AI agent. New in 1.2.4: Seaglass Globe. Watch the release film.">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -278,25 +283,6 @@
             line-height: 1.5;
         }
 
-        /* ── Philosophy ── */
-        .philosophy {
-            padding: 30px 24px 60px;
-            background: var(--white);
-            text-align: center;
-        }
-        .philosophy h2 {
-            font-size: 1.5rem;
-            color: var(--navy);
-            margin-bottom: 14px;
-        }
-        .philosophy p {
-            max-width: 700px;
-            margin: 0 auto;
-            color: var(--text);
-            font-size: 1rem;
-            line-height: 1.75;
-        }
-
         /* ── Secondary products ── */
         .products {
             padding: 70px 24px 70px;
@@ -428,24 +414,6 @@
         }
         .product-card:hover .card-cta::after { transform: translateX(4px); }
 
-        /* ── Contact strip ── */
-        .contact-strip {
-            background: var(--white);
-            padding: 60px 24px;
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-        .contact-strip h2 {
-            font-size: 1.5rem;
-            color: var(--navy);
-            margin-bottom: 12px;
-        }
-        .contact-strip p {
-            color: var(--text-light);
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-
         /* ── Footer ── */
         footer {
             background: var(--navy-dark);
@@ -490,6 +458,41 @@
             margin-top: 12px;
         }
 
+        /* ── Hero: value proposition as the H1 ── */
+        .hero h1 { font-size: 3rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+        .hero h1 .accent { color: var(--teal); }
+        .hero .eyebrow .tagline { color: #8eaec6; font-weight: 600; letter-spacing: 0.12em; }
+
+        /* ── Who it's for ── */
+        .audiences { padding: 70px 24px 60px; background: var(--white); border-bottom: 1px solid var(--border); }
+        .aud-grid { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .aud-card { background: var(--grey-bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px 28px 24px; display: flex; flex-direction: column; color: var(--text); transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s; }
+        .aud-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(26, 58, 92, 0.08); border-color: var(--teal); text-decoration: none; }
+        .aud-card .aud-label { color: var(--teal-dark); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+        .aud-card h3 { font-size: 1.2rem; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; line-height: 1.3; }
+        .aud-card p { font-size: 0.93rem; line-height: 1.65; color: var(--text); margin-bottom: 18px; flex: 1; }
+        .aud-card .card-cta { display: inline-flex; align-items: center; gap: 8px; color: var(--teal-dark); font-weight: 600; font-size: 0.92rem; }
+        .aud-card .card-cta::after { content: "→"; transition: transform 0.15s; }
+        .aud-card:hover .card-cta::after { transform: translateX(4px); }
+
+        /* ── Evaluate ── */
+        .evaluate { background: var(--navy); color: var(--white); padding: 80px 24px; scroll-margin-top: 60px; }
+        .evaluate .eval-header { max-width: 760px; margin: 0 auto 40px; text-align: center; }
+        .evaluate .eval-eyebrow { display: inline-block; color: var(--teal); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; }
+        .evaluate h2 { font-size: 2rem; letter-spacing: -0.02em; margin-bottom: 14px; line-height: 1.2; }
+        .evaluate .eval-header p { color: #a8c4d8; font-size: 1.05rem; line-height: 1.65; }
+        .eval-grid { max-width: 1040px; margin: 0 auto 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .eval-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14); border-radius: 12px; padding: 26px 26px 22px; }
+        .eval-card h3 { font-size: 1.05rem; color: var(--white); margin-bottom: 12px; }
+        .eval-card p, .eval-card li { color: #c8d6e0; font-size: 0.93rem; line-height: 1.65; }
+        .eval-card ul { list-style: none; padding: 0; margin: 0; }
+        .eval-card li { padding-left: 18px; position: relative; margin-bottom: 8px; }
+        .eval-card li::before { content: "•"; color: var(--teal); position: absolute; left: 0; top: 0; font-weight: 700; }
+        .eval-card li strong { color: var(--white); font-weight: 600; }
+        .evaluate .eval-cta { text-align: center; }
+        .evaluate .eval-cta .btn-primary { font-size: 1rem; padding: 15px 32px; }
+        .evaluate .eval-note { text-align: center; color: #8eaec6; font-size: 0.88rem; margin-top: 16px; }
+
         @media (max-width: 900px) {
             .flagship-card {
                 grid-template-columns: 1fr;
@@ -502,7 +505,9 @@
 
         @media (max-width: 768px) {
             .hero { padding: 80px 24px 70px; }
-            .hero h1 { font-size: 2.1rem; }
+            .hero h1 { font-size: 2rem; }
+            .evaluate h2 { font-size: 1.55rem; }
+            .evaluate { padding: 60px 24px; }
             .hero .eyebrow { font-size: 0.7rem; }
             .hero .hero-video { margin-top: 30px; border-radius: 8px; }
             .film-facade .film-play { width: 60px; height: 42px; border-radius: 10px; }
@@ -532,6 +537,8 @@
         <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
         <div class="nav-links">
             <a href="/products/">Products</a>
+            <a href="/#evaluate">Evaluate</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
     </div>
@@ -539,21 +546,18 @@
 
 <section class="hero">
     <div class="container">
-        <span class="eyebrow">Seaglass Foundry<sup class="tm">&trade;</sup></span>
-        <h1>
-            <span class="speed">Forged For Speed.</span>
-            <span class="sep">&middot;</span>
-            <span class="craft">Refined by Craft.</span>
-        </h1>
+        <span class="eyebrow">Seaglass Foundry<sup class="tm">&trade;</sup> <span class="tagline">&middot; Forged For Speed. Refined by Craft.</span></span>
+        <h1>GPU-accelerated geospatial software <span class="accent">for the agent era.</span></h1>
         <p class="subline">
-            GPU-accelerated geospatial software for the agent era &mdash; the whole suite on one workstation, no
-            infrastructure to stand up, and the same operations callable by a person or by an agent.
+            The Forge suite &mdash; GPU compute, a data layer, and a natural-language agent that refuses rather than
+            guesses &mdash; runs on one workstation with no infrastructure to stand up, and every operation is
+            callable by a person or by an AI agent.
             <strong style="color:#fff;">New in 1.2.4: Seaglass Globe<sup class="tm">&trade;</sup></strong> &mdash;
             the suite's optional 3D view.
         </p>
         <div class="cta-group">
-            <a href="/products/seaglass-globe/" class="btn btn-primary">Meet Seaglass Globe</a>
-            <a href="#now-shipping" class="btn btn-outline">What else is shipping</a>
+            <a href="#evaluate" class="btn btn-primary">Request an evaluation</a>
+            <a href="#suite" class="btn btn-outline">See the Forge suite</a>
         </div>
         <div class="hero-video" id="film">
             <div class="film-frame">
@@ -567,9 +571,121 @@
     </div>
 </section>
 
+<section class="audiences" id="who">
+    <div class="products-header">
+        <h2>Who it's for</h2>
+        <p>Three kinds of reader come here. Each product page carries a one-pager written for you.</p>
+    </div>
+    <div class="aud-grid">
+        <a href="/products/forgegis/#audiences" class="aud-card">
+            <div class="aud-label">For defense &amp; intelligence</div>
+            <h3>Deployable where the mission runs</h3>
+            <p>
+                The whole suite on one host, on-premises, air-gap capable. Pure-Java engines with no first-party
+                native code, a natural-language control plane that refuses rather than fabricates, and a real
+                coordinate system &mdash; MGRS and UTM from one cursor &mdash; behind a loopback-only boundary.
+            </p>
+            <span class="card-cta">The regulated-deployment story</span>
+        </a>
+        <a href="/products/forgemind/#audiences" class="aud-card">
+            <div class="aud-label">For AI agent builders</div>
+            <h3>A geospatial surface, native to MCP</h3>
+            <p>
+                237 of ForgeGIS's 239 operations are callable through a native Model Context Protocol server.
+                ForgeMind exposes itself as a single MCP tool a higher-level agent can hand an entire geospatial
+                workflow to, and ForgeData answers a data question with a ranked, costed list instead of a path.
+            </p>
+            <span class="card-cta">The agent-builder story</span>
+        </a>
+        <a href="/products/forgegis/#performance-demo" class="aud-card">
+            <div class="aud-label">For geospatial platforms</div>
+            <h3>GPU throughput without leaving the JVM</h3>
+            <p>
+                Geospatial SaaS, climate, and agtech platforms running large raster and vector catalogs on
+                CPU-bound GDAL pipelines can replace the compute path without migrating off the JVM or adding a
+                native build pipeline &mdash; 9&times;&ndash;56&times; on multi-stage pipelines.
+            </p>
+            <span class="card-cta">Watch the unedited demonstration vs GDAL</span>
+        </a>
+    </div>
+</section>
+
+<section class="flagship suite-section" id="suite">
+    <div class="products-header">
+        <h2>The Forge suite</h2>
+        <p>Three engines built for each other &mdash; surfaced by Studio, flown on Seaglass Globe, delivered by the Control Center.</p>
+    </div>
+    <div class="flagship-card">
+        <div class="fc-left">
+            <span class="badge">Flagship &middot; ForgeGIS<sup class="tm">&trade;</sup></span>
+            <h2>GPU-accelerated geospatial compute, <span class="product">for the agent era</span></h2>
+            <p class="fc-tagline">239 user-facing operations across 11 categories. 237 callable by AI agents through a native MCP server.</p>
+            <p class="fc-description">
+                ForgeGIS runs raster, hydrology, visibility, spectral, ML, and point-cloud workloads on the GPU
+                through Java-side compute kernels, alongside a large vector and topology surface in pure Java
+                &mdash; and exposes 237 of its 239 operations to AI agents through
+                a native Model Context Protocol server. Distributed as pure-Java Maven artifacts with no first-party native code, no GDAL native bindings, and no separate native install step &mdash; GPU dispatch is via the JOCL OpenCL bindings (JNI bridge bundled in the JOCL JAR). A non-linear DAG pipeline engine imports QGIS models and runs branching raster/vector workflows, with the raster data plane GPU-resident end to end.
+            </p>
+            <span class="fc-claim">
+                As of August 2026, <em>the only commercially-supported GPU-accelerated geospatial MCP server we have been able to identify</em>.
+            </span>
+            <div class="fc-cta-group">
+                <a href="/products/forgegis/" class="btn btn-product">See ForgeGIS</a>
+                <a href="/products/forgegis/downloads/forgegis-sales-onepager.pdf" class="btn btn-ghost">Sales One-Pager (PDF)</a>
+            </div>
+            <a href="/products/forgegis/#performance-demo" class="fc-demo-link">Watch the unedited 62-operation demonstration vs GDAL &mdash; methodology biased against us. <span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="fc-right">
+            <div class="fc-stat">
+                <div class="fc-stat-num">239<span class="accent">&nbsp;/&nbsp;11</span></div>
+                <div class="fc-stat-label">operations across 11 geospatial categories</div>
+            </div>
+            <div class="fc-stat">
+                <div class="fc-stat-num">237<span class="accent">&nbsp;/&nbsp;239</span></div>
+                <div class="fc-stat-label">agent-callable through native MCP</div>
+            </div>
+            <div class="fc-stat">
+                <div class="fc-stat-num">9&times;&ndash;56&times;</div>
+                <div class="fc-stat-label">multi-stage pipeline speedup vs GDAL CLI</div>
+            </div>
+        </div>
+    </div>
+    <div class="products-grid" style="margin-top: 28px;">
+        <a href="/products/forgemind/" class="product-card">
+            <span class="card-badge badge-dev">Forge Suite &middot; The GIS Intent Compiler</span>
+            <h3>Forge<span>Mind</span><sup class="tm">&trade;</sup></h3>
+            <p class="tagline">Natural language to validated GPU pipelines &mdash; or an honest refusal</p>
+            <p class="description">
+                The natural-language control plane for ForgeGIS. It compiles a plain-language request into a
+                validated, executed pipeline on the GPU-accelerated engine, and refuses by construction when a
+                request cannot be honored correctly. Zero confident-wrong results across 79 conversations and
+                6,696 validated turns &mdash; at roughly 25&times; lower model cost than an agent loop.
+            </p>
+            <div class="meta">
+                <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.4
+            </div>
+            <span class="card-cta">Learn more</span>
+        </a>
+        <a href="/products/forgedata/" class="product-card">
+            <span class="card-badge badge-dev">Forge Suite &middot; Data layer</span>
+            <h3>Forge<span>Data</span><sup class="tm">&trade;</sup></h3>
+            <p class="tagline">The data-intelligence layer &mdash; ask for data by intent</p>
+            <p class="description">
+                Cost-aware routing, a portable single-file GeoPackage catalog, and a 49-tool MCP surface that turn
+                thirteen heterogeneous sources into one ranked answer &mdash; the best-fit correct dataset, with
+                access cost as the deciding tiebreaker.
+            </p>
+            <div class="meta">
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.4
+            </div>
+            <span class="card-cta">Learn more</span>
+        </a>
+    </div>
+</section>
+
 <section class="flagship" id="now-shipping">
     <div class="products-header">
-        <h2>Now shipping: the Forge suite, runnable</h2>
+        <h2>New in 1.2.4, and recently shipped</h2>
         <p>Three engines. Two surfaces. One download.</p>
     </div>
     <div class="flagship-card">
@@ -610,202 +726,50 @@
             </div>
         </div>
     </div>
-    <div class="flagship-card">
-        <div class="fc-left">
-            <span class="badge">Now Shipping &middot; The Digital Twin</span>
-            <h2>ForgeGIS<sup class="tm">&trade;</sup> digital twin &mdash; <span class="product">streams like video, auditable like a ledger</span></h2>
-            <p class="fc-tagline">A living geospatial simulation that records itself as it runs.</p>
-            <p class="fc-description">
-                You define a scenario once &mdash; the terrain, the physics, the inputs that change over time &mdash;
-                and the engine advances it step by step on the GPU. Every change it computes is written down as it
-                happens, so the run you watch live is a file you can replay frame by frame, branch into a what-if,
-                and verify against itself long after it finishes. Authored and driven from the ForgeGIS Studio canvas,
-                or headless through MCP.
-            </p>
-            <span class="fc-claim">
-                Nothing is ever displayed that was not <em>first recorded</em>.
-            </span>
-            <div class="fc-cta-group">
-                <a href="/products/forgegis/digital-twin.html" class="btn btn-product">See the digital twin</a>
-                <a href="/products/forgegis/hoover-dam.html" class="btn btn-ghost">Hoover Dam showcase</a>
-            </div>
-        </div>
-        <div class="fc-right">
-            <div class="fc-stat">
-                <div class="fc-stat-num">1 <span class="accent">file</span></div>
-                <div class="fc-stat-label">a finished run is a standard GeoPackage &mdash; its snapshots open in QGIS with nothing of ours installed</div>
-            </div>
-            <div class="fc-stat">
-                <div class="fc-stat-num">5 <span class="accent">contracts</span></div>
-                <div class="fc-stat-label">recording, ledger, orchestration, wire and co-residency &mdash; frozen additive-only, pinned externally</div>
-            </div>
-            <div class="fc-stat">
-                <div class="fc-stat-num">1 <span class="accent">shared past</span></div>
-                <div class="fc-stat-label">a what-if branch inherits its parent's history byte-for-byte, and diverges only after the fork</div>
-            </div>
-        </div>
-    </div>
-    <div class="flagship-card">
-        <div class="fc-left">
-            <span class="badge">Now Shipping &middot; The Operator Surface</span>
-            <h2>ForgeGIS Studio<sup class="tm">&trade;</sup> &mdash; <span class="product">one workspace for three engines</span></h2>
-            <p class="fc-tagline">Where you see the Forge suite work &mdash; and shape it to your mission.</p>
-            <p class="fc-description">
-                ForgeGIS computes, ForgeData catalogs, and ForgeMind reasons &mdash; but each speaks only libraries
-                and machine protocols. Studio is the browser workspace that unifies them: data loaded through one
-                catalog, raster/vector/mixed pipelines composed on a node canvas and run in batch, and a
-                natural-language agent acting on a live map &mdash; the one the operator is looking at, not a copy.
-                Single-user, single-host by design: loopback-bound, air-gap capable, bundled with the suite.
-            </p>
-            <span class="fc-claim">
-                The human-visible layer that makes the Forge suite <em>one product, not three</em>.
-            </span>
-            <div class="fc-cta-group">
-                <a href="/products/forgegis-studio/" class="btn btn-product">See ForgeGIS Studio</a>
-                <a href="/products/forgegis-studio/downloads/forgegis-studio-technical-brief.pdf" class="btn btn-ghost">Technical Brief (PDF)</a>
-            </div>
-        </div>
-        <div class="fc-right">
-            <div class="fc-stat">
-                <div class="fc-stat-num">1 <span class="accent">host</span></div>
-                <div class="fc-stat-label">whole suite on a single workstation &mdash; loopback-bound, air-gap capable</div>
-            </div>
-            <div class="fc-stat">
-                <div class="fc-stat-num">3 <span class="accent">engines</span></div>
-                <div class="fc-stat-label">GPU compute, spatial catalog, and a natural-language agent behind one surface</div>
-            </div>
-            <div class="fc-stat">
-                <div class="fc-stat-num">R <span class="accent">&middot;</span> V <span class="accent">&middot;</span> M</div>
-                <div class="fc-stat-label">raster, vector &amp; mixed pipelines &mdash; non-linear DAGs, authored and run in batch</div>
-            </div>
-        </div>
-    </div>
-    <div class="flagship-card">
-        <div class="fc-left">
-            <span class="badge">Now Shipping &middot; The Suite Installer</span>
-            <h2>Seaglass Control Center<sup class="tm">&trade;</sup> &mdash; <span class="product">install &rarr; configure &rarr; operate</span></h2>
-            <p class="fc-tagline">One download that installs, configures, and operates the Forge suite.</p>
-            <p class="fc-description">
-                A single installer that is also a living dashboard. One download lays down a private Java runtime
-                and the full Forge suite, makes API-key setup trivial, runs the services, manages data, and lets an
-                operator chat with the agent &mdash; all from one window, with no prerequisites on the target
-                machine. For Windows x64; v1.2.0 was the first coordinated suite release.
-            </p>
-            <span class="fc-claim">
-                Built for people who would rather evaluate a running system <em>in minutes</em> than assemble one over an afternoon.
-            </span>
-            <div class="fc-cta-group">
-                <a href="/products/control-center/" class="btn btn-product">Meet the Control Center</a>
-                <a href="/products/control-center/downloads/seaglass-control-center-datasheet.pdf" class="btn btn-ghost">Datasheet (PDF)</a>
-            </div>
-        </div>
-        <div class="fc-right">
-            <div class="fc-stat">
-                <div class="fc-stat-num">1 <span class="accent">installer</span></div>
-                <div class="fc-stat-label">a single package carrying a private JRE 25 LTS and every suite JAR &mdash; no prerequisites</div>
-            </div>
-            <div class="fc-stat">
-                <div class="fc-stat-num">3 <span class="accent">modes</span></div>
-                <div class="fc-stat-label">Install &rarr; Configure &rarr; Operate, all in one window</div>
-            </div>
-            <div class="fc-stat">
-                <div class="fc-stat-num">1 <span class="accent">key</span></div>
-                <div class="fc-stat-label">paste one API key, live-validated and vaulted; the suite is running moments later</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="flagship suite-section">
-    <div class="products-header">
-        <h2>The Forge suite</h2>
-        <p>Three engines built for each other &mdash; surfaced by Studio, flown on Seaglass Globe, delivered by the Control Center.</p>
-    </div>
-    <div class="flagship-card">
-        <div class="fc-left">
-            <span class="badge">Flagship &middot; ForgeGIS<sup class="tm">&trade;</sup></span>
-            <h2>GPU-accelerated geospatial compute, <span class="product">for the agent era</span></h2>
-            <p class="fc-tagline">239 user-facing operations across 11 categories. 237 callable by AI agents through a native MCP server.</p>
-            <p class="fc-description">
-                ForgeGIS runs raster, hydrology, visibility, spectral, ML, and point-cloud workloads on the GPU
-                through Java-side compute kernels, alongside a large vector and topology surface in pure Java
-                &mdash; and exposes 237 of its 239 operations to AI agents through
-                a native Model Context Protocol server. Distributed as pure-Java Maven artifacts with no first-party native code, no GDAL native bindings, and no separate native install step &mdash; GPU dispatch is via the JOCL OpenCL bindings (JNI bridge bundled in the JOCL JAR). Release 1.1 adds a non-linear DAG pipeline engine that imports QGIS models and runs branching raster/vector workflows, with the raster data plane GPU-resident end to end.
-            </p>
-            <span class="fc-claim">
-                As of May 2026, <em>the only commercially-supported GPU-accelerated geospatial MCP server we have been able to identify</em>.
-            </span>
-            <div class="fc-cta-group">
-                <a href="/products/forgegis/" class="btn btn-product">See ForgeGIS</a>
-                <a href="/products/forgegis/downloads/forgegis-sales-onepager.pdf" class="btn btn-ghost">Sales One-Pager (PDF)</a>
-            </div>
-            <a href="/products/forgegis/#performance-demo" class="fc-demo-link">Watch the unedited 62-operation demonstration vs GDAL &mdash; methodology biased against us. <span class="arrow">&rarr;</span></a>
-        </div>
-        <div class="fc-right">
-            <div class="fc-stat">
-                <div class="fc-stat-num">239<span class="accent">&nbsp;/&nbsp;11</span></div>
-                <div class="fc-stat-label">operations across 11 geospatial categories</div>
-            </div>
-            <div class="fc-stat">
-                <div class="fc-stat-num">237<span class="accent">&nbsp;/&nbsp;239</span></div>
-                <div class="fc-stat-label">agent-callable through native MCP</div>
-            </div>
-            <div class="fc-stat">
-                <div class="fc-stat-num">9&times;&ndash;56&times;</div>
-                <div class="fc-stat-label">multi-stage pipeline speedup vs GDAL CLI</div>
-            </div>
-        </div>
-    </div>
     <div class="products-grid" style="margin-top: 28px;">
-        <a href="/products/forgemind/" class="product-card">
-            <span class="card-badge badge-dev">Forge Suite &middot; The GIS Intent Compiler</span>
-            <h3>Forge<span>Mind</span><sup class="tm">&trade;</sup></h3>
-            <p class="tagline">Natural language to validated GPU pipelines &mdash; or an honest refusal</p>
+        <a href="/products/forgegis/digital-twin.html" class="product-card">
+            <span class="card-badge badge-dev">Shipped in 1.2.3 &middot; The Digital Twin</span>
+            <h3>ForgeGIS<sup class="tm">&trade;</sup> <span>digital twin</span></h3>
+            <p class="tagline">Streams like video, auditable like a ledger</p>
             <p class="description">
-                The natural-language control plane for ForgeGIS. It compiles a spoken or typed request into a
-                validated, executed pipeline on the GPU-accelerated engine, and refuses by construction when a
-                request cannot be honored correctly. Zero confident-wrong results across 79 conversations and
-                6,696 validated turns &mdash; at roughly 25&times; lower model cost than an agent loop.
+                A living geospatial simulation that records itself as it runs. Replay a run frame by frame, branch
+                it into a what-if that shares its parent's history byte-for-byte, and verify it against itself
+                afterwards. A finished run is a standard GeoPackage &mdash; it opens in QGIS with nothing of ours installed.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; License TBD &middot; v1.2.4
+                <strong>ForgeGIS engine capability</strong> &middot; driven from Studio or headless over MCP
             </div>
-            <span class="card-cta">Learn more</span>
+            <span class="card-cta">See the digital twin</span>
         </a>
-        <a href="/products/forgedata/" class="product-card">
-            <span class="card-badge badge-dev">Forge Suite &middot; Data layer</span>
-            <h3>Forge<span>Data</span><sup class="tm">&trade;</sup></h3>
-            <p class="tagline">The data-intelligence layer &mdash; ask for data by intent</p>
+        <a href="/products/forgegis-studio/" class="product-card">
+            <span class="card-badge badge-dev">The Operator Surface</span>
+            <h3>ForgeGIS <span>Studio</span><sup class="tm">&trade;</sup></h3>
+            <p class="tagline">One workspace for three engines</p>
             <p class="description">
-                Cost-aware routing, a portable single-file GeoPackage catalog, and a 49-tool MCP surface that turn
-                thirteen heterogeneous sources into one ranked answer &mdash; the best-fit correct dataset, with
-                access cost as the deciding tiebreaker.
+                The browser workspace that makes the suite one product: data loaded through one catalog,
+                raster/vector/mixed pipelines composed on a node canvas and run in batch, and a natural-language
+                agent acting on the live map the operator is looking at &mdash; not a copy. Single host, loopback-bound, air-gap capable.
             </p>
             <div class="meta">
                 <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.4
             </div>
-            <span class="card-cta">Learn more</span>
+            <span class="card-cta">See ForgeGIS Studio</span>
         </a>
-    </div>
-</section>
-
-<section class="philosophy">
-    <div class="container">
-        <h2>What we make</h2>
-        <p>
-            Seaglass Foundry builds a small number of things, carefully &mdash; GPU-accelerated software for
-            technical workloads where speed and correctness both matter. The <strong>Forge suite</strong> is our
-            geospatial stack for the agent era: <a href="/products/forgegis/">ForgeGIS</a> (the GPU-accelerated
-            compute engine), <a href="/products/forgemind/">ForgeMind</a> (the GIS Intent Compiler), and
-            <a href="/products/forgedata/">ForgeData</a> (the data-intelligence layer) &mdash; made one product by
-            <a href="/products/forgegis-studio/">ForgeGIS Studio</a> (the operator surface), given a 3D view by
-            <a href="/products/seaglass-globe/">Seaglass Globe</a> (the agent's presentation surface), and delivered by the
-            <a href="/products/control-center/">Seaglass Control Center</a> (one download that installs, configures,
-            and operates the suite). We also ship
-            <a href="/products/swingtopdf/">SwingToPDF<sup class="tm">&trade;</sup></a> (vector PDF output from
-            Java Swing), and maintain <a href="/products/worldwind-reforged/">Worldwind Reforged</a>, a community
-            modernization of NASA's WorldWind released as open source under our Cannonforge banner.
-        </p>
+        <a href="/products/control-center/" class="product-card">
+            <span class="card-badge badge-dev">The Suite Installer</span>
+            <h3>Seaglass <span>Control Center</span><sup class="tm">&trade;</sup></h3>
+            <p class="tagline">Install &rarr; configure &rarr; operate, in one window</p>
+            <p class="description">
+                One download lays down a private Java runtime and the full Forge suite with no prerequisites on the
+                machine, validates and vaults one API key, then runs the services &mdash; health, live logs, a data
+                gallery, and agent chat from the same window. Built for people who would rather evaluate a running
+                system in minutes than assemble one over an afternoon.
+            </p>
+            <div class="meta">
+                <strong>Windows x64</strong> &middot; Not sold separately &middot; v1.2.4
+            </div>
+            <span class="card-cta">Meet the Control Center</span>
+        </a>
     </div>
 </section>
 
@@ -855,18 +819,55 @@
                 anyone still building on WorldWind. Source and releases on GitHub under our Cannonforge banner.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Open source &middot; Community maintained
+                <strong>Java 17+</strong> &middot; Apache-2.0 &middot; Community maintained
             </div>
             <span class="card-cta">Learn more</span>
         </a>
     </div>
 </section>
 
-<section class="contact-strip">
-    <div class="container">
-        <h2>Work with us</h2>
-        <p>Licensing questions, evaluation access, partnership inquiries &mdash; we read every email.</p>
-        <a href="mailto:rich@seaglassfoundry.com" class="btn btn-primary">rich@seaglassfoundry.com</a>
+<section class="evaluate" id="evaluate">
+    <div class="eval-header">
+        <span class="eval-eyebrow">Licensing &amp; evaluation</span>
+        <h2>Evaluate the Forge suite on one machine</h2>
+        <p>
+            The Forge suite is commercially licensed, and evaluation builds are available to qualified teams.
+            Run the whole suite on one workstation &mdash; disconnected if required &mdash; and exercise every part of
+            it through one interface.
+        </p>
+    </div>
+    <div class="eval-grid">
+        <div class="eval-card">
+            <h3>What you get</h3>
+            <p>
+                The Seaglass Control Center installer: one download that lays down a private Java runtime and the
+                full suite &mdash; ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, and, opt-in, Seaglass Globe
+                &mdash; then runs it from the same window. A bundled offline elevation dataset means the first
+                elevation and slope results need no network. First result in minutes.
+            </p>
+        </div>
+        <div class="eval-card">
+            <h3>What you need</h3>
+            <ul>
+                <li><strong>A Windows x64 workstation.</strong> The engines are Java 17+ libraries; the runtime is bundled, so nothing is installed beforehand.</li>
+                <li><strong>A GPU with standard OpenCL drivers.</strong> Seaglass Globe needs a real, hardware-accelerated GPU &mdash; a remote-desktop session usually can't drive it.</li>
+                <li><strong>4&nbsp;GB of RAM</strong> for the suite, 8&nbsp;GB with the Globe installed; about 4&nbsp;GB of disk for a tile cache that grows with use.</li>
+                <li><strong>A Claude or OpenAI API key</strong> for a connected evaluation. Air-gapped sites host their own model behind the same provider abstraction.</li>
+            </ul>
+        </div>
+        <div class="eval-card">
+            <h3>What happens next</h3>
+            <p>
+                Email us with a line about your program and what you want to see it do. We read every email and
+                reply personally. Qualified teams receive an evaluation build, and we will walk you through the
+                methodology behind any figure on this site &mdash; per-operation timings and the benchmark harness
+                are available to vetted buyers under NDA. Licensing terms are provided on request.
+            </p>
+        </div>
+    </div>
+    <div class="eval-cta">
+        <a href="mailto:rich@seaglassfoundry.com?subject=Forge%20suite%20evaluation" class="btn btn-primary">Request an evaluation &mdash; rich@seaglassfoundry.com</a>
+        <p class="eval-note">Licensing questions, partnership and distribution inquiries, SwingToPDF licenses &mdash; the same address reaches us for all of it.</p>
     </div>
 </section>
 

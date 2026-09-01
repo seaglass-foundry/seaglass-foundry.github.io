@@ -294,6 +294,7 @@
         footer a { color: #a8c4d8; }
         footer a:hover { color: var(--white); }
         .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-marks { width: 100%; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #7790a8; font-size: 0.8rem; line-height: 1.6; text-align: center; }
         .footer-copy { width: 100%; text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         /* ── Responsive ── */
@@ -329,6 +330,8 @@
         <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
         <div class="nav-links">
             <a href="/products/">Products</a>
+            <a href="/#evaluate">Evaluate</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
     </div>
@@ -475,6 +478,9 @@ SwingPdfExporter.from(panel)
             <a href="https://github.com/seaglass-foundry/SwingToPDF" target="_blank" rel="noopener">GitHub</a>
             <a href="https://central.sonatype.com/artifact/com.seaglassfoundry/swingtopdf" target="_blank" rel="noopener">Maven Central</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            SwingToPDF&trade; and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC. Apache PDFBox, Java, Maven, and other third-party products and marks referenced are the property of their respective owners.
         </div>
         <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
     </div>

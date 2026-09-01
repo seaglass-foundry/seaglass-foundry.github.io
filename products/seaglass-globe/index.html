@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seaglass Globe — A Precision WGS-84 Virtual Globe, and the Forge Suite's 3D View</title>
-    <meta name="description" content="Seaglass Globe is a precision WGS-84 virtual globe: twenty thousand kilometres to a rooftop in one continuous move, precision held relative to the camera, real geodesy with the algorithm named beside every number, your own GeoJSON, KML and shapefiles, live feeds, and compute that runs on the globe. The optional 3D view of the Forge suite and the agent's presentation surface. Windows x64; needs a real GPU.">
+    <meta name="description" content="Seaglass Globe: a precision WGS-84 virtual globe in double precision — twenty thousand kilometres to a rooftop in one move — and the Forge suite's optional 3D view.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/seaglass-globe/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="preconnect" href="https://www.youtube-nocookie.com">
@@ -12,7 +12,12 @@
     <meta property="og:url" content="https://seaglassfoundry.com/products/seaglass-globe/">
     <meta property="og:title" content="Seaglass Globe — A Precision WGS-84 Virtual Globe, and the Forge Suite's 3D View">
     <meta property="og:description" content="Twenty thousand kilometres to a rooftop in one move, on a WGS-84 ellipsoid in double precision. Real geodesy, your data, live feeds, compute on the globe — the optional 3D view of the Forge suite. Watch the release film.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta property="og:image:alt" content="Title card of the Seaglass Globe release film: the Earth over the Atlantic on a dark navy field, with SEAGLASS FOUNDRY above and SEAGLASS GLOBE in letter-spaced cyan type across it">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta name="twitter:title" content="Seaglass Globe — The Forge Suite's 3D View">
     <meta name="twitter:description" content="A precision WGS-84 virtual globe — 20 000 km to a rooftop, no cut. The Forge suite's optional 3D view and the surface the agent draws on. Watch the film.">
     <meta name="keywords" content="Seaglass Globe, WGS-84 virtual globe, 3D globe Rust wgpu, precision globe f64, Vincenty Karney geodesy, GeoJSON KML shapefile globe, WMS WMTS XYZ MVT viewer, live earthquake NWS AIS globe, digital twin zero-copy globe, Forge suite 3D view, agent presentation surface MCP, GPU globe Windows x64">
@@ -285,6 +290,8 @@
         <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
         <div class="nav-links" id="nav-links">
             <a href="/products/">Products</a>
+            <a href="/#evaluate">Evaluate</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
     </div>
@@ -316,7 +323,7 @@
         <div class="cta-group">
             <a href="#film" class="btn btn-primary">Watch the film</a>
             <a href="downloads/seaglass-globe-technical-brief.pdf" class="btn btn-outline">Download Technical Brief</a>
-            <a href="#suite" class="btn btn-outline">How it fits the Forge suite</a>
+            <a href="mailto:rich@seaglassfoundry.com?subject=Seaglass%20Globe%20evaluation" class="btn btn-outline">Request evaluation access</a>
         </div>
     </div>
 </section>
@@ -737,8 +744,8 @@
         <p class="routing-note">The suite wants 8&nbsp;GB of RAM with the Globe installed (4&nbsp;GB without) &mdash; it runs its own copy of the GIS engines, and the Control Center caps each service's heap from your machine's RAM and re-plans it when the Globe is installed.</p>
         <div class="lic-note">
             <strong>A note on licensing.</strong> Seaglass Globe is an opt-in component of the Forge suite, installed by
-            the Seaglass Control Center, and is not sold separately. The suite's license is not yet finalized; nothing
-            here should be read as a grant of rights. Contact the maintainer about evaluation access.
+            the Seaglass Control Center, and is not sold separately. The Forge suite is commercially licensed; terms are
+            provided on request, and evaluation builds are available to qualified teams &mdash; see <a href="/#evaluate">how to evaluate</a>.
         </div>
         <div class="twin-cta">
             <a href="/products/control-center/" class="btn btn-primary">Meet the Control Center</a>

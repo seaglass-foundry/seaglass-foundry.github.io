@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products — Seaglass Foundry</title>
-    <meta name="description" content="Products from Seaglass Foundry — the Forge suite: ForgeGIS (GPU-accelerated geospatial compute and MCP server), ForgeMind (the GIS Intent Compiler), ForgeData (the data-intelligence layer), ForgeGIS Studio (the operator surface), Seaglass Globe (the 3D view), and the Seaglass Control Center (the suite installer). Plus SwingToPDF (vector PDF output from Java Swing), and Worldwind Reforged, our community modernization of NASA WorldWind under our Cannonforge banner.">
+    <meta name="description" content="The Forge suite — ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, Seaglass Globe, and the Control Center — plus SwingToPDF and Worldwind Reforged.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/">
     <meta property="og:title" content="Products — Seaglass Foundry">
     <meta property="og:description" content="The Forge suite — ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, Seaglass Globe, and the Seaglass Control Center — plus SwingToPDF. And Worldwind Reforged, our community modernization of NASA WorldWind under the Cannonforge banner.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta name="twitter:title" content="Products — Seaglass Foundry">
     <meta name="twitter:description" content="The Forge suite — ForgeGIS, ForgeMind, ForgeData, ForgeGIS Studio, Seaglass Globe, and the Seaglass Control Center — plus SwingToPDF. And Worldwind Reforged, our community contribution to NASA WorldWind.">
     <style>
@@ -301,6 +305,8 @@
         <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
         <div class="nav-links">
             <a href="/products/">Products</a>
+            <a href="/#evaluate">Evaluate</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
     </div>
@@ -328,14 +334,14 @@
                     <p class="description">
                         239 user-facing operations across 11 geospatial categories, 237 callable by AI agents
                         through a native Model Context Protocol server. Pure-Java Maven artifacts, no GDAL native
-                        bindings &mdash; and as of May 2026, the only commercially-supported GPU-accelerated
+                        bindings &mdash; and as of August 2026, the only commercially-supported GPU-accelerated
                         geospatial MCP server we have been able to identify. Release 1.2.3 adds the
                         <strong>digital twin</strong>: a simulation that records itself as it runs, so it can be
                         replayed frame by frame, forked into a what-if that shares history byte-for-byte, and
                         verified against itself afterwards.
                     </p>
                     <div class="meta">
-                        <strong>Java 17+</strong> &middot; License TBD &middot; v1.2.4
+                        <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.4
                     </div>
                     <span class="card-cta">Learn more</span>
                 </div>
@@ -361,14 +367,14 @@
             <h2>Forge<span>Mind</span><sup class="tm">&trade;</sup></h2>
             <p class="tagline">Natural language to validated GPU pipelines &mdash; or an honest refusal</p>
             <p class="description">
-                The natural-language control plane for ForgeGIS. It compiles a spoken or typed request into a
+                The natural-language control plane for ForgeGIS. It compiles a plain-language request into a
                 validated, executed pipeline on the GPU-accelerated engine, and refuses by construction when a
                 request cannot be honored correctly. Zero confident-wrong results across 79 conversations and
                 6,696 validated turns &mdash; at roughly 25&times; lower model cost than an agent loop.
                 LLM-agnostic; native to the Model Context Protocol in both directions.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; License TBD &middot; v1.2.4
+                <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.4
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -472,7 +478,7 @@
                 Worldwind Reforged is not a Seaglass Foundry product. It's a modernization of NASA's
                 WorldWind that we maintain as a contribution back to the WorldWind community
                 &mdash; updated for Java 17+, shader-based rendering, GPU-accelerated surface shapes,
-                and a clean Maven build. Released open source under our Cannonforge banner.
+                and a clean Maven build. Released open source (Apache License 2.0) under our Cannonforge banner.
             </p>
         </div>
         <a href="/products/worldwind-reforged/" class="product-card oss-card">
@@ -485,7 +491,7 @@
                 for anyone still building on WorldWind. Source and releases on GitHub under our Cannonforge banner.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Open source &middot; Community maintained
+                <strong>Java 17+</strong> &middot; Apache-2.0 &middot; Community maintained
             </div>
             <span class="card-cta">Learn more</span>
         </a>

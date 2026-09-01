@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seaglass Control Center — One Download That Installs, Configures, and Operates the Forge Suite</title>
-    <meta name="description" content="The Seaglass Control Center is the Forge suite installer — a single Windows installer that is also a living dashboard. One download lays down a private Java runtime and the full Forge suite, makes API-key setup trivial, runs the services, manages data, and lets an operator chat with the agent — all from one window, with no prerequisites on the target machine.">
+    <meta name="description" content="Seaglass Control Center: one download that installs, configures, and operates the Forge suite on Windows x64 — one API key, first result in minutes.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/control-center/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/control-center/">
     <meta property="og:title" content="Seaglass Control Center — One Download That Installs, Configures, and Operates the Forge Suite">
     <meta property="og:description" content="A single installer that is also a living dashboard: install the Forge suite, paste one API key, start the services, and ask the agent a question — one window, no prerequisites on the target machine.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://seaglassfoundry.com/products/control-center/img/cc-05-dashboard.webp">
+    <meta property="og:image:width" content="1386">
+    <meta property="og:image:height" content="977">
+    <meta property="og:image:alt" content="The dark Control Center dashboard — Services tab with ForgeMind and ForgeGIS Studio service cards, MCP children, and a log rail">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://seaglassfoundry.com/products/control-center/img/cc-05-dashboard.webp">
     <meta name="twitter:title" content="Seaglass Control Center — The Forge Suite Installer">
     <meta name="twitter:description" content="One download that installs, configures, and operates the Forge suite. 1 installer · 3 modes · 1 key.">
     <meta name="keywords" content="Seaglass Control Center, Forge suite installer, geospatial AI suite install, one-click GIS suite, bundled JRE installer, MCP suite dashboard, air-gap evaluation">
@@ -228,6 +233,8 @@
         <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
         <div class="nav-links" id="nav-links">
             <a href="/products/">Products</a>
+            <a href="/#evaluate">Evaluate</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
     </div>
@@ -256,8 +263,8 @@
             machine</em>.
         </p>
         <div class="cta-group">
-            <a href="downloads/seaglass-control-center-datasheet.pdf" class="btn btn-primary">Download Datasheet</a>
-            <a href="mailto:rich@seaglassfoundry.com?subject=Forge%20suite%20evaluation" class="btn btn-outline">Request Evaluation Access</a>
+            <a href="mailto:rich@seaglassfoundry.com?subject=Forge%20suite%20evaluation" class="btn btn-primary">Request evaluation access</a>
+            <a href="downloads/seaglass-control-center-datasheet.pdf" class="btn btn-outline">Download Datasheet</a>
         </div>
     </div>
 </section>
@@ -357,7 +364,8 @@
                     <span class="step-desc">
                         A provider picker (Claude / OpenAI) with the key validated live against the provider's
                         <code>/v1/models</code> endpoint, then stored in the Windows Credential Manager &mdash; never
-                        written to disk &mdash; and injected into child processes at launch.
+                        written to disk &mdash; and injected into child processes at launch. The key is the connected-evaluation
+                        path; an air-gapped site runs a self-hosted model behind the same provider abstraction.
                     </span>
                 </li>
                 <li>
@@ -378,7 +386,7 @@
             </figure>
             <figure class="shot">
                 <a href="img/cc-03-install.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-03-install.webp" alt="Install progress at 100% staged, listing the bundled Temurin runtime and each suite component being laid down" width="1392" height="982" loading="lazy"></a>
-                <figcaption>The install: a private Java runtime and every suite component, staged step by step. <em>Captured on an earlier build &mdash; 1.2.3 bundles Temurin JRE&nbsp;25&nbsp;LTS.</em></figcaption>
+                <figcaption>The install: a private Java runtime and every suite component, staged step by step. <em>Captured on an earlier build; the current installer bundles Temurin JRE&nbsp;25&nbsp;LTS.</em></figcaption>
             </figure>
             <figure class="shot">
                 <a href="img/cc-04-keys.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-04-keys.webp" alt="Connect your AI provider screen with Claude and OpenAI picker and a live-validated API key field" width="1396" height="982" loading="lazy"></a>
@@ -426,7 +434,6 @@
                 </tbody>
             </table>
         </div>
-        <p class="routing-note">v1.2.0 was the first coordinated suite release, with all three lifecycle modes shipping end to end.</p>
         <div class="shot-row" style="grid-template-columns: 1fr; max-width: 940px;">
             <figure class="shot">
                 <a href="img/cc-06-data-gallery.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-06-data-gallery.webp" alt="The Data tab: active catalog summary and a data source gallery of elevation, vector, and imagery ingesters" width="1387" height="981" loading="lazy"></a>
@@ -492,8 +499,8 @@
         </div>
         <div class="lic-note">
             <strong>A note on licensing.</strong> The Seaglass Control Center installs and operates the Forge suite
-            and is not sold separately. The suite's license is not yet finalized; nothing here should be read as a
-            grant of rights. Evaluation builds are available to qualified teams on request.
+            and is not sold separately. The Forge suite is commercially licensed; terms are provided on request, and evaluation
+            builds are available to qualified teams &mdash; see <a href="/#evaluate">how to evaluate</a>.
         </div>
     </div>
 </section>
