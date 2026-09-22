@@ -11,7 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/seaglass-globe/">
     <meta property="og:title" content="Seaglass Globe — A Precision WGS-84 Virtual Globe, and the Forge Suite's 3D View">
-    <meta property="og:description" content="Orbit to a rooftop in one move, on a WGS-84 ellipsoid in double precision. Real geodesy, your data, live feeds, military symbology and scenario replay, compute on the globe — the optional 3D view of the Forge suite.">
+    <meta property="og:description" content="Orbit to a rooftop in one move, on a WGS-84 ellipsoid in double precision. Real geodesy, your data, military symbology and scenario replay, compute on the globe — the optional 3D view of the Forge suite.">
     <meta property="og:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="720">
@@ -30,7 +30,7 @@
         "operatingSystem": "Windows (x64)",
         "softwareRequirements": "A real GPU (Vulkan or DirectX 12); an RDP or remote-desktop session usually cannot drive it. Installed as an opt-in component of the Seaglass Control Center.",
         "url": "https://seaglassfoundry.com/products/seaglass-globe/",
-        "description": "Seaglass Globe is a precision WGS-84 virtual globe — geodetic-to-ECEF in double precision with precision held relative to the camera, screen-space-error level of detail over a quadtree, reverse-Z depth, Vincenty and Karney geodesy, analytic ellipsoid picking, a globe plus five flat projections switched live, and a Rust/wgpu renderer. It reads XYZ, WMS, WMTS, MVT, 3D Tiles, glTF, GeoJSON, KML and shapefiles, runs the suite's GPU compute on the globe, shows live feeds, and streams digital-twin state zero-copy. The optional 3D view of the Forge suite and the agent's presentation surface. Not sold separately.",
+        "description": "Seaglass Globe is a precision WGS-84 virtual globe — geodetic-to-ECEF in double precision with precision held relative to the camera, screen-space-error level of detail over a quadtree, reverse-Z depth, Vincenty and Karney geodesy, analytic ellipsoid picking, a globe plus five flat projections switched live, and a Rust/wgpu renderer. It reads XYZ, WMS, WMTS, MVT, 3D Tiles, glTF, GeoJSON, KML and shapefiles, runs the suite's GPU compute on the globe, and streams digital-twin state zero-copy. The optional 3D view of the Forge suite and the agent's presentation surface. Not sold separately.",
         "programmingLanguage": "Rust",
         "creator": {
             "@type": "Organization",
@@ -316,7 +316,7 @@
         <p class="categorical-claim">
             From orbit to a rooftop, in one move &mdash; <em>no cut, no dissolve, no swapping one scene for
             another</em> &mdash; the same globe the whole way down. Real elevation, real imagery, real geodesy with
-            the method named beside every measurement, your own data on the stack, live feeds, military symbology,
+            the method named beside every measurement, your own data on the stack, military symbology,
             and compute that runs where you are looking. The optional 3D view of the Forge suite, and the surface
             the agent draws on.
         </p>
@@ -502,8 +502,7 @@
                 <h3>Your data</h3>
                 <p>
                     GeoJSON, KML/KMZ and three-file shapefiles with their attributes, styled per file with labels and a
-                    legend; XYZ, WMS, WMTS and MVT sources added by URL, with a <em>Discover</em> step that reads a WMS or WMTS server's capabilities;
-                    glTF/GLB models and 3D Tiles. The layer stack reorders, hides, fades and promotes any layer to base,
+                    legend; XYZ, WMS, WMTS and MVT sources added by URL, with a <em>Discover</em> step that reads a WMS or WMTS server's capabilities. The layer stack reorders, hides, fades and promotes any layer to base,
                     and persists between launches; click any feature and its attributes come back.
                 </p>
             </div>
@@ -545,13 +544,13 @@
             <table class="spec wrap">
                 <thead><tr><th>At a glance</th><th>Seaglass Globe 1.2.5</th></tr></thead>
                 <tbody>
-                    <tr><td>Data in</td><td>XYZ &middot; WMS 1.3.0 &middot; WMTS 1.0.0 &middot; MVT &middot; 3D Tiles &middot; glTF 2.0/GLB &middot; Terrarium elevation &middot; GeoJSON &middot; KML 2.2/KMZ &middot; Esri Shapefile (+DBF); the tile cache serves visited regions without a network</td></tr>
+                    <tr><td>Data in</td><td>XYZ &middot; WMS 1.3.0 &middot; WMTS 1.0.0 &middot; MVT &middot; Terrarium elevation &middot; GeoJSON &middot; KML 2.2/KMZ &middot; Esri Shapefile (+DBF) &middot; GeoPackage (through the engine); the tile cache serves visited regions without a network</td></tr>
                     <tr><td>Projections</td><td>WGS-84 globe; five spherical flat views &mdash; equirectangular, Mercator, sinusoidal, orthographic, polar stereographic; independent map-view windows</td></tr>
                     <tr><td>Coordinates &amp; measure</td><td>DD &middot; DMS &middot; UTM &middot; MGRS readouts; distance, path, area, bearing, slant range and shape modes; Vincenty inverse and Karney area on the ellipsoid; metric, US, nautical; GeoJSON round-trip</td></tr>
                     <tr><td>Symbology &amp; scenarios</td><td>MIL-STD-2525 unit symbols (the 2525C symbol set ships with the Globe) and tactical graphics; a scenario library replayed on a timeline; one demo scenario included; ForgeRelay recordings open in the same format</td></tr>
                     <tr><td>Compute</td><td>ForgeGIS operations, chains and graphs from a node-graph editor with live parameter scrubbing, batch, contours and load-DEM-here; ForgeData catalog, extraction, elevation and publish; results draped, drawn as entities, or reported</td></tr>
                     <tr><td>Agent surface</td><td><code>POST /mcp</code> on <code>127.0.0.1:7900</code> (configurable), MCP Streamable HTTP, bearer-authenticated per install; ForgeMind on 8080; engines over stdio</td></tr>
-                    <tr><td>Digital twin</td><td>Streams a live or recorded twin over the wire; optional shared-GPU-memory mode on Vulkan, falling back to the wire</td></tr>
+                    <tr><td>Digital twin</td><td>Streams a live or recorded twin over the wire; optional shared-GPU-memory mode on Vulkan, set up by hand in 1.2.5, falling back to the wire</td></tr>
                     <tr><td>Platform</td><td>Windows x64 with a real GPU (Vulkan or DirectX&nbsp;12 as wgpu selects); 8&nbsp;GB RAM for the suite with the Globe installed; a few gigabytes of disk for a tile cache that grows with use</td></tr>
                 </tbody>
             </table>
@@ -668,7 +667,7 @@
 <section class="block tinted">
     <div class="container">
         <h2 class="center">The world, live</h2>
-        <p class="section-intro center">It does not have to be a file. Three feeds that are live &mdash; and two that are not, kept apart under their own cards.</p>
+        <p class="section-intro center">It does not have to be a file. Three feeds that are live &mdash; and two that are not, kept apart under their own cards. These are showcase builds shown in the release film; in 1.2.5 they are not part of the suite the Control Center installs.</p>
         <div class="shot-pair">
             <figure class="shot">
                 <a href="img/22-storm-watch-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/22-storm-watch-b.webp" alt="Seaglass Globe over the eastern United States with a NEXRAD radar mosaic in green through red, warning polygons labelled Severe Thunderstorm Warning and Flash Flood Warning, and a STORM WATCH panel top-right listing alert families with a LIVE NWS badge beneath them" width="1280" height="720" loading="lazy"></a>
@@ -709,7 +708,7 @@
                 <h3>A modelled flood, streaming from a digital twin</h3>
                 <p>A hydraulic model &mdash; not a real event &mdash; replayed over a wire at an accelerated pace, straight into shared video memory. The Globe is the remote consumer of the twin's published wire contract: it never embeds the engine, and it renders live and replayed runs the same way, because a replay is indistinguishable from live by design.</p>
                 <h3>We pin Vulkan for this one</h3>
-                <p>In co-resident mode &mdash; on a large-VRAM workstation, and off by default &mdash; the adapter is pinned to Vulkan so the twin's memory can be <em>imported</em> rather than copied: the globe samples it where it already sits. Meaning and the durable record still travel the normal path.</p>
+                <p>In co-resident mode &mdash; on a large-VRAM workstation, off by default, and in 1.2.5 set up by hand rather than from the Control Center &mdash; the adapter is pinned to Vulkan so the twin's memory can be <em>imported</em> rather than copied: the globe samples it where it already sits. Meaning and the durable record still travel the normal path.</p>
             </div>
         </div>
         <div class="twin-cta">
@@ -792,15 +791,15 @@
 <section class="block" id="downloads">
     <div class="container">
         <h2 class="center">Downloads</h2>
-        <p class="section-intro center">All Seaglass Globe collateral, v1.2.4. Direct download &mdash; no email gate, no form wall.</p>
+        <p class="section-intro center">All Seaglass Globe collateral, v1.2.5. Direct download &mdash; no email gate, no form wall.</p>
         <div class="downloads-grid">
             <a href="downloads/seaglass-globe-technical-brief.pdf" class="download-card">
-                <div class="dl-type tech">Technical Brief &middot; 22 pages</div>
+                <div class="dl-type tech">Technical Brief &middot; 24 pages</div>
                 <h3>Seaglass Globe Technical Brief</h3>
                 <p>
                     A capability reference written from the repository: architecture and precision, rendering,
                     navigation, geodesy and the measure tool, projections, providers and the layer stack, vector data,
-                    3D content, live feeds, the workflow editor and compute, the catalog, entities, the MCP surface,
+                    military symbology and scenarios, 3D content, live feeds, the workflow editor and compute, the catalog, entities, the MCP surface,
                     the digital twin, export, projects, the shell &mdash; then measured performance, security
                     posture, deployment, and what is deliberately not claimed.
                 </p>
@@ -810,9 +809,9 @@
                 <div class="dl-type">Sales One-Pager &middot; 2 pages</div>
                 <h3>General Sales One-Pager</h3>
                 <p>
-                    Front/back overview: twenty thousand kilometres to a rooftop, f64 all the way down, the WGS-84
-                    ellipsoid with its semi-major axis printed; who it is for, what is on screen, the live feeds and
-                    the two that are not, and what it reads.
+                    Front/back overview: orbit to a rooftop in one move, double precision all the way down, military
+                    symbology new in 1.2.5; who it is for, a real coordinate system, compute where you are looking,
+                    and how it sits in the suite.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
@@ -820,9 +819,9 @@
                 <div class="dl-type">Defense One-Pager &middot; 2 pages</div>
                 <h3>Defense &amp; Intelligence Variant</h3>
                 <p>
-                    A real coordinate system behind a loopback-only boundary: MGRS and UTM from one cursor, geodesy an
-                    evaluator can check, the compute engines contained under a path sandbox, two bearer tokens, a
-                    zero-copy digital twin, and the deployment footprint.
+                    MIL-STD-2525C symbology and exercises on a timeline, a real coordinate system behind a
+                    loopback-only boundary, MGRS and UTM from one cursor, geodesy an evaluator can check, and the
+                    deployment footprint.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
@@ -830,9 +829,9 @@
                 <div class="dl-type">AI Agent Builder One-Pager &middot; 2 pages</div>
                 <h3>For AI Agent Builders</h3>
                 <p>
-                    The agent's presentation surface: one loopback MCP endpoint, attach-don't-spawn, results that land
-                    on the globe by shape, named answers that survive a restart, fire-and-queue by design, and the
-                    read-back gaps stated.
+                    The agent's presentation surface: one loopback MCP endpoint, attach-don't-spawn, the scene sent
+                    with the question, results that land on the globe by shape, named answers that survive a restart,
+                    and the read-back gaps stated.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
