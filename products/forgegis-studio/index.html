@@ -254,7 +254,7 @@
 
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">Forge Suite &middot; v1.2.4</div>
+        <div class="flagship-badge">Forge Suite &middot; v1.2.5</div>
         <h1>ForgeGIS <span>Studio</span><sup class="tm">&trade;</sup></h1>
         <p class="tagline">Where you see the Forge suite work &mdash; and shape it to your mission</p>
         <p class="categorical-claim">
@@ -300,6 +300,43 @@
         </figcaption>
     </figure>
 </div>
+
+<section class="block tinted">
+    <div class="container">
+        <h2 class="center">New in 1.2.5</h2>
+        <p class="section-intro center">Your own files in, any tile service on the map, and a map that behaves like the globe beside it.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>Bring the files you already have</h3>
+                <p>
+                    KML, KMZ, and zipped shapefiles (with their <code>.prj</code>) drop straight into the session
+                    from the browser. Zipped and KMZ uploads are checked against size limits before anything is
+                    unpacked.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Any tile service, by URL</h3>
+                <p>
+                    Add an XYZ, WMS, or WMTS layer by pasting its address. The value under the pointer is now read
+                    one cell at a time, straight from the raster, instead of downloading the whole raster on every
+                    move.
+                </p>
+            </div>
+            <div class="item">
+                <h3>The agent answers here</h3>
+                <p>
+                    Ask in Studio's chat and the answer is drawn on Studio's map, with the scene you are looking at
+                    sent along with the question. The map gained the Globe's right-click menu, navigation strip,
+                    and Home button, so moving between the two feels like one product.
+                </p>
+            </div>
+        </div>
+        <figure class="shot" style="max-width: 1040px; margin: 32px auto 0;">
+            <a href="img/studio-vector-drop.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/studio-vector-drop.webp" alt="ForgeGIS Studio with a small vector file dropped on the map: points and a line drawn over a world basemap, a landmarks layer on the pipeline canvas at right, and the Attributes table below listing five features with an expression filter and GeoJSON, GeoPackage and CSV export buttons" width="1590" height="903" loading="lazy"></a>
+            <figcaption>A small vector file dropped onto Studio's map: its features drawn over the basemap, the layer on the pipeline canvas, and its attribute table below &mdash; filter by expression, export as GeoJSON, GeoPackage, or CSV.</figcaption>
+        </figure>
+    </div>
+</section>
 
 <section class="block">
     <div class="container">
@@ -399,13 +436,12 @@
         <p class="section-intro center">The most distinctive thing Studio does: a natural-language agent acts on the operator's own map &mdash; not a copy.</p>
         <div class="split narrow-img">
             <div class="split-text">
-                <h3>Two paths, one deliberately more capable</h3>
+                <h3>It acts on the map, through its own door</h3>
                 <p>
-                    Over the plain chat rail, ForgeMind answers in text and runs read-only operations. To
-                    <em>act</em> on the canvas &mdash; place markers, draw overlays, push reports &mdash; the agent
-                    connects through the <code>studio-mcp</code> bridge, an authenticated channel that exposes
-                    Studio's map as MCP tools. Reading the map is lightweight and always available; driving the map
-                    requires the bridge and its credential.
+                    Ask in Studio's chat and ForgeMind can <em>act</em> on the canvas &mdash; place markers, draw
+                    overlays, move the camera, push reports. It does so through the <code>studio-mcp</code> bridge,
+                    an authenticated channel that exposes Studio's map as MCP tools, so the ability to change the
+                    operator's map sits behind its own credential.
                 </p>
                 <h3>Work that persists</h3>
                 <p>
@@ -613,6 +649,11 @@
             What makes the progression credible is the architecture Studio already has: a thin surface over engines
             that own their own resource accounting, and a security model explicit about exactly what must be added
             before the port leaves the loopback. The foundation was built to be grown from.
+        </p>
+        <p class="routing-note">
+            The first step shipped in 1.2.5: the suite's compute broker spreads batch jobs across GPU workers on
+            one machine or a fleet. In this release ForgeMind is what sends it work; Studio runs its own batch
+            jobs locally, for now.
         </p>
     </div>
 </section>

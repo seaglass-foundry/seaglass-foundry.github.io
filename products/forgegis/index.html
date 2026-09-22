@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era</title>
-    <meta name="description" content="ForgeGIS: GPU-accelerated geospatial compute and a native MCP server in pure Java. 239 operations, 237 agent-callable, 9×–56× multi-stage pipeline speedups vs GDAL.">
+    <meta name="description" content="ForgeGIS: GPU-accelerated geospatial compute and a native MCP server in pure Java. Nearly every operation callable by an AI agent; 9×–56× multi-stage pipeline speedups vs GDAL.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/">
     <meta property="og:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
-    <meta property="og:description" content="GPU-accelerated geospatial compute and a native Model Context Protocol server, distributed as pure-Java Maven artifacts. 239 operations across 11 categories, 237 callable by AI agents, 9×–56× multi-stage pipeline speedups vs GDAL.">
+    <meta property="og:description" content="GPU-accelerated geospatial compute and a native Model Context Protocol server, distributed as pure-Java Maven artifacts. Nearly every operation callable by an AI agent; 9×–56× multi-stage pipeline speedups vs GDAL.">
     <meta property="og:image" content="https://seaglassfoundry.com/products/forgegis/img/dt-03-breach-lake-dam-gorge.webp">
     <meta property="og:image:width" content="1440">
     <meta property="og:image:height" content="900">
@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/forgegis/img/dt-03-breach-lake-dam-gorge.webp">
     <meta name="twitter:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
-    <meta name="twitter:description" content="GPU-accelerated geospatial library and native MCP server, pure-Java Maven artifacts. 239 ops, 237 agent-callable, 9×–56× multi-stage pipeline speedups vs GDAL.">
+    <meta name="twitter:description" content="GPU-accelerated geospatial library and native MCP server, pure-Java Maven artifacts. Agent-callable end to end; 9×–56× multi-stage pipeline speedups vs GDAL.">
     <meta name="keywords" content="GPU-accelerated geospatial library, MCP geospatial server, Java GPU GIS, geospatial Model Context Protocol, GDAL alternative, Java GIS library, GPU GIS compute, agent-callable geospatial">
     <script type="application/ld+json">
     {
@@ -28,7 +28,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform (JVM)",
         "url": "https://seaglassfoundry.com/products/forgegis/",
-        "description": "A GPU-accelerated geospatial compute library and native Model Context Protocol (MCP) server, distributed as pure-Java Maven artifacts with no first-party native code, no GDAL native bindings, and no separate native install step. 239 user-facing operations across 11 categories; 237 callable by AI agents via MCP.",
+        "description": "A GPU-accelerated geospatial compute library and native Model Context Protocol (MCP) server, distributed as pure-Java Maven artifacts with no first-party native code, no GDAL native bindings, and no separate native install step. Nearly every operation is callable by AI agents via MCP.",
         "programmingLanguage": "Java",
         "creator": {
             "@type": "Organization",
@@ -742,13 +742,13 @@
 
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">Flagship Release &middot; v1.2.4</div>
+        <div class="flagship-badge">Flagship Release &middot; v1.2.5</div>
         <h1>ForgeGIS<sup class="tm">&trade;</sup></h1>
         <p class="tagline">GPU-Accelerated Geospatial Compute for the Agent Era</p>
         <p class="categorical-claim">
             As of August 2026, <em>the only commercially-supported GPU-accelerated geospatial MCP server we have been able to identify</em>.
             Distributed as pure-Java Maven artifacts &mdash; no first-party native code, no GDAL native bindings, no separate native install step.
-            239 user-facing operations across 11 geospatial categories; 237 callable by AI agents through a native Model Context Protocol server.
+            Nearly every operation is callable by an AI agent through a native Model Context Protocol server.
         </p>
         <div class="cta-group">
             <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20evaluation" class="btn btn-primary">Request evaluation access</a>
@@ -761,12 +761,12 @@
 <section class="stats">
     <div class="stats-grid">
         <div class="stat">
-            <div class="number">239<span class="accent"> / 11</span></div>
-            <div class="label">user-facing operations across 11 geospatial categories</div>
+            <div class="number">MCP<span class="accent"> native</span></div>
+            <div class="label">agents call the engine directly &mdash; no integration layer to build</div>
         </div>
         <div class="stat">
-            <div class="number">237<span class="accent"> / 239</span></div>
-            <div class="label">operations callable by AI agents via the native MCP server</div>
+            <div class="number">Pure<span class="accent"> Java</span></div>
+            <div class="label">Maven artifacts &mdash; no first-party native code, no GDAL bindings</div>
         </div>
         <div class="stat">
             <div class="number">9&times;&ndash;56&times;</div>
@@ -786,7 +786,7 @@
                     ForgeGIS is a GPU-accelerated geospatial compute library and a native Model Context Protocol server,
                     both written in Java. It runs raster, hydrology, visibility, spectral, ML, and point-cloud
                     workloads on the GPU through Java-side compute kernels, alongside a large vector and topology
-                    surface in pure Java &mdash; and exposes 237 of its 239 operations to AI agents through MCP.
+                    surface in pure Java &mdash; and hands almost its entire catalog to AI agents through MCP.
                 </p>
             </div>
             <div class="item">
@@ -824,16 +824,16 @@
             <div class="arch-surfaces">
                 <div class="arch-surface">
                     <div class="surface-label">Surface 1 &mdash; Pipeline DSL</div>
-                    <div class="surface-name">152 operations</div>
+                    <div class="surface-name">Most of the catalog, composable</div>
                     <p>
                         Composable JSON pipeline format. Agents assemble multi-stage workflows
-                        (read &rarr; reproject &rarr; mask &rarr; classify &rarr; write) inside a single MCP call &mdash;
-                        non-linear DAGs as of 1.1.
+                        (read &rarr; reproject &rarr; mask &rarr; classify &rarr; write) inside a single MCP call,
+                        including branching DAGs &mdash; the same document format Studio saves.
                     </p>
                 </div>
                 <div class="arch-surface">
                     <div class="surface-label">Surface 2 &mdash; Typed Intent Tools</div>
-                    <div class="surface-name">60 single-call tools</div>
+                    <div class="surface-name">Single-call tools</div>
                     <p>
                         Strongly-typed MCP tools for the most common operations. One MCP tool per intent,
                         with structured inputs and validated arguments.
@@ -841,10 +841,8 @@
                 </div>
             </div>
             <div class="arch-total">
-                <strong>68 MCP tools total</strong> &mdash; 60 typed intent tools, 5 primitive handle/session tools,
-                and 3 pipeline-escape tools &middot; 237 of 239 catalog operations reachable from an agent.
-                New in 1.1: a MINIMAL 8-tool surface (the 5 primitive + 3 escape tools) is advertised by default;
-                opt into the full 68 with <code>--profile standard</code>.
+                Between the two surfaces, an agent can reach nearly the whole catalog &mdash; through a typed tool
+                where one exists, or by composing the operation it needs into a pipeline.
             </div>
         </div>
     </div>
@@ -853,7 +851,7 @@
 <section class="block">
     <div class="container">
         <h2 class="center">Beyond the catalog: the pipeline engine and the vector surface</h2>
-        <p class="section-intro center">A non-linear DAG pipeline engine, QGIS model import, a doubled vector surface, a bundled geoid, and profile-gated discovery &mdash; five ways the architecture extends beyond the operation catalog.</p>
+        <p class="section-intro center">A non-linear DAG pipeline engine, QGIS model import, a broad vector surface, a bundled geoid, and profile-gated discovery &mdash; five ways the architecture extends beyond the operation catalog.</p>
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="feat-tag">Pipeline</div>
@@ -880,7 +878,7 @@
                 <div class="feat-tag">Vector surface</div>
                 <h3>Boolean overlay, dissolve, Voronoi &amp; more</h3>
                 <p>
-                    The vector surface more than doubled: boolean overlay (difference, intersection), dissolve,
+                    A broad vector surface: boolean overlay (difference, intersection), dissolve,
                     Voronoi polygons, variable buffering, field calculators, and a clean-room expression
                     interpreter &mdash; closing the full raster&harr;vector handoff grid.
                 </p>
@@ -889,18 +887,18 @@
                 <div class="feat-tag">Vertical datum</div>
                 <h3>Bundled EGM96 geoid</h3>
                 <p>
-                    The first dataset ForgeGIS ships. Orthometric/ellipsoidal vertical-datum conversion works out of
-                    the box &mdash; relevant wherever elevation reference frames matter to the product.
+                    The EGM96 geoid ships with the library, so orthometric/ellipsoidal vertical-datum conversion
+                    works with nothing else to download &mdash; relevant wherever elevation reference frames matter to the product.
                 </p>
             </div>
             <div class="feature-card">
                 <div class="feat-tag">Agent context</div>
                 <h3>Profile-gated discovery</h3>
                 <p>
-                    The MCP server advertises a MINIMAL 8-tool surface by default (5 primitive + 3 pipeline-escape),
-                    keeping an agent's tool list inside context and rate-limit budgets. Opt into the full 68-tool
-                    STANDARD surface with <code>--profile standard</code>; hidden tools remain callable by name &mdash;
-                    the profile governs discovery, not capability.
+                    The MCP server advertises a compact core surface by default, keeping an agent's tool list
+                    inside context and rate-limit budgets. Opt into the full typed surface with
+                    <code>--profile standard</code>; hidden tools remain callable by name &mdash; the profile governs
+                    discovery, not capability.
                 </p>
             </div>
         </div>
@@ -909,12 +907,12 @@
 
 <section class="block tinted">
     <div class="container">
-        <h2 class="center">The digital twin &mdash; shipped in 1.2.3</h2>
+        <h2 class="center">The digital twin</h2>
         <p class="section-intro center">
             GPU simulators exist; what a running ForgeGIS twin adds is the ability to branch one mid-event, and a
-            recording that proves what you were shown. Demonstrated over real SRTM terrain around Hoover Dam: a routed
-            release paused at epoch 54 and forked at ten times the rate, opening a &asymp;1.3&nbsp;km&sup3; wedge
-            between the two worlds &mdash; exactly what the closed-form law predicts.
+            recording that proves what you were shown. Demonstrated over real terrain around Hoover Dam: a routed
+            release paused mid-event and forked at ten times the rate &mdash; and the gap that opened between the
+            two worlds is exactly what the closed-form law predicts.
         </p>
         <div class="three-up">
             <div class="item">
@@ -955,24 +953,23 @@
             <li>
                 <div class="perf-num">7.5&times; geomean</div>
                 <div class="perf-text">
-                    geometric-mean speedup across <strong>225 catalog comparison records</strong>
-                    (op &times; raster-scale measurements) vs GDAL CLI, no category excluded, with
-                    <strong>206 wins of 225</strong>.
+                    geometric-mean speedup vs GDAL CLI across the full catalog comparison, no category excluded
+                    &mdash; ForgeGIS is faster in <strong>more than nine comparisons in ten</strong>.
                 </div>
             </li>
             <li>
                 <div class="perf-num">9&times;&ndash;56&times;</div>
                 <div class="perf-text">
-                    speedup on <strong>multi-stage GPU-resident pipelines</strong> at 1024&sup2;&ndash;4096&sup2; rasters
-                    (read &rarr; transform &rarr; analyze &rarr; write) &mdash; the PIPELINE category posts a
-                    <strong>26.8&times; geometric mean</strong> over equivalent GDAL CLI chains.
+                    speedup on <strong>multi-stage GPU-resident pipelines</strong>
+                    (read &rarr; transform &rarr; analyze &rarr; write), where intermediates never leave the GPU
+                    and GDAL pays for a file round-trip at every stage.
                 </div>
             </li>
             <li>
-                <div class="perf-num">1.8&times;&ndash;12.7&times;</div>
+                <div class="perf-num">Every category</div>
                 <div class="perf-text">
-                    <strong>per-category geometric means</strong> across transform, resample, vectorize,
-                    zonal/focal, warp, terrain, and I/O operations vs GDAL CLI.
+                    faster on average in <strong>every operation category measured</strong> &mdash; transform,
+                    resample, vectorize, zonal/focal, warp, terrain, and I/O.
                 </div>
             </li>
         </ul>
@@ -994,15 +991,15 @@
             <div class="item">
                 <h3>A million real footprints</h3>
                 <p>
-                    Microsoft building footprints for Houston through a seven-operation chain &mdash; reproject,
+                    Microsoft building footprints for Houston through a chain of real operations &mdash; reproject,
                     shape metrics, setback buffer, points-in-polygons join, classify &mdash; at
-                    <strong>124,785 features/sec</strong> measured around each operation.
+                    <strong>about 125,000 features a second</strong>.
                 </p>
             </div>
             <div class="item">
                 <h3>Near-flat across an order of magnitude</h3>
                 <p>
-                    Throughput varies by just <strong>2.03&times;</strong> between 100k and 1M features, because
+                    Throughput stays within about a factor of two between a hundred thousand and a million features, because
                     every intermediate stays in process as an immutable handle and there is no per-stage file I/O
                     term to grow with N.
                 </p>
@@ -1010,7 +1007,7 @@
             <div class="item">
                 <h3>A ceiling that says so</h3>
                 <p>
-                    The 5M tier is refused before a byte is read, with the heap arithmetic in the message. A scale
+                    The next tier up is refused before a byte is read, with the memory arithmetic in the message. A scale
                     curve that hides where it stops is a marketing curve, so this one states it.
                 </p>
             </div>
@@ -1024,7 +1021,7 @@
 <section class="block" id="performance-demo">
     <div class="container">
         <h2 class="center">Performance demonstration</h2>
-        <p class="section-intro center">62 operations on real terrain &mdash; Cop30 DEM (Grand Canyon, Alps, UTM zone 33N) and a 6-band Sentinel-2 scene &mdash; side-by-side with GDAL. Wall-clock on both sides, cumulative speedup at the bottom strip, no cuts.</p>
+        <p class="section-intro center">A long run of operations on real terrain &mdash; Copernicus elevation over the Grand Canyon and the Alps, and a Sentinel-2 scene &mdash; side by side with GDAL. Wall-clock on both sides, the running speedup along the bottom, no cuts.</p>
         <div class="demo-embed">
             <div class="demo-frame">
                 <iframe
@@ -1077,11 +1074,11 @@
             </a>
             <a href="downloads/forgegis-agent-onepager.pdf" class="audience-card">
                 <div class="aud-label">For AI agent builders</div>
-                <h3>Native MCP server, 237 agent-callable ops</h3>
+                <h3>A native MCP server, agent-callable end to end</h3>
                 <p>
                     Drop ForgeGIS into an LLM agent platform or workflow runner and get an immediate geospatial
                     surface: pipeline DSL for composable multi-stage work, typed intent tools for single calls.
-                    68 MCP tools cover 237 of 239 catalog operations.
+                    Nearly every catalog operation is reachable from an agent.
                 </p>
                 <span class="card-cta">Download agent one-pager (PDF)</span>
             </a>
@@ -1102,25 +1099,25 @@
 <section class="block">
     <div class="container">
         <h2 class="center">Capability catalog</h2>
-        <p class="section-intro center">239 operations across 11 categories. The full catalog with operation-level descriptions is in the Technical Brief.</p>
+        <p class="section-intro center">What the engine covers. The full catalog, operation by operation, is in the Technical Brief.</p>
         <div class="catalog">
             <div class="catalog-grid">
-                <div class="cat-item"><span class="cat-name">Terrain</span><span class="cat-count">14</span></div>
-                <div class="cat-item"><span class="cat-name">Bathymetry / Ocean</span><span class="cat-count">14</span></div>
-                <div class="cat-item"><span class="cat-name">Hydrology</span><span class="cat-count">7</span></div>
-                <div class="cat-item"><span class="cat-name">Visibility / RF</span><span class="cat-count">8</span></div>
-                <div class="cat-item"><span class="cat-name">Spectral / ML</span><span class="cat-count">30</span></div>
-                <div class="cat-item"><span class="cat-name">Spatial Geometry</span><span class="cat-count">94</span></div>
-                <div class="cat-item"><span class="cat-name">Filtering / Focal / Morphology</span><span class="cat-count">14</span></div>
-                <div class="cat-item"><span class="cat-name">Raster Mgmt / Vectorize / IO</span><span class="cat-count">44</span></div>
-                <div class="cat-item"><span class="cat-name">Routing</span><span class="cat-count">7</span></div>
-                <div class="cat-item"><span class="cat-name">Point Cloud</span><span class="cat-count">5</span></div>
-                <div class="cat-item"><span class="cat-name">Temporal</span><span class="cat-count">2</span></div>
+                <div class="cat-item"><span class="cat-name">Terrain</span></div>
+                <div class="cat-item"><span class="cat-name">Bathymetry / Ocean</span></div>
+                <div class="cat-item"><span class="cat-name">Hydrology</span></div>
+                <div class="cat-item"><span class="cat-name">Visibility / RF</span></div>
+                <div class="cat-item"><span class="cat-name">Spectral / ML</span></div>
+                <div class="cat-item"><span class="cat-name">Spatial Geometry</span></div>
+                <div class="cat-item"><span class="cat-name">Filtering / Focal / Morphology</span></div>
+                <div class="cat-item"><span class="cat-name">Raster Mgmt / Vectorize / IO</span></div>
+                <div class="cat-item"><span class="cat-name">Routing</span></div>
+                <div class="cat-item"><span class="cat-name">Point Cloud</span></div>
+                <div class="cat-item"><span class="cat-name">Temporal</span></div>
             </div>
             <div class="catalog-note">
                 <strong>Topology completeness.</strong> The Spatial Geometry category includes full DE-9IM coverage:
-                the 8 OGC named predicates, 3 JTS extensions, the <code>Relate</code> operation, and the raw
-                9-character intersection matrix per geometry-type pair. Few GPU libraries surface the full DE-9IM
+                every OGC named predicate, the JTS extensions, the <code>Relate</code> operation, and the raw
+                intersection matrix per geometry-type pair. Few GPU libraries surface the full DE-9IM
                 relate matrix &mdash; most stop at named predicates.
             </div>
         </div>

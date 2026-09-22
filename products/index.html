@@ -332,27 +332,27 @@
                     <h2>Forge<span>GIS</span><sup class="tm">&trade;</sup></h2>
                     <p class="tagline">GPU-accelerated geospatial compute &amp; native MCP server &mdash; pure Java</p>
                     <p class="description">
-                        239 user-facing operations across 11 geospatial categories, 237 callable by AI agents
-                        through a native Model Context Protocol server. Pure-Java Maven artifacts, no GDAL native
+                        Raster, hydrology, and point-cloud work on the GPU and a large vector library in pure Java,
+                        nearly all of it callable by an AI agent through a native Model Context Protocol server. Pure-Java Maven artifacts, no GDAL native
                         bindings &mdash; and as of August 2026, the only commercially-supported GPU-accelerated
-                        geospatial MCP server we have been able to identify. Release 1.2.3 adds the
+                        geospatial MCP server we have been able to identify. It includes a
                         <strong>digital twin</strong>: a simulation that records itself as it runs, so it can be
-                        replayed frame by frame, forked into a what-if that shares history byte-for-byte, and
+                        replayed frame by frame, forked into a what-if that shares its history exactly, and
                         verified against itself afterwards.
                     </p>
                     <div class="meta">
-                        <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.4
+                        <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.5
                     </div>
                     <span class="card-cta">Learn more</span>
                 </div>
                 <div class="card-stats">
                     <div class="stat-item">
-                        <div class="num">239<span class="accent">&nbsp;/&nbsp;11</span></div>
-                        <div class="lbl">operations across 11 geospatial categories</div>
+                        <div class="num">MCP <span class="accent">native</span></div>
+                        <div class="lbl">agents call the engine directly, with no integration layer</div>
                     </div>
                     <div class="stat-item">
-                        <div class="num">237<span class="accent">&nbsp;/&nbsp;239</span></div>
-                        <div class="lbl">agent-callable through native MCP</div>
+                        <div class="num">Pure <span class="accent">Java</span></div>
+                        <div class="lbl">no native build, no GDAL bindings</div>
                     </div>
                     <div class="stat-item">
                         <div class="num">9&times;&ndash;56&times;</div>
@@ -369,12 +369,13 @@
             <p class="description">
                 The natural-language control plane for ForgeGIS. It compiles a plain-language request into a
                 validated, executed pipeline on the GPU-accelerated engine, and refuses by construction when a
-                request cannot be honored correctly. Zero confident-wrong results across 79 conversations and
-                6,696 validated turns &mdash; at roughly 25&times; lower model cost than an agent loop.
-                LLM-agnostic; native to the Model Context Protocol in both directions.
+                request cannot be honored correctly. Across its June 2026 validation campaign it returned no
+                confident wrong answers, at roughly 25&times; lower model cost than an agent loop. Runs on Claude,
+                OpenAI, Gemini, Grok, or a model you host yourself; native to the Model Context Protocol in both
+                directions.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.4
+                <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.5
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -384,12 +385,13 @@
             <h2>Forge<span>Data</span><sup class="tm">&trade;</sup></h2>
             <p class="tagline">The data-intelligence layer &mdash; ask for data by intent</p>
             <p class="description">
-                Cost-aware routing, a portable single-file GeoPackage catalog, and a 49-tool MCP surface that turn
-                thirteen heterogeneous sources into one ranked answer &mdash; the best-fit correct dataset, with
-                access cost as the deciding tiebreaker. Bundled with the Forge suite.
+                Ask for data by what you need it for, not where it lives. ForgeData searches public elevation,
+                imagery, and vector sources alongside your own and answers with the best-fit dataset &mdash; access
+                cost breaking the tie &mdash; from a portable, single-file GeoPackage catalog. Bundled with the
+                Forge suite.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.4
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.5
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -405,25 +407,26 @@
                 suite, not sold separately.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.4
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.5
             </div>
             <span class="card-cta">Learn more</span>
         </a>
 
         <a href="/products/seaglass-globe/" class="product-card">
-            <span class="card-badge badge-dev">Forge Suite &middot; The 3D view &middot; New in 1.2.4</span>
+            <span class="card-badge badge-dev">Forge Suite &middot; The 3D view</span>
             <h2>Seaglass <span>Globe</span><sup class="tm">&trade;</sup></h2>
             <p class="tagline">A precision WGS-84 virtual globe &mdash; the suite's optional 3D view</p>
             <p class="description">
-                Twenty thousand kilometres to a rooftop in one continuous move, on a WGS-84 ellipsoid held in double
-                precision. Real geodesy with the algorithm named beside every number, your own GeoJSON, KML and
-                shapefiles on the layer stack, live feeds, and the suite's GPU compute run on the globe. It is also
+                From orbit to a rooftop in one continuous move, on a WGS-84 ellipsoid held in double precision.
+                Real geodesy with the method named beside every measurement, your own GeoJSON, KML and shapefiles
+                on the layer stack, and the suite's GPU compute run on the globe. New in 1.2.5: MIL-STD-2525C
+                military symbology and scenarios replayed on a timeline. It is also
                 the agent's presentation surface: when it is running, ForgeMind's visual answers are drawn on the
                 globe rather than only described. Needs a real GPU; installed as an opt-in component of the Seaglass
                 Control Center.
             </p>
             <div class="meta">
-                <strong>Windows x64</strong> &middot; Optional suite component &middot; v1.2.4
+                <strong>Windows x64</strong> &middot; Optional suite component &middot; v1.2.5
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -434,11 +437,12 @@
             <p class="tagline">One download that installs, configures, and operates the Forge suite</p>
             <p class="description">
                 A single installer that is also a living dashboard: a private Java runtime and the full suite laid
-                down with no prerequisites on the target machine, one live-validated API key, then service control,
-                health, live logs, a data gallery, and agent chat &mdash; all from one window.
+                down with no prerequisites on the target machine, your AI provider connected and checked, then
+                service control, health, live logs, the data catalog, and agent chat &mdash; all from one window.
+                New in 1.2.5: it also installs and runs the ForgeRelay<sup class="tm">&trade;</sup> exercise recorder and a GPU compute broker.
             </p>
             <div class="meta">
-                <strong>Windows x64</strong> &middot; Not sold separately &middot; v1.2.4
+                <strong>Windows x64</strong> &middot; Not sold separately &middot; v1.2.5
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -514,7 +518,7 @@
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
         <div class="footer-marks">
-            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Globe&trade;, Seaglass Control Center&trade;, SwingToPDF&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Globe&trade;, ForgeRelay&trade;, Seaglass Control Center&trade;, SwingToPDF&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
             NASA WorldWind, GDAL, Apache PDFBox, GeoPackage, the Model Context Protocol, Java, and other third-party products and marks referenced are the property of their respective owners.
             Worldwind Reforged is an independent community modernization and is not affiliated with or endorsed by NASA.
         </div>

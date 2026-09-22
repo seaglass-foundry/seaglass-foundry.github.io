@@ -10,14 +10,14 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgedata/">
     <meta property="og:title" content="ForgeData — The Data-Intelligence Layer of the Forge Suite">
-    <meta property="og:description" content="Ask for geospatial data by intent and get the best-fit correct dataset across thirteen heterogeneous sources. Cost-aware routing, a portable single-file catalog, and a 49-tool MCP surface. Bundled with the Forge suite.">
+    <meta property="og:description" content="Ask for geospatial data by intent and get the best-fit correct dataset across thirteen heterogeneous sources. Cost-aware routing, a portable single-file catalog, and a native MCP surface. Bundled with the Forge suite.">
     <meta property="og:image" content="https://seaglassfoundry.com/products/control-center/img/cc-06-data-gallery.webp">
     <meta property="og:image:width" content="1387">
     <meta property="og:image:height" content="981">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/control-center/img/cc-06-data-gallery.webp">
     <meta name="twitter:title" content="ForgeData — The Data-Intelligence Layer of the Forge Suite">
-    <meta name="twitter:description" content="Cost-aware geospatial data routing across 13 sources, one portable catalog file, 49 MCP tools. Bundled with the Forge suite.">
+    <meta name="twitter:description" content="Cost-aware geospatial data routing across thirteen source types, one portable catalog file, native MCP. Bundled with the Forge suite.">
     <meta name="keywords" content="geospatial data routing, cost-aware data catalog, GeoPackage catalog, MCP data layer, STAC PostGIS COG routing, derived-product memory, ForgeGIS data layer, heterogeneous geospatial sources">
     <script type="application/ld+json">
     {
@@ -27,7 +27,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform (JVM)",
         "url": "https://seaglassfoundry.com/products/forgedata/",
-        "description": "ForgeData is the data-intelligence layer of the Forge suite. It provides cost-aware routing, a portable single-file GeoPackage catalog, and a 49-tool Model Context Protocol surface so an agent can ask for geospatial data by intent and receive the best-fit correct dataset — ranked by coverage and resolution with access cost as the tiebreaker — across thirteen heterogeneous source types. Bundled with the Forge suite.",
+        "description": "ForgeData is the data-intelligence layer of the Forge suite. It provides cost-aware routing, a portable single-file GeoPackage catalog, and a Model Context Protocol surface so an agent can ask for geospatial data by intent and receive the best-fit correct dataset — ranked by coverage and resolution with access cost as the tiebreaker — across thirteen heterogeneous source types. Bundled with the Forge suite.",
         "programmingLanguage": "Java",
         "creator": {
             "@type": "Organization",
@@ -267,7 +267,7 @@
 
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">Forge Suite &middot; v1.2.4</div>
+        <div class="flagship-badge">Forge Suite &middot; v1.2.5</div>
         <h1>ForgeData<sup class="tm">&trade;</sup></h1>
         <p class="tagline">The data-intelligence layer of the Forge suite</p>
         <p class="categorical-claim">
@@ -291,16 +291,16 @@
             <div class="label">heterogeneous source types behind one query interface</div>
         </div>
         <div class="stat">
-            <div class="number">49</div>
-            <div class="label">MCP tools over stdio JSON-RPC &mdash; the same surface ForgeMind and Studio consume</div>
+            <div class="number">One<span class="accent"> file</span></div>
+            <div class="label">the whole catalog and its refresh recipes in one GeoPackage, with no secrets inside</div>
         </div>
         <div class="stat">
-            <div class="number">47</div>
-            <div class="label">spatial operations bound to data requirements in the routing registry</div>
+            <div class="number">Fidelity<span class="accent"> first</span></div>
+            <div class="label">coverage and resolution decide; access cost only breaks the tie</div>
         </div>
         <div class="stat">
-            <div class="number">5</div>
-            <div class="label">access tiers, cheapest to most expensive &mdash; self-calibrating on measured latency</div>
+            <div class="number">Shared</div>
+            <div class="label">new in 1.2.5: on an install for everyone, a read-only catalog every account can read</div>
         </div>
     </div>
 </section>
@@ -429,6 +429,16 @@
                 </p>
             </div>
             <div class="feature-card">
+                <div class="feat-tag">New in 1.2.5</div>
+                <h3>One catalog for every account</h3>
+                <p>
+                    When the suite is installed for everyone on a workstation, each user keeps a private catalog and
+                    also reads a shared, read-only one for the whole machine. Publishing a folder to the shared catalog takes Administrator
+                    approval, so what everyone sees is curated. Seaglass Globe scenarios can be registered in the
+                    catalog by reference, beside the data they sit on.
+                </p>
+            </div>
+            <div class="feature-card">
                 <div class="feat-tag">Gets faster with use</div>
                 <h3>Derived-product memory</h3>
                 <p>
@@ -491,7 +501,7 @@
                 <div class="aud-label">For AI agent builders</div>
                 <h3>Geospatial data routing, native to MCP</h3>
                 <p>
-                    A 49-tool server an agent hands a data question to &mdash; which dataset covers this area at the
+                    An MCP server an agent hands a data question to &mdash; which dataset covers this area at the
                     right resolution, and what does it cost to read? &mdash; and gets back a ranked, costed answer
                     instead of a hardcoded path, with structured errors an agent can branch on.
                 </p>
@@ -548,7 +558,7 @@
                 <div class="dl-type">Agent One-Pager &middot; 2 pages</div>
                 <h3>AI Agent Builders Variant</h3>
                 <p>
-                    For AI agent builders and MCP-native runners. Leads on the 49-tool MCP surface, intent-based
+                    For AI agent builders and MCP-native runners. Leads on the MCP surface, intent-based
                     routing, structured refusal, and derived-product memory.
                 </p>
                 <span class="dl-cta">Download PDF</span>

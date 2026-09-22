@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seaglass Globe — A Precision WGS-84 Virtual Globe, and the Forge Suite's 3D View</title>
-    <meta name="description" content="Seaglass Globe: a precision WGS-84 virtual globe in double precision — twenty thousand kilometres to a rooftop in one move — and the Forge suite's optional 3D view.">
+    <meta name="description" content="Seaglass Globe: a precision WGS-84 virtual globe in double precision — orbit to a rooftop in one move, with MIL-STD-2525C symbology — and the Forge suite's optional 3D view.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/seaglass-globe/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="preconnect" href="https://www.youtube-nocookie.com">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/seaglass-globe/">
     <meta property="og:title" content="Seaglass Globe — A Precision WGS-84 Virtual Globe, and the Forge Suite's 3D View">
-    <meta property="og:description" content="Twenty thousand kilometres to a rooftop in one move, on a WGS-84 ellipsoid in double precision. Real geodesy, your data, live feeds, compute on the globe — the optional 3D view of the Forge suite. Watch the release film.">
+    <meta property="og:description" content="Orbit to a rooftop in one move, on a WGS-84 ellipsoid in double precision. Real geodesy, your data, live feeds, military symbology and scenario replay, compute on the globe — the optional 3D view of the Forge suite.">
     <meta property="og:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="720">
@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta name="twitter:title" content="Seaglass Globe — The Forge Suite's 3D View">
-    <meta name="twitter:description" content="A precision WGS-84 virtual globe — 20 000 km to a rooftop, no cut. The Forge suite's optional 3D view and the surface the agent draws on. Watch the film.">
+    <meta name="twitter:description" content="A precision WGS-84 virtual globe — orbit to a rooftop, no cut, now with MIL-STD-2525C symbology. The Forge suite's optional 3D view and the surface the agent draws on.">
     <meta name="keywords" content="Seaglass Globe, WGS-84 virtual globe, 3D globe Rust wgpu, precision globe f64, Vincenty Karney geodesy, GeoJSON KML shapefile globe, WMS WMTS XYZ MVT viewer, live earthquake NWS AIS globe, digital twin zero-copy globe, Forge suite 3D view, agent presentation surface MCP, GPU globe Windows x64">
     <script type="application/ld+json">
     {
@@ -310,15 +310,15 @@
 
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">New in 1.2.4 &middot; Forge Suite</div>
+        <div class="flagship-badge">Forge Suite &middot; v1.2.5</div>
         <h1>Seaglass <span>Globe</span><sup class="tm">&trade;</sup></h1>
         <p class="tagline">A WGS-84 ellipsoid, in double precision, all the way down</p>
         <p class="categorical-claim">
-            Twenty thousand kilometres to a rooftop, in one move &mdash; <em>no cut, no dissolve, no swapping one
-            scene for another</em> &mdash; the same globe the whole way down. Real elevation, real imagery, real
-            geodesy with the algorithm named beside every number, your own data on the stack, live feeds, and
-            compute that runs where you are looking. The optional 3D view of the Forge suite, and the surface the
-            agent draws on.
+            From orbit to a rooftop, in one move &mdash; <em>no cut, no dissolve, no swapping one scene for
+            another</em> &mdash; the same globe the whole way down. Real elevation, real imagery, real geodesy with
+            the method named beside every measurement, your own data on the stack, live feeds, military symbology,
+            and compute that runs where you are looking. The optional 3D view of the Forge suite, and the surface
+            the agent draws on.
         </p>
         <div class="cta-group">
             <a href="#film" class="btn btn-primary">Watch the film</a>
@@ -331,16 +331,47 @@
 <section class="stats">
     <div class="stats-grid">
         <div class="stat">
-            <div class="number">20&#8239;000&nbsp;km<br><span class="accent">&rarr; rooftop</span></div>
-            <div class="label">One continuous move &mdash; no cut, no scene swap; the same globe the whole way down</div>
+            <div class="number">Orbit<br><span class="accent">&rarr; rooftop</span></div>
+            <div class="label">One continuous move, on the same globe the whole way down</div>
         </div>
         <div class="stat">
             <div class="number">f64<br><span class="accent">all the way down</span></div>
-            <div class="label">Precision held relative to the camera &mdash; world space stays double until the subtraction, so the ground stops shimmering exactly where a single-precision engine starts to</div>
+            <div class="label">Double precision held relative to the camera, so the ground doesn't shimmer where a single-precision engine would</div>
         </div>
         <div class="stat">
             <div class="number">WGS-84<br><span class="accent">ellipsoid</span></div>
-            <div class="label">a = 6&#8239;378&#8239;137&nbsp;m &middot; geodetic &harr; ECEF in f64 &middot; Vincenty inverse and Karney area, named beside every measurement</div>
+            <div class="label">Vincenty and Karney geodesy on the real ellipsoid, not a sphere</div>
+        </div>
+    </div>
+</section>
+
+<section class="block tinted" id="symbology">
+    <div class="container">
+        <h2 class="center">New in 1.2.5: military symbology and scenario replay</h2>
+        <p class="section-intro center">MIL-STD-2525C symbols and tactical graphics drawn on the globe, and scenarios you can play, pause, and step through on a timeline.</p>
+        <div class="shot-pair">
+            <figure class="shot">
+                <a href="img/globe-2525.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/globe-2525.webp" alt="The NTC brigade advance demo scenario in Seaglass Globe: three unit symbols, phase lines AMBER and RUBY, objective GOLD as a blue box, an axis-of-advance arrow and a range fan, with the timeline and its event list docked below the map" width="1600" height="900" loading="lazy"></a>
+                <figcaption>The demo scenario that ships with the suite: unit symbols, phase lines, an objective, an axis of advance, and a range fan, with the scenario's timeline and events below.</figcaption>
+            </figure>
+            <figure class="shot">
+                <a href="img/globe-replay.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/globe-replay.webp" alt="A recorded DIS exercise replayed in Seaglass Globe: a platoon symbol and a company position marker with their tracks, a missile in flight, the timeline listing Fire and Detonation events, and the Scenarios panel on the right" width="1600" height="900" loading="lazy"></a>
+                <figcaption>An exercise ForgeRelay<sup class="tm">&trade;</sup> recorded from simulated DIS traffic, replayed on the globe: unit tracks, a missile in flight, and the Fire and Detonation events on the timeline.</figcaption>
+            </figure>
+        </div>
+        <div class="three-up">
+            <div class="item">
+                <h3>The symbols ship with it</h3>
+                <p>The MIL-STD-2525C symbol set installs with the Globe, so units draw with their proper frames and amplifiers from the first launch &mdash; alongside tactical graphics such as phase lines, objectives, axes of advance, and range fans.</p>
+            </div>
+            <div class="item">
+                <h3>A scenario is a timeline</h3>
+                <p>Play it in real time or compressed, forward or in reverse, or jump from event to event; the units move with the clock. The suite ships with a brigade-advance demo to try it on.</p>
+            </div>
+            <div class="item">
+                <h3>Record it, then replay it</h3>
+                <p>ForgeRelay, installed by the Control Center, records live DIS and Cursor-on-Target traffic in the same scenario format. In this release you open a recording by pointing the globe at its library &mdash; <a href="/products/control-center/#record">how recording works</a>.</p>
+            </div>
         </div>
     </div>
 </section>
@@ -365,16 +396,16 @@
         <div class="demo-methodology">
             <h3>What you're watching &mdash; 5:09</h3>
             <ul>
-                <li><strong>Act I &mdash; the Earth.</strong> Twenty thousand kilometres to a rooftop, at native speed, no cut. Terrain that doesn't stop at the waterline; a canyon whose shadows are where the depth is.</li>
+                <li><strong>Act I &mdash; the Earth.</strong> Orbit to a rooftop, at native speed, no cut. Terrain that doesn't stop at the waterline; a canyon whose shadows are where the depth is.</li>
                 <li><strong>Act II &mdash; a real coordinate system.</strong> New York to Los Angeles bows north, because on an ellipsoid that is the short way. Two clicks and the answer names its method &mdash; Vincenty (WGS-84); close a polygon and the badge flips to Karney. The same point as DD, DMS, UTM and MGRS. Four projections of one planet &mdash; the flat views are spherical projections; the ellipsoid lives in the geodesy and the measure tool.</li>
                 <li><strong>Act III &mdash; your data.</strong> A layer stack you drag, fade and hide; GeoJSON, KML and three-file shapefiles read as one layer; any WMS, WMTS, XYZ or MVT service you can name. The dark wedges in the MODIS layer are real: one day of a polar orbit, and where two passes did not meet, nobody took a picture.</li>
-                <li><strong>Act IV &mdash; compute on the globe.</strong> Ask the ground what elevation data exists there; contours at a typed 250&nbsp;m; a hillshade that re-computes and re-drapes at about 70&nbsp;ms per re-run while you are still holding the slider; a pipeline that forks into a graph.</li>
+                <li><strong>Act IV &mdash; compute on the globe.</strong> Ask the ground what elevation data exists there; contours at a typed interval; a hillshade that re-computes and re-drapes while you are still holding the slider; a pipeline that forks into a graph.</li>
                 <li><strong>Act V &mdash; scale.</strong> An export bigger than the screen; thirty days of the USGS catalogue replayed as a moving window &mdash; real data, replayed, not synthetic and not live.</li>
                 <li><strong>Act VI &mdash; the world, live.</strong> Earthquakes as reported, severe-weather warnings over the radar that produced them, ships under way &mdash; whatever the feeds said that day. Then two that are <em>not</em> live, kept apart under their own cards: a satellite catalogue <em>propagated</em> by SGP4 from cached elements, and a <em>modelled</em> flood &mdash; a hydraulic model, not a real event &mdash; streamed zero-copy from a digital twin.</li>
             </ul>
         </div>
         <p class="demo-rig">
-            Recorded at 1920&times;1080/60 from the application itself. The recorder drives a virtual clock &mdash; the scene advances exactly 1/60&nbsp;s per emitted frame &mdash; which is why the motion is unnaturally smooth. Nothing is composited over the footage except the title cards and the opening spec sheet.
+            Recorded from the application itself on a virtual clock that advances the scene one frame at a time, which is why the motion is unnaturally smooth. Nothing is composited over the footage except the title cards and the opening spec sheet.
         </p>
     </div>
 </section>
@@ -399,7 +430,6 @@
             <dt>Agents</dt><dd>it can be flown by software &mdash; MCP tools for the suite's agent</dd>
             </dl>
         </div>
-        <p class="spec-sheet-note">Naming WGS-84 is table stakes; printing its semi-major axis is the claim that you implemented it. The flat projections use that axis as a sphere radius &mdash; the ellipsoid is in the geodesy and the measure tool, not the map projections.</p>
     </div>
 </section>
 
@@ -432,8 +462,7 @@
                 <h3>How it's built differently</h3>
                 <p>
                     The numbers on screen are the render's own: precision held relative to the camera so a rooftop
-                    does not shimmer, a measurement that prints its method, a spec sheet with a semi-major axis on
-                    it. It reads what you already have &mdash; GeoJSON, KML, shapefiles, any tile service you can
+                    does not shimmer, and a measurement that prints its method. It reads what you already have &mdash; GeoJSON, KML, shapefiles, any tile service you can
                     name &mdash; runs the suite's GPU compute engine, ForgeGIS<sup class="tm">&trade;</sup>, from a
                     workflow editor docked under the map, and can be flown by software over MCP.
                 </p>
@@ -462,8 +491,8 @@
             <div class="item">
                 <h3>Measure and coordinates</h3>
                 <p>
-                    Nine measure modes &mdash; distance, path, area, bearing, slant range, circle, square, ellipse,
-                    quad &mdash; with the method named beside the number: Vincenty's inverse for distance and azimuth,
+                    Measure distance, paths, area, bearing, slant range, and shapes from circles to ellipses, with
+                    the method named beside the number: Vincenty's inverse for distance and azimuth,
                     Karney's for area, on the WGS-84 ellipsoid. Metric, US or nautical units switch live; paths run
                     geodesic, rhumb or linear; freehand tracing; measurements save and load as GeoJSON. The cursor
                     readout cycles decimal degrees, DMS, UTM and MGRS.
@@ -472,8 +501,8 @@
             <div class="item">
                 <h3>Your data</h3>
                 <p>
-                    GeoJSON, KML/KMZ and three-file shapefiles with their attributes; XYZ, WMS 1.3.0, WMTS 1.0.0 and MVT
-                    sources added by URL, with a <em>Discover</em> step that reads a WMS or WMTS server's capabilities;
+                    GeoJSON, KML/KMZ and three-file shapefiles with their attributes, styled per file with labels and a
+                    legend; XYZ, WMS, WMTS and MVT sources added by URL, with a <em>Discover</em> step that reads a WMS or WMTS server's capabilities;
                     glTF/GLB models and 3D Tiles. The layer stack reorders, hides, fades and promotes any layer to base,
                     and persists between launches; click any feature and its attributes come back.
                 </p>
@@ -514,15 +543,16 @@
         </div>
         <div class="table-wrap">
             <table class="spec wrap">
-                <thead><tr><th>At a glance</th><th>Seaglass Globe 1.2.4</th></tr></thead>
+                <thead><tr><th>At a glance</th><th>Seaglass Globe 1.2.5</th></tr></thead>
                 <tbody>
                     <tr><td>Data in</td><td>XYZ &middot; WMS 1.3.0 &middot; WMTS 1.0.0 &middot; MVT &middot; 3D Tiles &middot; glTF 2.0/GLB &middot; Terrarium elevation &middot; GeoJSON &middot; KML 2.2/KMZ &middot; Esri Shapefile (+DBF); the tile cache serves visited regions without a network</td></tr>
                     <tr><td>Projections</td><td>WGS-84 globe; five spherical flat views &mdash; equirectangular, Mercator, sinusoidal, orthographic, polar stereographic; independent map-view windows</td></tr>
-                    <tr><td>Coordinates &amp; measure</td><td>DD &middot; DMS &middot; UTM &middot; MGRS readouts; nine measure modes; Vincenty inverse and Karney area on the ellipsoid; metric, US, nautical; GeoJSON round-trip</td></tr>
+                    <tr><td>Coordinates &amp; measure</td><td>DD &middot; DMS &middot; UTM &middot; MGRS readouts; distance, path, area, bearing, slant range and shape modes; Vincenty inverse and Karney area on the ellipsoid; metric, US, nautical; GeoJSON round-trip</td></tr>
+                    <tr><td>Symbology &amp; scenarios</td><td>MIL-STD-2525 unit symbols (the 2525C symbol set ships with the Globe) and tactical graphics; a scenario library replayed on a timeline; one demo scenario included; ForgeRelay recordings open in the same format</td></tr>
                     <tr><td>Compute</td><td>ForgeGIS operations, chains and graphs from a node-graph editor with live parameter scrubbing, batch, contours and load-DEM-here; ForgeData catalog, extraction, elevation and publish; results draped, drawn as entities, or reported</td></tr>
                     <tr><td>Agent surface</td><td><code>POST /mcp</code> on <code>127.0.0.1:7900</code> (configurable), MCP Streamable HTTP, bearer-authenticated per install; ForgeMind on 8080; engines over stdio</td></tr>
-                    <tr><td>Digital twin</td><td>Spec D wire client; Spec E shared-VRAM co-residency &mdash; opt-in, Vulkan-pinned, wire-only fallback</td></tr>
-                    <tr><td>Platform</td><td>Windows x64 with a real GPU (Vulkan or DirectX&nbsp;12 as wgpu selects); 8&nbsp;GB RAM for the suite with the Globe installed; ~4&nbsp;GB disk for a tile cache that grows with use</td></tr>
+                    <tr><td>Digital twin</td><td>Streams a live or recorded twin over the wire; optional shared-GPU-memory mode on Vulkan, falling back to the wire</td></tr>
+                    <tr><td>Platform</td><td>Windows x64 with a real GPU (Vulkan or DirectX&nbsp;12 as wgpu selects); 8&nbsp;GB RAM for the suite with the Globe installed; a few gigabytes of disk for a tile cache that grows with use</td></tr>
                 </tbody>
             </table>
         </div>
@@ -536,17 +566,17 @@
         <div class="shot-pair">
             <figure class="shot">
                 <a href="img/04-canyon-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/04-canyon-b.webp" alt="Oblique view across the Grand Canyon in Seaglass Globe: layered canyon walls in red, grey and green stepping down into shadowed side canyons, a forested rim toward the top of the frame, flat desert plateau to the horizon under a pale sky, with a scale bar and imagery credit strip along the bottom edge" width="1280" height="720" loading="lazy"></a>
-                <figcaption>An oblique look across the Grand Canyon: layered walls in red, grey and green stepping down into shadowed side canyons, a forested rim toward the top of the frame, and the plateau running out to a flat horizon under a pale sky. Bare globe &mdash; nothing drawn but the scene, a 2.1&nbsp;km scale bar and the imagery credit along the bottom edge.</figcaption>
+                <figcaption>An oblique look across the Grand Canyon: layered walls in red, grey and green stepping down into shadowed side canyons, a forested rim toward the top of the frame, and the plateau running out to a flat horizon under a pale sky. Bare globe &mdash; nothing drawn but the scene, a scale bar, and the imagery credit along the bottom edge.</figcaption>
             </figure>
             <figure class="shot">
                 <a href="img/03-terrain-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/03-terrain-b.webp" alt="The Hawaiian island chain seen from altitude in Seaglass Globe: small green-brown islands on a blue ocean whose floor is shown in relief under a depth tint, with the Earth's curved limb against dark sky at the top and a scale bar and imagery credit strip along the bottom" width="1280" height="720" loading="lazy"></a>
-                <figcaption>The Hawaiian chain from altitude. The islands are the small green-brown shapes; everything else is seafloor &mdash; the ridge they sit on, the seamounts, the abyssal plain &mdash; in relief under the ocean-depth tint, with the Earth's limb against dark sky at the top and an 86.8&nbsp;km scale bar bottom-left.</figcaption>
+                <figcaption>The Hawaiian chain from altitude. The islands are the small green-brown shapes; everything else is seafloor &mdash; the ridge they sit on, the seamounts, the abyssal plain &mdash; in relief under the ocean-depth tint, with the Earth's limb against dark sky at the top.</figcaption>
             </figure>
         </div>
         <div class="three-up">
             <div class="item">
-                <h3>20&#8239;000&nbsp;km &rarr; a rooftop &middot; no cut</h3>
-                <p>Twenty thousand kilometres to a rooftop, in one move. No cut, no dissolve, no swapping one scene for another &mdash; the same globe the whole way down. Precision is held relative to the camera, so the ground stops shimmering exactly where a single-precision engine starts to.</p>
+                <h3>Orbit &rarr; a rooftop &middot; no cut</h3>
+                <p>Fly from orbit down to a single rooftop without a cut or a scene swap. Because precision is held relative to the camera, the ground stays steady at street level, exactly where a single-precision engine starts to shimmer.</p>
             </div>
             <div class="item">
                 <h3>It doesn't stop at the waterline</h3>
@@ -554,7 +584,7 @@
             </div>
             <div class="item">
                 <h3>The shadows are where the depth is</h3>
-                <p>Eighteen hundred metres of relief across sixteen kilometres, lit by the real sun at the real hour. The shading is not painted on: it is the light, the terrain, and the time of day.</p>
+                <p>Canyon walls more than a mile deep, lit by the real sun at the real hour. The shading is not painted on: it is the light, the terrain, and the time of day.</p>
             </div>
         </div>
     </div>
@@ -566,8 +596,8 @@
         <p class="section-intro center">A number without its method is not a measurement. Every measurement on the globe names the algorithm that produced it.</p>
         <div class="split">
             <figure class="shot">
-                <a href="img/06-measure-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/06-measure-b.webp" alt="Seaglass Globe measuring across the Gulf of Corinth: the View menu open with Measure highlighted, a yellow line between two cyan points on the water, and the MEASURE panel on the right reading 103 km, forward azimuth 65.1 degrees, back azimuth 245.7 degrees, method Vincenty (WGS-84)" width="1280" height="720" loading="lazy"></a>
-                <figcaption>Two clicks across the Gulf of Corinth. The View &#9656; Measure menu is still open on the left; the MEASURE panel on the right reads 103&nbsp;km, forward azimuth 65.1&deg;, back azimuth 245.7&deg; &mdash; and the method badge: Vincenty (WGS-84).</figcaption>
+                <a href="img/06-measure-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/06-measure-b.webp" alt="Seaglass Globe measuring across the Gulf of Corinth: the View menu open with Measure highlighted, a yellow line between two cyan points on the water, and the MEASURE panel on the right reading the distance, both azimuths, and the method: Vincenty (WGS-84)" width="1280" height="720" loading="lazy"></a>
+                <figcaption>Two clicks across the Gulf of Corinth. The View &#9656; Measure menu is still open on the left; the MEASURE panel on the right gives the distance and both azimuths &mdash; and the method badge: Vincenty (WGS-84).</figcaption>
             </figure>
             <div class="split-text">
                 <h3>The name of the algorithm</h3>
@@ -591,8 +621,8 @@
                 <figcaption>Two files on the layer stack &mdash; <code>uc20.geojson</code> and <code>uc25-ports.shp</code> &mdash; drawn over the base imagery of western Europe: an orange filled triangle and a yellow line over the Bay of Biscay, blue circle markers labelled Rotterdam, Southampton and Lisboa, and the Layers rail listing both files with their zoom and remove controls.</figcaption>
             </figure>
             <figure class="shot">
-                <a href="img/14-imagery-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/14-imagery-b.webp" alt="Seaglass Globe showing North America under a NASA GIBS MODIS true-colour cloud layer at 0.60 opacity, with dark curved swath gaps across the globe and the add-by-URL form open on the left offering XYZ, WMS, WMTS and MVT and a CRS choice" width="1280" height="720" loading="lazy"></a>
-                <figcaption>NASA GIBS MODIS true colour (layer <code>gibs_modis</code>, opacity 0.60) draped over the base imagery: North America under that day's real cloud. The dark curved wedges are not missing tiles &mdash; they are the gaps between passes of a polar-orbiting instrument's one-day swath. On the left, the add-by-URL form that fetched it: XYZ / WMS / WMTS / MVT and the CRS choice.</figcaption>
+                <a href="img/14-imagery-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/14-imagery-b.webp" alt="Seaglass Globe showing North America under a partly transparent NASA GIBS MODIS true-colour cloud layer, with dark curved swath gaps across the globe and the add-by-URL form open on the left offering XYZ, WMS, WMTS and MVT and a CRS choice" width="1280" height="720" loading="lazy"></a>
+                <figcaption>NASA GIBS MODIS true colour draped over the base imagery: North America under that day's real cloud. The dark curved wedges are not missing tiles &mdash; they are the gaps between passes of a polar-orbiting instrument's one-day swath. On the left, the add-by-URL form that fetched it: XYZ / WMS / WMTS / MVT and the CRS choice.</figcaption>
             </figure>
         </div>
         <div class="three-up">
@@ -606,7 +636,7 @@
             </div>
             <div class="item">
                 <h3>Any service you can name</h3>
-                <p>Any tile service you can name &mdash; XYZ, WMS, WMTS, MVT. Point it at a standards server and it asks what that server has, then draws the layer you pick straight over the base imagery. The gaps are real: that is one day of a polar orbit, and where two passes did not meet, nobody took a picture.</p>
+                <p>Any tile service you can name &mdash; XYZ, WMS, WMTS, MVT. Point it at a standards server and it asks what that server has, then draws the layer you pick straight over the base imagery.</p>
             </div>
         </div>
     </div>
@@ -618,15 +648,15 @@
         <p class="section-intro center">The suite's GPU compute engine, run from a workflow editor docked under the map &mdash; and re-run while you are still holding the slider.</p>
         <div class="split">
             <figure class="shot">
-                <a href="img/17-scrub-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/17-scrub-b.webp" alt="Seaglass Globe with the workflow editor docked under the map: a purple HillshadeOp card showing azimuth 315, altitude 18.44, variant REGULAR and gradient HORN with the pointer on the altitude row, a grey hillshade draped over the Lake Mead basin in the map band above with Las Vegas at the left, and a parameter rail on the right" width="1280" height="720" loading="lazy"></a>
-                <figcaption>The workflow editor docked under the map: a <code>HillshadeOp</code> card &mdash; azimuth 315, altitude 18.44, variant REGULAR, gradient HORN &mdash; with the pointer on the altitude row, and the hillshade draped over the basin in the map band above (Las Vegas at the left, Lake Mead at the centre). The right-hand rail carries the same step, its source raster, the <code>auto: hillshade</code> colour ramp, and a contour-interval field.</figcaption>
+                <a href="img/17-scrub-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/17-scrub-b.webp" alt="Seaglass Globe with the workflow editor docked under the map: a purple HillshadeOp card with the pointer on the sun-altitude row, a grey hillshade draped over the Lake Mead basin in the map band above with Las Vegas at the left" width="1045" height="720" loading="lazy"></a>
+                <figcaption>The workflow editor docked under the map: a hillshade step with the pointer on its sun-altitude control, and the result draped over the Lake Mead basin in the map band above.</figcaption>
             </figure>
             <div class="split-text">
                 <h3>Ask the ground what it knows</h3>
                 <p>Point at the ground and ask what elevation data exists there. It ranks what it can reach, cuts the window you asked for, and hands you a document with that file already set as its source &mdash; named, with its resolution, so &ldquo;best available&rdquo; is checkable rather than claimed.</p>
-                <h3>Type a number &middot; 250&nbsp;m</h3>
-                <p>Then type a number. Two hundred and fifty metres &mdash; a real interval against real elevation, and the labels are the elevations, not decoration.</p>
-                <h3>~70&nbsp;ms per re-run</h3>
+                <h3>Type an interval</h3>
+                <p>Then type the contour interval you want &mdash; a real interval against real elevation, and the labels are the elevations, not decoration.</p>
+                <h3>Re-run while you hold the slider</h3>
                 <p>Now change your mind. Drag the sun's altitude and the shading re-computes and re-drapes while you are still holding it &mdash; that is the engine running, the result coming back, and the globe re-texturing, for a value you have not let go of.</p>
                 <h3>A pipeline is not always a line</h3>
                 <p>Take an edge off, feed the same output into two branches, and it stops being a chain &mdash; so it runs as a graph.</p>
@@ -645,8 +675,8 @@
                 <figcaption>A snapshot of the feed on the day this frame was captured: the radar mosaic in green through red over the eastern United States, warning polygons labelled <em>Severe Thunderstorm Warning</em> and <em>Flash Flood Warning</em> by the Weather Service that issued them, and the STORM WATCH panel top-right tallying that day's active alerts by family, with a LIVE &middot; NWS badge beneath them. Run it and the feed will say something else &mdash; the panel is the point, not the storm.</figcaption>
             </figure>
             <figure class="shot">
-                <a href="img/20-seismic-month-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/20-seismic-month-b.webp" alt="Seaglass Globe showing the Pacific with earthquake epicentres drawn as red, purple and green discs along the plate boundaries, and a SEISMIC MONTH panel on the right with the current instant, a 3.0-day window, playback speed, a scrub bar and a weight toggle" width="1280" height="720" loading="lazy"></a>
-                <figcaption>Thirty days of the USGS catalogue replayed as a moving window over the Pacific: epicentres drawn as discs along the plate boundaries, and the SEISMIC MONTH panel showing the current instant, a 3.0-day window, playback at 2.5 days per second, the scrub, and the weight toggle. Real data, replayed &mdash; not synthetic, and not live.</figcaption>
+                <a href="img/20-seismic-month-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/20-seismic-month-b.webp" alt="Seaglass Globe showing the Pacific with earthquake epicentres drawn as red, purple and green discs along the plate boundaries, and a SEISMIC MONTH panel on the right with the current instant, the playback window and speed, a scrub bar and a weight toggle" width="1280" height="720" loading="lazy"></a>
+                <figcaption>Thirty days of the USGS catalogue replayed as a moving window over the Pacific: epicentres drawn as discs along the plate boundaries, and the SEISMIC MONTH panel showing the current instant, the playback window and speed, the scrub, and the weight toggle. Real data, replayed &mdash; not synthetic, and not live.</figcaption>
             </figure>
         </div>
         <div class="three-up">
@@ -656,11 +686,11 @@
             </div>
             <div class="item">
                 <h3>A month, measured</h3>
-                <p>A month of earthquakes, and every one of them measured. Thirty days of the USGS catalogue, replayed as a moving window &mdash; real data, replayed; not synthetic, and not live seismicity.</p>
+                <p>Scrub through a month of earthquakes, or let the window roll forward on its own. The data is the real USGS catalogue, replayed rather than live.</p>
             </div>
             <div class="item">
                 <h3>SGP4 &mdash; propagated, not live</h3>
-                <p>A whole catalogue of orbits, propagated from real elements by SGP4 &mdash; and sorted, so you can take a whole shell out of the sky and put it back. The catalogue is cached and the propagation is genuine &mdash; propagated, not live, and the narration says so.</p>
+                <p>A whole catalogue of orbits, computed from real orbital elements with SGP4 and sorted, so you can take a whole shell out of the sky and put it back. The elements are cached, so the positions are propagated, not live.</p>
             </div>
         </div>
     </div>
@@ -672,8 +702,8 @@
         <p class="section-intro center">The last demonstration in the film: a modelled flood, streaming from a ForgeGIS digital twin straight into shared video memory.</p>
         <div class="split">
             <figure class="shot">
-                <a href="img/26-twin-replay-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/26-twin-replay-b.webp" alt="Seaglass Globe replaying a modelled flood over the Grand Canyon: blue water drawn along the canyon, a cyan gauge marker labelled level 1172 m, and a TWIN REPLAY panel reading STREAMING, twin studio.bathtub.grandcanyon REPLAY, mode PLAY 2 eps, epoch 38 of 38, level 1172.5 m, and CO-RES HELD STATE no re-upload" width="1280" height="720" loading="lazy"></a>
-                <figcaption>A modelled flood, not a real one: the <code>studio.bathtub.grandcanyon</code> replay at epoch 38 of 38, the water drawn in blue along the canyon at level 1&#8239;172.5&nbsp;m with a gauge marker labelled <em>level 1172 m</em>, and the TWIN REPLAY panel reading STREAMING, PLAY &middot; 2 eps, and CO-RES &equiv; HELD STATE &mdash; no re-upload.</figcaption>
+                <a href="img/26-twin-replay-b.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/26-twin-replay-b.webp" alt="Seaglass Globe replaying a modelled flood over the Grand Canyon: blue water drawn along the canyon, a cyan gauge marker showing the water level, and a TWIN REPLAY panel reading STREAMING, the final epoch, and held state with no re-upload" width="1280" height="720" loading="lazy"></a>
+                <figcaption>A modelled flood, not a real one: the water drawn in blue along the Grand Canyon with a gauge marker at its level, and the TWIN REPLAY panel reading STREAMING at the run's final epoch, holding its state &mdash; no re-upload.</figcaption>
             </figure>
             <div class="split-text">
                 <h3>A modelled flood, streaming from a digital twin</h3>
@@ -696,11 +726,11 @@
         <div class="three-up">
             <div class="item">
                 <h3>The presentation surface</h3>
-                <p>When it's running, answers that produce something visual &mdash; contours, elevation profiles, draped rasters, scene entities &mdash; get drawn on the globe instead of only described. Ask the agent from the Control Center, from Studio, or from the Globe's own chat panel; it is the same agent either way.</p>
+                <p>When it's running, answers that produce something visual &mdash; contours, elevation profiles, draped rasters, scene entities &mdash; get drawn on the globe instead of only described. Ask in the Globe's own Assistant and the answer lands on the globe; ask in Studio and it lands on Studio's map. It is the same agent either way.</p>
             </div>
             <div class="item">
-                <h3>Launch order matters</h3>
-                <p><em>Start suite</em> launches the Globe first, so the agent adopts it as its drawing surface, then ForgeMind &mdash; which spawns ForgeGIS and ForgeData<sup class="tm">&trade;</sup> as tool servers &mdash; then Studio. Start the Globe after ForgeMind and you restart ForgeMind: it picks its drawing surface at launch.</p>
+                <h3>Start suite gets the order right</h3>
+                <p><em>Start suite</em> launches the Globe and Studio before ForgeMind &mdash; which spawns ForgeGIS and ForgeData<sup class="tm">&trade;</sup> as tool servers &mdash; so the Control Center's own Ask tab draws on the globe. The Globe's Assistant always draws on the globe, whenever it was started.</p>
             </div>
             <div class="item">
                 <h3>It needs a real GPU</h3>
@@ -738,10 +768,15 @@
                         <td>The 3D view and the agent's presentation surface; runs its own copy of the GIS engines</td>
                         <td><code>7900</code> <span class="muted">loopback + bearer</span></td>
                     </tr>
+                    <tr>
+                        <td><a href="/products/control-center/#record">ForgeRelay</a> <span class="muted">(opt-in)</span></td>
+                        <td>Records live DIS and Cursor-on-Target exercise traffic in the scenario format the Globe replays</td>
+                        <td>UDP <code>3000</code> DIS &middot; <code>6969</code> CoT <span class="muted">set per config</span></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <p class="routing-note">The suite wants 8&nbsp;GB of RAM with the Globe installed (4&nbsp;GB without) &mdash; it runs its own copy of the GIS engines, and the Control Center caps each service's heap from your machine's RAM and re-plans it when the Globe is installed.</p>
+        <p class="routing-note">The suite wants 8&nbsp;GB of RAM with the Globe installed &mdash; it runs its own copy of the GIS engines, and the Control Center caps each service's heap from your machine's RAM and re-plans it when the Globe is installed.</p>
         <div class="lic-note">
             <strong>A note on licensing.</strong> Seaglass Globe is an opt-in component of the Forge suite, installed by
             the Seaglass Control Center, and is not sold separately. The Forge suite is commercially licensed; terms are
@@ -840,7 +875,7 @@
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
         <div class="footer-marks">
-            Seaglass Globe&trade;, ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Control Center&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            Seaglass Globe&trade;, ForgeRelay&trade;, ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Control Center&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
             Windows, DirectX, Vulkan, Rust, wgpu, YouTube, OpenStreetMap, Esri, Maxar, Earthstar Geographics, CARTO, Mapzen, AWS, NASA, USGS, NOAA, CelesTrak, JetBrains Mono, the Model Context Protocol, and other third-party products and marks referenced are the property of their respective owners.
             Reference to these marks does not imply endorsement.
         </div>
