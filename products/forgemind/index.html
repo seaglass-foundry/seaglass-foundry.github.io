@@ -10,7 +10,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgemind/">
     <meta property="og:title" content="ForgeMind — The GIS Intent Compiler">
-    <meta property="og:description" content="The natural-language control plane for ForgeGIS. Natural language in, validated GPU geospatial pipeline out — or an honest refusal. No confident-wrong answers across its June 2026 validation campaign; ~25× lower LLM cost than an agent loop; four AI providers or your own model.">
+    <meta property="og:description" content="The natural-language control plane for ForgeGIS. Natural language in, validated GPU geospatial pipeline out — or an honest refusal. No confident-wrong answers across its June 2026 validation campaign; four AI providers or your own model.">
     <meta property="og:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="720">
@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta name="twitter:title" content="ForgeMind — The GIS Intent Compiler">
-    <meta name="twitter:description" content="Natural language to validated GPU geospatial pipelines, or an honest refusal. No confident-wrong answers in its June 2026 validation campaign; ~25× lower LLM cost; four AI providers or your own model; pure-JVM.">
+    <meta name="twitter:description" content="Natural language to validated GPU geospatial pipelines, or an honest refusal. No confident-wrong answers in its June 2026 validation campaign; four AI providers or your own model; pure-JVM.">
     <meta name="keywords" content="GIS intent compiler, natural language GIS, geospatial LLM agent, MCP geospatial, refusal by construction, ForgeGIS control plane, agent geospatial pipeline, LLM-agnostic GIS">
     <script type="application/ld+json">
     {
@@ -725,7 +725,7 @@
         </div>
         <div class="stat">
             <div class="number">~25<span class="accent">&times;</span></div>
-            <div class="label">lower LLM cost vs. an agent-loop baseline on the same workflows</div>
+            <div class="label">less model spend than an agent loop on a representative site-suitability request (Claude, May 2026)</div>
         </div>
         <div class="stat">
             <div class="number">Your <span class="accent">model</span></div>
@@ -756,7 +756,7 @@
                 <h3>Why it matters</h3>
                 <p>
                     A conventional agent lets a model author tool chains directly, so every wrong parameter and
-                    hallucinated step lands in production looking confident. ForgeMind refuses by construction:
+                    hallucinated step lands in production looking confident. On its compiled path, ForgeMind refuses by construction:
                     a request either compiles to a validated pipeline or is declined. That is what regulated and
                     mission work requires.
                 </p>
@@ -853,7 +853,7 @@
                     Every candidate pipeline is checked against a type system and operational guards before any
                     work is dispatched. A request that cannot be mapped to a valid operation, lacks its
                     parameters, or cannot bind to data is refused with a specific, machine-readable reason &mdash;
-                    never run speculatively.
+                    never run speculatively. A request the compiler cannot route may instead fall back to a guarded agent loop, where the model chooses the tool calls; structural failures and out-of-scope requests are refused outright.
                 </p>
             </div>
             <div class="feature-card">
@@ -862,7 +862,7 @@
                 <p>
                     The language model is confined to classifying what the operator wants and extracting
                     parameters. The shape of the pipeline is owned by deterministic machinery, so the same
-                    request produces the same pipeline every time &mdash; no hallucinated parameters, no
+                    request produces the same pipeline every time for a templated capability &mdash; no hallucinated parameters, no
                     operation-arity slips, no run-to-run drift.
                 </p>
             </div>
@@ -870,10 +870,11 @@
                 <div class="feat-tag">Cost engineering</div>
                 <h3>The right model for each job</h3>
                 <p>
-                    With a hosted vendor, cheap, high-volume classification and narration run on a fast, low-cost
-                    tier; the more capable tier is reserved for the genuinely hard reasoning. The measured effect is roughly a
-                    25&times; reduction in language-model cost versus an agent-loop approach &mdash; without
-                    sacrificing correctness.
+                    With a hosted vendor, cheap, high-volume classification runs on a fast, low-cost tier and the
+                    more capable tier is kept for requests no template covers; most answers are now narrated from
+                    templates with no model call at all. On a representative site-suitability request (Claude, May
+                    2026) that came to roughly a twenty-fifth of an agent loop's model spend. A local model runs every
+                    stage on one model, on your own hardware.
                 </p>
             </div>
             <div class="feature-card">
@@ -888,22 +889,12 @@
                 </p>
             </div>
             <div class="feature-card">
-                <div class="feat-tag">Learns with use</div>
-                <h3>Semantic memory</h3>
-                <p>
-                    Successful workflows, and corrections to unsuccessful ones, accumulate as retrievable
-                    exemplars backed by local storage and on-device embeddings. Learning happens through
-                    accumulated retrieval context, not model fine-tuning &mdash; so it is inspectable, clearable,
-                    and never silently bakes a bad pattern into a model's weights.
-                </p>
-            </div>
-            <div class="feature-card">
                 <div class="feat-tag">MCP citizen</div>
                 <h3>Native MCP, both directions</h3>
                 <p>
                     As a client it dispatches to MCP tool servers &mdash; the ForgeGIS compute surface, a dataset
                     catalog, a map client &mdash; guarding each namespace behind a circuit breaker. As a server it
-                    exposes a single high-level tool a higher-order agent can hand an entire geospatial workflow to.
+                    exposes a single high-level tool a higher-order agent can hand an entire geospatial workflow to, plus a structured surface &mdash; <code>list_capabilities</code> and <code>run_capability</code> &mdash; that runs capabilities with no model call at all.
                 </p>
             </div>
             <div class="feature-card">
@@ -934,13 +925,13 @@
         <span class="m-eyebrow">Showcase &middot; Session S-MARATHON-22</span>
         <h2>One conversation. A complete mission plan.</h2>
         <p class="m-lede">
-            A test scenario simulating a combat search-and-rescue plan, run end to end in plain
-            English against real SRTM terrain. Every operation was understood, type-checked, routed, and
-            executed &mdash; and every one succeeded.
+            A scripted test scenario simulating a combat search-and-rescue plan, run end to end against real
+            SRTM terrain. The test harness supplies each turn's intent, so what it exercises is routing,
+            type-checking, entity memory and execution &mdash; and all 102 operations succeeded.
         </p>
         <div class="m-stats">
             <div class="m-stat"><div class="m-num">102</div><div class="m-lbl">operations, one session</div></div>
-            <div class="m-stat"><div class="m-num">0</div><div class="m-lbl">failed or confident-wrong</div></div>
+            <div class="m-stat"><div class="m-num">0</div><div class="m-lbl">failed operations</div></div>
         </div>
         <a href="showcase.html" class="btn btn-amber">Read the full marathon showcase &rarr;</a>
     </div>
@@ -1005,7 +996,7 @@
             <li>
                 <div class="perf-num">~94%</div>
                 <div class="perf-text">
-                    <strong>compiler eval pass rate</strong> on the intent-to-validated-pipeline evaluation,
+                    <strong>compiler eval pass rate</strong> on the June 2026 intent-to-validated-pipeline evaluation (Claude),
                     including the hardest multi-turn cases &mdash; continuation across turns, parameter overrides,
                     named-anchor resolution, and the negative cases that must refuse correctly.
                 </div>
@@ -1076,7 +1067,7 @@
                 <p>
                     Consumes MCP tools and exposes itself as a single MCP tool a higher-level agent can hand a
                     whole geospatial workflow to. Compile intent into a validated pipeline deterministically &mdash;
-                    ~25&times; lower model cost, zero confident-wrong results, and an inspectable IR per turn.
+                    a zero-model structured surface (<code>list_capabilities</code> / <code>run_capability</code>), and an inspectable IR for every compiled turn.
                 </p>
                 <span class="card-cta">Download agent-builder one-pager (PDF)</span>
             </a>

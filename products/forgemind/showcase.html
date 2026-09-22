@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta name="twitter:title" content="ForgeMind Showcase — S-MARATHON-22">
-    <meta name="twitter:description" content="102 operations in one session, 29 entities reused, 0 confident-wrong results — a CSAR plan in plain English on real terrain.">
+    <meta name="twitter:description" content="102 operations in one scripted session, 29 entities reused, 0 failures — a CSAR test scenario run against real terrain.">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -293,9 +293,8 @@
         <h1>One conversation.<br>A complete mission plan.</h1>
         <div class="h-rule"></div>
         <p class="h-lede">
-            A 102-operation test scenario simulating a combat search-and-rescue plan, requested entirely in
-            plain English and run end to end against real SRTM terrain. Every operation was understood,
-            type-checked, routed, and executed. All 102 succeeded.
+            A 102-operation scripted test scenario simulating a combat search-and-rescue plan, run end to end
+            against real SRTM terrain. Every operation was routed, type-checked and executed. All 102 succeeded.
         </p>
         <p class="h-prov">convo-exec run &middot; S-MARATHON-22 &middot; generated CSAR test scenario &middot; real SRTM 1-arc-second DEM, Galiuro Mountains, southeast Arizona</p>
     </div>
@@ -306,7 +305,7 @@
         <div class="stat"><div class="number">102</div><div class="label">operations in one continuous session</div></div>
         <div class="stat"><div class="number">29</div><div class="label">named entities created and reused</div></div>
         <div class="stat"><div class="number">27</div><div class="label">distinct geospatial operations exercised</div></div>
-        <div class="stat"><div class="number zero">0</div><div class="label">failed or confident-wrong results</div></div>
+        <div class="stat"><div class="number zero">0</div><div class="label">failed operations</div></div>
     </div>
 </section>
 
@@ -320,7 +319,14 @@
             against real SRTM terrain in the Galiuro Mountains of southeast Arizona. One hundred and two
             operations, requested in plain English, from &ldquo;mark the survivor's last known position&rdquo;
             through the final &ldquo;list everything on the map so I can confirm the recovery package is
-            complete.&rdquo; Every one was understood, type-checked, routed, and executed. All 102 succeeded.
+            complete.&rdquo; Every one was routed, type-checked and executed, and all 102 succeeded.
+        </p>
+        <p class="lede">
+            <strong>How the run was made.</strong> This is a regression run from ForgeMind's test harness. The
+            harness supplies each turn's intent from the scenario script rather than asking a live language model,
+            and the map client is a test stand-in. What the session exercises is everything after the model: routing
+            a request to a capability, type-checking it, resolving named entities across a hundred turns, and
+            executing real analysis on real terrain. It says nothing about model cost or latency.
         </p>
     </div>
 </section>
@@ -628,11 +634,11 @@
             </div>
             <div class="proof">
                 <h3>Trustworthy by construction</h3>
-                <p>Zero failed and zero confident-wrong results across the entire run, because the model never executes. It only declares intent that deterministic machinery verifies.</p>
+                <p>Zero failed operations across the entire run. On the compiled path the model never executes; it only declares intent that deterministic machinery verifies. A request the compiler cannot route may fall back to a guarded agent loop, which this run did not need.</p>
             </div>
             <div class="proof">
                 <h3>A defensible architecture</h3>
-                <p>The compiler design is cheaper, faster, and far more auditable than an agent loop &mdash; every operation leaves an inspectable typed record of exactly what was asked.</p>
+                <p>The compiler design is far more auditable than an agent loop &mdash; every compiled operation leaves an inspectable typed record of exactly what was asked.</p>
             </div>
         </div>
     </div>
@@ -642,9 +648,9 @@
     <div class="container">
         <h2>The short version</h2>
         <p>
-            Given a generated search-and-rescue scenario, ForgeMind planned the entire recovery from plain-English
-            requests. It understood every step, remembered everything it built, executed real geospatial analysis
-            against real terrain, and at no point made something up &mdash; 102 consecutive operations, zero failures.
+            Given a scripted search-and-rescue scenario, ForgeMind routed and executed the entire recovery plan. It
+            remembered everything it built, executed real geospatial analysis against real terrain, and returned no
+            wrong result &mdash; 102 consecutive operations, zero failures.
         </p>
         <div class="cta-group">
             <a href="downloads/forgemind-showcase-marathon.pdf" class="btn btn-primary">Download the full showcase (PDF)</a>
