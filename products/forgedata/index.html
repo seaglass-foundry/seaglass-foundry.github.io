@@ -358,7 +358,7 @@
             <div class="tier-card">
                 <h3>Five access tiers, cheapest first</h3>
                 <ul class="tiers">
-                    <li><span class="tier-name">LOCAL_HOT</span><span class="tier-desc">Recently loaded; warm in ForgeGIS CPU/GPU memory.</span></li>
+                    <li><span class="tier-name">LOCAL_HOT</span><span class="tier-desc">Recently read by this process.</span></li>
                     <li><span class="tier-name">LOCAL_COLD</span><span class="tier-desc">On-disk local file; fast, but needs I/O.</span></li>
                     <li><span class="tier-name">REMOTE_DB</span><span class="tier-desc">PostGIS &mdash; fast point lookup, costlier windowed reads.</span></li>
                     <li><span class="tier-name">REMOTE_COG</span><span class="tier-desc">HTTP / S3 range-queryable raster.</span></li>
@@ -375,7 +375,7 @@
         <h2 class="center">Fourteen sources, one interface</h2>
         <p class="section-intro center">Fourteen source-type implementations cover the common public and private geospatial sources &mdash; all addressable through one uniform query interface. The customer's environment can be a mix; the caller sees one ranked answer.</p>
         <div class="src-grid">
-            <div class="src"><div class="src-name">LOCAL_DIR</div><div class="src-desc">A directory of tiles, vectors, or point clouds; optional filesystem-watch auto-pickup.</div></div>
+            <div class="src"><div class="src-name">LOCAL_DIR</div><div class="src-desc">A directory of rasters (GeoTIFF, HGT, NetCDF, JPEG2000) and GeoJSON; optional filesystem-watch pickup.</div></div>
             <div class="src"><div class="src-name">STAC</div><div class="src-desc">SpatioTemporal Asset Catalog collections (e.g. Sentinel-2 on S3).</div></div>
             <div class="src"><div class="src-name">WCS</div><div class="src-desc">OGC Web Coverage Service &mdash; on-demand windowed raster.</div></div>
             <div class="src"><div class="src-name">WFS</div><div class="src-desc">OGC Web Feature Service &mdash; GeoJSON at read time.</div></div>
@@ -412,9 +412,9 @@
                 <div class="feat-tag">Refuses, never fabricates</div>
                 <h3>Structured, classified errors</h3>
                 <p>
-                    Every tool failure returns a structured envelope with a specific, machine-readable reason
+                    Tool failures return a structured envelope with a specific, machine-readable reason
                     &mdash; <code>aoi_out_of_coverage</code>, <code>windowed_read_unsupported</code>,
-                    <code>bbox_invalid</code> &mdash; never an empty success or the nearest wrong tile. For
+                    <code>bbox_invalid</code> &mdash; and an empty answer always says why, never the nearest wrong tile. For
                     coverage gaps it even names the registered source whose sync could acquire the area.
                 </p>
             </div>
@@ -422,10 +422,10 @@
                 <div class="feat-tag">Honest geometry, one seam</div>
                 <h3>Open water, handled correctly</h3>
                 <p>
-                    DEMs flatten open water to a literal 0&nbsp;m that reads as solid ground and corrupts slope,
-                    viewshed, and line-of-sight. ForgeData recodes over-water cells to NoData at one shared read
-                    seam &mdash; geometry-driven and source-agnostic across SRTM, Copernicus, 3DEP, Terrarium, and
-                    remote WCS &mdash; so every consumer inherits honest terrain. A strict no-op until a water layer
+                    SRTM flattens open water to a literal 0&nbsp;m that reads as solid ground. Given a water-mask
+                    layer, ForgeData recodes over-water cells to NoData at its elevation read seam, so point, region,
+                    profile and polygon elevation answers over a coastline are honest &mdash; whichever source they
+                    come from: SRTM, Copernicus, 3DEP, Terrarium or remote WCS. A strict no-op until a water layer
                     is present.
                 </p>
             </div>
@@ -444,9 +444,9 @@
                 <h3>Derived-product memory</h3>
                 <p>
                     When ForgeGIS computes a slope raster over an area, the result registers back into the catalog
-                    as a derived product, pinning its parent, operation, parameters, and content hash. The next
-                    request that needs the same thing finds it cheaply instead of recomputing &mdash; so over a
-                    long-running project, workflows get faster the longer the suite runs.
+                    as a derived product that records the operation and parameters that made it. The next
+                    request that needs the same thing finds it instead of recomputing it &mdash; so over a
+                    long-running project, more of what the suite needs is already in the catalog.
                 </p>
             </div>
         </div>
@@ -492,9 +492,9 @@
                 <div class="aud-label">For defense &amp; intelligence</div>
                 <h3>The data layer that ships where the mission runs</h3>
                 <p>
-                    Its entire state is a single local file with no embedded secrets, so a curated catalog ships to
-                    a field laptop or air-gapped site and queries on arrival. Fail-closed on coverage, auditable
-                    provenance on every dataset, honest terrain at the line-of-sight seam.
+                    Its catalog is a single local file with no embedded secrets, so a curated catalog and the data
+                    it references ship together to a field laptop or air-gapped site and query on arrival.
+                    Fail-closed on coverage, content hashes on published files, honest elevation over water.
                 </p>
                 <span class="card-cta">Download defense &amp; IC one-pager (PDF)</span>
             </a>
@@ -528,12 +528,12 @@
         <p class="section-intro center">All ForgeData collateral. Direct download &mdash; no email gate, no form wall.</p>
         <div class="downloads-grid">
             <a href="downloads/forgedata-technical-brief.pdf" class="download-card">
-                <div class="dl-type tech">Technical Brief &middot; 15 pages</div>
+                <div class="dl-type tech">Technical Brief &middot; 13 pages</div>
                 <h3>ForgeData Technical Brief</h3>
                 <p>
-                    The catalog model, cost-aware routing, the operation registry, the source types, the MCP tool
-                    surface, the read paths, and deployment guidance. The substantive document for technical
-                    evaluators and platform engineers.
+                    The catalog model and the shared machine catalog, cost-aware routing, the operation registry,
+                    all fourteen source types, the MCP tool surface and its 1.2.5 reply bounds, the read paths, and
+                    deployment guidance. Updated for 1.2.5.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
@@ -541,8 +541,8 @@
                 <div class="dl-type">Sales One-Pager &middot; 2 pages</div>
                 <h3>General Sales One-Pager</h3>
                 <p>
-                    Front/back overview. General-purpose first-touch document covering positioning, headline
-                    numbers, and the routing story at a glance.
+                    Front/back overview. General-purpose first-touch document covering positioning, the routing
+                    story, and who ForgeData is for.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
