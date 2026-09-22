@@ -414,16 +414,16 @@
             <div class="split-text">
                 <h3>Resource pre-flight, not trial and error</h3>
                 <p>
-                    Before committing a batch, Studio estimates each tile's peak VRAM through the shared
-                    resource-estimation contract exposed by ForgeGIS, and gates the run against the available budget
-                    rather than discovering the ceiling by crashing. Interactive applies use the same estimator
+                    As each tile is dispatched, Studio estimates its peak VRAM through the shared
+                    resource-estimation contract exposed by ForgeGIS and checks it against the available budget, so a
+                    tile that would not fit is recorded as failed rather than discovered by crashing. Interactive applies use the same estimator
                     &mdash; one memory ceiling across both.
                 </p>
                 <h3>Built to run unattended</h3>
                 <p>
                     A priority queue, progress events per operation, out-of-bounds inputs skipped rather than failing
-                    the whole batch, and a CSV report with estimated and actual VRAM per tile so a run can be audited
-                    after the fact.
+                    the whole batch, a dry run before you commit, and a durable report with estimated VRAM per tile
+                    and a termination reason, so a run can be audited after the fact.
                 </p>
             </div>
         </div>
