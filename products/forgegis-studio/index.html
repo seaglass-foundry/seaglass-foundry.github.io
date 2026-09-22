@@ -310,14 +310,14 @@
                 <h3>Bring the files you already have</h3>
                 <p>
                     KML, KMZ, and zipped shapefiles (with their <code>.prj</code>) drop straight into the session
-                    from the browser. Zipped and KMZ uploads are checked against size limits before anything is
-                    unpacked.
+                    from the browser. Zipped and KMZ uploads are vetted before extraction and capped on real bytes as
+                    they inflate.
                 </p>
             </div>
             <div class="item">
-                <h3>Any tile service, by URL</h3>
+                <h3>Your tile services, by URL</h3>
                 <p>
-                    Add an XYZ, WMS, or WMTS layer by pasting its address. The value under the pointer is now read
+                    Add your own XYZ, WMS, or WMTS layer (Web Mercator, served with cross-origin access) by pasting its address. The value under the pointer is now read
                     one cell at a time, straight from the raster, instead of downloading the whole raster on every
                     move.
                 </p>
@@ -416,8 +416,8 @@
                 <p>
                     As each tile is dispatched, Studio estimates its peak VRAM through the shared
                     resource-estimation contract exposed by ForgeGIS and checks it against the available budget, so a
-                    tile that would not fit is recorded as failed rather than discovered by crashing. Interactive applies use the same estimator
-                    &mdash; one memory ceiling across both.
+                    tile that would not fit is recorded as failed rather than discovered by crashing. Interactive applies use the same estimator;
+                    batch keeps a quarter of available VRAM in reserve.
                 </p>
                 <h3>Built to run unattended</h3>
                 <p>
@@ -550,8 +550,8 @@
                 <h3>Capabilities flow through</h3>
                 <p>
                     Operations are not enumerated by hand in Studio; they arrive from the ForgeGIS catalog, stamped
-                    with kind and input ports, and render as nodes automatically. When the engine gains an
-                    operation, it appears in Studio without a Studio code change.
+                    with kind and input ports, and render as nodes automatically. When the engine gains a raster,
+                    vector, or raster&harr;vector operation, it appears in Studio without a Studio code change.
                 </p>
             </div>
             <div class="item">
@@ -664,7 +664,7 @@
         <p class="section-intro center">All ForgeGIS Studio collateral. Direct download &mdash; no email gate, no form wall.</p>
         <div class="downloads-grid">
             <a href="downloads/forgegis-studio-technical-brief.pdf" class="download-card">
-                <div class="dl-type tech">Technical Brief &middot; 12 pages</div>
+                <div class="dl-type tech">Technical Brief &middot; 9 pages</div>
                 <h3>ForgeGIS Studio Technical Brief</h3>
                 <p>
                     What Studio demonstrates, how it is built, how quickly it can be tailored to a customer's
@@ -677,8 +677,8 @@
                 <div class="dl-type">Suite One-Pager &middot; 2 pages</div>
                 <h3>For Suite Evaluators</h3>
                 <p>
-                    Leads on Studio as the human-visible layer that makes the Forge suite one product, not three
-                    &mdash; one session across surfaces, one catalog, and work that persists.
+                    For suite evaluators: what Studio shows about the whole suite, an evaluation you can run in one
+                    sitting, and where Studio stops on purpose. Updated for 1.2.5.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
