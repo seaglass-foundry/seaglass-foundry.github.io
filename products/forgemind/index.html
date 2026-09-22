@@ -725,7 +725,7 @@
         </div>
         <div class="stat">
             <div class="number">~25<span class="accent">&times;</span></div>
-            <div class="label">less model spend than an agent loop on a representative site-suitability request (Claude, May 2026)</div>
+            <div class="label">less model spend than a legacy agent-loop run on one site-suitability request (Claude, May 2026)</div>
         </div>
         <div class="stat">
             <div class="number">Your <span class="accent">model</span></div>
@@ -861,9 +861,9 @@
                 <h3>The LLM does only intent</h3>
                 <p>
                     The language model is confined to classifying what the operator wants and extracting
-                    parameters. The shape of the pipeline is owned by deterministic machinery, so the same
-                    request produces the same pipeline every time for a templated capability &mdash; no hallucinated parameters, no
-                    operation-arity slips, no run-to-run drift.
+                    parameters. The shape of the pipeline is owned by deterministic machinery, so for a
+                    templated capability the same parsed intent produces the same pipeline every time &mdash; no hallucinated
+                    parameters in the pipeline, no operation-arity slips.
                 </p>
             </div>
             <div class="feature-card">
@@ -872,9 +872,9 @@
                 <p>
                     With a hosted vendor, cheap, high-volume classification runs on a fast, low-cost tier and the
                     more capable tier is kept for requests no template covers; most answers are now narrated from
-                    templates with no model call at all. On a representative site-suitability request (Claude, May
-                    2026) that came to roughly a twenty-fifth of an agent loop's model spend. A local model runs every
-                    stage on one model, on your own hardware.
+                    templates with no model call at all. On one site-suitability request (Claude, May 2026) the
+                    compiled path cost roughly a twenty-fifth of a legacy agent-loop run, which hit its iteration cap
+                    without finishing. In the suite a local model runs every stage on one model, on your own hardware.
                 </p>
             </div>
             <div class="feature-card">
@@ -1095,17 +1095,17 @@
                 <div class="dl-type tech">Technical Brief &middot; 8 pages</div>
                 <h3>ForgeMind Technical Brief</h3>
                 <p>
-                    Architecture, the validation campaigns, capabilities, and deployment guidance. The
-                    substantive document for technical evaluators and engineering reviewers.
+                    Architecture, the four providers and local models, capabilities, what each validation figure
+                    rests on, and deployment. Updated for 1.2.5.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
             <a href="downloads/forgemind-showcase-marathon.pdf" class="download-card">
-                <div class="dl-type">Showcase &middot; 11 pages</div>
+                <div class="dl-type">Showcase &middot; 8 pages</div>
                 <h3>S-MARATHON-22 Showcase</h3>
                 <p>
-                    The full 102-operation marathon session, operation by operation, against real SRTM terrain &mdash;
-                    every plain-English request, the operation it compiled to, and the result.
+                    The full 102-operation scripted session, request by request, against real SRTM terrain &mdash;
+                    with an account of how the regression run was made and what it does and does not show.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
@@ -1113,8 +1113,8 @@
                 <div class="dl-type">Sales One-Pager &middot; 2 pages</div>
                 <h3>General Sales One-Pager</h3>
                 <p>
-                    Front/back overview. General-purpose first-touch document covering positioning, headline
-                    numbers, and the compiler model at a glance.
+                    Front/back overview. General-purpose first-touch document covering positioning, the compiler
+                    model, and who ForgeMind is for.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
@@ -1132,7 +1132,7 @@
                 <h3>AI Agent Builders Variant</h3>
                 <p>
                     For AI agent builders, LLM agent platforms, and MCP-native runners. Leads on the two-way MCP
-                    surface, the compile-don't-loop architecture, and the cost story.
+                    surface, the zero-model capability surface, and the compile-don't-loop architecture.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
