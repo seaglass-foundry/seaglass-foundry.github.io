@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ForgeData — The Data-Intelligence Layer of the Forge Suite</title>
-    <meta name="description" content="ForgeData, the data-intelligence layer of the Forge suite: ask for geospatial data by intent and get the best-fit dataset from thirteen source types, cost-ranked.">
+    <meta name="description" content="ForgeData, the data-intelligence layer of the Forge suite: ask for geospatial data by intent and get the best-fit dataset from fourteen source types, cost-ranked.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgedata/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgedata/">
     <meta property="og:title" content="ForgeData — The Data-Intelligence Layer of the Forge Suite">
-    <meta property="og:description" content="Ask for geospatial data by intent and get the best-fit correct dataset across thirteen heterogeneous sources. Cost-aware routing, a portable single-file catalog, and a native MCP surface. Bundled with the Forge suite.">
+    <meta property="og:description" content="Ask for geospatial data by intent and get the best-fit correct dataset across fourteen heterogeneous sources. Cost-aware routing, a portable single-file catalog, and a native MCP surface. Bundled with the Forge suite.">
     <meta property="og:image" content="https://seaglassfoundry.com/products/control-center/img/cc-06-data-gallery.webp">
     <meta property="og:image:width" content="1387">
     <meta property="og:image:height" content="981">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/control-center/img/cc-06-data-gallery.webp">
     <meta name="twitter:title" content="ForgeData — The Data-Intelligence Layer of the Forge Suite">
-    <meta name="twitter:description" content="Cost-aware geospatial data routing across thirteen source types, one portable catalog file, native MCP. Bundled with the Forge suite.">
+    <meta name="twitter:description" content="Cost-aware geospatial data routing across fourteen source types, one portable catalog file, native MCP. Bundled with the Forge suite.">
     <meta name="keywords" content="geospatial data routing, cost-aware data catalog, GeoPackage catalog, MCP data layer, STAC PostGIS COG routing, derived-product memory, ForgeGIS data layer, heterogeneous geospatial sources">
     <script type="application/ld+json">
     {
@@ -27,7 +27,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform (JVM)",
         "url": "https://seaglassfoundry.com/products/forgedata/",
-        "description": "ForgeData is the data-intelligence layer of the Forge suite. It provides cost-aware routing, a portable single-file GeoPackage catalog, and a Model Context Protocol surface so an agent can ask for geospatial data by intent and receive the best-fit correct dataset — ranked by coverage and resolution with access cost as the tiebreaker — across thirteen heterogeneous source types. Bundled with the Forge suite.",
+        "description": "ForgeData is the data-intelligence layer of the Forge suite. It provides cost-aware routing, a portable single-file GeoPackage catalog, and a Model Context Protocol surface so an agent can ask for geospatial data by intent and receive the best-fit correct dataset — ranked by coverage and resolution with access cost as the tiebreaker — across fourteen heterogeneous source types. Bundled with the Forge suite.",
         "programmingLanguage": "Java",
         "creator": {
             "@type": "Organization",
@@ -272,7 +272,7 @@
         <p class="tagline">The data-intelligence layer of the Forge suite</p>
         <p class="categorical-claim">
             Ask for geospatial data by intent and get back the <em>best-fit correct dataset</em> &mdash; ranked by
-            coverage and resolution, with access cost as the deciding tiebreaker &mdash; across thirteen
+            coverage and resolution, with access cost as the deciding tiebreaker &mdash; across fourteen
             heterogeneous source types. ForgeGIS computes, ForgeMind reasons, ForgeGIS Studio renders;
             ForgeData decides which data to use and how to get it.
         </p>
@@ -287,7 +287,7 @@
 <section class="stats">
     <div class="stats-grid">
         <div class="stat">
-            <div class="number">13<span class="accent"> &rarr; 1</span></div>
+            <div class="number">14<span class="accent"> &rarr; 1</span></div>
             <div class="label">heterogeneous source types behind one query interface</div>
         </div>
         <div class="stat">
@@ -372,8 +372,8 @@
 
 <section class="block">
     <div class="container">
-        <h2 class="center">Thirteen sources, one interface</h2>
-        <p class="section-intro center">Thirteen source-type implementations cover the common public and private geospatial sources &mdash; all addressable through one uniform query interface. The customer's environment can be a mix; the caller sees one ranked answer.</p>
+        <h2 class="center">Fourteen sources, one interface</h2>
+        <p class="section-intro center">Fourteen source-type implementations cover the common public and private geospatial sources &mdash; all addressable through one uniform query interface. The customer's environment can be a mix; the caller sees one ranked answer.</p>
         <div class="src-grid">
             <div class="src"><div class="src-name">LOCAL_DIR</div><div class="src-desc">A directory of tiles, vectors, or point clouds; optional filesystem-watch auto-pickup.</div></div>
             <div class="src"><div class="src-name">STAC</div><div class="src-desc">SpatioTemporal Asset Catalog collections (e.g. Sentinel-2 on S3).</div></div>
@@ -383,6 +383,7 @@
             <div class="src"><div class="src-name">ARCGIS_REST</div><div class="src-desc">Esri FeatureServer / ImageServer layers.</div></div>
             <div class="src"><div class="src-name">OVERPASS</div><div class="src-desc">OpenStreetMap features via the Overpass API (tile-grid).</div></div>
             <div class="src"><div class="src-name">OPENTOPO_API</div><div class="src-desc">OpenTopography elevation (tile-grid; daily rate limits).</div></div>
+            <div class="src"><div class="src-name">USGS_3DEP</div><div class="src-desc">USGS 3DEP 10&nbsp;m elevation over the United States (tile-grid; no API key).</div></div>
             <div class="src"><div class="src-name">NOAA_API</div><div class="src-desc">NOAA datasets (tile-grid).</div></div>
             <div class="src"><div class="src-name">COPERNICUS_CDS</div><div class="src-desc">Copernicus Climate Data Store (single-request, hash-named output).</div></div>
             <div class="src"><div class="src-name">TIGER_ROADS</div><div class="src-desc">TIGER/Line All Roads &mdash; named-road lookup and bbox queries.</div></div>
@@ -478,7 +479,7 @@
                 <div class="s-desc">Catalog, cost routing, sync, derived-product memory, window extraction.</div>
             </div>
         </div>
-        <p class="routing-note">ForgeMind and Studio talk to ForgeData over MCP &mdash; the same stdio JSON-RPC surface any third-party MCP client could use. ForgeGIS is consumed by ForgeData as an in-process Java library for the actual data reads, so windowed-raster extraction and elevation queries happen with no network hop. Underlying sources stay exactly where they are.</p>
+        <p class="routing-note">ForgeMind (and Seaglass Globe) run ForgeData as an MCP server over stdio &mdash; the same JSON-RPC surface any third-party MCP client could use &mdash; while ForgeGIS Studio embeds it in-process as a Java library, and all of them read the same catalogs. ForgeGIS is consumed by ForgeData as an in-process Java library for the actual data reads, so windowed-raster extraction and elevation queries happen with no network hop. Underlying sources stay exactly where they are.</p>
     </div>
 </section>
 
