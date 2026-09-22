@@ -285,7 +285,7 @@
         </div>
         <div class="stat">
             <div class="number">One<span class="accent"> window</span></div>
-            <div class="label">Install, configure, and operate &mdash; light onboarding, dark dashboard</div>
+            <div class="label">Set up, configure, and operate &mdash; light onboarding, dark dashboard</div>
         </div>
         <div class="stat">
             <div class="number">Your<span class="accent"> model</span></div>
@@ -328,9 +328,9 @@
                 <h3>Why it matters</h3>
                 <p>
                     A suite of engines is only evaluable if it can be stood up. The Control Center removes every
-                    prerequisite: no JRE to install, no dependency hunt, no config files to hand-edit. Connect a
-                    model and you are running &mdash; including on a machine that never touches the network, thanks
-                    to a local model option and a bundled offline elevation dataset.
+                    prerequisite: no JRE to install, no dependency hunt, no config files to hand-edit to get
+                    running. Connect a model and you are running &mdash; with a model server you run on the
+                    workstation and the bundled sample elevation dataset, even on a machine with no internet.
                 </p>
             </div>
             <div class="item">
@@ -362,15 +362,17 @@
                 <li>
                     <strong>Pick your components</strong>
                     <span class="step-desc">
-                        ForgeMind, ForgeGIS, and ForgeData always install. Add ForgeGIS Studio, Seaglass Globe, the
-                        ForgeRelay<sup class="tm">&trade;</sup> exercise recorder, and the compute broker as you need them.
+                        ForgeMind, ForgeGIS, and ForgeData are always set up. Add ForgeGIS Studio, Seaglass Globe, the
+                        ForgeRelay<sup class="tm">&trade;</sup> exercise recorder, and the compute broker as you need them,
+                        and change your choice later with Run setup again.
                     </span>
                 </li>
                 <li>
                     <strong>Pass live preflight</strong>
                     <span class="step-desc">
-                        Free-disk, RAM, GPU, port, and write-permission checks run <em>before</em> install; a port
-                        already in use can be changed inline, so a conflict never dead-ends the install.
+                        Before setup prepares anything it checks disk space, memory, graphics, write access, and
+                        ports. Memory and graphics are advisories; a port already in use can be changed inline, so a
+                        conflict never dead-ends setup.
                     </span>
                 </li>
                 <li>
@@ -378,15 +380,16 @@
                     <span class="step-desc">
                         Pick Claude, OpenAI, Gemini, or Grok and paste a key &mdash; it is validated live, then kept in
                         the Windows Credential Manager and never written to disk. Or pick a model server you run
-                        yourself; the Control Center confirms the model actually answers before it saves.
+                        yourself; the Control Center confirms the model actually answers before it saves, or saves it
+                        unchecked if the server isn't running yet.
                     </span>
                 </li>
                 <li>
                     <strong>Start the suite &amp; ask a question</strong>
                     <span class="step-desc">
                         One click starts everything you installed, in the right order; ForgeMind<sup class="tm">&trade;</sup> spawns ForgeGIS<sup class="tm">&trade;</sup> and ForgeData<sup class="tm">&trade;</sup> as MCP children, and
-                        health, uptime, and a colored log tail appear at once. The streaming Ask tab
-                        shows tool-by-tool progress and the answer; a bundled offline DEM means elevation and slope
+                        health, uptime, and a colored log tail appear at once. The Ask tab
+                        shows the agent's tool calls live as it works, then the answer; a bundled offline DEM means elevation and slope
                         work with no first-run network.
                     </span>
                 </li>
@@ -418,7 +421,7 @@
                     <tr>
                         <td>ForgeMind</td>
                         <td>Agent orchestrator (HTTP + MCP host); spawns the others</td>
-                        <td><code>8080</code> <span class="muted">loopback</span></td>
+                        <td><code>8080</code> <span class="muted">loopback + token</span></td>
                     </tr>
                     <tr>
                         <td>ForgeGIS</td>
@@ -591,7 +594,8 @@
                 <h3>A 90-day evaluation</h3>
                 <p>
                     Evaluation builds carry an evaluation license you accept in the installer, a 90-day evaluation
-                    period that starts at first install, and a badge that shows where you are in it.
+                    period that starts at first install (unless your evaluation agreement says otherwise), and a badge
+                    that shows where you are in it.
                     Settings&nbsp;&rarr;&nbsp;About shows the install date and the build.
                 </p>
             </div>
@@ -647,9 +651,9 @@
                 <div class="dl-type">Technical Datasheet &middot; 2 pages</div>
                 <h3>Seaglass Control Center Datasheet</h3>
                 <p>
-                    The full lifecycle &mdash; install, configure, operate &mdash; plus the download-to-first-result
-                    workflow, the architecture of the suite it manages, and the security posture. The first-touch
-                    document for evaluators.
+                    Download to first result in five steps, every component and the port it listens on, exercise
+                    recording, the compute broker, AI providers, shared workstations, and the security posture.
+                    Updated for 1.2.5; the first-touch document for evaluators.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
