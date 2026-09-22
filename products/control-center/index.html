@@ -157,6 +157,17 @@
         .split p { color: var(--text); font-size: 0.95rem; line-height: 1.7; }
         .split .shot { margin: 0; }
         .wide-shot { max-width: 1040px; margin: 32px auto 0; }
+        /* ── Broker film: poster facade → youtube-nocookie iframe on click ── */
+        .film-embed { max-width: 880px; margin: 32px auto 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 8px 30px rgba(15, 38, 64, 0.12); background: #000; }
+        .film-caption { max-width: 880px; margin: 12px auto 0; color: var(--text-light); font-size: 0.88rem; line-height: 1.6; text-align: center; }
+        .film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; }
+        .film-frame iframe, .film-frame .film-facade { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+        .film-facade { cursor: pointer; }
+        .film-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .film-facade .film-play { position: absolute; left: 50%; top: 76%; width: 78px; height: 54px; transform: translate(-50%, -50%); border-radius: 14px; background: rgba(15, 38, 64, 0.82); border: 1px solid rgba(255, 255, 255, 0.25); transition: background 0.15s, transform 0.15s; }
+        .film-facade .film-play::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-38%, -50%); border-style: solid; border-width: 11px 0 11px 19px; border-color: transparent transparent transparent #fff; }
+        .film-facade:hover .film-play, .film-facade:focus-visible .film-play { background: var(--teal); transform: translate(-50%, -50%) scale(1.06); }
+        .film-facade:focus-visible { outline: 3px solid var(--teal); outline-offset: -3px; }
         .three-up .item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px 26px; }
         section.block.tinted .three-up .item { background: var(--white); }
         .three-up h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.01em; }
@@ -533,6 +544,15 @@
                 </p>
             </div>
         </div>
+        <div class="film-embed">
+            <div class="film-frame">
+                <a class="film-facade" href="https://www.youtube.com/watch?v=y8wno9jVrh4" target="_blank" rel="noopener" data-video="y8wno9jVrh4" data-title="Forge Resource Manager" aria-label="Play the Forge Resource Manager video">
+                    <img src="img/broker-film-poster.webp" alt="Title card of the Forge Resource Manager video: on a dark navy field, the lines Any number of people, through any Forge view, share any number of ForgeGIS compute nodes. Nothing is lost when a machine dies." width="1280" height="720" loading="lazy" decoding="async">
+                    <span class="film-play" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+        <p class="film-caption">How the broker is designed. In 1.2.5, ForgeMind and the <code>frm</code> command line send it work; ForgeGIS Studio and Seaglass Globe connect in a later release.</p>
         <figure class="shot wide-shot">
             <a href="img/cc-08-broker.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-08-broker.webp" alt="The Services tab: ForgeMind, ForgeGIS Studio and Seaglass Globe stopped, and the Compute broker card running on port 8082 for this machine only, with one GPU worker running" width="1500" height="410" loading="lazy"></a>
             <figcaption>The Services tab with the broker running for this machine and one GPU worker.</figcaption>
@@ -732,6 +752,21 @@
     });
     dlg.addEventListener('click', function() { dlg.close(); });
     dlg.addEventListener('close', function() { pic.removeAttribute('src'); });
+})();
+(function() {
+    function play(a) {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + a.getAttribute('data-video') + '?autoplay=1&rel=0';
+        f.title = a.getAttribute('data-title') || 'Video';
+        f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        f.setAttribute('allowfullscreen', '');
+        f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        a.parentNode.replaceChild(f, a);
+        f.focus();
+    }
+    document.querySelectorAll('.film-facade').forEach(function(a) {
+        a.addEventListener('click', function(e) { if (e.ctrlKey || e.metaKey || e.shiftKey) return; e.preventDefault(); play(a); });
+    });
 })();
 </script>
 </body>
