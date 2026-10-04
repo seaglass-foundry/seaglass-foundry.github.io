@@ -467,43 +467,43 @@
         <div class="table-wrap">
             <table class="spec">
                 <thead>
-                    <tr><th>Component</th><th>Role</th><th>Port</th></tr>
+                    <tr><th>Component</th><th>Role</th><th>Listens on</th></tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>ForgeMind</td>
-                        <td>Agent orchestrator (HTTP + MCP host); spawns the others</td>
+                        <td>The agent: plans, calls the engines as MCP tools, answers</td>
                         <td><code>8080</code> <span class="muted">loopback + token</span></td>
                     </tr>
                     <tr>
                         <td>ForgeGIS</td>
-                        <td>GPU geospatial compute engine (MCP stdio child)</td>
+                        <td>GPU geospatial engine, 239 operations (MCP child of ForgeMind)</td>
                         <td><span class="muted">stdio</span></td>
                     </tr>
                     <tr>
                         <td>ForgeData</td>
-                        <td>Dataset catalog + ingesters (MCP stdio child)</td>
+                        <td>Data catalog and ingesters (MCP child of ForgeMind)</td>
                         <td><span class="muted">stdio</span></td>
                     </tr>
                     <tr>
                         <td>ForgeGIS Studio <span class="muted">(opt-in)</span></td>
-                        <td>Web workspace for building and running pipelines</td>
+                        <td>Browser workspace: map, pipelines, batch, chat</td>
                         <td><code>8081</code> <span class="muted">loopback</span></td>
                     </tr>
                     <tr>
                         <td><a href="/products/seaglass-globe/">Seaglass Globe</a> <span class="muted">(opt-in)</span></td>
-                        <td>3D view and the agent's presentation surface (native binary pair; needs a real GPU)</td>
-                        <td><code>7900</code> <span class="muted">loopback + bearer</span></td>
+                        <td>The 3D view and the agent's drawing surface; needs a real GPU</td>
+                        <td><code>7900</code> <span class="muted">loopback + token</span></td>
                     </tr>
                     <tr>
                         <td><a href="#record">ForgeRelay</a> <span class="muted">(opt-in)</span></td>
-                        <td>Records live DIS and Cursor-on-Target exercise traffic into a scenario library</td>
-                        <td>UDP <code>3000</code> DIS &middot; <code>6969</code> CoT <span class="muted">set per config</span></td>
+                        <td>Records DIS and Cursor-on-Target exercise traffic into a scenario library</td>
+                        <td>UDP <code>3000</code> &middot; <code>6969</code> <span class="muted">per config</span></td>
                     </tr>
                     <tr>
                         <td><a href="#compute-broker">Compute broker</a> <span class="muted">(opt-in)</span></td>
-                        <td>Job queue and GPU workers for heavy raster batch jobs</td>
-                        <td><code>8082</code> <span class="muted">this machine, or a fleet</span></td>
+                        <td>Job queue and GPU workers for raster batch jobs</td>
+                        <td><code>8082</code> <span class="muted">this machine or a fleet</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -550,8 +550,9 @@
         </div>
         <p class="routing-note">
             Starter configurations for a DIS exercise and a CoT feed are written at setup. HLA recording needs an
-            RTI, which the suite doesn't include. Recordings go into the library Seaglass Globe opens, so they
-            are ready to replay there, and a one-minute sample recording ships to try it on.
+            RTI, which the suite doesn't include. Recordings go into the library that the Seaglass Globe opens when
+            the dashboard starts it, and the Globe replays them, live while the relay records. A one-minute DIS sample of six
+            synthetic platforms ships to try.
         </p>
     </div>
 </section>
