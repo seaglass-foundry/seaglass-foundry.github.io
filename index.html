@@ -11,7 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/">
     <meta property="og:title" content="Seaglass Foundry — GPU-Accelerated Geospatial Software for the Agent Era">
-    <meta property="og:description" content="The Forge suite — GPU compute, a data layer, and a natural-language agent that refuses rather than guesses — on one workstation. New in 1.2.5: military symbology and exercise recording, a GPU compute broker, and your choice of AI model.">
+    <meta property="og:description" content="The Forge suite — GPU compute, a data layer, and a natural-language agent that refuses rather than guesses — on one workstation. Military symbology, exercise recording, a GPU compute broker and your choice of AI model; new in 1.2.6, every measurement on the WGS84 ellipsoid.">
     <meta property="og:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="720">
@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/film-poster.webp">
     <meta name="twitter:title" content="Seaglass Foundry — GPU-Accelerated Geospatial Software for the Agent Era">
-    <meta name="twitter:description" content="The Forge suite on one workstation, callable by a person or an AI agent. New in 1.2.5: military symbology, exercise recording, and your choice of AI model.">
+    <meta name="twitter:description" content="The Forge suite on one workstation, callable by a person or an AI agent. New in 1.2.6: every measurement on the WGS84 ellipsoid, across the suite.">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -552,8 +552,9 @@
             The Forge suite &mdash; GPU compute, a data layer, and a natural-language agent that refuses rather than
             guesses &mdash; runs on one workstation with no infrastructure to stand up, and its operations are
             callable by a person or by an AI agent.
-            <strong style="color:#fff;">New in 1.2.5:</strong> military symbology and exercise recording,
-            a GPU compute broker, and your choice of AI model &mdash; including one you run yourself.
+            Military symbology and exercise recording, a GPU compute broker, and your choice of AI model
+            &mdash; including one you run yourself. <strong style="color:#fff;">New in 1.2.6:</strong> every
+            measurement on the WGS84 ellipsoid, across the suite.
         </p>
         <div class="cta-group">
             <a href="#evaluate" class="btn btn-primary">Request an evaluation</a>
@@ -591,7 +592,7 @@
             <div class="aud-label">For AI agent builders</div>
             <h3>A geospatial surface, native to MCP</h3>
             <p>
-                Nearly every ForgeGIS operation is callable through a native Model Context Protocol server.
+                Nearly every ForgeGIS operation is callable through a native Model Context Protocol server. <!-- COUNT-PENDING -->
                 ForgeMind exposes itself as a single MCP tool a higher-level agent can hand an entire geospatial
                 workflow to, and ForgeData answers a data question with a ranked, costed list instead of a path.
             </p>
@@ -603,7 +604,7 @@
             <p>
                 Geospatial SaaS, climate, and agtech platforms running large raster and vector catalogs on
                 CPU-bound GDAL pipelines can replace the compute path without migrating off the JVM or adding a
-                native build pipeline &mdash; 9&times;&ndash;56&times; on multi-stage pipelines.
+                native build pipeline &mdash; 9&times;&ndash;56&times; on multi-stage pipelines, measured on ForgeGIS 1.1.0 in June 2026. <!-- BENCH-PENDING -->
             </p>
             <span class="card-cta">Watch the unedited demonstration vs GDAL</span>
         </a>
@@ -622,7 +623,7 @@
             <p class="fc-tagline">Raster, hydrology, and point-cloud work on the GPU, a large vector and topology library in pure Java &mdash; all callable by a person or an AI agent.</p>
             <p class="fc-description">
                 ForgeGIS runs raster, hydrology, visibility, spectral, ML, and point-cloud workloads on the GPU,
-                alongside a large vector and topology library, and hands almost its entire catalog to AI agents
+                alongside a large vector and topology library, and hands almost its entire catalog to AI agents <!-- COUNT-PENDING -->
                 through a native Model Context Protocol server. It ships as ordinary Java libraries: no
                 first-party native code, no GDAL bindings, nothing extra to install. A pipeline engine imports
                 QGIS models and runs branching raster and vector workflows, keeping raster data on the GPU from
@@ -647,8 +648,8 @@
                 <div class="fc-stat-label">Maven artifacts with no native build and no GDAL bindings</div>
             </div>
             <div class="fc-stat">
-                <div class="fc-stat-num">9&times;&ndash;56&times;</div>
-                <div class="fc-stat-label">multi-stage pipeline speedup vs GDAL CLI</div>
+                <div class="fc-stat-num">9&times;&ndash;56&times;</div> <!-- BENCH-PENDING -->
+                <div class="fc-stat-label">multi-stage pipeline speedup vs GDAL CLI, measured on 1.1.0 in June 2026</div>
             </div>
         </div>
     </div>
@@ -664,7 +665,7 @@
                 confident wrong answers.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.5
+                <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.6
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -678,7 +679,7 @@
                 access cost breaking the tie &mdash; from a portable, single-file GeoPackage catalog.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.5
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.6
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -692,7 +693,7 @@
                 agent acting on the live map the operator is looking at &mdash; not a copy. Single host, loopback-bound, air-gap capable.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.5
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.6
             </div>
             <span class="card-cta">See ForgeGIS Studio</span>
         </a>
@@ -702,11 +703,11 @@
             <p class="tagline">The Earth in double precision, all the way down</p>
             <p class="description">
                 A precision virtual globe and the surface the agent draws on. Fly from orbit to a rooftop in one
-                continuous move, take measurements that name their geodesic method, and &mdash; new in 1.2.5
-                &mdash; see military symbols and replay scenarios on a timeline. Needs a real GPU.
+                continuous move, take measurements that name their geodesic method, and see military symbols and
+                replay scenarios on a timeline. Needs a real GPU.
             </p>
             <div class="meta">
-                <strong>Windows x64</strong> &middot; Optional suite component &middot; v1.2.5
+                <strong>Windows x64</strong> &middot; Optional suite component &middot; v1.2.6
             </div>
             <span class="card-cta">See Seaglass Globe</span>
         </a>
@@ -715,13 +716,13 @@
             <h3>Seaglass <span>Control Center</span><sup class="tm">&trade;</sup></h3>
             <p class="tagline">Install &rarr; configure &rarr; operate, in one window</p>
             <p class="description">
-                One download lays down a private Java runtime and the whole Forge suite with no prerequisites,
+                One download lays down a private Java runtime and the whole Forge suite, with nothing to install first on Windows 11,
                 connects your AI provider, then runs the services &mdash; health, live logs, the data catalog,
                 exercise recording, and agent chat from the same window. Evaluate a running system in minutes
                 instead of assembling one over an afternoon.
             </p>
             <div class="meta">
-                <strong>Windows x64</strong> &middot; Not sold separately &middot; v1.2.5
+                <strong>Windows x64</strong> &middot; Not sold separately &middot; v1.2.6
             </div>
             <span class="card-cta">Meet the Control Center</span>
         </a>
@@ -744,87 +745,85 @@
 
 <section class="flagship" id="now-shipping">
     <div class="products-header">
-        <h2>New in 1.2.5</h2>
-        <p>Two new components, and more ways to reach the suite you already run.</p>
+        <h2>New in 1.2.6</h2>
+        <p>A release spent testing and fixing: one model of the Earth across the suite, and fewer ways to get a wrong answer quietly.</p>
     </div>
     <div class="flagship-card">
         <div class="fc-left">
-            <span class="badge">New in 1.2.5 &middot; Symbology &amp; exercise recording</span>
-            <h2>Military symbols on the globe, <span class="product">and a recorder for the exercise feed</span></h2>
-            <p class="fc-tagline">Seaglass Globe now draws MIL-STD-2525C symbology and replays scenarios on a timeline. ForgeRelay<sup class="tm">&trade;</sup>, new and opt-in, records live exercise traffic in the same scenario format.</p>
+            <span class="badge">New in 1.2.6 &middot; One Earth, measured once</span>
+            <h2>Every measurement on the real ellipsoid, <span class="product">across the whole suite</span></h2>
+            <p class="fc-tagline">ForgeGIS, ForgeMind, ForgeData, Studio and Seaglass Globe now measure lengths, areas, distances and bearings on the WGS84 ellipsoid by one method &mdash; Karney&rsquo;s &mdash; and say which line they measured.</p>
             <p class="fc-description">
-                Units draw as real symbols from the first launch, and the suite includes a brigade-advance demo
-                to try the timeline on. ForgeRelay writes every entity, position report, and event into a single
-                GeoPackage library &mdash; DIS simulation traffic as ground truth, a Cursor-on-Target feed as one
-                side's picture, never mixed &mdash; and runs from the dashboard's Record tab. Both are opt-in in
-                the Control Center installer.
+                Parts of the suite used to measure on a sphere or a flat plane, so the same two places could read
+                differently depending on where you asked. Now one geodesic model sits behind every number, each
+                result names the model it used, and near-antipodal pairs are answered instead of failed. Elevation
+                comes back in the vertical unit the data really has: feet stay feet.
             </p>
             <span class="fc-claim">
-                Some facts are never on the wire. <em>The recorder asks you instead of guessing.</em>
+                The same two points, the same answer &mdash; <em>whichever product you ask.</em>
             </span>
             <div class="fc-cta-group">
-                <a href="/products/seaglass-globe/" class="btn btn-product">See Seaglass Globe</a>
-                <a href="/products/control-center/#record" class="btn btn-ghost">How recording works</a>
+                <a href="/products/forgegis/#new" class="btn btn-product">What changed in ForgeGIS</a>
+                <a href="/products/seaglass-globe/#new" class="btn btn-ghost">Measuring on the Globe</a>
             </div>
         </div>
         <div class="fc-right">
             <div class="fc-stat">
-                <div class="fc-stat-num">2525C <span class="accent">in the box</span></div>
-                <div class="fc-stat-label">the symbol set installs with the Globe, so units draw as real symbols from the first launch</div>
+                <div class="fc-stat-num">WGS84 <span class="accent">everywhere</span></div>
+                <div class="fc-stat-label">one geodesic model behind every length, area and bearing in the suite</div>
             </div>
             <div class="fc-stat">
-                <div class="fc-stat-num">DIS <span class="accent">+ CoT</span></div>
-                <div class="fc-stat-label">simulation and C4I feeds recorded side by side, truth kept apart from belief</div>
+                <div class="fc-stat-num">Units <span class="accent">stated</span></div>
+                <div class="fc-stat-label">elevation in the unit the data has, never an assumed metre</div>
             </div>
             <div class="fc-stat">
-                <div class="fc-stat-num">Timeline <span class="accent">replay</span></div>
-                <div class="fc-stat-label">step a scenario forward and back on the globe</div>
+                <div class="fc-stat-num">Refused <span class="accent">up front</span></div>
+                <div class="fc-stat-label">bad input stopped before the work starts, with the reason</div>
             </div>
         </div>
     </div>
     <div class="products-grid" style="margin-top: 28px;">
-        <a href="/products/control-center/#compute-broker" class="product-card">
-            <span class="card-badge badge-dev">New in 1.2.5 &middot; Compute broker</span>
-            <h3>GPU <span>workers, brokered</span></h3>
-            <p class="tagline">Hand the batch job to the GPUs</p>
+        <a href="/products/forgegis/#new" class="product-card">
+            <span class="card-badge badge-dev">New in 1.2.6 &middot; For integrators</span>
+            <h3>Changes <span>to act on</span></h3>
+            <p class="tagline">A few old calls need updating</p>
             <p class="description">
-                Ask ForgeMind for work like &ldquo;hillshade every tile in this folder&rdquo; and it becomes one
-                job that GPU workers split between them &mdash; on this workstation, or across machines sharing
-                one broker. A crashed worker is restarted and its task handed on; a task that won't fit on any
-                GPU is refused, not attempted.
+                In ForgeGIS, <code>compute_haversine_distance</code> is now <code>compute_geodesic_distance</code>
+                with no alias, the binary viewshed is UINT8, and point parameters default to EPSG:4326. ForgeData's
+                MCP contract moves to 2.0.0, and its runnable jar is now the <code>-all</code> jar.
             </p>
             <div class="meta">
-                <strong>Opt-in component</strong> &middot; jobs submitted through ForgeMind
+                <strong>ForgeGIS</strong> &middot; ForgeData &middot; stated on each product page
             </div>
-            <span class="card-cta">About the broker</span>
+            <span class="card-cta">See the ForgeGIS changes</span>
         </a>
-        <a href="/products/forgemind/" class="product-card">
-            <span class="card-badge badge-dev">New in 1.2.5 &middot; The agent</span>
-            <h3>Ask <span>where you're looking</span></h3>
-            <p class="tagline">The window you type into is the map that answers</p>
+        <a href="/products/forgedata/#new" class="product-card">
+            <span class="card-badge badge-dev">New in 1.2.6 &middot; Data layer</span>
+            <h3>Empty answers <span>that say why</span></h3>
+            <p class="tagline">No data is an answer, with its reason</p>
             <p class="description">
-                Studio's chat draws its answers on Studio's map; the Globe's Assistant draws on the Globe. Same
-                data, same tools, either window &mdash; contours, profiles, and draped rasters land on the map
-                you asked from.
+                Every ForgeData reply with no data now gives a reason, every refusal carries a code, partial answers
+                say they are partial, and every elevation reply states its vertical unit and datum. Projected and
+                corrupt files are handled correctly or refused by name.
             </p>
             <div class="meta">
-                <strong>ForgeMind</strong> &middot; with Studio or Seaglass Globe
+                <strong>ForgeData</strong> &middot; read by ForgeMind, Studio and the Globe
             </div>
-            <span class="card-cta">See ForgeMind</span>
+            <span class="card-cta">See ForgeData</span>
         </a>
-        <a href="/products/control-center/#providers" class="product-card">
-            <span class="card-badge badge-dev">New in 1.2.5 &middot; AI providers</span>
-            <h3>Your model, <span>your choice</span></h3>
-            <p class="tagline">Four vendors, or your own hardware</p>
+        <a href="/products/control-center/#new" class="product-card">
+            <span class="card-badge badge-dev">New in 1.2.6 &middot; Control Center</span>
+            <h3>Stops cleanly, <span>comes back cleanly</span></h3>
+            <p class="tagline">The dashboard you leave running</p>
             <p class="description">
-                Connect Claude, OpenAI, Gemini, or Grok with an API key &mdash; or point ForgeMind at a model
-                server you run yourself, such as Ollama, and keep every request on your own network. Vendor keys
-                are checked live before they're saved, and never written to disk.
+                Services are asked to shut down before they are forced, closing the window asks first, and a
+                Control Center that was killed picks its services back up. Recordings replay on the globe without
+                setup, and data syncs can be cancelled and say how they went.
             </p>
             <div class="meta">
-                <strong>Set in the Control Center</strong> &middot; switch in Settings
+                <strong>Seaglass Control Center</strong> &middot; Windows x64
             </div>
-            <span class="card-cta">How providers work</span>
+            <span class="card-cta">See the Control Center</span>
         </a>
     </div>
 </section>
