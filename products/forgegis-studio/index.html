@@ -254,7 +254,7 @@
 
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">Forge Suite &middot; v1.2.5</div>
+        <div class="flagship-badge">Forge Suite &middot; v1.2.6</div>
         <h1>ForgeGIS <span>Studio</span><sup class="tm">&trade;</sup></h1>
         <p class="tagline">Where you see the Forge suite work &mdash; and shape it to your mission</p>
         <p class="categorical-claim">
@@ -301,40 +301,42 @@
     </figure>
 </div>
 
-<section class="block tinted">
+<section class="block tinted" id="new">
     <div class="container">
-        <h2 class="center">New in 1.2.5</h2>
-        <p class="section-intro center">Your own files in, any tile service on the map, and a map that behaves like the globe beside it.</p>
+        <h2 class="center">New in 1.2.6</h2>
+        <p class="section-intro center">A release about trust: numbers in the units they really have, batches that can reach the suite's GPU workers, and refusals that tell you what to do next.</p>
         <div class="three-up">
             <div class="item">
-                <h3>Bring the files you already have</h3>
+                <h3>Numbers in their real units</h3>
                 <p>
-                    KML, KMZ, and zipped shapefiles (with their <code>.prj</code>) drop straight into the session
-                    from the browser. Zipped and KMZ uploads are vetted before extraction and capped on real bytes as
-                    they inflate.
+                    Elevation shows the vertical unit the data actually has &mdash; metres, feet, US survey feet, or
+                    &ldquo;unknown&rdquo; &mdash; in the readout, point analysis, profile, and cut/fill, never an
+                    assumed metre. Lengths and areas are measured on the WGS84 ellipsoid rather than a sphere.
                 </p>
             </div>
             <div class="item">
-                <h3>Your tile services, by URL</h3>
+                <h3>Raster batches on the compute broker</h3>
                 <p>
-                    Add your own XYZ, WMS, or WMTS layer (Web Mercator, served with cross-origin access) by pasting its address. The value under the pointer is now read
-                    one cell at a time, straight from the raster, instead of downloading the whole raster on every
-                    move.
+                    Point Studio at the suite's compute broker and raster batches run across its GPU workers;
+                    vector and mixed batches still run in Studio. Batches now carry on past a missed input, label
+                    every skip with its reason, and record a run that was interrupted as interrupted.
                 </p>
             </div>
             <div class="item">
-                <h3>The agent answers here</h3>
+                <h3>Refusals that say what to do</h3>
                 <p>
-                    Ask in Studio's chat and the answer is drawn on Studio's map, with the scene you are looking at
-                    sent along with the question. The map gained the Globe's right-click menu, navigation strip,
-                    and Home button, so moving between the two feels like one product.
+                    The Tools panel checks arguments before a run and heads a refusal &ldquo;Not run&rdquo;. A rotated
+                    GeoTIFF is refused with the remedy instead of loading stretched, and errors read in plain
+                    language. Keyboard focus, contrast, and narrow-window layout were reworked across the app.
                 </p>
             </div>
         </div>
-        <figure class="shot" style="max-width: 1040px; margin: 32px auto 0;">
-            <a href="img/studio-vector-drop.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/studio-vector-drop.webp" alt="ForgeGIS Studio with a small vector file dropped on the map: points and a line drawn over a world basemap, a landmarks layer on the pipeline canvas at right, and the Attributes table below listing five features with an expression filter and GeoJSON, GeoPackage and CSV export buttons" width="1590" height="903" loading="lazy"></a>
-            <figcaption>A small vector file dropped onto Studio's map: its features drawn over the basemap, the layer on the pipeline canvas, and its attribute table below &mdash; filter by expression, export as GeoJSON, GeoPackage, or CSV.</figcaption>
-        </figure>
+        <p class="routing-note">
+            For integrators: the binary viewshed is now UINT8 (visible 255, not visible 0), and Studio's palette
+            and legend read both encodings. The tools endpoint refuses undeclared or out-of-range arguments with
+            <code>400 tool_call_refused</code> instead of ignoring them, and a request whose <code>Host</code> is
+            not loopback is refused with <code>403</code>.
+        </p>
     </div>
 </section>
 
@@ -488,6 +490,10 @@
                 </p>
             </div>
         </div>
+        <figure class="shot" style="max-width: 1040px; margin: 32px auto 0;">
+            <a href="img/studio-vector-drop.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/studio-vector-drop.webp" alt="ForgeGIS Studio with a small vector file dropped on the map: points and a line drawn over a world basemap, a landmarks layer on the pipeline canvas at right, and the Attributes table below listing five features with an expression filter and GeoJSON, GeoPackage and CSV export buttons" width="1590" height="903" loading="lazy"></a>
+            <figcaption>A small vector file dropped onto Studio's map: its features drawn over the basemap, the layer on the pipeline canvas, and its attribute table below &mdash; filter by expression, export as GeoJSON, GeoPackage, or CSV.</figcaption>
+        </figure>
     </div>
 </section>
 
@@ -651,9 +657,9 @@
             before the port leaves the loopback. The foundation was built to be grown from.
         </p>
         <p class="routing-note">
-            The first step shipped in 1.2.5: the suite's compute broker spreads batch jobs across GPU workers on
-            one machine or a fleet. In this release ForgeMind is what sends it work; Studio runs its own batch
-            jobs locally, for now.
+            The first step has shipped: the suite's compute broker spreads batch jobs across GPU workers on
+            one machine or a fleet. ForgeMind sends it work, and in 1.2.6 Studio can send it raster batches;
+            vector and mixed batches still run in Studio, for now.
         </p>
     </div>
 </section>
@@ -678,7 +684,7 @@
                 <h3>For Suite Evaluators</h3>
                 <p>
                     For suite evaluators: what Studio shows about the whole suite, an evaluation you can run in one
-                    sitting, and where Studio stops on purpose. Updated for 1.2.5.
+                    sitting, and where Studio stops on purpose.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
