@@ -333,7 +333,7 @@
                     <p class="tagline">GPU-accelerated geospatial compute &amp; native MCP server &mdash; pure Java</p>
                     <p class="description">
                         Raster, hydrology, and point-cloud work on the GPU and a large vector library in pure Java,
-                        nearly all of it callable by an AI agent through a native Model Context Protocol server. Pure-Java Maven artifacts, no GDAL native
+                        nearly all of it callable by an AI agent through a native Model Context Protocol server. <!-- COUNT-PENDING --> Pure-Java Maven artifacts, no GDAL native
                         bindings &mdash; and as of August 2026, the only commercially-supported GPU-accelerated
                         geospatial MCP server we have been able to identify. It includes a
                         <strong>digital twin</strong>: a simulation that records itself as it runs, so it can be
@@ -341,7 +341,7 @@
                         verified against itself afterwards.
                     </p>
                     <div class="meta">
-                        <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.5
+                        <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.6
                     </div>
                     <span class="card-cta">Learn more</span>
                 </div>
@@ -355,8 +355,8 @@
                         <div class="lbl">no native build, no GDAL bindings</div>
                     </div>
                     <div class="stat-item">
-                        <div class="num">9&times;&ndash;56&times;</div>
-                        <div class="lbl">multi-stage pipeline speedup vs GDAL CLI</div>
+                        <div class="num">9&times;&ndash;56&times;</div> <!-- BENCH-PENDING -->
+                        <div class="lbl">multi-stage pipeline speedup vs GDAL CLI, measured on 1.1.0 in June 2026</div>
                     </div>
                 </div>
             </div>
@@ -375,7 +375,7 @@
                 directions.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.5
+                <strong>Java 17+</strong> &middot; Commercial license &middot; v1.2.6
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -391,7 +391,7 @@
                 Forge suite.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.5
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.6
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -407,7 +407,7 @@
                 suite, not sold separately.
             </p>
             <div class="meta">
-                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.5
+                <strong>Java 17+</strong> &middot; Bundled with the suite &middot; v1.2.6
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -419,14 +419,15 @@
             <p class="description">
                 From orbit to a rooftop in one continuous move, on a WGS-84 ellipsoid held in double precision.
                 Real geodesy with the method named beside every measurement, your own GeoJSON, KML and shapefiles
-                on the layer stack, and the suite's GPU compute run on the globe. New in 1.2.5: MIL-STD-2525C
-                military symbology and scenarios replayed on a timeline. It is also
+                on the layer stack, the suite's GPU compute run on the globe, and MIL-STD-2525C military symbology
+                with scenarios replayed on a timeline. New in 1.2.6: every measurement by Karney's method on the
+                ellipsoid, and recorded exercises ready to replay. It is also
                 the agent's presentation surface: when it is running, ForgeMind's visual answers are drawn on the
                 globe rather than only described. Needs a real GPU; installed as an opt-in component of the Seaglass
                 Control Center.
             </p>
             <div class="meta">
-                <strong>Windows x64</strong> &middot; Optional suite component &middot; v1.2.5
+                <strong>Windows x64</strong> &middot; Optional suite component &middot; v1.2.6
             </div>
             <span class="card-cta">Learn more</span>
         </a>
@@ -437,12 +438,13 @@
             <p class="tagline">One download that installs, configures, and operates the Forge suite</p>
             <p class="description">
                 A single installer that is also a living dashboard: a private Java runtime and the full suite laid
-                down with no prerequisites on the target machine, your AI provider connected and checked, then
+                down with nothing to install first on Windows 11, your AI provider connected and checked, then
                 service control, health, live logs, the data catalog, and agent chat &mdash; all from one window.
-                New in 1.2.5: it also installs and runs the ForgeRelay<sup class="tm">&trade;</sup> exercise recorder and a GPU compute broker.
+                It also installs and runs the ForgeRelay<sup class="tm">&trade;</sup> exercise recorder and a GPU compute broker.
+                New in 1.2.6: services that stop gracefully and come back after a crash.
             </p>
             <div class="meta">
-                <strong>Windows x64</strong> &middot; Not sold separately &middot; v1.2.5
+                <strong>Windows x64</strong> &middot; Not sold separately &middot; v1.2.6
             </div>
             <span class="card-cta">Learn more</span>
         </a>
