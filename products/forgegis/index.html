@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era</title>
-    <meta name="description" content="ForgeGIS: GPU-accelerated geospatial compute and a native MCP server in pure Java. Nearly every operation callable by an AI agent; 8×–79× multi-stage pipeline speedups vs GDAL at 4096², measured on 1.2.4, August 2026."> <!-- BENCH-PENDING -->
+    <meta name="description" content="ForgeGIS: GPU-accelerated geospatial compute and a native MCP server in pure Java. Nearly every operation callable by an AI agent; 11×–182× multi-stage pipeline speedups vs GDAL at 4096², measured on 1.2.6, October 2026.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/">
     <meta property="og:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
-    <meta property="og:description" content="GPU-accelerated geospatial compute and a native Model Context Protocol server, distributed as pure-Java Maven artifacts. Nearly every operation callable by an AI agent; 8×–79× multi-stage pipeline speedups vs GDAL at 4096², measured on 1.2.4, August 2026."> <!-- BENCH-PENDING -->
+    <meta property="og:description" content="GPU-accelerated geospatial compute and a native Model Context Protocol server, distributed as pure-Java Maven artifacts. Nearly every operation callable by an AI agent; 11×–182× multi-stage pipeline speedups vs GDAL at 4096², measured on 1.2.6, October 2026.">
     <meta property="og:image" content="https://seaglassfoundry.com/products/forgegis/img/dt-03-breach-lake-dam-gorge.webp">
     <meta property="og:image:width" content="1440">
     <meta property="og:image:height" content="900">
@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/forgegis/img/dt-03-breach-lake-dam-gorge.webp">
     <meta name="twitter:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
-    <meta name="twitter:description" content="GPU-accelerated geospatial library and native MCP server, pure-Java Maven artifacts. Agent-callable end to end; 8×–79× multi-stage pipeline speedups vs GDAL at 4096², measured on 1.2.4, August 2026."> <!-- BENCH-PENDING -->
+    <meta name="twitter:description" content="GPU-accelerated geospatial library and native MCP server, pure-Java Maven artifacts. Agent-callable end to end; 11×–182× multi-stage pipeline speedups vs GDAL at 4096², measured on 1.2.6, October 2026.">
     <meta name="keywords" content="GPU-accelerated geospatial library, MCP geospatial server, Java GPU GIS, geospatial Model Context Protocol, GDAL alternative, Java GIS library, GPU GIS compute, agent-callable geospatial">
     <script type="application/ld+json">
     {
@@ -769,8 +769,8 @@
             <div class="label">Maven artifacts &mdash; no first-party native code, no GDAL bindings</div>
         </div>
         <div class="stat">
-            <div class="number">8&times;&ndash;79&times;</div> <!-- BENCH-PENDING -->
-            <div class="label">multi-stage pipeline speedup vs GDAL CLI at 4096&sup2; on equivalent workloads &mdash; measured on 1.2.4, August 2026</div>
+            <div class="number">11&times;&ndash;182&times;</div>
+            <div class="label">multi-stage pipeline speedup vs GDAL CLI at 4096&sup2; on equivalent workloads &mdash; measured on 1.2.6, October 2026</div>
         </div>
     </div>
 </section>
@@ -1008,29 +1008,29 @@
 <section class="block">
     <div class="container">
         <h2 class="center">Performance highlights</h2>
-        <p class="section-intro center">Benchmarked against GDAL on equivalent workloads, measured on 1.2.4, August 2026, in the last canonical run of the validation harness &mdash; not yet re-measured on 1.2.6. All warm-mean. Numbers are summary &mdash; full methodology, dataset descriptions, and per-operation timings live in the Technical Brief.</p>
+        <p class="section-intro center">Benchmarked against GDAL on equivalent workloads, measured on 1.2.6, October 2026, in the canonical run of the validation harness, GDAL 3.12. All warm medians. The benchmark&rsquo;s timing method was tightened in this release, so earlier published ForgeGIS figures are not directly comparable. Numbers are summary &mdash; full methodology, dataset descriptions, and per-operation timings live in the Technical Brief.</p>
         <ul class="perf-list">
             <li>
-                <div class="perf-num">8.9&times; geomean</div> <!-- BENCH-PENDING -->
+                <div class="perf-num">15&times; geomean</div>
                 <div class="perf-text">
-                    geometric-mean speedup vs GDAL over 226 operation records with a GDAL equivalent, no category excluded
-                    &mdash; ForgeGIS won <strong>208 of 226</strong>, and all 18 losses were on rasters of 1024&sup2; or smaller. Measured on 1.2.4, August 2026.
+                    geometric-mean speedup vs GDAL 3.12 over 242 operation records with a GDAL equivalent, no category excluded, on rasters from 16&times;16 to 4096&times;4096 and real elevation tiles
+                    &mdash; ForgeGIS was faster in <strong>239 of 242</strong>; the 3 slower were all tiny (raster creation and rasterize at 1024&sup2; or smaller). Against in-process GDAL, on operations where both sides take at least a millisecond, the like-for-like kernel figure is <strong>6.2&times;</strong>. Measured on 1.2.6, October 2026.
                 </div>
             </li>
             <li>
-                <div class="perf-num">8&times;&ndash;79&times;</div> <!-- BENCH-PENDING -->
+                <div class="perf-num">11&times;&ndash;182&times;</div>
                 <div class="perf-text">
                     speedup on <strong>multi-stage GPU-resident pipelines</strong> at 4096&sup2;
                     (read &rarr; transform &rarr; analyze &rarr; write), where intermediates never leave the GPU
-                    and GDAL pays for a file round-trip at every stage. Measured on 1.2.4, August 2026.
+                    and GDAL pays for a file round-trip at every stage. Measured on 1.2.6, October 2026.
                 </div>
             </li>
             <li>
-                <div class="perf-num">Every category</div> <!-- BENCH-PENDING -->
+                <div class="perf-num">Every category</div>
                 <div class="perf-text">
-                    faster on average in <strong>every operation category measured</strong> &mdash; pipeline 46.6&times;,
-                    warp 19.6&times;, vectorize 14.0&times;, zonal/focal 10.0&times;, transform 9.0&times;, resample 8.5&times;,
-                    raster I/O 3.8&times;, viewshed 2.2&times;, terrain 1.8&times; (geomean). Measured on 1.2.4, August 2026.
+                    faster on average in <strong>every operation category measured</strong> &mdash; pipeline 81.5&times;,
+                    resample 30.5&times;, transform 30.0&times;, vectorize 26.1&times;, warp 24.4&times;, zonal/focal 20.1&times;,
+                    terrain 4.3&times;, viewshed 3.4&times;, raster I/O 3.0&times; (geomean). Measured on 1.2.6, October 2026.
                 </div>
             </li>
         </ul>
@@ -1054,7 +1054,7 @@
                 <p>
                     Microsoft building footprints for Houston through a chain of real operations &mdash; reproject,
                     shape metrics, setback buffer, points-in-polygons join, classify &mdash; at
-                    <strong>about 125,000 features a second</strong>, measured on a ForgeGIS 1.2.3 development build in July 2026. <!-- BENCH-PENDING -->
+                    <strong>about 125,000 features a second</strong>, measured on a ForgeGIS 1.2.3 development build in July 2026.
                 </p>
             </div>
             <div class="item">
@@ -1062,7 +1062,7 @@
                 <p>
                     Throughput stays within about a factor of two between a hundred thousand and a million features, because
                     every intermediate stays in process as an immutable handle and there is no per-stage file I/O
-                    term to grow with N. <!-- BENCH-PENDING -->
+                    term to grow with N.
                 </p>
             </div>
             <div class="item">

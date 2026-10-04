@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ForgeGIS Vector at Scale — A Million Buildings, One Immutable Chain</title>
-    <meta name="description" content="ForgeGIS vector at scale: a million real building footprints through a seven-operation chain at 124,785 features/sec, near-flat across an order of magnitude (ForgeGIS 1.2.3 build, July 2026)."> <!-- BENCH-PENDING -->
+    <meta name="description" content="ForgeGIS vector at scale: a million real building footprints through a seven-operation chain at 124,785 features/sec, near-flat across an order of magnitude (ForgeGIS 1.2.3 build, July 2026).">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/vector-at-scale.html">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="article">
@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/forgegis/img/vs-06-map-1m.webp">
     <meta name="twitter:title" content="ForgeGIS Vector at Scale — A Million Buildings, One Immutable Chain">
-    <meta name="twitter:description" content="A scale study of the parallel-CPU vector engine: 124,785 features/sec at 1M, 2.03× flatness across an order of magnitude, no per-stage file I/O (ForgeGIS 1.2.3 build, July 2026)."> <!-- BENCH-PENDING -->
+    <meta name="twitter:description" content="A scale study of the parallel-CPU vector engine: 124,785 features/sec at 1M, 2.03× flatness across an order of magnitude, no per-stage file I/O (ForgeGIS 1.2.3 build, July 2026).">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -320,7 +320,7 @@
             setback buffer, points-in-polygons join, classify, reproject back &mdash; entirely through immutable
             in-process handles, with <em>no per-stage file I/O</em>. Every number on this page was read from a
             server-side timing path, never from pixels. Measured on a ForgeGIS 1.2.3 development build in
-            July 2026, and not yet re-measured on 1.2.6. <!-- BENCH-PENDING -->
+            July 2026, and not yet re-measured on 1.2.6.
         </p>
         <div class="cta-group">
             <a href="#the-curve" class="btn btn-primary">See the curve</a>
@@ -332,11 +332,11 @@
 <section class="stats">
     <div class="stats-grid">
         <div class="stat">
-            <div class="number">124,785</div> <!-- BENCH-PENDING -->
+            <div class="number">124,785</div>
             <div class="label"><span class="accent">features/sec</span> at one million footprints, measured headless around each operation</div>
         </div>
         <div class="stat">
-            <div class="number">2.03<span class="accent">&times;</span></div> <!-- BENCH-PENDING -->
+            <div class="number">2.03<span class="accent">&times;</span></div>
             <div class="label">the entire spread in features/sec between 100k and 1M &mdash; near-flat across an order of magnitude</div>
         </div>
         <div class="stat">
@@ -465,7 +465,6 @@
                 <text class="ch-axis-title" x="382" y="398" text-anchor="middle">features per tier (log scale)</text>
                 <text class="ch-axis-title ch-ytitle" x="16" y="186" text-anchor="middle" transform="rotate(-90 16 186)">features / second</text>
             </svg>
-            <!-- BENCH-PENDING -->
             <figcaption>
                 Headless, ForgeGIS 1.2.3 development build, July 2026: 107,730 &rarr; 253,212 &rarr; 124,785 features/sec. The flat right side &mdash; a
                 <strong>2.03&times;</strong> spread from 100k to 1M &mdash; is the claim. The dip at 10k is fixed
