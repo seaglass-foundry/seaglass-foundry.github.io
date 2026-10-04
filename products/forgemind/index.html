@@ -700,7 +700,7 @@
 
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">Forge Suite &middot; v1.2.5</div>
+        <div class="flagship-badge">Forge Suite &middot; v1.2.6</div>
         <h1>ForgeMind<sup class="tm">&trade;</sup></h1>
         <p class="tagline">The GIS Intent Compiler</p>
         <p class="categorical-claim">
@@ -724,8 +724,8 @@
             <div class="label">confident-wrong results across thousands of turns in the June 2026 validation campaign</div>
         </div>
         <div class="stat">
-            <div class="number">~25<span class="accent">&times;</span></div>
-            <div class="label">less model spend than a legacy agent-loop run on one site-suitability request (Claude, May 2026)</div>
+            <div class="number">~25<span class="accent">&times;</span></div> <!-- BENCH-PENDING -->
+            <div class="label">less model spend than a legacy agent-loop run on one site-suitability request (Claude; measured on a pre-1.1.0 build, May 2026)</div>
         </div>
         <div class="stat">
             <div class="number">Your <span class="accent">model</span></div>
@@ -735,6 +735,71 @@
             <div class="number">MCP</div>
             <div class="label">native in both directions: it drives tool servers, and it is one</div>
         </div>
+    </div>
+</section>
+
+<section class="block tinted" id="new">
+    <div class="container">
+        <h2 class="center">New in 1.2.6</h2>
+        <p class="section-intro center">A release spent finding wrong answers and removing them &mdash; and measuring on the real Earth.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>Measured on the real Earth</h3>
+                <p>
+                    Every distance, area and bearing is now computed on the WGS84 ellipsoid, so the same pair of
+                    places reads the same whichever way you ask. A navigator's question draws both courses: the
+                    great circle, the shortest route, and the rhumb line, one steady compass heading.
+                </p>
+            </div>
+            <div class="item">
+                <h3>It knows what data you have</h3>
+                <p>
+                    &ldquo;What data do you have for this area?&rdquo; is answered from the catalog. Elevation answers
+                    use the vertical unit the data really has, never an assumed metre, and a request it cannot
+                    convert honestly is declined.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Fewer wrong answers</h3>
+                <p>
+                    Validation runs found and fixed answers that were wrong but confident &mdash; a least-cost path
+                    drawn straight, statistics over a polygon's box instead of the polygon, a negated command that
+                    still ran. The fallback loop now acts and asks, but no longer answers a question that asks for a figure.
+                </p>
+            </div>
+        </div>
+        <ul class="perf-list" style="margin-top: 32px;">
+            <li>
+                <div class="perf-num">API token</div>
+                <div class="perf-text">
+                    An off-host deployment must set <code>FORGEMIND_API_TOKEN</code>: binding beyond loopback without a
+                    token now refuses to start. A token-less local client must address ForgeMind as
+                    <code>localhost</code> or <code>127.0.0.1</code>.
+                </div>
+            </li>
+            <li>
+                <div class="perf-num">Metres</div>
+                <div class="perf-text">
+                    <code>run_capability</code> simplify and densify take <code>tolerance_m</code> and
+                    <code>maxLength_m</code> in metres. The old degree parameters are gone and are refused.
+                </div>
+            </li>
+            <li>
+                <div class="perf-num">ForgeData 1.2.6</div>
+                <div class="perf-text">
+                    ForgeMind expects ForgeData's MCP contract 2.0.0. Against an older ForgeData it switches off only
+                    the raster-window read and says so.
+                </div>
+            </li>
+            <li>
+                <div class="perf-num">Query log</div>
+                <div class="perf-text">
+                    ForgeMind now keeps a local log of the questions it is asked, on by default and size-capped, so a
+                    wrong answer can be traced. It stays on your machine; a switch in the Control Center's Settings
+                    turns it off.
+                </div>
+            </li>
+        </ul>
     </div>
 </section>
 
@@ -872,7 +937,7 @@
                 <p>
                     With a hosted vendor, cheap, high-volume classification runs on a fast, low-cost tier and the
                     more capable tier is kept for requests no template covers; most answers are now narrated from
-                    templates with no model call at all. On one site-suitability request (Claude, May 2026) the
+                    templates with no model call at all. On one site-suitability request (Claude; a pre-1.1.0 build, May 2026) <!-- BENCH-PENDING --> the
                     compiled path cost roughly a twenty-fifth of a legacy agent-loop run, which hit its iteration cap
                     without finishing. In the suite a local model runs every stage on one model, on your own hardware.
                 </p>
@@ -898,7 +963,7 @@
                 </p>
             </div>
             <div class="feature-card">
-                <div class="feat-tag">New in 1.2.5</div>
+                <div class="feat-tag">Studio and the globe</div>
                 <h3>It answers on the map you asked from</h3>
                 <p>
                     Ask in ForgeGIS Studio and the contours, profiles, and draped rasters land on Studio's map; ask
@@ -980,8 +1045,8 @@
                 <div class="perf-num">Zero</div>
                 <div class="perf-text">
                     <strong>confident-wrong results across the June 2026 conversation campaign</strong> &mdash;
-                    thousands of turns over dozens of multi-turn sessions, run before the 1.2.5 provider options
-                    were added. Requests it could honor were honored; requests it
+                    thousands of turns over dozens of multi-turn sessions, run before ForgeMind gained its choice of
+                    providers. Requests it could honor were honored; requests it
                     could not were refused or routed to clarification.
                 </div>
             </li>
@@ -1096,7 +1161,7 @@
                 <h3>ForgeMind Technical Brief</h3>
                 <p>
                     Architecture, the four providers and local models, capabilities, what each validation figure
-                    rests on, and deployment. Updated for 1.2.5.
+                    rests on, and deployment.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
