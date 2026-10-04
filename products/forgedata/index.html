@@ -267,7 +267,7 @@
 
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">Forge Suite &middot; v1.2.5</div>
+        <div class="flagship-badge">Forge Suite &middot; v1.2.6</div>
         <h1>ForgeData<sup class="tm">&trade;</sup></h1>
         <p class="tagline">The data-intelligence layer of the Forge suite</p>
         <p class="categorical-claim">
@@ -300,8 +300,48 @@
         </div>
         <div class="stat">
             <div class="number">Shared</div>
-            <div class="label">new in 1.2.5: on an install for everyone, a read-only catalog every account can read</div>
+            <div class="label">on an install for everyone, a read-only catalog every account can read</div>
         </div>
+    </div>
+</section>
+
+<section class="block tinted" id="new">
+    <div class="container">
+        <h2 class="center">New in 1.2.6</h2>
+        <p class="section-intro center">Every answer now says what it is measured in &mdash; and, when it is empty, why.</p>
+        <div class="three-up">
+            <div class="item">
+                <h3>Units stated, never assumed</h3>
+                <p>
+                    Every elevation reply carries its vertical unit and datum, read from the file or the product,
+                    and never guessed or converted: a DEM in feet answers in feet and says so. Point clouds in feet
+                    are no longer read as metres.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Every empty answer explained</h3>
+                <p>
+                    A reply with no data now gives a reason, and every refusal carries an error code. Partial
+                    answers say they are partial, and region statistics report how much of the area was covered.
+                </p>
+            </div>
+            <div class="item">
+                <h3>Right on awkward data</h3>
+                <p>
+                    Projected elevation models answer correctly, distances are measured on the WGS84 ellipsoid,
+                    unreadable or corrupt files are refused with a named error rather than catalogued, and
+                    credentials are masked in every error and log line.
+                </p>
+            </div>
+        </div>
+        <p class="routing-note">
+            For integrators, two breaking changes. The MCP contract moves to 2.0.0: <code>read_raster_window</code>
+            now returns the file's real data type (INT16 stays INT16) where it returned FLOAT32, so consumers that
+            pin the contract must refresh their pins. And the runnable server is now
+            <code>forgedata-1.2.6-all.jar</code>; the plain <code>forgedata-1.2.6.jar</code> is a library jar and
+            no longer runs on its own. Some calls that used to return an empty success now refuse with
+            <code>invalid_argument</code>.
+        </p>
     </div>
 </section>
 
@@ -430,7 +470,7 @@
                 </p>
             </div>
             <div class="feature-card">
-                <div class="feat-tag">New in 1.2.5</div>
+                <div class="feat-tag">Shared machine catalog</div>
                 <h3>One catalog for every account</h3>
                 <p>
                     When the suite is installed for everyone on a workstation, each user keeps a private catalog and
@@ -532,8 +572,8 @@
                 <h3>ForgeData Technical Brief</h3>
                 <p>
                     The catalog model and the shared machine catalog, cost-aware routing, the operation registry,
-                    all fourteen source types, the MCP tool surface and its 1.2.5 reply bounds, the read paths, and
-                    deployment guidance. Updated for 1.2.5.
+                    all fourteen source types, the MCP tool surface and its reply bounds, the read paths, and
+                    deployment guidance.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
