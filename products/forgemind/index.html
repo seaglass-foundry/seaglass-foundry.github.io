@@ -670,6 +670,8 @@
                 gap: 16px;
             }
         }
+        /* Moved from inline style attributes (T515) */
+        ul.perf-list.gap-top { margin-top: 32px; }
     </style>
 </head>
 <body>
@@ -768,7 +770,7 @@
                 </p>
             </div>
         </div>
-        <ul class="perf-list" style="margin-top: 32px;">
+        <ul class="perf-list gap-top">
             <li>
                 <div class="perf-num">API token</div>
                 <div class="perf-text">

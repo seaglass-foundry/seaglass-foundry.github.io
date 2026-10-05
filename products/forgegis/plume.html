@@ -277,6 +277,11 @@
             .ch-narrow { display: block; }
             figure.chart { padding: 16px 10px 8px; }
         }
+        /* Moved from inline style attributes (T515) */
+        .split.narrow-img.gap-top-lg { margin-top: 56px; }
+        .split.narrow-img.gap-top-md { margin-top: 46px; }
+        .scope-note.gap-bottom { margin-bottom: 10px; }
+        figure.chart.wide.gap-top-sm { margin-top: 44px; }
     </style>
 </head>
 <body>
@@ -512,7 +517,7 @@
             </div>
         </div>
 
-        <div class="split narrow-img" style="margin-top: 56px;">
+        <div class="split narrow-img gap-top-lg">
             <div class="split-text">
                 <h3>The second solution: a plume in a wind</h3>
                 <p>
@@ -627,13 +632,13 @@
             wind-shift through the panel&rsquo;s fork form, a three-branch wind-direction fan, and a 10&times; source
             fork through the API.
         </p>
-        <div class="scope-note" style="margin-bottom: 10px;">
+        <div class="scope-note gap-bottom">
             <strong>Scope, again, because it matters here most:</strong> the wind is a <em>constant twin
             parameter</em> &mdash; a what-if knob, not weather. There is no met data, no sea-breeze cycle and no
             boundary layer anywhere in this run, and nothing on this page is a forecast for anywhere.
         </div>
 
-        <div class="split narrow-img" style="margin-top: 46px;">
+        <div class="split narrow-img gap-top-md">
             <div class="split-text">
                 <h3>Pause, then branch</h3>
                 <p>
@@ -690,7 +695,7 @@
             earlier.
         </p>
 
-        <figure class="chart wide" style="margin-top: 44px;">
+        <figure class="chart wide gap-top-sm">
             <svg viewBox="0 0 720 400" role="img" aria-labelledby="c3-t c3-d">
                 <title id="c3-t">Concentration at the receptor across six worlds sharing one history to epoch 20</title>
                 <desc id="c3-d">Six timelines share one history until epoch 20, where the run is forked. The baseline rises from zero after epoch 16 and settles near 0.17 quanta per cell. The 10x source fork follows the baseline and then climbs steeply past epoch 36 to about 0.54. The backed-wind branch and the three-branch wind fan all rise briefly and then collapse to zero — on-track winds arrive at the receptor; the backed wind never does.</desc>

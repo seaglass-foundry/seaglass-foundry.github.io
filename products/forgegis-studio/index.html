@@ -224,6 +224,8 @@
             nav .nav-links { display: none; }
             nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
         }
+        /* Moved from inline style attributes (T515) */
+        figure.shot.shot-wide { max-width: 1040px; margin: 32px auto 0; }
     </style>
 </head>
 <body>
@@ -490,7 +492,7 @@
                 </p>
             </div>
         </div>
-        <figure class="shot" style="max-width: 1040px; margin: 32px auto 0;">
+        <figure class="shot shot-wide">
             <a href="img/studio-vector-drop.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/studio-vector-drop.webp" alt="ForgeGIS Studio with a small vector file dropped on the map: points and a line drawn over a world basemap, a landmarks layer on the pipeline canvas at right, and the Attributes table below listing five features with an expression filter and GeoJSON, GeoPackage and CSV export buttons" width="1590" height="903" loading="lazy"></a>
             <figcaption>A small vector file dropped onto Studio's map: its features drawn over the basemap, the layer on the pipeline canvas, and its attribute table below &mdash; filter by expression, export as GeoJSON, GeoPackage, or CSV.</figcaption>
         </figure>

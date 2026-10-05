@@ -248,6 +248,11 @@
             .read-box { padding: 22px 20px; }
             .flow .arrow { display: none; }
         }
+        /* Moved from inline style attributes (T515) */
+        .lic-note.read-box.gap-top, .aside-box.gap-top { margin-top: 34px; }
+        td span.normal-weight { font-weight: 400; }
+        .aside-box p.aside-first { margin-top: 6px; }
+        .aside-box p.aside-next { margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -437,7 +442,7 @@
                 the whole way. Replay, forking and audit are all readers of that one file.
             </figcaption>
         </figure>
-        <div class="lic-note read-box" style="margin-top: 34px;">
+        <div class="lic-note read-box gap-top">
             <h3>The one rule that makes the rest work</h3>
             <p>
                 A change becomes visible &mdash; on screen, on the network, to any consumer &mdash; <strong>only after
@@ -558,7 +563,7 @@
             <div class="verb"><h3>Verify</h3><p>Prove the recording's integrity</p></div>
             <div class="verb"><h3>Query</h3><p>Read frames, epochs and snapshots</p></div>
         </div>
-        <div class="lic-note read-box" style="margin-top: 34px;">
+        <div class="lic-note read-box gap-top">
             <h3>Two ways to run the same thing</h3>
             <p>
                 Pacing is a viewing convenience, not a change to the result. A run throttled for a live audience and a
@@ -661,7 +666,7 @@
                     <td>Live and replayed frames over the network, with automatic recovery if a viewer falls behind &mdash; it is told exactly where to resume.</td>
                 </tr>
                 <tr>
-                    <td>Engine &harr; Globe <span style="font-weight:400">(same GPU)</span></td>
+                    <td>Engine &harr; Globe <span class="normal-weight">(same GPU)</span></td>
                     <td>On a large-VRAM workstation, state moves as on-device copies through shared graphics memory. Meaning and the durable record still travel the normal path.</td>
                 </tr>
                 <tr>
@@ -674,26 +679,26 @@
                 </tr>
             </table>
         </div>
-        <div class="aside-box" style="margin-top: 34px;">
+        <div class="aside-box gap-top">
             <div class="feat-tag">Where it runs</div>
             <h3>One machine, headless, catalog-backed, or nothing installed at all</h3>
-            <p style="margin-top: 6px;">
+            <p class="aside-first">
                 <strong>All on one machine.</strong> Studio embeds the engine; you author, run, scrub and fork in a
                 single process, recordings on local disk.
             </p>
-            <p style="margin-top: 10px;">
+            <p class="aside-next">
                 <strong>Headless / automated.</strong> Drive twins by command through the MCP interface, exposing a
                 live endpoint for a Globe on the same network.
             </p>
-            <p style="margin-top: 10px;">
+            <p class="aside-next">
                 <strong>Catalog-backed.</strong> Recordings land in ForgeData's catalog by reference; every consumer
                 reads the identical format.
             </p>
-            <p style="margin-top: 10px;">
+            <p class="aside-next">
                 <strong>Playback with nothing installed.</strong> A sealed recording is served or opened on its own
                 &mdash; the format guarantees third-party readability.
             </p>
-            <p style="margin-top: 10px;">
+            <p class="aside-next">
                 <strong>Co-resident on a large-VRAM workstation.</strong> Engine and viewer share one GPU, so twin
                 state reaches the renderer without leaving the card. Optional, off by default, and the recording is
                 identical either way.

@@ -242,6 +242,8 @@
             nav .nav-links { display: none; }
             nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
         }
+        /* Moved from inline style attributes (T515) */
+        .shot-row.shot-row-solo { grid-template-columns: 1fr; max-width: 940px; }
     </style>
 </head>
 <body>
@@ -508,7 +510,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="shot-row" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="shot-row shot-row-solo">
             <figure class="shot">
                 <a href="img/cc-06-data-gallery.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-06-data-gallery.webp" alt="The Data tab: a registered sample elevation source with a Sync button on the left, and a data source gallery of elevation, vector, and imagery sources on the right" width="1310" height="690" loading="lazy"></a>
                 <figcaption>The Data tab: registered sources on the left, and a one-click gallery of elevation, vector, and imagery sources behind one interface.</figcaption>

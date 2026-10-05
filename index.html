@@ -545,6 +545,12 @@
                 gap: 16px;
             }
         }
+        /* Moved from inline style attributes (T515) */
+        .subline strong.new-tag { color: #fff; }
+        .hero-video-caption a.full-film-link { color: inherit; text-decoration: underline; }
+        #forgegis-race { max-width: 880px; margin: 28px auto 0; border-radius: 12px; overflow: hidden; background: #000; }
+        .hero-video-caption.race-caption { color: #5b6b7b; text-align: center; margin: 12px auto 0; }
+        .products-grid.grid-gap-top { margin-top: 28px; }
     </style>
 </head>
 <body>
@@ -571,7 +577,7 @@
             guesses &mdash; runs on one workstation with no infrastructure to stand up, and its operations are
             callable by a person or by an AI agent.
             Military symbology and exercise recording, a GPU compute broker, and your choice of AI model
-            &mdash; including one you run yourself. <strong style="color:#fff;">New in 1.2.6:</strong> every
+            &mdash; including one you run yourself. <strong class="new-tag">New in 1.2.6:</strong> every
             measurement on the WGS84 ellipsoid, across the suite.
         </p>
         <div class="cta-group">
@@ -586,7 +592,7 @@
                 </a>
             </div>
         </div>
-        <p class="hero-video-caption">The Forge Suite 1.2.6 release film, short cut (1:15) &mdash; <a href="https://www.youtube.com/watch?v=5oHm4z3gw5Q" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Watch the full film (4:08)</a> on YouTube.</p>
+        <p class="hero-video-caption">The Forge Suite 1.2.6 release film, short cut (1:15) &mdash; <a href="https://www.youtube.com/watch?v=5oHm4z3gw5Q" target="_blank" rel="noopener" class="full-film-link">Watch the full film (4:08)</a> on YouTube.</p>
     </div>
 </section>
 
@@ -671,7 +677,7 @@
             </div>
         </div>
     </div>
-    <div class="hero-video" id="forgegis-race" style="max-width: 880px; margin: 28px auto 0; border-radius: 12px; overflow: hidden; background: #000;">
+    <div class="hero-video" id="forgegis-race">
         <div class="film-frame">
             <a class="film-facade" href="https://www.youtube.com/watch?v=p4qm5JPGmIY" target="_blank" rel="noopener" data-video="p4qm5JPGmIY" data-title="ForgeGIS 1.2.6 vs GDAL &mdash; excerpt, ops 1&ndash;9 of 61, real time" aria-label="Play the ForgeGIS 1.2.6 vs GDAL race excerpt, ops 1 to 9 of 61, real time (1:26)">
                 <img src="/products/forgegis/img/race-excerpt-poster.webp" alt="Frame from the race excerpt: ForgeGIS and GDAL side by side on a hillshade of the Grand Canyon, ForgeGIS at 0.044 s and GDAL at 0.176 s" width="1280" height="720" loading="lazy" decoding="async">
@@ -679,8 +685,8 @@
             </a>
         </div>
     </div>
-    <p class="hero-video-caption" style="color: #5b6b7b; text-align: center; margin: 12px auto 0;">Excerpt &middot; ops 1&ndash;9 of 61 &middot; real time (1:26). <a href="https://www.youtube.com/watch?v=KzotSSU933g" target="_blank" rel="noopener">Watch the full uncut race</a> &middot; <a href="/products/forgegis/#performance-demo">Methodology and the full demonstration</a></p>
-    <div class="products-grid" style="margin-top: 28px;">
+    <p class="hero-video-caption race-caption">Excerpt &middot; ops 1&ndash;9 of 61 &middot; real time (1:26). <a href="https://www.youtube.com/watch?v=KzotSSU933g" target="_blank" rel="noopener">Watch the full uncut race</a> &middot; <a href="/products/forgegis/#performance-demo">Methodology and the full demonstration</a></p>
+    <div class="products-grid grid-gap-top">
         <a href="/products/forgemind/" class="product-card">
             <span class="card-badge badge-dev">Forge Suite &middot; The GIS Intent Compiler</span>
             <h3>Forge<span>Mind</span><sup class="tm">&trade;</sup></h3>
@@ -809,7 +815,7 @@
             </div>
         </div>
     </div>
-    <div class="products-grid" style="margin-top: 28px;">
+    <div class="products-grid grid-gap-top">
         <a href="/products/forgegis/#new" class="product-card">
             <span class="card-badge badge-dev">New in 1.2.6 &middot; For integrators</span>
             <h3>Changes <span>to act on</span></h3>

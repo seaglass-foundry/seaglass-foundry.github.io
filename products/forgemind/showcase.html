@@ -257,6 +257,8 @@
             nav .nav-links { display: none; }
             nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
         }
+        /* Moved from inline style attributes (T515) */
+        p.lede.lede-centered { max-width: 860px; margin: 0 auto; text-align: center; }
     </style>
 </head>
 <body>
@@ -577,7 +579,7 @@
     <div class="container">
         <h2 class="center">Read the plan, not just the pass rate</h2>
         <p class="section-intro center">The numbers are internally consistent in a way a guessing system could not fake.</p>
-        <p class="lede" style="max-width:860px;margin:0 auto;text-align:center;">
+        <p class="lede lede-centered">
             <code>hlz_charlie</code> is the only one of three landing-zone candidates that sits outside the
             MANPADS weapon-engagement zone (op 43), and it also has the flattest ground at 1.12&deg; (op 37).
             The direct ingress route crosses the threat ring (op 54), so the least-cost path is longer at 10.99
