@@ -1,0 +1,7 @@
+host	reason
+seaglassfoundry.com	own domain: canonical, og:image, sitemap URLs
+github.com	outbound links only; nothing fetched at runtime
+central.sonatype.com	outbound links to the Maven Central artifact; nothing fetched
+www.youtube.com	outbound watch links and VideoObject JSON-LD contentUrl; never loaded by the page (the embed is the www.youtube-nocookie.com row)
+schema.org	JSON-LD @context identifier, never fetched
+www.gnu.org	licence URL inside JSON-LD, never fetched
