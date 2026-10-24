@@ -253,8 +253,9 @@
         <a href="/" class="brand">Seaglass <span>Foundry</span></a>
         <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
         <div class="nav-links" id="nav-links">
-            <a href="/products/">Products</a>
-            <a href="/#evaluate">Evaluate</a>
+            <a href="/products/forgegis/#performance">Benchmark</a>
+            <a href="/#globe">Globe</a>
+            <a href="/#get">Get the suite</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
@@ -264,7 +265,7 @@
 <div class="subnav">
     <div class="subnav-inner">
         <div class="crumb">
-            <a href="/products/">Products</a>
+            <a href="/">Home</a>
             <span class="sep">/</span>
             <span>Seaglass Control Center</span>
         </div>
@@ -285,7 +286,7 @@
         </p>
         <div class="cta-group">
             <a href="mailto:rich@seaglassfoundry.com?subject=Forge%20suite%20evaluation" class="btn btn-primary">Request evaluation access</a>
-            <a href="downloads/seaglass-control-center-datasheet.pdf" class="btn btn-outline">Download Datasheet</a>
+            <a href="/#get" class="btn btn-outline">Get the suite</a>
         </div>
     </div>
 </section>
@@ -323,46 +324,6 @@
         &ldquo;engine room&rdquo; dashboard once the suite goes live, so the mode you are in is always obvious.
     </p>
 </div>
-
-<section class="block tinted" id="new">
-    <div class="container">
-        <h2 class="center">New in 1.2.6</h2>
-        <p class="section-intro center">The rough edges sanded off: services that stop and come back cleanly, data sources that say what happened, and the recorder and broker finished off.</p>
-        <div class="three-up">
-            <div class="item">
-                <h3>Stops cleanly, comes back cleanly</h3>
-                <p>
-                    Stop asks ForgeMind, Studio and the globe to shut down before forcing them, and closing the window
-                    asks first when it would stop something. If the Control Center itself was killed, relaunching it
-                    picks its running services back up. A question in the Ask tab and a data sync can both be cancelled.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Data sources that say what happened</h3>
-                <p>
-                    Sources can be removed, a keyless USGS 3DEP card joins the gallery, and STAC, WFS, WCS and ArcGIS
-                    sources can be aimed at a single collection or layer. The sync panel fills as it runs, each source
-                    says how its last sync went, failures say why in plain words, and the globe picks up new datasets
-                    by itself.
-                </p>
-            </div>
-            <div class="item">
-                <h3>The recorder and the broker, finished off</h3>
-                <p>
-                    Recordings replay on the globe with no setup, and a sample recording ships. A recording run tells
-                    its endings apart. Broker settings speak in shares of GPU memory and refuse to oversubscribe it,
-                    and the Services tab shows the contract version each engine speaks.
-                </p>
-            </div>
-        </div>
-        <p class="routing-note">
-            Screens and logs no longer show the Windows account name, Studio is held to loopback, and the dashboard
-            gained keyboard focus and screen-reader names. For anyone scripting the compute broker: a task whose
-            output is named <code>.png</code> or <code>.jpg</code> is now refused (name it <code>.tif</code>), and a
-            request without a token must address the broker as <code>localhost</code>.
-        </p>
-    </div>
-</section>
 
 <section class="block">
     <div class="container">
@@ -408,7 +369,7 @@
                 <li>
                     <strong>Run one installer</strong>
                     <span class="step-desc">
-                        A single Windows installer (about 435&nbsp;MB) carrying a private Java runtime, the whole
+                        A single Windows installer carrying a private Java runtime, the whole
                         suite, and a sample elevation dataset. Accept the evaluation license, then install for
                         everyone on the computer or just for yourself. Nothing needs to be on the machine first.
                     </span>
@@ -479,7 +440,7 @@
                     </tr>
                     <tr>
                         <td>ForgeGIS</td>
-                        <td>GPU geospatial engine, 239 operations (MCP child of ForgeMind)</td>
+                        <td>GPU geospatial engine (MCP child of ForgeMind)</td>
                         <td><span class="muted">stdio</span></td>
                     </tr>
                     <tr>
@@ -498,12 +459,12 @@
                         <td><code>7900</code> <span class="muted">loopback + token</span></td>
                     </tr>
                     <tr>
-                        <td><a href="#record">ForgeRelay</a> <span class="muted">(opt-in)</span></td>
+                        <td>ForgeRelay <span class="muted">(opt-in)</span></td>
                         <td>Records DIS and Cursor-on-Target exercise traffic into a scenario library</td>
                         <td>UDP <code>3000</code> &middot; <code>6969</code> <span class="muted">per config</span></td>
                     </tr>
                     <tr>
-                        <td><a href="#compute-broker">Compute broker</a> <span class="muted">(opt-in)</span></td>
+                        <td>Compute broker <span class="muted">(opt-in)</span></td>
                         <td>Job queue and GPU workers for raster batch jobs</td>
                         <td><code>8082</code> <span class="muted">this machine or a fleet</span></td>
                     </tr>
@@ -519,124 +480,7 @@
     </div>
 </section>
 
-<section class="block tinted" id="record">
-    <div class="container">
-        <h2 class="center">Record an exercise</h2>
-        <p class="section-intro center">With ForgeRelay installed, the dashboard gains a Record tab that listens to a live exercise and writes it into a scenario library &mdash; one GeoPackage file, in the same scenario format Seaglass Globe replays.</p>
-        <div class="split">
-            <div>
-                <h3>Two kinds of traffic, never mixed</h3>
-                <p>
-                    DIS simulation traffic is recorded as ground truth. A Cursor-on-Target feed is recorded as one
-                    side's picture, never as truth. Run both at once and the library holds what happened beside what
-                    one side believed.
-                </p>
-                <h3>It asks instead of guessing</h3>
-                <p>
-                    Some facts about an exercise never appear on the wire: which force is which side, and the
-                    marking the recording carries. The relay refuses to start until a person answers them, and
-                    writes the answers into the recording's config file.
-                </p>
-                <h3>A recording that says when it lost data</h3>
-                <p>
-                    Live counters show what is arriving and what is being refused or dropped, in red. A silent
-                    feed says so rather than looking healthy, and every stop ends in a verdict &mdash; complete,
-                    refused, or stopped with holes &mdash; so a gap is reported when the run ends, not discovered
-                    later.
-                </p>
-            </div>
-            <figure class="shot">
-                <a href="img/cc-07-relay-questions.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-07-relay-questions.webp" alt="The Record tab: the dis-exercise configuration with Preflight OK, three fields the relay needs from a person (force-to-side map, feed owner, marking), a Save answers to file button, and the run waiting to start" width="620" height="840" loading="lazy"></a>
-                <figcaption>The Record tab: the questions only a person can answer, saved into the config before the run starts.</figcaption>
-            </figure>
-        </div>
-        <p class="routing-note">
-            Starter configurations for a DIS exercise and a CoT feed are written at setup. HLA recording needs an
-            RTI, which the suite doesn't include. Recordings go into the library that the Seaglass Globe opens when
-            the dashboard starts it, and the Globe replays them, live while the relay records. A one-minute DIS sample of six
-            synthetic platforms ships to try.
-        </p>
-    </div>
-</section>
-
-<section class="block" id="compute-broker">
-    <div class="container">
-        <h2 class="center">The compute broker</h2>
-        <p class="section-intro center">A job queue plus GPU workers for work like &ldquo;hillshade every tile in this folder,&rdquo; where one request becomes hundreds of independent tasks.</p>
-        <div class="three-up">
-            <div class="item">
-                <h3>One machine, or a fleet</h3>
-                <p>
-                    Workers run on this machine, or on other machines that pull from one shared broker. Serving the
-                    fleet is a switch in Settings; machines on the network need the fleet token, while this machine
-                    never does.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Refused, not attempted</h3>
-                <p>
-                    A task too large for any worker's GPU memory is refused from the raster's own header, before
-                    any GPU work, rather than attempted. A worker that crashes is
-                    restarted and its task handed to another; a worker that stops on purpose is left stopped.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Asked for in plain language</h3>
-                <p>
-                    ForgeMind (or the <code>frm</code> command line) sends the broker work: ask for batch processing
-                    and it submits one job the workers split between them. In 1.2.6 Studio sends it raster batches
-                    too; the Globe still runs its batch jobs locally.
-                </p>
-            </div>
-        </div>
-        <div class="film-embed">
-            <div class="film-frame">
-                <a class="film-facade" href="https://www.youtube.com/watch?v=y8wno9jVrh4" target="_blank" rel="noopener" data-video="y8wno9jVrh4" data-title="Forge Resource Manager" aria-label="Play the Forge Resource Manager video">
-                    <img src="img/broker-film-poster.webp" alt="Title card of the Forge Resource Manager video: on a dark navy field, the lines Any number of people, through any Forge view, share any number of ForgeGIS compute nodes. Nothing is lost when a machine dies." width="1280" height="720" loading="lazy" decoding="async">
-                    <span class="film-play" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-        <p class="film-caption">How the broker is designed. In 1.2.6, ForgeMind, the <code>frm</code> command line and ForgeGIS Studio&rsquo;s raster batches send it work; Seaglass Globe connects in a later release.</p>
-        <figure class="shot wide-shot">
-            <a href="img/cc-08-broker.webp" class="shot-link" target="_blank" rel="noopener"><img src="img/cc-08-broker.webp" alt="The Services tab: ForgeMind, ForgeGIS Studio and Seaglass Globe stopped, and the Compute broker card running on port 8082 for this machine only, with one GPU worker running" width="1500" height="410" loading="lazy"></a>
-            <figcaption>The Services tab with the broker running for this machine and one GPU worker.</figcaption>
-        </figure>
-    </div>
-</section>
-
-<section class="block tinted" id="providers">
-    <div class="container">
-        <h2 class="center">Your AI provider</h2>
-        <p class="section-intro center">ForgeMind needs one language model to plan and narrate. Choose a commercial vendor, or a model you run on your own hardware.</p>
-        <div class="three-up">
-            <div class="item">
-                <h3>Four commercial vendors</h3>
-                <p>
-                    Claude, OpenAI, Gemini, or Grok. Each key is checked live before it's stored, so a mistyped key
-                    is caught at setup rather than when the agent starts &mdash; or saved unchecked, if you choose.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Or your own model</h3>
-                <p>
-                    Point ForgeMind at an OpenAI-compatible server you run &mdash; on the workstation or elsewhere
-                    on your network &mdash; and no request goes to a cloud vendor. Ollama is the tested path. Expect
-                    a local model to be slower than a hosted one.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Keys never on disk</h3>
-                <p>
-                    Keys live in the Windows Credential Manager, and only the active provider's key is handed to the agent. Set up
-                    several and switch between them from Settings.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="block">
+<section class="block tinted">
     <div class="container">
         <h2 class="center">Shared workstations and the evaluation build</h2>
         <p class="section-intro center">One install for every account on the machine, a catalog they share, and a clear evaluation period.</p>
@@ -668,7 +512,7 @@
     </div>
 </section>
 
-<section class="block tinted">
+<section class="block">
     <div class="container">
         <h2 class="center">Security posture</h2>
         <p class="section-intro center">Local by default: the agent's API never leaves this machine, and only components you turn on &mdash; the exercise recorder's feed ports, a broker serving the fleet &mdash; listen beyond it.</p>
@@ -707,11 +551,13 @@
     </div>
 </section>
 
-<section class="block" id="downloads">
+<section class="block tinted" id="downloads">
     <div class="container">
         <h2 class="center">Downloads</h2>
         <p class="section-intro center">Direct download &mdash; no email gate, no form wall.</p>
         <div class="downloads-grid">
+            <!-- TODO (number audit, D462): this PDF still states an operation count (239) and an installer size
+                 (about 435 MB) that have no validation record and are off the site; re-baseline it in the collateral repo. -->
             <a href="downloads/seaglass-control-center-datasheet.pdf" class="download-card">
                 <div class="dl-type">Technical Datasheet &middot; 2 pages</div>
                 <h3>Seaglass Control Center Datasheet</h3>
@@ -726,7 +572,7 @@
         <div class="lic-note">
             <strong>A note on licensing.</strong> The Seaglass Control Center installs and operates the Forge suite
             and is not sold separately. The Forge suite is commercially licensed; terms are provided on request, and evaluation
-            builds are available to qualified teams &mdash; see <a href="/#evaluate">how to evaluate</a>.
+            builds are available to qualified teams &mdash; see <a href="/#get">how to get the suite</a>.
         </div>
     </div>
 </section>
@@ -742,12 +588,11 @@
 <footer>
     <div class="footer-inner">
         <div class="footer-links">
-            <a href="/products/">Products</a>
-            <a href="/products/forgegis/">ForgeGIS</a>
-            <a href="/products/forgemind/">ForgeMind</a>
-            <a href="/products/forgedata/">ForgeData</a>
-            <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
+            <a href="/">Home</a>
+            <a href="/products/forgegis/">ForgeGIS benchmark</a>
             <a href="/products/seaglass-globe/">Seaglass Globe</a>
+            <a href="/products/swingtopdf/">SwingToPDF</a>
+            <a href="/products/worldwind-reforged/">Worldwind Reforged</a>
             <a href="downloads/seaglass-control-center-datasheet.pdf">Datasheet</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
@@ -797,21 +642,6 @@
     });
     dlg.addEventListener('click', function() { dlg.close(); });
     dlg.addEventListener('close', function() { pic.removeAttribute('src'); });
-})();
-(function() {
-    function play(a) {
-        var f = document.createElement('iframe');
-        f.src = 'https://www.youtube-nocookie.com/embed/' + a.getAttribute('data-video') + '?autoplay=1&rel=0';
-        f.title = a.getAttribute('data-title') || 'Video';
-        f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-        f.setAttribute('allowfullscreen', '');
-        f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-        a.parentNode.replaceChild(f, a);
-        f.focus();
-    }
-    document.querySelectorAll('.film-facade').forEach(function(a) {
-        a.addEventListener('click', function(e) { if (e.ctrlKey || e.metaKey || e.shiftKey) return; e.preventDefault(); play(a); });
-    });
 })();
 </script>
 </body>

@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era</title>
-    <meta name="description" content="ForgeGIS: GPU-accelerated geospatial compute and a native MCP server in pure Java. Nearly every operation callable by an AI agent; 11×–182× multi-stage pipeline speedups vs GDAL at 4096², measured on 1.2.6, October 2026.">
+    <title>ForgeGIS — Benchmarked Against GDAL: Method, Figures and the Uncut Race</title>
+    <meta name="description" content="ForgeGIS 1.2.6 against GDAL 3.12: 15× geometric mean over 242 operations, 6× kernel against kernel, 0 parity failures. The method, and the uncut 61-operation race.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/">
-    <meta property="og:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
-    <meta property="og:description" content="GPU-accelerated geospatial compute and a native Model Context Protocol server, distributed as pure-Java Maven artifacts. Nearly every operation callable by an AI agent; 11×–182× multi-stage pipeline speedups vs GDAL at 4096², measured on 1.2.6, October 2026.">
-    <meta property="og:image" content="https://seaglassfoundry.com/products/forgegis/img/dt-03-breach-lake-dam-gorge.webp">
-    <meta property="og:image:width" content="1440">
-    <meta property="og:image:height" content="900">
-    <meta property="og:image:alt" content="The ForgeGIS Studio workspace running a digital-twin flood simulation over Lake Mead and Black Canyon">
+    <meta property="og:title" content="ForgeGIS — Benchmarked Against GDAL: Method, Figures and the Uncut Race">
+    <meta property="og:description" content="ForgeGIS 1.2.6 against GDAL 3.12 in the benchmark of record: 15× geometric mean across 242 operations, 6× kernel against kernel, 3 slower and all tiny. With the method and the uncut race.">
+    <meta property="og:image" content="https://seaglassfoundry.com/products/forgegis/img/race-excerpt-poster.webp">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta property="og:image:alt" content="Frame from the ForgeGIS vs GDAL performance demonstration: the two results side by side as grey hillshades of the Grand Canyon, each with its elapsed time">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://seaglassfoundry.com/products/forgegis/img/dt-03-breach-lake-dam-gorge.webp">
-    <meta name="twitter:title" content="ForgeGIS — GPU-Accelerated Geospatial Compute for the Agent Era">
-    <meta name="twitter:description" content="GPU-accelerated geospatial library and native MCP server, pure-Java Maven artifacts. Agent-callable end to end; 11×–182× multi-stage pipeline speedups vs GDAL at 4096², measured on 1.2.6, October 2026.">
+    <meta name="twitter:image" content="https://seaglassfoundry.com/products/forgegis/img/race-excerpt-poster.webp">
+    <meta name="twitter:title" content="ForgeGIS — Benchmarked Against GDAL: Method, Figures and the Uncut Race">
+    <meta name="twitter:description" content="ForgeGIS 1.2.6 against GDAL 3.12: 15× geometric mean, 6× kernel against kernel, with the method and the uncut race.">
     <meta name="keywords" content="GPU-accelerated geospatial library, MCP geospatial server, Java GPU GIS, geospatial Model Context Protocol, GDAL alternative, Java GIS library, GPU GIS compute, agent-callable geospatial">
     <script type="application/ld+json">
     {
@@ -28,7 +28,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform (JVM)",
         "url": "https://seaglassfoundry.com/products/forgegis/",
-        "description": "A GPU-accelerated geospatial compute library and native Model Context Protocol (MCP) server, distributed as pure-Java Maven artifacts with no first-party native code, no GDAL native bindings, and no separate native install step. Nearly every operation is callable by AI agents via MCP.",
+        "description": "A GPU-accelerated geospatial compute library and native Model Context Protocol (MCP) server, distributed as pure-Java Maven artifacts with no first-party native code, no GDAL native bindings, and no separate native install step.",
         "programmingLanguage": "Java",
         "creator": {
             "@type": "Organization",
@@ -714,17 +714,21 @@
         }
         /* Moved from inline style attributes (T515) */
         h3.center.gap-top { margin-top: 40px; }
+        .downloads-grid.solo { max-width: 520px; grid-template-columns: 1fr; }
+        #performance .demo-methodology { margin-top: 28px; }
     </style>
 </head>
 <body>
+
 
 <nav>
     <div class="nav-inner">
         <a href="/" class="brand">Seaglass <span>Foundry</span></a>
         <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
         <div class="nav-links">
-            <a href="/products/">Products</a>
-            <a href="/#evaluate">Evaluate</a>
+            <a href="/products/forgegis/#performance">Benchmark</a>
+            <a href="/#globe">Globe</a>
+            <a href="/#get">Get the suite</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
         </div>
@@ -734,28 +738,28 @@
 <div class="subnav">
     <div class="subnav-inner">
         <div class="crumb">
-            <a href="/products/">Products</a>
+            <a href="/">Home</a>
             <span class="sep">/</span>
             <span>ForgeGIS</span>
         </div>
-        <span class="flagship-tag">Flagship</span>
+        <span class="flagship-tag">Benchmark</span>
     </div>
 </div>
 
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">Flagship Release &middot; v1.2.6</div>
+        <div class="flagship-badge">Flagship &middot; v1.2.6</div>
         <h1>ForgeGIS<sup class="tm">&trade;</sup></h1>
-        <p class="tagline">GPU-Accelerated Geospatial Compute for the Agent Era</p>
+        <p class="tagline">GPU-Accelerated Geospatial Compute, Benchmarked Against GDAL</p>
         <p class="categorical-claim">
-            As of August 2026, <em>the only commercially-supported GPU-accelerated geospatial MCP server we have been able to identify</em>.
-            Distributed as pure-Java Maven artifacts &mdash; no first-party native code, no GDAL native bindings, no separate native install step.
-            239 operations across 11 categories, 237 of them callable by an AI agent through a native Model Context Protocol server.
+            GPU-accelerated geospatial compute and a native Model Context Protocol server, distributed as pure-Java Maven
+            artifacts &mdash; no first-party native code, no GDAL native bindings, no separate native install step.
+            This page is <em>its benchmark against GDAL</em>: the figures, how they were measured, and the uncut race.
         </p>
         <div class="cta-group">
             <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20evaluation" class="btn btn-primary">Request evaluation access</a>
-            <a href="downloads/forgegis-sales-onepager.pdf" class="btn btn-outline">Download Sales One-Pager</a>
-            <a href="#downloads" class="btn btn-outline">All Downloads</a>
+            <a href="#performance" class="btn btn-outline">See the benchmark</a>
+            <a href="#performance-demo" class="btn btn-outline">Watch the race</a>
         </div>
     </div>
 </section>
@@ -763,328 +767,91 @@
 <section class="stats">
     <div class="stats-grid">
         <div class="stat">
-            <div class="number">MCP<span class="accent"> native</span></div>
-            <div class="label">agents call the engine directly &mdash; no integration layer to build</div>
+            <div class="number">15&times;<span class="accent"> geomean</span></div>
+            <div class="label">over GDAL 3.12 across 242 benchmark operations, warm timings &mdash; 6&times; kernel against kernel for work of 1&nbsp;ms or more</div>
+        </div>
+        <div class="stat">
+            <div class="number">0<span class="accent"> fails</span></div>
+            <div class="label">in the parity checks of the benchmark of record, each against a tolerance stated per operation</div>
         </div>
         <div class="stat">
             <div class="number">Pure<span class="accent"> Java</span></div>
             <div class="label">Maven artifacts &mdash; no first-party native code, no GDAL bindings</div>
         </div>
-        <div class="stat">
-            <div class="number">11&times;&ndash;182&times;</div>
-            <div class="label">multi-stage pipeline speedup vs GDAL CLI at 4096&sup2; on equivalent workloads &mdash; measured on 1.2.6, October 2026</div>
-        </div>
     </div>
 </section>
 
-<section class="block tinted" id="new">
+<!-- Every figure in this section is from forgegis-validation run 20261004-094534-191f1b44 (CANONICAL, v1.2.6),
+     worded per docs/findings/bench-canonical-1.2.6-2026-10-04.md section 7. -->
+<section class="block" id="performance">
     <div class="container">
-        <h2 class="center">New in 1.2.6</h2>
-        <p class="section-intro center">A release about being right: every measurement on the real ellipsoid, outputs that line up with GDAL's, and bad input refused before the work starts.</p>
-        <div class="three-up">
-            <div class="item">
-                <h3>Every measurement on WGS84</h3>
-                <p>
-                    Lengths, areas, distances and bearings now come from one geodesic core on the WGS84 ellipsoid,
-                    by Karney's method, in place of a sphere. Every result names the model it used, antipodal pairs
-                    answer instead of failing, and projected data is measured on the ellipsoid, so metres mean
-                    metres in any coordinate system.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Outputs you can check against GDAL</h3>
-                <p>
-                    One NoData and data-type policy now runs across the catalog, so an integer output always carries
-                    a NoData value it can store. Viewshed no longer steps over thin ridges and puts the observer
-                    exactly where it was given, and NoData filling defaults to GDAL's inverse-distance method.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Refused up front, in plain terms</h3>
-                <p>
-                    Every pipeline step checks that it fits in memory before it runs and refuses with a typed reason
-                    if not. Agent calls are checked for type and range, and a point that falls off the raster is
-                    refused rather than quietly clamped or dropped.
-                </p>
-            </div>
-        </div>
-        <h3 class="center gap-top">Changes an integrator must act on</h3>
-        <ul class="perf-list">
-            <li>
-                <div class="perf-num">Renamed tool</div>
-                <div class="perf-text">
-                    <code>compute_haversine_distance</code> is now <code>compute_geodesic_distance</code>. No alias is
-                    kept: a client calling the old name gets an unknown-tool error. The default result moves from
-                    the sphere to the WGS84 geodesic.
-                </div>
-            </li>
-            <li>
-                <div class="perf-num">Viewshed is UINT8</div>
-                <div class="perf-text">
-                    The binary viewshed now uses GDAL's byte encoding: visible 255, not visible 0, with DEM voids
-                    tagged as NoData. Set <code>outputDataType</code> to get the earlier FLOAT32 1.0&nbsp;/&nbsp;0.0 output.
-                </div>
-            </li>
-            <li>
-                <div class="perf-num">EPSG:4326 points</div>
-                <div class="perf-text">
-                    Every point parameter on the MCP surface is read in its <code>crs</code>, which defaults to
-                    EPSG:4326 (longitude, latitude). A caller that passes coordinates in the raster's own system must
-                    now set <code>crs</code> to say so.
-                </div>
-            </li>
-        </ul>
-    </div>
-</section>
-
-<section class="block">
-    <div class="container">
-        <h2 class="center">What it is, why it matters, how it's built differently</h2>
-        <p class="section-intro center">Three short answers for the technical evaluator.</p>
-        <div class="three-up">
-            <div class="item">
-                <h3>What it is</h3>
-                <p>
-                    ForgeGIS is a GPU-accelerated geospatial compute library and a native Model Context Protocol server,
-                    both written in Java. It runs raster, hydrology, visibility, spectral, ML, and point-cloud
-                    workloads on the GPU through Java-side compute kernels, alongside a large vector and topology
-                    surface in pure Java &mdash; 239 operations across 11 categories, 237 of them reachable by AI agents through MCP.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Why it matters</h3>
-                <p>
-                    Serious geospatial work has historically meant assembling Python, C++, and native libraries
-                    &mdash; GDAL, JTS, PostGIS, CUDA &mdash; and accepting either CPU-bound throughput or a build
-                    pipeline tied to native dependencies. ForgeGIS removes both costs: GPU performance without
-                    leaving the JVM, and agent-callable surface without an integration layer.
-                </p>
-            </div>
-            <div class="item">
-                <h3>How it's built differently</h3>
-                <p>
-                    Pure-Java Maven distribution. No first-party native code, no GDAL native bindings, no
-                    separate native install step. GPU dispatch is via the JOCL OpenCL bindings (JNI bridge
-                    bundled in the JOCL JAR, extracted at runtime); the system OpenCL runtime is standard
-                    system software bundled with GPU drivers. Deployment is one JAR.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="block tinted">
-    <div class="container">
-        <h2 class="center">Dual-surface architecture</h2>
-        <p class="section-intro center">One library, two surfaces &mdash; one designed for agent composition, one for typed single calls.</p>
-        <div class="arch-block">
-            <p class="arch-lede">
-                The MCP server (<code>forgegis-mcp</code>) exposes ForgeGIS through two complementary surfaces, so an
-                AI agent can either compose a multi-stage workflow in a single call or invoke a specific operation
-                directly with typed inputs.
-            </p>
-            <div class="arch-surfaces">
-                <div class="arch-surface">
-                    <div class="surface-label">Surface 1 &mdash; Pipeline DSL</div>
-                    <div class="surface-name">Most of the catalog, composable</div>
-                    <p>
-                        Composable JSON pipeline format. Agents assemble multi-stage workflows
-                        (read &rarr; reproject &rarr; mask &rarr; classify &rarr; write) inside a single MCP call,
-                        including branching DAGs &mdash; the same document format Studio saves.
-                    </p>
-                </div>
-                <div class="arch-surface">
-                    <div class="surface-label">Surface 2 &mdash; Typed Intent Tools</div>
-                    <div class="surface-name">Single-call tools</div>
-                    <p>
-                        Strongly-typed MCP tools for the most common operations. One MCP tool per intent,
-                        with structured inputs and validated arguments.
-                    </p>
-                </div>
-            </div>
-            <div class="arch-total">
-                Between the two surfaces, an agent can reach nearly the whole catalog &mdash; through a typed tool
-                where one exists, or by composing the operation it needs into a pipeline.
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="block">
-    <div class="container">
-        <h2 class="center">Beyond the catalog: the pipeline engine and the vector surface</h2>
-        <p class="section-intro center">A non-linear DAG pipeline engine, QGIS model import, a broad vector surface, a bundled geoid, and profile-gated discovery &mdash; five ways the architecture extends beyond the operation catalog.</p>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="feat-tag">Pipeline</div>
-                <h3>Non-linear DAG engine</h3>
-                <p>
-                    The GPU-resident pipeline extends from linear chains to arbitrary directed acyclic graphs.
-                    Three executors &mdash; raster, vector, and mixed &mdash; run branching workflows where a stage
-                    fans out to multiple consumers and multiple inputs converge on one operation, with raster
-                    intermediates staying resident on the device across the graph. A SavedPipeline v2 wire format
-                    carries typed slot references, conditionals, and nested pipelines.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feat-tag">Migration</div>
-                <h3>QGIS model import</h3>
-                <p>
-                    A dedicated module reads QGIS <code>.model3</code> processing models and compiles them to
-                    ForgeGIS DAGs, with a compatibility-report mode that names any unsupported algorithm up front.
-                    Existing QGIS investments run on the GPU-resident engine without a rebuild &mdash; the expression
-                    layer is a clean-room QGIS Processing expression interpreter.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feat-tag">Vector surface</div>
-                <h3>Boolean overlay, dissolve, Voronoi &amp; more</h3>
-                <p>
-                    A broad vector surface: boolean overlay (difference, intersection), dissolve,
-                    Voronoi polygons, variable buffering, field calculators, and a clean-room expression
-                    interpreter &mdash; closing the full raster&harr;vector handoff grid.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feat-tag">Vertical datum</div>
-                <h3>Bundled EGM96 geoid</h3>
-                <p>
-                    The EGM96 geoid ships with the library, so orthometric/ellipsoidal vertical-datum conversion
-                    works with nothing else to download &mdash; relevant wherever elevation reference frames matter to the product.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feat-tag">Agent context</div>
-                <h3>Profile-gated discovery</h3>
-                <p>
-                    The MCP server advertises a compact core surface by default, keeping an agent's tool list
-                    inside context and rate-limit budgets. Opt into the full typed surface with
-                    <code>--profile standard</code>; hidden tools remain callable by name &mdash; the profile governs
-                    discovery, not capability.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="block tinted">
-    <div class="container">
-        <h2 class="center">The digital twin</h2>
+        <h2 class="center">The benchmark</h2>
         <p class="section-intro center">
-            GPU simulators exist; what a running ForgeGIS twin adds is the ability to branch one mid-event, and a
-            recording that proves what you were shown. Demonstrated over real terrain around Hoover Dam: a routed
-            release paused mid-event and forked at ten times the rate &mdash; and the gap that opened between the
-            two worlds is exactly what the closed-form law predicts.
+            The benchmark of record, run <code>20261004-094534-191f1b44</code>: ForgeGIS 1.2.6 against GDAL 3.12, warm timings,
+            the median of each timed block. This is the benchmark; the race further down is a separate demonstration.
         </p>
-        <div class="three-up">
-            <div class="item">
-                <h3>Pause a running simulation</h3>
-                <p>
-                    State advances in deterministic epochs on the GPU. A run can be paused mid-event and inspected
-                    rather than restarted from the beginning.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Fork it, and change one decision</h3>
-                <p>
-                    The branch anchors to its parent instead of copying it, so it inherits every epoch of history.
-                    Branches differ by parameters only &mdash; everything they disagree about afterwards is
-                    attributable to the value you overrode.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Check the difference</h3>
-                <p>
-                    One conserved ledger across the whole corridor means the gap between two worlds is a number you
-                    can test against a closed-form prediction, not a picture you have to trust.
-                </p>
-            </div>
-        </div>
-        <p class="twin-cta">
-            <a href="digital-twin.html" class="btn btn-primary">What the digital twin is</a>
-            <a href="hoover-dam.html" class="btn btn-quiet">Hoover Dam showcase</a>
-        </p>
-    </div>
-</section>
-
-<section class="block">
-    <div class="container">
-        <h2 class="center">Performance highlights</h2>
-        <p class="section-intro center">Benchmarked against GDAL on equivalent workloads, measured on 1.2.6, October 2026, in the canonical run of the validation harness, GDAL 3.12. All warm medians. The benchmark&rsquo;s timing method was tightened in this release, so earlier published ForgeGIS figures are not directly comparable. Numbers are summary &mdash; full methodology, dataset descriptions, and per-operation timings live in the Technical Brief.</p>
         <ul class="perf-list">
             <li>
                 <div class="perf-num">15&times; geomean</div>
                 <div class="perf-text">
-                    geometric-mean speedup vs GDAL 3.12 over 242 operation records with a GDAL equivalent, no category excluded, on rasters from 16&times;16 to 4096&times;4096 and real elevation tiles
-                    &mdash; ForgeGIS was faster in <strong>239 of 242</strong>; the 3 slower were all tiny (raster creation and rasterize at 1024&sup2; or smaller). Against in-process GDAL, on operations where both sides take at least a millisecond, the like-for-like kernel figure is <strong>6.2&times;</strong>. Measured on 1.2.6, October 2026.
+                    geometric-mean speedup over GDAL 3.12 across 242 operations with a GDAL equivalent and both sides timed,
+                    no category excluded, at sizes from 16&times;16 to 8192&times;8192 pixels. ForgeGIS was faster in
+                    <strong>239 of 242</strong>; the <strong>3 slower were all tiny</strong>: raster creation and rasterize at
+                    256&times;256, and raster creation at 1024&times;1024.
                 </div>
             </li>
             <li>
-                <div class="perf-num">11&times;&ndash;182&times;</div>
+                <div class="perf-num">6&times; kernel</div>
                 <div class="perf-text">
-                    speedup on <strong>multi-stage GPU-resident pipelines</strong> at 4096&sup2;
-                    (read &rarr; transform &rarr; analyze &rarr; write), where intermediates never leave the GPU
-                    and GDAL pays for a file round-trip at every stage. Measured on 1.2.6, October 2026.
+                    kernel against kernel: GDAL in process, on operations where both sides take at least 1&nbsp;ms,
+                    256&times;256 to 4096&times;4096 and real elevation tiles. Sub-millisecond work is where timer resolution
+                    dominates, so this is the figure to lead with where precision matters.
                 </div>
             </li>
             <li>
-                <div class="perf-num">Every category</div>
+                <div class="perf-num">Parity</div>
                 <div class="perf-text">
-                    faster on average in <strong>every operation category measured</strong> &mdash; pipeline 81.5&times;,
-                    resample 30.5&times;, transform 30.0&times;, vectorize 26.1&times;, warp 24.4&times;, zonal/focal 20.1&times;,
-                    terrain 4.3&times;, viewshed 3.4&times;, raster I/O 3.0&times; (geomean). Measured on 1.2.6, October 2026.
+                    <strong>1191 checks pass, 0 fail.</strong> 884 compare ForgeGIS&rsquo;s output with GDAL&rsquo;s or an
+                    independent oracle within a tolerance stated per operation; 294 are consistency checks that do not count as
+                    parity evidence, and 13 are smoke checks only. Every output was also re-run and compared for determinism.
+                </div>
+            </li>
+            <li>
+                <div class="perf-num">By category</div>
+                <div class="perf-text">
+                    faster in every category measured (geometric mean): pipelines 81&times;, resampling 30&times;,
+                    transforms 30&times;, vectorizing 26&times;, warps 24&times;, zonal and focal 20&times;, terrain 4.3&times;,
+                    viewshed 3.4&times;, raster I/O 3.0&times;.
+                </div>
+            </li>
+            <li>
+                <div class="perf-num">178&times; workflow</div>
+                <div class="perf-text">
+                    against the GDAL command line, including process start, on the 30 operations where GDAL runs as a
+                    command-line tool: a workflow cost, not a kernel cost.
                 </div>
             </li>
         </ul>
-        <p class="perf-footnote">
-            Full methodology, hardware configuration, and per-operation breakdowns:
-            <a href="downloads/forgegis-technical-brief.pdf">ForgeGIS Technical Brief (PDF)</a>.
-        </p>
-    </div>
-</section>
-
-<section class="block tinted">
-    <div class="container">
-        <h2 class="center">Vector at scale</h2>
-        <p class="section-intro center">
-            The figures above are the GPU raster surface. The vector and topology surface is pure Java and runs on
-            the CPU &mdash; so we measured it the same way, on real data, and published where it stops.
-        </p>
-        <div class="three-up">
-            <div class="item">
-                <h3>A million real footprints</h3>
-                <p>
-                    Microsoft building footprints for Houston through a chain of real operations &mdash; reproject,
-                    shape metrics, setback buffer, points-in-polygons join, classify &mdash; at
-                    <strong>about 125,000 features a second</strong>, measured on a ForgeGIS 1.2.3 development build in July 2026.
-                </p>
-            </div>
-            <div class="item">
-                <h3>Near-flat across an order of magnitude</h3>
-                <p>
-                    Throughput stays within about a factor of two between a hundred thousand and a million features, because
-                    every intermediate stays in process as an immutable handle and there is no per-stage file I/O
-                    term to grow with N.
-                </p>
-            </div>
-            <div class="item">
-                <h3>A ceiling that says so</h3>
-                <p>
-                    The next tier up is refused before a byte is read, with the memory arithmetic in the message. A scale
-                    curve that hides where it stops is a marketing curve, so this one states it.
-                </p>
-            </div>
+        <div class="demo-methodology">
+            <h3>Method</h3>
+            <ul>
+                <li>GDAL 3.12.1 in process through its Java bindings; command-line pipelines use GDAL 3.11.5, the version those tools report.</li>
+                <li>Timing protocol v4: warm runs, the median of each block, with the GPU kept in its working state between timed blocks, as a sustained workload would see it.</li>
+                <li>The geometric mean covers every GDAL-referenced operation with both sides timed, no category excluded, sub-millisecond rows included.</li>
+                <li>&ldquo;Warm&rdquo; means after the operation has run once; the first call after the GPU has gone idle costs more, and can be slower than GDAL for sub-millisecond work.</li>
+                <li>The timing method was tightened in this release, so earlier published figures are not directly comparable.</li>
+            </ul>
         </div>
-        <p class="twin-cta">
-            <a href="vector-at-scale.html" class="btn btn-primary">See the vector scale study</a>
+        <p class="demo-rig">
+            NVIDIA RTX 5070 Laptop GPU &middot; Intel Core 7 240H &middot; Windows 11 &middot; Java 26 &middot; ForgeGIS 1.2.6 &middot; GDAL 3.12.1. Results specific to this stack.
         </p>
     </div>
 </section>
 
-<section class="block" id="performance-demo">
+<section class="block tinted" id="performance-demo">
     <div class="container">
         <h2 class="center">Performance demonstration</h2>
-        <p class="section-intro center">61 operations on real terrain: Copernicus elevation over the Grand Canyon, the Alps and UTM zone 33N, and a 6-band Sentinel-2 scene, run side by side with GDAL. Each side&rsquo;s compute time is shown as it runs, with the running totals along the bottom. One take, in real time, with no cuts.</p>
+        <p class="section-intro center">Not the benchmark: a race you can watch. 61 operations on real terrain &mdash; Copernicus elevation over the Grand Canyon, the Alps and UTM zone 33N, and a 6-band Sentinel-2 scene &mdash; run side by side with GDAL, each operation once on each side. One take, in real time, with no cuts.</p>
         <div class="demo-embed">
             <div class="demo-frame">
                 <iframe
@@ -1097,21 +864,15 @@
             </div>
         </div>
         <div class="demo-methodology">
-            <h3>Methodology</h3>
+            <h3>How the race runs</h3>
             <ul>
-                <li>Inputs are loaded before the timers start, for both: ForgeGIS&rsquo;s onto the GPU, and GDAL&rsquo;s into an in-memory dataset.</li>
-                <li>ForgeGIS&rsquo;s timer covers the GPU operation and reading the result back. GDAL&rsquo;s timer covers the operation and reading the result back.</li>
-                <li>GDAL runs through its native SWIG Java bindings for single operations, with output kept in memory. Multi-stage pipelines run as GDAL command-line chains that read from disk and write each stage to disk, the way those chains run in practice.</li>
-                <li><code>gdal_calc.py</code> invocations include Python interpreter startup &times; N invocations, as a real GDAL user would pay.</li>
-                <li>ForgeGIS kernels compile during warmup, before the race starts, as in production deployment.</li>
-                <li>Each operation runs once on each side, ForgeGIS first and then GDAL, and both sides do the same work with the same resampling.</li>
+                <li>Inputs are loaded before the timers start, for both: ForgeGIS&rsquo;s onto the GPU, and GDAL&rsquo;s into an in-memory dataset. Each timer covers the operation and reading the result back.</li>
+                <li>Single operations call GDAL through its Java bindings, in memory. Multi-stage pipelines run as GDAL command-line chains that write each stage to disk, the way those chains run in practice.</li>
+                <li>Each operation runs once on each side, ForgeGIS first, with ForgeGIS kernels compiled during warmup &mdash; so the race shows single runs, not the warm medians of the benchmark above.</li>
             </ul>
         </div>
-        <p class="demo-rig">
-            NVIDIA RTX 5070 Laptop GPU &middot; Intel Core 7 240H &middot; Windows 11 &middot; Java 26 &middot; ForgeGIS 1.2.6 &middot; GDAL 3.12.1. Results specific to this stack. This is a demonstration run; published figures: bench of record 20261004-094534-191f1b44.
-        </p>
         <p class="demo-cta">
-            Per-operation JSONL timings from this recording, and the reproducible benchmark harness, available to vetted buyers under NDA &mdash;
+            Per-operation timings from this recording, and the reproducible benchmark harness, are available to vetted buyers under NDA &mdash;
             <a href="mailto:rich@seaglassfoundry.com">rich@seaglassfoundry.com</a>.
         </p>
         <p class="demo-attribution">
@@ -1122,111 +883,19 @@
     </div>
 </section>
 
-<section class="block tinted" id="audiences">
+<section class="block" id="downloads">
     <div class="container">
-        <h2 class="center">Who it's for</h2>
-        <p class="section-intro center">Three audiences, three one-pagers. Each leads with the parts of ForgeGIS that matter most to that reader.</p>
-        <div class="audience-grid">
-            <a href="downloads/forgegis-defense-onepager.pdf" class="audience-card">
-                <div class="aud-label">For defense &amp; intelligence</div>
-                <h3>Regulated deployment, pure-Java Maven artifacts</h3>
-                <p>
-                    No first-party native code, no GDAL native bindings, no separate native install step &mdash;
-                    deployable in regulated environments without coordinating separate native library distribution
-                    for ForgeGIS itself. Commercially licensed; evaluation builds available.
-                </p>
-                <span class="card-cta">Download defense one-pager (PDF)</span>
-            </a>
-            <a href="downloads/forgegis-agent-onepager.pdf" class="audience-card">
-                <div class="aud-label">For AI agent builders</div>
-                <h3>A native MCP server, agent-callable end to end</h3>
-                <p>
-                    Drop ForgeGIS into an LLM agent platform or workflow runner and get an immediate geospatial
-                    surface: pipeline DSL for composable multi-stage work, typed intent tools for single calls.
-                    An agent starts with 9 tools, can opt into 84 advertised tools, and chains any of 170 composable ops in one call.
-                </p>
-                <span class="card-cta">Download agent one-pager (PDF)</span>
-            </a>
-            <a href="downloads/forgegis-sales-onepager.pdf" class="audience-card">
-                <div class="aud-label">For geospatial platforms</div>
-                <h3>GPU throughput for catalog-heavy workloads</h3>
-                <p>
-                    Mid-market geospatial SaaS, climate, and agtech platforms running large raster and vector
-                    catalogs on CPU-bound GDAL pipelines can replace the compute path without migrating off the JVM
-                    or adding a native build pipeline.
-                </p>
-                <span class="card-cta">Download general sales one-pager (PDF)</span>
-            </a>
-        </div>
-    </div>
-</section>
-
-<section class="block">
-    <div class="container">
-        <h2 class="center">Capability catalog</h2>
-        <p class="section-intro center">What the engine covers. The full catalog, operation by operation, is in the Technical Brief.</p>
-        <div class="catalog">
-            <div class="catalog-grid">
-                <div class="cat-item"><span class="cat-name">Terrain</span></div>
-                <div class="cat-item"><span class="cat-name">Bathymetry / Ocean</span></div>
-                <div class="cat-item"><span class="cat-name">Hydrology</span></div>
-                <div class="cat-item"><span class="cat-name">Visibility / RF</span></div>
-                <div class="cat-item"><span class="cat-name">Spectral / ML</span></div>
-                <div class="cat-item"><span class="cat-name">Spatial Geometry</span></div>
-                <div class="cat-item"><span class="cat-name">Filtering / Focal / Morphology</span></div>
-                <div class="cat-item"><span class="cat-name">Raster Mgmt / Vectorize / IO</span></div>
-                <div class="cat-item"><span class="cat-name">Routing</span></div>
-                <div class="cat-item"><span class="cat-name">Point Cloud</span></div>
-                <div class="cat-item"><span class="cat-name">Temporal</span></div>
-            </div>
-            <div class="catalog-note">
-                <strong>Topology completeness.</strong> The Spatial Geometry category includes full DE-9IM coverage:
-                every OGC named predicate, the JTS extensions, the <code>Relate</code> operation, and the raw
-                intersection matrix per geometry-type pair. Few GPU libraries surface the full DE-9IM
-                relate matrix &mdash; most stop at named predicates.
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="block tinted" id="downloads">
-    <div class="container">
-        <h2 class="center">Downloads</h2>
-        <p class="section-intro center">All ForgeGIS collateral. Direct download &mdash; no email gate, no form wall.</p>
-        <div class="downloads-grid">
+        <h2 class="center">Technical brief</h2>
+        <p class="section-intro center">Direct download &mdash; no email gate, no form wall.</p>
+        <div class="downloads-grid solo">
+            <!-- TODO (number audit, D462): this PDF still states an operation count (239 in the catalog, 237 over MCP)
+                 that has no validation record and is off the site; re-baseline it in the collateral repo. -->
             <a href="downloads/forgegis-technical-brief.pdf" class="download-card">
-                <div class="dl-type tech">Technical Brief &middot; 11 pages</div>
+                <div class="dl-type tech">Technical Brief &middot; PDF</div>
                 <h3>ForgeGIS Technical Brief</h3>
                 <p>
-                    Complete operation catalog, validation methodology, benchmark details, architectural deep-dive.
-                    The substantive document for technical evaluators and engineering reviewers.
-                </p>
-                <span class="dl-cta">Download PDF</span>
-            </a>
-            <a href="downloads/forgegis-sales-onepager.pdf" class="download-card">
-                <div class="dl-type">Sales One-Pager &middot; 2 pages</div>
-                <h3>General Sales One-Pager</h3>
-                <p>
-                    Front/back overview. General-purpose first-touch document covering positioning,
-                    headline numbers, and the dual-surface architecture at a glance.
-                </p>
-                <span class="dl-cta">Download PDF</span>
-            </a>
-            <a href="downloads/forgegis-defense-onepager.pdf" class="download-card">
-                <div class="dl-type">Defense One-Pager &middot; 2 pages</div>
-                <h3>Defense &amp; Intelligence Variant</h3>
-                <p>
-                    For defense and intelligence contractors, prime integrators, and SI shops.
-                    Leads on the regulated-deployment story, commercial licensing, and evaluation access.
-                </p>
-                <span class="dl-cta">Download PDF</span>
-            </a>
-            <a href="downloads/forgegis-agent-onepager.pdf" class="download-card">
-                <div class="dl-type">Agent One-Pager &middot; 2 pages</div>
-                <h3>AI Agent Builders Variant</h3>
-                <p>
-                    For AI agent builders, LLM agent platforms, and workflow/orchestration runners.
-                    Leads on the MCP surface and the pipeline-DSL / typed-intent dual architecture.
+                    Validation methodology, benchmark details and the architecture, for technical evaluators and
+                    engineering reviewers.
                 </p>
                 <span class="dl-cta">Download PDF</span>
             </a>
@@ -1245,23 +914,19 @@
 <footer>
     <div class="footer-inner">
         <div class="footer-links">
-            <a href="/products/">Products</a>
-            <a href="/products/forgegis/">ForgeGIS</a>
-            <a href="/products/forgemind/">ForgeMind</a>
-            <a href="/products/forgedata/">ForgeData</a>
-            <a href="/products/forgegis-studio/">ForgeGIS Studio</a>
-            <a href="/products/control-center/">Control Center</a>
+            <a href="/">Home</a>
             <a href="/products/seaglass-globe/">Seaglass Globe</a>
-            <a href="digital-twin.html">Digital Twin</a>
-            <a href="vector-at-scale.html">Vector at Scale</a>
+            <a href="/products/control-center/">Control Center</a>
+            <a href="/products/swingtopdf/">SwingToPDF</a>
+            <a href="/products/worldwind-reforged/">Worldwind Reforged</a>
             <a href="downloads/forgegis-technical-brief.pdf">Technical Brief</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
         <div class="footer-marks">
-            ForgeGIS&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeGIS Studio&trade;, Seaglass Globe&trade;, Seaglass Control Center&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
-            GDAL, JTS, PostGIS, OpenCL, Vulkan, NVIDIA, and other third-party marks referenced on this page
-            are the property of their respective owners.
+            ForgeGIS&trade; and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            GDAL, NVIDIA, Intel, Copernicus, Sentinel, Java, Windows, the Model Context Protocol, and other third-party marks referenced on this page
+            are the property of their respective owners. Reference to these marks does not imply endorsement.
         </div>
         <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
     </div>
