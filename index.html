@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seaglass Foundry — ForgeGIS vs GDAL: 1,191 Checks, 0 Failures</title>
-    <meta name="description" content="ForgeGIS 1.2.6 against GDAL 3.12: 1,191 checks, 0 failures; 884 compared against GDAL or an oracle. Faster in 239 of 242 benchmark operations, 3 slower. Plus Seaglass Globe and one installer for the suite.">
+    <title>Seaglass Foundry: GPU geospatial software</title>
+    <meta name="description" content="ForgeGIS runs terrain, hydrology, visibility, spectral and vector operations on the GPU, from Java or from an AI agent over MCP. Seaglass Globe adds a WGS-84 virtual globe, and the Seaglass Control Center installs the suite on one Windows workstation.">
     <link rel="canonical" href="https://seaglassfoundry.com/">
     <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="preconnect" href="https://www.youtube-nocookie.com">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/">
-    <meta property="og:title" content="Seaglass Foundry — ForgeGIS vs GDAL: 1,191 Checks, 0 Failures">
-    <meta property="og:description" content="ForgeGIS 1.2.6 against GDAL 3.12 in the benchmark of record: 1,191 checks, 0 failures; 884 compared against GDAL or an oracle. Faster in 239 of 242 benchmark operations, 3 slower.">
-    <meta property="og:image" content="https://seaglassfoundry.com/products/forgegis/img/race-excerpt-poster.webp">
-    <meta property="og:image:width" content="1280">
-    <meta property="og:image:height" content="720">
-    <meta property="og:image:alt" content="Frame from the ForgeGIS vs GDAL performance demonstration: the two results side by side as grey hillshades of the Grand Canyon, each with its elapsed time">
+    <meta property="og:title" content="Seaglass Foundry: GPU geospatial software">
+    <meta property="og:description" content="ForgeGIS runs geospatial operations on the GPU, from Java or from an AI agent over MCP. Seaglass Globe adds a WGS-84 virtual globe, and one installer sets up the suite on a Windows workstation.">
+    <meta property="og:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/denver-hero-poster.webp">
+    <meta property="og:image:width" content="1600">
+    <meta property="og:image:height" content="900">
+    <meta property="og:image:alt" content="Seaglass Globe map of the Colorado Front Range: wooded foothills on the left meet the street grid and lakes of the Denver area, with the map and terrain credits along the bottom">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://seaglassfoundry.com/products/forgegis/img/race-excerpt-poster.webp">
-    <meta name="twitter:title" content="Seaglass Foundry — ForgeGIS vs GDAL: 1,191 Checks, 0 Failures">
-    <meta name="twitter:description" content="ForgeGIS 1.2.6 against GDAL 3.12: 1,191 checks, 0 failures; 884 compared against GDAL or an oracle. Faster in 239 of 242 operations, 3 slower.">
+    <meta name="twitter:image" content="https://seaglassfoundry.com/products/seaglass-globe/img/denver-hero-poster.webp">
+    <meta name="twitter:title" content="Seaglass Foundry: GPU geospatial software">
+    <meta name="twitter:description" content="ForgeGIS runs geospatial operations on the GPU, from Java or from an AI agent over MCP. Seaglass Globe adds a WGS-84 virtual globe, and one installer sets up the suite on a Windows workstation.">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -27,10 +26,9 @@
         "name": "Seaglass Foundry LLC",
         "legalName": "Seaglass Foundry LLC",
         "alternateName": "Seaglass Foundry",
-        "slogan": "Forged For Speed. Refined by Craft.",
         "url": "https://seaglassfoundry.com",
         "email": "rich@seaglassfoundry.com",
-        "description": "An independent studio building GPU-accelerated geospatial software: ForgeGIS (GPU-accelerated geospatial compute), Seaglass Globe (a precision virtual globe), ForgeGIS Studio and the Seaglass Control Center (one installer for the suite), plus SwingToPDF and Worldwind Reforged.",
+        "description": "GPU geospatial software: ForgeGIS (GPU geospatial compute for Java), Seaglass Globe (a WGS-84 virtual globe) and the Seaglass Control Center, which installs and runs the suite on one Windows workstation.",
         "sameAs": [
             "https://github.com/seaglass-foundry"
         ]
@@ -38,165 +36,78 @@
     </script>
     <link rel="stylesheet" href="/assets/site.css">
     <style>
+        section { scroll-margin-top: 60px; }
+        /* Teal text on --grey-bg: --teal-dark is 4.2:1 there, this is 5.4:1. Dark mode keeps --link as is. */
+        .proof, .tinted { --link: #326e62; }
+        @media (prefers-color-scheme: dark) { .proof, .tinted { --link: var(--teal); } }
+        .eyebrow { display: block; color: var(--link); font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; }
+        .accent { color: var(--link); }
+        .more-link { display: inline-block; margin-top: 18px; font-weight: 600; font-size: var(--fs-sm); }
+        figure { margin: 0; }
+        figcaption { color: var(--text-light); font-size: var(--fs-caption); line-height: 1.55; margin-top: 10px; }
+        figcaption a { color: inherit; text-decoration: underline; }
 
-        /* ── Hero: ForgeGIS vs GDAL ── */
-        .hero {
-            background: var(--gradient-hero);
-            color: var(--white);
-            padding: 84px 24px 72px;
-            scroll-margin-top: 60px;
-        }
-        .hero .eyebrow {
-            display: block;
-            text-align: center;
-            color: var(--teal);
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            margin-bottom: 18px;
-        }
-        .hero h1 {
-            font-size: 2.9rem;
-            font-weight: 800;
-            letter-spacing: -0.025em;
-            line-height: 1.12;
-            text-align: center;
-            max-width: 860px;
-            margin: 0 auto 40px;
-        }
+        /* ── 1. Hero: ForgeGIS ── */
+        .hero { background: var(--gradient-hero); color: var(--white); padding: 84px 24px 72px; text-align: center; }
+        .hero .eyebrow { color: var(--teal-on-navy); }
+        .hero h1 { font-size: var(--fs-display); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; max-width: 820px; margin: 0 auto 20px; }
         .hero h1 .accent { color: var(--teal); }
-        .hero-figures {
-            max-width: 880px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .hero .sub { color: var(--on-navy); font-size: var(--fs-tagline); line-height: 1.55; max-width: 720px; margin: 0 auto; }
+        .hero-actions { margin-top: 32px; display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap; }
+        .hero-actions .text-link { color: var(--white); font-weight: 600; font-size: var(--fs-sm); }
+        .hero-visual { max-width: 960px; margin: 52px auto 0; }
+        .hero-visual img { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 18px 50px rgba(0,0,0,0.45); }
+        .hero-visual figcaption { color: var(--on-navy-muted); text-align: left; }
+
+        /* ── 2. Proof line ── */
+        .proof { background: var(--grey-bg); padding: 40px 24px; text-align: center; border-bottom: 1px solid var(--border); }
+        .proof p { max-width: 820px; margin: 0 auto; color: var(--ink); font-size: var(--fs-tagline); line-height: 1.5; font-weight: 600; letter-spacing: -0.01em; }
+        .proof a { display: inline-block; margin-top: 10px; font-size: var(--fs-sm); font-weight: 600; }
+
+        /* ── 3, 4. Globe and suite: text beside one visual ── */
+        .feature { padding: 88px 24px; }
+        .feature.tinted { background: var(--grey-bg); }
+        .feature-row { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 52px; align-items: center; }
+        .feature-row.flip { grid-template-columns: 1.5fr 1fr; }
+        .feature-row.flip .feature-text { order: 2; }
+        .feature h2 { font-size: var(--fs-h2); color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px; }
+        .feature p { font-size: var(--fs-body-lg); line-height: 1.7; }
+        .feature-media img, .feature-media video { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-elevated); }
+
+        /* Globe clip: muted loop. Reduced motion shows the poster instead, without JavaScript. */
+        .feature-media .globe-hero-still { display: none; }
+        @media (prefers-reduced-motion: reduce) {
+            .feature-media .globe-hero-video { display: none; }
+            .feature-media .globe-hero-still { display: block; }
         }
-        .hero-figure {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.14);
-            border-radius: 12px;
-            padding: 24px 26px 22px;
-        }
-        .hero-figure .num { font-size: 3rem; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--white); margin-bottom: 10px; }
-        .hero-figure .num .unit { color: var(--teal); }
-        .hero-figure .what { color: var(--white); font-weight: 600; font-size: 1rem; margin-bottom: 6px; line-height: 1.4; }
-        .hero-figure .scope { color: var(--on-navy-link); font-size: 0.88rem; line-height: 1.55; }
-        .hero-lines { max-width: 880px; margin: 22px auto 0; list-style: none; }
-        .hero-lines li { color: var(--on-navy); font-size: 0.95rem; line-height: 1.6; padding: 10px 0 10px 26px; position: relative; border-top: 1px solid rgba(255,255,255,0.1); }
-        .hero-lines li:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .hero-lines li::before { content: ""; position: absolute; left: 4px; top: 19px; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); }
-        .hero-lines li.limit::before { background: var(--amber); }
-        .hero-lines strong { color: var(--white); font-weight: 600; }
 
-        /* ── Race excerpt: poster facade → youtube-nocookie iframe on click ── */
-        .hero-video { max-width: 880px; margin: 36px auto 0; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 18px 50px rgba(0,0,0,0.45); background: #000; }
-        .demo-label { max-width: 880px; margin: 36px auto 0; color: var(--amber); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
-        .demo-label + .hero-video { margin-top: 10px; }
-        .hero-video-caption { max-width: 880px; color: var(--on-navy-link); font-size: 0.88rem; margin: 12px auto 0; }
-        .hero-video-caption a { color: var(--white); text-decoration: underline; }
-        .film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; }
-        .film-frame iframe, .film-frame .film-facade { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
-        .film-facade { cursor: pointer; }
-        .film-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .film-facade .film-play { position: absolute; left: 50%; top: 50%; width: 78px; height: 54px; transform: translate(-50%, -50%); border-radius: 14px; background: rgba(15, 38, 64, 0.82); border: 1px solid rgba(255, 255, 255, 0.25); transition: background 0.15s, transform 0.15s; }
-        .film-facade .film-play::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-38%, -50%); border-style: solid; border-width: 11px 0 11px 19px; border-color: transparent transparent transparent #fff; }
-        .film-facade:hover .film-play, .film-facade:focus-visible .film-play { background: var(--teal); transform: translate(-50%, -50%) scale(1.06); }
-        .film-facade:focus-visible { outline: 3px solid var(--teal); outline-offset: -3px; }
-
-        .method-note {
-            max-width: 880px;
-            margin: 28px auto 0;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255,255,255,0.14);
-            color: var(--on-navy-muted);
-            font-size: 0.82rem;
-            line-height: 1.65;
-        }
-        .method-note strong { color: var(--on-navy); font-weight: 600; }
-        .method-note a { color: var(--white); text-decoration: underline; }
-
-        /* ── Sections ── */
-        .section { padding: 80px 24px; scroll-margin-top: 60px; }
-        .section.tinted { background: var(--grey-bg); }
-        .section-eyebrow { display: block; color: var(--link); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
-        .section h2 { font-size: 2rem; color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 14px; }
-        .section p.lede { font-size: 1.05rem; line-height: 1.7; color: var(--text); max-width: 720px; }
-        .more-link { display: inline-block; margin-top: 16px; font-weight: 600; font-size: 0.95rem; }
-
-        /* ── The Globe ── */
-        .globe-grid { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 44px; align-items: center; }
-        .shot { margin: 0; }
-        .shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--border); box-shadow: 0 8px 28px rgba(26, 58, 92, 0.10); }
-        .shot figcaption { color: var(--text-light); font-size: 0.85rem; line-height: 1.55; margin-top: 10px; }
-
-        /* ── Get the suite ── */
-        .get { background: var(--navy); color: var(--white); }
-        .get .get-inner { max-width: 760px; margin: 0 auto; text-align: center; }
-        .get .section-eyebrow { color: var(--teal); }
-        .get h2 { color: var(--white); }
-        .get p.lede { color: var(--on-navy); margin: 0 auto 30px; }
-        .get .btn-primary { font-size: 1rem; padding: 15px 32px; }
-        .get .get-note { color: var(--on-navy-muted); font-size: 0.88rem; margin-top: 16px; }
-        .get .get-note a { color: var(--on-navy); text-decoration: underline; }
+        /* ── 5. Evaluate ── */
+        .evaluate { background: var(--gradient-hero); color: var(--white); text-align: center; padding: 80px 24px; }
+        .evaluate .eyebrow { color: var(--teal-on-navy); }
+        .evaluate h2 { font-size: var(--fs-h2); letter-spacing: -0.02em; margin-bottom: 14px; }
+        .evaluate p { color: var(--on-navy); font-size: var(--fs-body-lg); max-width: 600px; margin: 0 auto 30px; }
+        .evaluate .btn-primary { font-size: var(--fs-body); padding: 15px 32px; }
 
         /* ── Footer ── */
-        .footer-tag {
-            width: 100%;
-            text-align: center;
-            margin-top: 16px;
-            color: var(--teal);
-            font-size: 0.85rem;
-            font-style: italic;
-            letter-spacing: 0.02em;
-        }
-        .footer-credits, .footer-marks {
-            width: 100%;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: var(--on-navy-dim);
-            font-size: 0.8rem;
-            line-height: 1.6;
-        }
-        .footer-credits h3 { color: var(--on-navy-link); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
-        .footer-credits p + p { margin-top: 6px; }
-        .footer-marks { text-align: center; margin-top: 0; }
-        .footer-copy {
-            width: 100%;
-            text-align: center;
-            margin-top: 0;
-        }
+        .footer-credits { width: 100%; color: var(--on-navy-muted); font-size: var(--fs-micro); line-height: 1.6; }
+        .footer-credits a { text-decoration: underline; }
 
         @media (max-width: 900px) {
-            .globe-grid { grid-template-columns: 1fr; gap: 28px; }
+            .feature-row, .feature-row.flip { grid-template-columns: 1fr; gap: 32px; }
+            .feature-row.flip .feature-text { order: 0; }
         }
-
         @media (max-width: 768px) {
-            .hero { padding: 56px 16px 52px; }
-            .hero h1 { font-size: 1.95rem; margin-bottom: 28px; }
-            .hero .eyebrow { font-size: 0.7rem; }
-            .hero-figures { grid-template-columns: 1fr; gap: 14px; }
-            .hero-figure { padding: 20px 20px 18px; }
-            .hero-figure .num { font-size: 2.5rem; }
-            .hero-video { border-radius: 8px; }
-            .film-facade .film-play { width: 60px; height: 42px; border-radius: 10px; }
-            .section { padding: 56px 16px; }
-            .section h2 { font-size: 1.55rem; }
+            .hero { padding: 56px 16px 48px; }
+            .hero h1 { font-size: var(--fs-display-mobile); }
+            .hero .sub { font-size: var(--fs-body-lg); }
+            .hero-visual { margin-top: 40px; }
+            .proof { padding: 32px 16px; }
+            .proof p { font-size: var(--fs-body-lg); }
+            .feature { padding: 56px 16px; }
+            .feature h2, .evaluate h2 { font-size: var(--fs-h2-sm); }
+            .evaluate { padding: 56px 16px; }
             footer { padding: 36px 16px; }
             nav { padding: 0 16px; }
-            nav .nav-links.open {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: var(--navy);
-                padding: 16px 24px;
-                gap: 16px;
-            }
         }
     </style>
 </head>
@@ -205,106 +116,87 @@
 <nav>
     <div class="nav-inner">
         <a href="/" class="brand">Seaglass <span>Foundry</span></a>
-        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
-        <div class="nav-links">
-            <a href="/products/forgegis/#performance">Benchmark</a>
-            <a href="/#globe">Globe</a>
-            <a href="/#get">Get the suite</a>
-            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
-            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/seaglass-globe/">Seaglass Globe</a>
+            <a href="/suite/">The suite</a>
+            <a href="/#get">Evaluate</a>
         </div>
     </div>
 </nav>
 
-<!-- Every figure in this hero is from forgegis-validation run 20261004-094534-191f1b44 (CANONICAL, v1.2.6),
-     worded per docs/findings/bench-canonical-1.2.6-2026-10-04.md section 7. The race excerpt is the separate
-     performance demonstration (visualComparison/results/run-20261004-185127.jsonl), never the benchmark. -->
-<section class="hero" id="benchmark">
+<main>
+<section class="hero" id="forgegis">
     <div class="container">
-        <span class="eyebrow">ForgeGIS<sup class="tm">&trade;</sup> 1.2.6 vs GDAL 3.12</span>
-        <h1>Checked against GDAL. <span class="accent">And faster.</span></h1>
-        <div class="hero-figures">
-            <div class="hero-figure">
-                <div class="num">15<span class="unit">&times;</span></div>
-                <div class="what">geometric-mean speedup over GDAL</div>
-                <div class="scope">across 242 benchmark operations at sizes from 16&times;16 to 8192&times;8192 pixels; warm timings on a laptop RTX&nbsp;5070</div>
-            </div>
-            <div class="hero-figure">
-                <div class="num">6<span class="unit">&times;</span></div>
-                <div class="what">kernel against kernel</div>
-                <div class="scope">GDAL in process, on operations where both sides take at least 1&nbsp;ms; 256&times;256 to 4096&times;4096 and real elevation tiles</div>
-            </div>
+        <span class="eyebrow">ForgeGIS</span>
+        <h1>GPU geospatial compute for <span class="accent">Java.</span></h1>
+        <p class="sub">ForgeGIS<sup class="tm">&trade;</sup> runs terrain, hydrology, visibility, spectral and vector operations on the GPU, from Java or from an AI agent over MCP. Checked against GDAL, and faster.</p>
+        <div class="hero-actions">
+            <a href="/#get" class="btn btn-outline">Request an evaluation</a>
+            <a href="/products/forgegis/" class="text-link">How it compares &rarr;</a>
         </div>
-        <ul class="hero-lines">
-            <li><strong>Parity: 1191 checks pass, 0 fail.</strong> 884 of them compare ForgeGIS&rsquo;s output with GDAL&rsquo;s or an independent oracle, within a tolerance stated per operation; the rest are consistency or smoke checks.</li>
-            <li class="limit"><strong>3 of the 242 were slower than GDAL, all tiny:</strong> raster creation and rasterize at 256&times;256, and raster creation at 1024&times;1024.</li>
-        </ul>
-
-        <p class="demo-label">Performance demonstration &middot; not the benchmark</p>
-        <div class="hero-video">
-            <div class="film-frame">
-                <a class="film-facade" href="https://www.youtube.com/watch?v=p4qm5JPGmIY" target="_blank" rel="noopener" data-video="p4qm5JPGmIY" data-title="ForgeGIS 1.2.6 vs GDAL &mdash; performance demonstration excerpt, ops 1&ndash;9 of 61, real time" aria-label="Play the ForgeGIS 1.2.6 vs GDAL performance demonstration excerpt, ops 1 to 9 of 61, real time (1:26)">
-                    <img src="/products/forgegis/img/race-excerpt-poster.webp" alt="Frame from the performance demonstration: ForgeGIS and GDAL side by side, each showing its hillshade of the Grand Canyon and its elapsed time" width="1280" height="720" fetchpriority="high" decoding="async">
-                    <span class="film-play" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-        <p class="hero-video-caption">One take, real time: operations 1&ndash;9 of a 61-operation race, each run once on each side (1:26). <a href="https://www.youtube.com/watch?v=KzotSSU933g" target="_blank" rel="noopener">Watch the full uncut race</a>.</p>
-
-        <p class="method-note">
-            <strong>Method.</strong> Benchmark of record <code>20261004-094534-191f1b44</code>: ForgeGIS 1.2.6 against GDAL 3.12.1
-            in process (3.11.5 for command-line pipelines), NVIDIA RTX&nbsp;5070 Laptop GPU, Windows&nbsp;11. Timing protocol v4:
-            warm runs, the median of each block, the GPU kept in its working state between timed blocks. The geometric mean
-            covers every GDAL-referenced operation with both sides timed, no category excluded; sub-millisecond rows are
-            included, which is why the in-process figure for work of 1&nbsp;ms or more sits beside it. The timing method was
-            tightened in this release, so earlier published figures are not directly comparable. The race above is a separate
-            demonstration, not the benchmark.
-            <a href="/products/forgegis/#performance">Full method and the uncut race &rarr;</a>
-        </p>
-    </div>
-</section>
-
-<section class="section tinted" id="globe">
-    <div class="globe-grid">
-        <div>
-            <span class="section-eyebrow">The Globe</span>
-            <h2>Seaglass Globe<sup class="tm">&trade;</sup></h2>
-            <p class="lede">
-                A precision WGS-84 virtual globe in double precision, and the suite&rsquo;s optional 3D view. Measurements
-                name their geodesic method, MIL-STD-2525C symbols draw with their proper frames, and a scenario plays,
-                pauses and steps on a timeline.
-            </p>
-            <a href="/products/seaglass-globe/" class="more-link">More about the Globe &rarr;</a>
-        </div>
-        <!-- FILM SLOT (T1335): the OpenStreetMap-only orbit-to-rooftop descent film goes here, as a .film-frame facade
-             like the race excerpt above (poster + data-video). Until it exists, the OpenStreetMap still below
-             stands in. Check the film's credit strip before embedding: OpenStreetMap-based imagery only. -->
-        <figure class="shot">
-            <img src="/products/seaglass-globe/img/globe-2525.webp" alt="The brigade-advance demo scenario in Seaglass Globe: unit symbols, phase lines, an objective box, an axis-of-advance arrow and a range fan on a muted map, with the timeline and its event list below" width="1600" height="900" loading="lazy" decoding="async">
-            <figcaption>The demo scenario that ships with the suite, on an OpenStreetMap base. Map &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>. Terrain: Mapzen Terrain Tiles (AWS Open Data); terrain data courtesy of the U.S. Geological Survey.</figcaption>
+        <!-- Hero visual: the cleared race poster until the Studio pipeline capture lands (brief sec. 8). -->
+        <figure class="hero-visual">
+            <img src="/products/forgegis/img/race-excerpt-poster.webp" alt="ForgeGIS and GDAL side by side: the same grey hillshade of the Grand Canyon from each, with each side's elapsed time beneath" width="1280" height="720" fetchpriority="high" decoding="async">
+            <figcaption>The same hillshade from ForgeGIS and from GDAL, side by side. Elevation: Copernicus DEM (<a href="/credits/#elevation">credits</a>).</figcaption>
         </figure>
     </div>
 </section>
 
-<section class="section get" id="get">
-    <div class="get-inner">
-        <span class="section-eyebrow">Get the suite</span>
-        <h2>One installer, one window</h2>
-        <p class="lede">
-            The Seaglass Control Center<sup class="tm">&trade;</sup> is one Windows installer that sets up ForgeGIS, the Globe
-            and ForgeGIS Studio<sup class="tm">&trade;</sup>, the browser workspace where you run the engines by hand or ask
-            the agent in plain language, then runs them from the same window. The suite is commercially licensed, and
-            evaluation builds carry a 90-day evaluation period that starts at first install.
-        </p>
-        <a href="mailto:rich@seaglassfoundry.com?subject=Forge%20suite%20evaluation" class="btn btn-primary">Request an evaluation</a>
-        <p class="get-note">Or write to <a href="mailto:rich@seaglassfoundry.com">rich@seaglassfoundry.com</a> &middot; <a href="/suite/">How the installer works</a></p>
+<section class="proof" aria-label="Benchmark summary">
+    <p>15&times; faster than GDAL, geometric mean across 242 benchmark operations (ForgeGIS 1.2.6, warm timings), with 1,191 parity checks, 0 failures.</p>
+    <a href="/products/forgegis/#performance">239 of 242 faster: method and limits &rarr;</a>
+</section>
+
+<section class="feature" id="globe">
+    <div class="feature-row">
+        <div class="feature-text">
+            <span class="eyebrow">Seaglass Globe</span>
+            <h2>From orbit to the <span class="accent">rooftops.</span></h2>
+            <p>Seaglass Globe<sup class="tm">&trade;</sup> is a WGS-84 virtual globe in double precision, with terrain, 3D buildings, geodesy that names its method and MIL-STD-2525C scenarios on a timeline. The suite&rsquo;s optional 3D view.</p>
+            <a href="/products/seaglass-globe/" class="more-link">More about the Globe &rarr;</a>
+        </div>
+        <figure class="feature-media globe-hero">
+            <video class="globe-hero-video" muted autoplay loop playsinline preload="metadata"
+                   poster="/products/seaglass-globe/img/denver-hero-poster.webp"
+                   width="1600" height="900" aria-label="Seaglass Globe zooming from the Colorado Front Range down to Denver">
+                <source src="/products/seaglass-globe/video/denver-hero.mp4" type="video/mp4">
+            </video>
+            <img class="globe-hero-still" src="/products/seaglass-globe/img/denver-hero-poster.webp" width="1600" height="900" loading="lazy" decoding="async" alt="Seaglass Globe map of the Colorado Front Range: wooded foothills on the left meet the street grid and lakes of the Denver area">
+            <figcaption>Map: OpenFreeMap © <a href="https://openmaptiles.org/">OpenMapTiles</a> (openmaptiles.org; design CC BY 4.0), data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ODbL — openstreetmap.org/copyright. Style: OSM Liberty. Terrain: Mapzen Terrain Tiles via AWS Open Data (registry.opendata.aws/terrain-tiles); sources: <a href="/credits/#terrain">terrain data credits</a></figcaption>
+        </figure>
     </div>
 </section>
+
+<section class="feature tinted" id="suite">
+    <div class="feature-row flip">
+        <div class="feature-text">
+            <span class="eyebrow">The suite</span>
+            <h2>One installer. <span class="accent">One window.</span></h2>
+            <p>The Seaglass Control Center<sup class="tm">&trade;</sup> installs ForgeGIS, the Globe, ForgeGIS Studio and the ForgeMind agent on one Windows workstation and runs them from the same window.</p>
+            <a href="/suite/" class="more-link">The Forge suite &rarr;</a>
+        </div>
+        <figure class="feature-media">
+            <img src="/products/control-center/img/cc-05-dashboard.webp" alt="The dark Control Center dashboard: service cards for ForgeMind, ForgeGIS Studio, Seaglass Globe and the compute broker, the MCP children spawned by ForgeMind, and the log panel" width="1500" height="660" loading="lazy" decoding="async">
+        </figure>
+    </div>
+</section>
+
+<section class="evaluate" id="get">
+    <div class="container">
+        <span class="eyebrow">Evaluate</span>
+        <h2>Evaluate the suite.</h2>
+        <p>Release 1.2.7, Windows x64. Evaluations are by request and run for 90 days from first install.</p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=Forge%20suite%20evaluation" class="btn btn-primary">Request an evaluation</a>
+    </div>
+</section>
+</main>
 
 <footer>
     <div class="footer-inner">
         <div class="footer-links">
-            <a href="/products/forgegis/">ForgeGIS benchmark</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
             <a href="/products/seaglass-globe/">Seaglass Globe</a>
             <a href="/suite/">The suite</a>
             <a href="/products/swingtopdf/">SwingToPDF</a>
@@ -313,23 +205,10 @@
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
-        <div class="footer-tag">Forged For Speed. Refined by Craft.</div>
-        <div class="footer-credits">
-            <h3>Data &amp; credits</h3>
-            <p>
-                Performance demonstration and benchmark: Cop30 DEM contains modified Copernicus DEM data &copy; DLR e.V. 2010&ndash;2014,
-                Airbus DS GmbH 2014&ndash;2018, provided under COPERNICUS by the European Union and ESA.
-                Sentinel-2 L2A contains modified Copernicus Sentinel data, ESA.
-                GDAL is open-source software developed by the GDAL/OGR Project under an MIT-style licence.
-            </p>
-            <p>
-                Seaglass Globe still: map &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>, under the Open Database License. Terrain: Mapzen Terrain Tiles (AWS Open Data); terrain data courtesy of the U.S. Geological Survey.
-                Type in the application: JetBrains Mono, SIL Open Font License 1.1.
-            </p>
-        </div>
+        <p class="footer-credits">Credits: elevation from Copernicus DEM; maps from OpenFreeMap, OpenMapTiles and OpenStreetMap contributors; terrain from Mapzen Terrain Tiles. <a href="/credits/">Full data and licence credits</a>.</p>
         <div class="footer-marks">
-            ForgeGIS&trade;, ForgeGIS Studio&trade;, Seaglass Globe&trade;, Seaglass Control Center&trade;, SwingToPDF&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
-            GDAL, NVIDIA, Copernicus, OpenStreetMap, JetBrains Mono, Windows, NASA WorldWind, and other third-party products and marks referenced are the property of their respective owners.
+            ForgeGIS&trade;, ForgeGIS Studio&trade;, ForgeMind&trade;, Seaglass Globe&trade;, Seaglass Control Center&trade;, SwingToPDF&trade;, and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            GDAL, Java, Windows, Copernicus, OpenStreetMap, OpenMapTiles, OpenFreeMap, the Model Context Protocol, NASA WorldWind and other third-party products and marks referenced are the property of their respective owners.
             Reference to these marks does not imply endorsement.
             Worldwind Reforged is an independent community modernization and is not affiliated with or endorsed by NASA.
         </div>
@@ -340,27 +219,25 @@
 <script>
 (function() {
     var links = document.querySelector('.nav-links');
-    links.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function() { links.classList.remove('open'); });
-    });
+    var burger = document.querySelector('.hamburger');
+    function closeNav() {
+        links.classList.remove('open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+    }
+    links.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeNav); });
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('nav')) links.classList.remove('open');
+        if (!e.target.closest('nav')) closeNav();
     });
 })();
-(function() {
-    function play(a) {
-        var f = document.createElement('iframe');
-        f.src = 'https://www.youtube-nocookie.com/embed/' + a.getAttribute('data-video') + '?autoplay=1&rel=0';
-        f.title = a.getAttribute('data-title') || 'Video';
-        f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-        f.setAttribute('allowfullscreen', '');
-        f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-        a.parentNode.replaceChild(f, a);
-        f.focus();
+/* Reduced motion: no autoplay, keep the poster (the CSS above already swaps in the still without JS). */
+(function () {
+    var v = document.querySelector('.globe-hero-video');
+    if (v && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        v.removeAttribute('autoplay');
+        v.pause();
+        v.removeAttribute('loop');
+        v.preload = 'none';
     }
-    document.querySelectorAll('.film-facade').forEach(function(a) {
-        a.addEventListener('click', function(e) { if (e.ctrlKey || e.metaKey || e.shiftKey) return; e.preventDefault(); play(a); });
-    });
 })();
 </script>
 </body>
