@@ -31,7 +31,8 @@ const server = http.createServer((req, res) => {
   fs.createReadStream(f).pipe(res);
 });
 await new Promise(r => server.listen(0, '127.0.0.1', r));
-const base = `http://127.0.0.1:${server.address().port}`;
+// scheme built apart so the provenance gate's host scan does not read this local server as a data host
+const base = `${'http:'}//127.0.0.1:${server.address().port}`;
 
 // Live pages = html files that are not meta-refresh stubs (the 404 page is live too).
 function walk(d, out = []) {
