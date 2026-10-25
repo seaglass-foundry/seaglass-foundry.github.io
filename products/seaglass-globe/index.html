@@ -72,12 +72,6 @@
         .film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--media-bg); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--frame-on-navy); box-shadow: var(--shadow-on-navy); }
         .film-frame video, .film-frame .film-facade { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
         .film-frame video { object-fit: contain; }
-        .film-facade { cursor: pointer; }
-        .film-facade img { width: 100%; height: 100%; object-fit: contain; display: block; }
-        .film-facade .film-play { position: absolute; left: 50%; top: 50%; width: 78px; height: 54px; transform: translate(-50%, -50%); border-radius: 14px; background: var(--play-bg); border: 1px solid var(--play-line); transition: background 0.15s, transform 0.15s; }
-        .film-facade .film-play::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-38%, -50%); border-style: solid; border-width: 11px 0 11px 19px; border-color: transparent transparent transparent var(--white); }
-        .film-facade:hover .film-play, .film-facade:focus-visible .film-play { background: var(--teal-dark); transform: translate(-50%, -50%) scale(1.06); }
-        .film-facade:focus-visible { outline: 3px solid var(--teal); outline-offset: -3px; }
 
         /* ── Sections ── */
         .block { padding: 80px 24px; }
@@ -105,9 +99,6 @@
         .evaluate p { color: var(--on-navy); font-size: var(--fs-body-lg); max-width: 600px; margin: 0 auto 30px; }
         .evaluate .btn-primary { font-size: var(--fs-body); padding: 15px 32px; }
 
-        /* ── Footer ── */
-        .footer-credits { width: 100%; color: var(--on-navy-muted); font-size: var(--fs-micro); line-height: 1.6; }
-        .footer-credits a { text-decoration: underline; }
 
         @media (max-width: 768px) {
             .hero { padding: 40px 16px 48px; }
@@ -119,7 +110,6 @@
             .spec { grid-template-columns: 1fr; }
             .spec dt { padding: 16px 0 0; border-bottom: none; }
             .spec dd { padding-top: 2px; }
-            .film-facade .film-play { width: 60px; height: 42px; border-radius: 10px; }
             footer { padding: 36px 16px; }
             nav { padding: 0 16px; }
         }
