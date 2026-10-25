@@ -8,3 +8,4 @@ www.gnu.org	licence URL inside JSON-LD, never fetched
 www.openstreetmap.org	outbound link to the OpenStreetMap copyright page from the OSM credit; nothing fetched
 openmaptiles.org	outbound link from the Denver map credit on /credits/; nothing fetched
 registry.opendata.aws	outbound link to the Mapzen Terrain Tiles registry entry in the credit; nothing fetched
+www.naturalearthdata.com	outbound link from the Natural Earth credit on /credits/; nothing fetched
