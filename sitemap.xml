@@ -21,7 +21,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://seaglassfoundry.com/products/control-center/</loc>
+    <loc>https://seaglassfoundry.com/suite/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -49,5 +49,10 @@
     <loc>https://seaglassfoundry.com/products/worldwind-reforged/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://seaglassfoundry.com/credits/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>

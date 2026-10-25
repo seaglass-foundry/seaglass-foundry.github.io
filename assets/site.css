@@ -21,6 +21,7 @@
     --on-navy-link: #a8c4d8;
     --on-navy-muted: #8eaec6;
     --on-navy-dim: #7790a8;
+    --teal-on-navy: #5fb8a6; /* teal text at body size on navy: 4.9:1 (--teal itself is 3.6:1 there) */
 
     /* Page surfaces and text: these swap in dark mode */
     --surface: var(--white);
@@ -111,7 +112,7 @@ sup.tm { font-size: var(--fs-tm); vertical-align: super; line-height: 0; font-we
 nav { background: var(--navy); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
 nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
 nav .brand { color: var(--white); font-weight: 700; font-size: var(--fs-brand); letter-spacing: -0.02em; }
-nav .brand span { color: var(--teal); }
+nav .brand span { color: var(--teal-on-navy); }
 nav .nav-links { display: flex; gap: 28px; align-items: center; }
 nav .nav-links a { color: var(--on-navy); font-size: var(--fs-xs); font-weight: 500; }
 nav .nav-links a:hover { color: var(--white); text-decoration: none; }
