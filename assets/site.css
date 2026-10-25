@@ -22,6 +22,27 @@
     --on-navy-muted: #8eaec6;
     --on-navy-dim: #7790a8;
     --teal-on-navy: #5fb8a6; /* teal text at body size on navy: 4.9:1 (--teal itself is 3.6:1 there) */
+    --line-on-navy: rgba(255, 255, 255, 0.35);       /* outline button borders on navy */
+    --line-on-navy-hover: rgba(255, 255, 255, 0.7);
+    --frame-on-navy: rgba(255, 255, 255, 0.14);      /* 1px frame round media on navy */
+    --glass-on-navy: rgba(255, 255, 255, 0.06);      /* faint panel or rule on navy */
+    --teal-tint: rgba(74, 158, 142, 0.15);           /* teal pill on navy */
+    --teal-tint-line: rgba(74, 158, 142, 0.4);
+
+    /* Media frames and the film play button (constant) */
+    --media-bg: #000000;
+    --media-letterbox: #0c1018;                      /* the race film's own background */
+    --play-bg: rgba(15, 38, 64, 0.82);
+    --play-line: rgba(255, 255, 255, 0.25);
+
+    /* Code samples on --code-bg (constant) */
+    --code-text: #e2e8f0;
+    --code-muted: #94a3b8;
+    --code-keyword: #c084fc;
+    --code-string: #86efac;
+    --code-comment: #64748b;
+    --code-tag: #67e8f9;
+    --code-attr: #fbbf24;
 
     /* Page surfaces and text: these swap in dark mode */
     --surface: var(--white);
@@ -33,6 +54,7 @@
     --text-light: #5a6a7a;
     --ink: var(--navy);         /* headings and strong text on page surfaces */
     --link: var(--teal-dark);   /* teal text on page surfaces */
+    --link-on-grey: #326e62;    /* teal text on --grey-bg in light mode: 5.4:1 (--teal-dark is 4.2:1 there) */
     --label: var(--amber-dark); /* amber text on page surfaces */
 
     /* Type */
@@ -65,6 +87,8 @@
     --radius-pill: 20px;
     --shadow-card: 0 6px 20px rgba(26, 58, 92, 0.06);
     --shadow-elevated: 0 8px 30px rgba(15, 38, 64, 0.12);
+    --shadow-on-navy: 0 18px 50px rgba(0, 0, 0, 0.45); /* media on navy heroes */
+    --shadow-teal: 0 4px 24px rgba(74, 158, 142, 0.12);
 
     color-scheme: light dark;
 }
@@ -119,7 +143,7 @@ nav .nav-links a:hover { color: var(--white); text-decoration: none; }
 .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
 
 /* ── Product subnav ── */
-.subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+.subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid var(--glass-on-navy); }
 .subnav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 44px; font-size: var(--fs-caption); }
 .subnav .crumb { color: var(--on-navy-muted); }
 .subnav .crumb a { color: var(--on-navy-link); }
@@ -146,8 +170,8 @@ nav .nav-links a:hover { color: var(--white); text-decoration: none; }
 .btn:hover { text-decoration: none; transform: translateY(-1px); }
 .btn-primary { background: var(--teal-dark); color: var(--white); }
 .btn-primary:hover { background: var(--teal); }
-.btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
-.btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+.btn-outline { border: 2px solid var(--line-on-navy); color: var(--white); }
+.btn-outline:hover { border-color: var(--line-on-navy-hover); }
 /* Outline button for light/tinted sections, where .btn-outline's white would vanish */
 .btn-quiet { border: 2px solid var(--border); color: var(--ink); background: var(--surface); }
 .btn-quiet:hover { border-color: var(--teal); color: var(--link); }

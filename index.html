@@ -37,8 +37,8 @@
     <link rel="stylesheet" href="/assets/site.css">
     <style>
         section { scroll-margin-top: 60px; }
-        /* Teal text on --grey-bg: --teal-dark is 4.2:1 there, this is 5.4:1. Dark mode keeps --link as is. */
-        .proof, .tinted { --link: #326e62; }
+        /* Teal text on --grey-bg (light mode only; dark mode keeps --link as is). */
+        .proof, .tinted { --link: var(--link-on-grey); }
         @media (prefers-color-scheme: dark) { .proof, .tinted { --link: var(--teal); } }
         .eyebrow { display: block; color: var(--link); font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; }
         .accent { color: var(--link); }
@@ -56,7 +56,7 @@
         .hero-actions { margin-top: 32px; display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap; }
         .hero-actions .text-link { color: var(--white); font-weight: 600; font-size: var(--fs-sm); }
         .hero-visual { max-width: 960px; margin: 52px auto 0; }
-        .hero-visual img, .hero-visual video { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 18px 50px rgba(0,0,0,0.45); }
+        .hero-visual img, .hero-visual video { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--frame-on-navy); box-shadow: var(--shadow-on-navy); }
         .hero-visual figcaption { color: var(--on-navy-muted); text-align: left; }
         /* Hero clip: muted loop. Reduced motion shows the poster instead, without JavaScript (as the Globe clip). */
         .hero-visual .forgegis-hero-still { display: none; }
