@@ -1,0 +1,186 @@
+/* Seaglass Foundry: shared stylesheet.
+   Tokens from seaglass-foundry-design-system/dist/seaglass.css; see docs/design/redesign-2026-10.md sec. 9.
+   Holds only the rules every page shares (tokens, reset, type, nav, footer, buttons, cards).
+   Page-specific rules stay in each page's <style>, which loads after this file and wins on equal specificity. */
+
+/* ── Tokens ── */
+:root {
+    /* Brand palette: identical in light and dark */
+    --navy: #1a3a5c;
+    --navy-dark: #0f2640;
+    --teal: #4a9e8e;
+    --teal-dark: #3b8273;
+    --amber: #d8973c;
+    --amber-dark: #9a5c1e;
+    --white: #ffffff;
+    --code-bg: #1e293b;
+    --gradient-hero: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+
+    /* Text on navy (constant: navy surfaces stay navy in dark mode) */
+    --on-navy: #c8d6e0;
+    --on-navy-link: #a8c4d8;
+    --on-navy-muted: #8eaec6;
+    --on-navy-dim: #7790a8;
+
+    /* Page surfaces and text: these swap in dark mode */
+    --surface: var(--white);
+    --grey-bg: #f4f7f9;
+    --teal-light: #e8f5f1;
+    --amber-light: #fef3e6;
+    --border: #dce3ea;
+    --text: #2c3e50;
+    --text-light: #5a6a7a;
+    --ink: var(--navy);         /* headings and strong text on page surfaces */
+    --link: var(--teal-dark);   /* teal text on page surfaces */
+    --label: var(--amber-dark); /* amber text on page surfaces */
+
+    /* Type */
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --fs-display: 3rem;
+    --fs-stat: 2.4rem;
+    --fs-h1-page: 2.4rem;
+    --fs-h1-page-sm: 2.2rem;
+    --fs-display-mobile: 2.1rem;
+    --fs-h2: 1.9rem;
+    --fs-h2-sm: 1.5rem;
+    --fs-tagline: 1.3rem;
+    --fs-brand: 1.15rem;
+    --fs-h3: 1.1rem;
+    --fs-body-lg: 1.05rem;
+    --fs-body: 1rem;
+    --fs-sm: .95rem;
+    --fs-xs: .9rem;
+    --fs-caption: .88rem;
+    --fs-micro: .8rem;
+    --fs-badge: .78rem;
+    --fs-eyebrow: .72rem;
+    --fs-code: .9em;
+    --fs-tm: .55em;
+
+    /* Shape */
+    --radius-sm: 6px;
+    --radius-lg: 10px;
+    --radius-pill: 20px;
+    --shadow-card: 0 6px 20px rgba(26, 58, 92, 0.06);
+    --shadow-elevated: 0 8px 30px rgba(15, 38, 64, 0.12);
+
+    color-scheme: light dark;
+}
+
+/* Dark: page surfaces move to the navy family; teal and amber are unchanged.
+   --teal-dark itself stays #3b8273 so buttons keep 4.5:1 white text; teal text uses --link. */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --surface: #0b1d31;
+        --grey-bg: #0f2640;
+        --teal-light: rgba(74, 158, 142, 0.16);
+        --amber-light: rgba(216, 151, 60, 0.14);
+        --border: #24476b;
+        --text: #d2dde6;
+        --text-light: var(--on-navy-link);
+        --ink: #e6edf3;
+        --link: var(--teal);
+        --label: var(--amber);
+        --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.35);
+        --shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.45);
+    }
+}
+
+/* ── Reset and type ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text);
+    background: var(--surface);
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+sup.tm { font-size: var(--fs-tm); vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
+
+/* ── Nav ── */
+nav { background: var(--navy); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+nav .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+nav .brand { color: var(--white); font-weight: 700; font-size: var(--fs-brand); letter-spacing: -0.02em; }
+nav .brand span { color: var(--teal); }
+nav .nav-links { display: flex; gap: 28px; align-items: center; }
+nav .nav-links a { color: var(--on-navy); font-size: var(--fs-xs); font-weight: 500; }
+nav .nav-links a:hover { color: var(--white); text-decoration: none; }
+.hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+/* ── Product subnav ── */
+.subnav { background: var(--navy-dark); padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+.subnav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 44px; font-size: var(--fs-caption); }
+.subnav .crumb { color: var(--on-navy-muted); }
+.subnav .crumb a { color: var(--on-navy-link); }
+.subnav .crumb a:hover { color: var(--white); text-decoration: none; }
+.subnav .sep { color: #5a6a7a; }
+.subnav .flagship-tag { margin-left: auto; color: var(--amber); font-size: var(--fs-badge); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.subnav-links { margin-left: auto; display: flex; gap: 22px; }
+.subnav-links a { color: var(--on-navy); font-weight: 500; }
+.subnav-links a:hover { color: var(--white); text-decoration: none; }
+.subnav-links a.active { color: var(--teal); }
+
+@media (max-width: 768px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; }
+    nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 16px 24px; gap: 16px; }
+    .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
+    .subnav .flagship-tag { margin-left: 0; }
+    .subnav-links { margin-left: 0; gap: 16px; }
+}
+
+/* ── Buttons ──
+   Filled buttons use --teal-dark: white text on #3b8273 is 4.54:1 (AA at 15px). --teal is for hover and large accents. */
+.btn { display: inline-block; padding: 13px 28px; border-radius: var(--radius-sm); font-weight: 600; font-size: var(--fs-sm); transition: background 0.2s, transform 0.1s, border-color 0.2s; }
+.btn:hover { text-decoration: none; transform: translateY(-1px); }
+.btn-primary { background: var(--teal-dark); color: var(--white); }
+.btn-primary:hover { background: var(--teal); }
+.btn-outline { border: 2px solid rgba(255,255,255,0.35); color: var(--white); }
+.btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+/* Outline button for light/tinted sections, where .btn-outline's white would vanish */
+.btn-quiet { border: 2px solid var(--border); color: var(--ink); background: var(--surface); }
+.btn-quiet:hover { border-color: var(--teal); color: var(--link); }
+
+/* ── Cards ── */
+.three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 8px; }
+.three-up .item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 26px; }
+.three-up h3 { font-size: var(--fs-h3); color: var(--ink); margin-bottom: 12px; letter-spacing: -0.01em; }
+.three-up p { color: var(--text); font-size: var(--fs-sm); line-height: 1.7; }
+@media (max-width: 768px) {
+    .three-up { grid-template-columns: 1fr; }
+}
+
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 8px; }
+.feature-card { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: var(--radius-lg); padding: 24px 24px; }
+.feature-card .feat-tag { font-size: var(--fs-eyebrow); font-weight: 700; color: var(--label); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+.feature-card h3 { font-size: 1.08rem; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.01em; }
+.feature-card p { color: var(--text); font-size: 0.93rem; line-height: 1.65; }
+
+.downloads-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+.download-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 26px 24px 22px; display: flex; flex-direction: column; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+.download-card:hover { text-decoration: none; border-color: var(--teal); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.download-card .dl-type { font-size: var(--fs-eyebrow); font-weight: 700; color: var(--link); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+.download-card .dl-type.tech { color: var(--ink); }
+.download-card h3 { font-size: var(--fs-body-lg); color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+.download-card p { color: var(--text-light); font-size: var(--fs-xs); line-height: 1.6; margin-bottom: 18px; flex: 1; }
+.download-card .dl-cta { color: var(--link); font-weight: 600; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 6px; }
+.download-card .dl-cta::after { content: "↓"; }
+
+/* ── Footer ── */
+footer { background: var(--navy-dark); color: var(--on-navy-muted); padding: 40px 24px; font-size: var(--fs-xs); }
+footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+footer a { color: var(--on-navy-link); }
+footer a:hover { color: var(--white); }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-marks { width: 100%; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: var(--on-navy-dim); font-size: var(--fs-micro); line-height: 1.6; }
+.footer-copy { width: 100%; text-align: center; margin-top: 12px; color: var(--on-navy-muted); }

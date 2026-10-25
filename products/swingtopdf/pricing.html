@@ -67,97 +67,18 @@
         }
     }
     </script>
+    <link rel="stylesheet" href="/assets/site.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --navy: #1a3a5c;
-            --navy-dark: #0f2640;
-            --teal: #4a9e8e;
-            --teal-dark: #3b8273;
-            --teal-light: #e8f5f1;
-            --grey-bg: #f4f7f9;
-            --text: #2c3e50;
-            --text-light: #5a6a7a;
-            --white: #ffffff;
-            --border: #dce3ea;
-        }
-
-        sup.tm { font-size: 0.55em; vertical-align: super; line-height: 0; font-weight: 500; margin-left: 1px; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text);
-            line-height: 1.7;
-            font-size: 16px;
-        }
-
-        a { color: var(--teal-dark); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-
-        /* ── Nav ── */
-        nav {
-            background: var(--navy);
-            padding: 0 24px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav .nav-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
-        }
-        nav .brand {
-            color: var(--white);
-            font-weight: 700;
-            font-size: 1.15rem;
-            letter-spacing: -0.02em;
-        }
-        nav .brand span { color: var(--teal); }
-        nav .nav-links { display: flex; gap: 28px; align-items: center; }
-        nav .nav-links a { color: #c8d6e0; font-size: 0.9rem; font-weight: 500; }
-        nav .nav-links a:hover { color: var(--white); text-decoration: none; }
-        .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
-
-        /* ── Product subnav ── */
-        .subnav {
-            background: var(--navy-dark);
-            padding: 0 24px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .subnav-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            height: 44px;
-            font-size: 0.88rem;
-        }
-        .subnav .crumb { color: #8eaec6; }
-        .subnav .crumb a { color: #a8c4d8; }
-        .subnav .crumb a:hover { color: var(--white); text-decoration: none; }
-        .subnav .sep { color: #5a6a7a; }
-        .subnav-links { margin-left: auto; display: flex; gap: 22px; }
-        .subnav-links a { color: #c8d6e0; font-weight: 500; }
-        .subnav-links a:hover { color: var(--white); text-decoration: none; }
-        .subnav-links a.active { color: var(--teal); }
 
         /* ── Page header ── */
         .page-header {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            background: var(--gradient-hero);
             color: var(--white);
             padding: 50px 24px 55px;
             text-align: center;
         }
         .page-header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
-        .page-header p { color: #a8c4d8; font-size: 1.05rem; }
+        .page-header p { color: var(--on-navy-link); font-size: 1.05rem; }
 
         /* ── Early adopter banner ── */
         .promo-banner {
@@ -180,7 +101,7 @@
             gap: 24px;
         }
         .price-card {
-            background: var(--white);
+            background: var(--surface);
             border: 2px solid var(--border);
             border-radius: 12px;
             padding: 36px 28px;
@@ -210,7 +131,7 @@
         }
         .price-card h2 {
             font-size: 1.35rem;
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 4px;
         }
         .price-card .tier-desc {
@@ -227,7 +148,7 @@
         .price-card .price-tag {
             font-size: 2.2rem;
             font-weight: 800;
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 2px;
         }
         .price-card .price-note {
@@ -270,10 +191,7 @@
             transition: background 0.2s, transform 0.1s;
             text-align: center;
         }
-        .btn:hover { text-decoration: none; transform: translateY(-1px); }
-        .btn-primary { background: var(--teal); color: var(--white); }
-        .btn-primary:hover { background: var(--teal-dark); }
-        .btn-secondary { background: var(--grey-bg); color: var(--navy); border: 1px solid var(--border); }
+        .btn-secondary { background: var(--grey-bg); color: var(--ink); border: 1px solid var(--border); }
         .btn-secondary:hover { background: var(--border); }
 
         /* ── OEM section ── */
@@ -281,7 +199,7 @@
         .oem-card {
             max-width: 700px;
             margin: 0 auto;
-            background: var(--white);
+            background: var(--surface);
             border: 2px solid var(--border);
             border-radius: 12px;
             padding: 40px 36px;
@@ -289,7 +207,7 @@
         }
         .oem-card h2 {
             font-size: 1.35rem;
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 8px;
         }
         .oem-card p {
@@ -301,16 +219,16 @@
         .oem-card .price-tag {
             font-size: 1.4rem;
             font-weight: 700;
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 20px;
         }
 
         /* ── License terms ── */
-        .terms { padding: 70px 24px 80px; background: var(--white); }
+        .terms { padding: 70px 24px 80px; background: var(--surface); }
         .terms h2 {
             text-align: center;
             font-size: 1.8rem;
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 40px;
         }
         .terms-table {
@@ -327,7 +245,7 @@
             font-size: 0.93rem;
         }
         .terms-table th {
-            color: var(--navy);
+            color: var(--ink);
             font-weight: 700;
             width: 180px;
             vertical-align: top;
@@ -342,7 +260,7 @@
         .faq h2 {
             text-align: center;
             font-size: 1.8rem;
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 40px;
         }
         .faq-grid {
@@ -353,7 +271,7 @@
         }
         .faq-item h3 {
             font-size: 1.05rem;
-            color: var(--navy);
+            color: var(--ink);
             margin-bottom: 6px;
         }
         .faq-item p {
@@ -364,7 +282,7 @@
 
         /* ── Contact ── */
         .contact-bar {
-            background: var(--white);
+            background: var(--surface);
             padding: 40px 24px;
             text-align: center;
             border-top: 1px solid var(--border);
@@ -376,25 +294,7 @@
         .contact-bar a { font-weight: 600; }
 
         /* ── Footer ── */
-        footer {
-            background: var(--navy-dark);
-            color: #8eaec6;
-            padding: 40px 24px;
-            font-size: 0.9rem;
-        }
-        footer .footer-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 24px;
-        }
-        footer a { color: #a8c4d8; }
-        footer a:hover { color: var(--white); }
-        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
-        .footer-marks { width: 100%; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #7790a8; font-size: 0.8rem; line-height: 1.6; text-align: center; }
+        .footer-marks { width: 100%; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: var(--on-navy-dim); font-size: 0.8rem; line-height: 1.6; text-align: center; }
         .footer-copy { width: 100%; text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         @media (max-width: 1024px) {
@@ -403,21 +303,6 @@
         @media (max-width: 768px) {
             .page-header h1 { font-size: 1.7rem; }
             .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
-            .subnav-inner { height: auto; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
-            .subnav-links { margin-left: 0; gap: 16px; }
-            .hamburger { display: block; }
-            nav .nav-links { display: none; }
-            nav .nav-links.open {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: var(--navy);
-                padding: 16px 24px;
-                gap: 16px;
-            }
             .terms-table th { width: 130px; }
         }
     </style>
