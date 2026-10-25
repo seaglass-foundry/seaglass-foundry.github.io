@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credits — Seaglass Foundry</title>
+    <meta name="description" content="Data, imagery and licence attributions for the Seaglass Foundry site: OpenStreetMap, OpenMapTiles, Mapzen Terrain Tiles, USGS, Copernicus, GDAL and JetBrains Mono.">
+    <link rel="canonical" href="https://seaglassfoundry.com/credits/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="/assets/site.css">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seaglassfoundry.com/credits/">
+    <meta property="og:title" content="Credits — Seaglass Foundry">
+    <meta property="og:description" content="Data, imagery and licence attributions for the Seaglass Foundry site.">
+    <style>
+        main a, .hero p a { text-decoration: underline; }
+        .hero { background: var(--gradient-hero); color: var(--white); padding: 60px 24px 66px; text-align: center; }
+        .hero h1 { font-size: var(--fs-h1-page); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+        .hero h1 span { color: var(--teal); }
+        .hero p { max-width: 640px; margin: 0 auto; color: var(--on-navy); font-size: var(--fs-body-lg); line-height: 1.55; }
+        main { padding: 56px 24px 72px; }
+        main .container > section { max-width: 780px; margin: 0 auto 40px; }
+        main h2 { font-size: var(--fs-h2-sm); color: var(--ink); letter-spacing: -0.02em; margin-bottom: 10px; }
+        main p, main li { font-size: var(--fs-body); margin-bottom: 10px; }
+        main ul { padding-left: 22px; }
+        main .where { color: var(--text-light); font-size: var(--fs-sm); }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: var(--fs-h1-page-sm); }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/seaglass-globe/">Seaglass Globe</a>
+            <a href="/suite/">The suite</a>
+            <a href="/#get">Evaluate</a>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="container">
+        <h1><span>Credits</span></h1>
+        <p>The data, imagery, fonts and software this site shows or depends on, with the attribution each one asks for.</p>
+    </div>
+</header>
+
+<main>
+<div class="container">
+
+<section id="maps">
+    <h2>Maps and terrain</h2>
+    <p><strong>The Denver film and clip.</strong> © OpenMapTiles, data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> (ODbL); terrain: Mapzen Terrain Tiles (AWS Open Data) / USGS and others. The base map is served from OpenFreeMap in the OpenMapTiles schema. This is the credit printed in the film&rsquo;s own strip.</p>
+    <p><strong>Seaglass Globe screenshot.</strong> Map © OpenStreetMap contributors, under the Open Database License. Terrain: Mapzen Terrain Tiles (AWS Open Data); terrain data courtesy of the U.S. Geological Survey.</p>
+    <p class="where">Shown on the Seaglass Globe page.</p>
+</section>
+
+<section id="elevation">
+    <h2>Elevation and satellite data</h2>
+    <p>Cop30 DEM contains modified Copernicus DEM data © DLR e.V. 2010&ndash;2014, Airbus DS GmbH 2014&ndash;2018, provided under COPERNICUS by the European Union and ESA.</p>
+    <p>Sentinel-2 L2A contains modified Copernicus Sentinel data, ESA.</p>
+    <p class="where">Shown in the ForgeGIS comparison with GDAL, its stills and the side-by-side film.</p>
+</section>
+
+<section id="software">
+    <h2>Software and fonts</h2>
+    <ul>
+        <li>GDAL is open-source software developed by the GDAL/OGR Project under an MIT-style licence. ForgeGIS is checked against it.</li>
+        <li>Type in the Seaglass Globe application: JetBrains Mono, SIL Open Font License 1.1.</li>
+        <li>Worldwind Reforged is released as open source under the Apache License 2.0. It is an independent community modernization and is not affiliated with or endorsed by NASA.</li>
+        <li>The suite&rsquo;s installer carries the third-party notices, with every licence text in full.</li>
+    </ul>
+</section>
+
+<section id="marks">
+    <h2>Trademarks</h2>
+    <p>Seaglass Control Center&trade;, ForgeGIS&trade;, ForgeGIS Studio&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeRelay&trade;, Seaglass Globe&trade;, SwingToPDF&trade; and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.</p>
+    <p>GDAL, NVIDIA, Intel, Copernicus, Sentinel, OpenStreetMap, JetBrains Mono, GeographicLib, Rust, wgpu, Vulkan, DirectX, Windows, WebView2, Java, Maven, Apache PDFBox, NASA WorldWind, Claude, OpenAI, Gemini, Grok, Ollama, PostGIS, GeoPackage, the Model Context Protocol and other third-party products and marks referenced on this site are the property of their respective owners. Reference to these marks does not imply endorsement.</p>
+</section>
+
+</div>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/seaglass-globe/">Seaglass Globe</a>
+            <a href="/suite/">The suite</a>
+            <a href="/products/swingtopdf/">SwingToPDF</a>
+            <a href="/products/worldwind-reforged/">Worldwind Reforged</a>
+            <a href="/credits/">Credits</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved.</div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    var burger = document.querySelector('.hamburger');
+    function closeNav() {
+        links.classList.remove('open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+    }
+    links.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeNav); });
+    document.addEventListener('click', function(e) { if (!e.target.closest('nav')) closeNav(); });
+})();
+</script>
+</body>
+</html>

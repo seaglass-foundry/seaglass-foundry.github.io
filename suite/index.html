@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Suite — Seaglass Foundry</title>
+    <meta name="description" content="The Seaglass Control Center installs and runs ForgeGIS, ForgeGIS Studio, ForgeMind, ForgeData, ForgeRelay and the compute broker from one window on a Windows x64 workstation.">
+    <link rel="canonical" href="https://seaglassfoundry.com/suite/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="/assets/site.css">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://seaglassfoundry.com/suite/">
+    <meta property="og:title" content="The suite — Seaglass Foundry">
+    <meta property="og:description" content="One installer and one window for ForgeGIS, ForgeGIS Studio, ForgeMind, ForgeData, ForgeRelay and the compute broker.">
+    <meta property="og:image" content="https://seaglassfoundry.com/products/control-center/img/cc-05-dashboard.webp">
+    <meta property="og:image:width" content="1500">
+    <meta property="og:image:height" content="660">
+    <meta property="og:image:alt" content="The dark Control Center dashboard: the Services tab with cards for ForgeMind, ForgeGIS Studio, Seaglass Globe and the Compute broker, the MCP children spawned by ForgeMind, and the log panel">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://seaglassfoundry.com/products/control-center/img/cc-05-dashboard.webp">
+    <style>
+        p a { text-decoration: underline; }
+        .hero { background: var(--gradient-hero); color: var(--white); padding: 70px 24px 76px; text-align: center; }
+        .hero h1 { font-size: var(--fs-display); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 14px; }
+        .hero h1 span { color: var(--teal); }
+        .hero p { max-width: 680px; margin: 0 auto; color: var(--on-navy); font-size: var(--fs-tagline); line-height: 1.55; }
+        .hero p a { color: var(--on-navy-link); }
+        section.block { padding: 64px 24px; }
+        section.block.tinted { background: var(--grey-bg); }
+        section.block h2 { font-size: var(--fs-h2); color: var(--ink); letter-spacing: -0.02em; margin-bottom: 14px; }
+        section.block p { max-width: 760px; font-size: var(--fs-body-lg); margin-bottom: 14px; }
+        .stills { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; align-items: start; }
+        .stills.solo { grid-template-columns: minmax(0, 720px); }
+        figure.still img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); }
+        figure.still figcaption { margin-top: 8px; color: var(--text-light); font-size: var(--fs-caption); line-height: 1.5; }
+        .parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px 48px; }
+        .parts article h2 { font-size: var(--fs-h3); }
+        .parts article p { font-size: var(--fs-body); }
+        .dl { margin-top: 22px; }
+        .evaluate { background: var(--gradient-hero); color: var(--white); text-align: center; padding: 64px 24px; }
+        .evaluate h2 { font-size: var(--fs-h2-sm); margin-bottom: 10px; }
+        .evaluate p { color: var(--on-navy); max-width: 620px; margin: 0 auto 22px; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: var(--fs-display-mobile); }
+            .hero p { font-size: var(--fs-body-lg); }
+            .stills { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="brand">Seaglass <span>Foundry</span></a>
+        <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/seaglass-globe/">Seaglass Globe</a>
+            <a href="/suite/">The suite</a>
+            <a href="/#get">Evaluate</a>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="container">
+        <h1>The <span>suite</span></h1>
+        <p>The Seaglass Control Center installs and runs <a href="/products/forgegis/">ForgeGIS</a>, the <a href="/products/seaglass-globe/">Seaglass Globe</a> and the tools around them from one window, on one Windows x64 workstation.</p>
+    </div>
+</header>
+
+<main>
+<section class="block" id="control-center">
+    <div class="container">
+        <h2>Seaglass Control Center<sup class="tm">&trade;</sup></h2>
+        <p>The installer and the operations console for the suite, in one Windows application. One download lays down a private Java runtime and the components you pick, connects the AI model you choose, starts the services in order and watches them. The same window then runs the data catalog, records exercises and hosts the chat with the agent. Its one prerequisite, Microsoft&rsquo;s WebView2 runtime, comes with Windows 11.</p>
+        <p>The Control Center installs and operates the suite and is not sold separately.</p>
+        <div class="stills">
+            <figure class="still">
+                <img src="/products/control-center/img/cc-01-welcome.webp" alt="The Forge Suite welcome screen in light onboarding: the Seaglass Foundry globe, Installed for everyone on this computer — set it up for your account, and a Set up for my account button" width="1560" height="860" loading="lazy">
+                <figcaption>The light onboarding, here setting up a new account on a machine where the suite is installed for everyone.</figcaption>
+            </figure>
+            <figure class="still">
+                <img src="/products/control-center/img/cc-05-dashboard.webp" alt="The dark Control Center dashboard: the Services tab with cards for ForgeMind, ForgeGIS Studio, Seaglass Globe and the Compute broker, the MCP children spawned by ForgeMind, and the log panel" width="1500" height="660" loading="lazy">
+                <figcaption>The dark dashboard: a card for each installed service, the MCP children, and the log.</figcaption>
+            </figure>
+        </div>
+        <p class="dl"><a class="btn btn-primary" href="/products/control-center/downloads/seaglass-control-center-datasheet.pdf">Download the datasheet (PDF)</a></p>
+    </div>
+</section>
+
+<section class="block tinted">
+    <div class="container parts">
+        <article id="studio">
+            <h2>ForgeGIS Studio<sup class="tm">&trade;</sup></h2>
+            <p>A browser workspace for the suite: a live map, a pipeline canvas where ForgeGIS operations appear as nodes, a batch runner that applies a saved pipeline to a folder, and a chat where ForgeMind can act on the map you are looking at. It is optional, and it runs on the same workstation, bound to loopback.</p>
+        </article>
+        <article id="forgemind">
+            <h2>ForgeMind<sup class="tm">&trade;</sup></h2>
+            <p>The agent. It turns a plain-language request into a validated pipeline on ForgeGIS, using the data ForgeData finds, and answers with a named refusal when a request cannot be answered correctly instead of a guess. It runs on Claude, OpenAI, Gemini or Grok with your own key, or on an OpenAI-compatible model server you run yourself; Ollama is the tested path.</p>
+        </article>
+        <article id="forgedata">
+            <h2>ForgeData<sup class="tm">&trade;</sup></h2>
+            <p>The data catalog. Name an operation and an area, and ForgeData returns ranked, costed candidates, so the agent reasons about what it wants and never about where a file lives. It reads local files, STAC catalogs, PostGIS, OGC services and public elevation sources such as USGS 3DEP and OpenTopography. Every empty reply says why, and replies are sized for a model&rsquo;s context window.</p>
+        </article>
+        <article id="forgerelay">
+            <h2>ForgeRelay<sup class="tm">&trade;</sup></h2>
+            <p>Records DIS and Cursor-on-Target exercise traffic into a GeoPackage scenario library that the Globe replays. DIS is recorded as ground truth and a Cursor-on-Target feed as one side&rsquo;s picture, never as truth. Before it starts it asks what the wire cannot say, such as which force is which side, and every recording ends with a verdict: complete, refused, or stopped with holes. It is optional.</p>
+        </article>
+        <article id="broker">
+            <h2>Compute broker (FRM)</h2>
+            <p>A job queue and GPU workers for raster batch jobs. Ask ForgeMind to hillshade every tile in a folder and it becomes one job that GPU workers split between them, on this machine or across a fleet that shares one broker. A crashed worker is restarted and its task handed on, and a task too large for any worker&rsquo;s GPU is refused from the raster&rsquo;s header, before any GPU work. Studio sends its raster batches here too. It is optional.</p>
+        </article>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <h2>Data sources in the catalog</h2>
+        <p>The Control Center&rsquo;s Data tab keeps your registered sources beside a gallery of elevation, vector and imagery sources you can add with one click.</p>
+        <div class="stills solo">
+            <figure class="still">
+                <img src="/products/control-center/img/cc-06-data-gallery.webp" alt="The Data tab: a registered sample elevation source with a Sync button on the left, and a data source gallery of elevation, vector, and imagery sources on the right" width="1310" height="690" loading="lazy">
+                <figcaption>The Data tab: registered sources on the left, the source gallery on the right.</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+</main>
+
+<section class="evaluate" id="evaluate">
+    <div class="container">
+        <h2>Evaluate the suite</h2>
+        <p>Release 1.2.7, Windows x64. Evaluations are by request and run for 90 days from first install. The suite is commercially licensed; terms are provided on request.</p>
+        <a href="mailto:rich@seaglassfoundry.com?subject=Forge%20suite%20evaluation" class="btn btn-primary">Request an evaluation</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/seaglass-globe/">Seaglass Globe</a>
+            <a href="/suite/">The suite</a>
+            <a href="/products/swingtopdf/">SwingToPDF</a>
+            <a href="/products/worldwind-reforged/">Worldwind Reforged</a>
+            <a href="/credits/">Credits</a>
+            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
+        </div>
+        <div class="footer-marks">
+            Seaglass Control Center&trade;, ForgeGIS&trade;, ForgeGIS Studio&trade;, ForgeMind&trade;, ForgeData&trade;, ForgeRelay&trade;, Seaglass Globe&trade; and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            Windows, WebView2, Java, Claude, OpenAI, Gemini, Grok, Ollama, PostGIS, GeoPackage, the Model Context Protocol and other third-party products and marks referenced are the property of their respective owners.
+            Reference to these marks does not imply endorsement.
+        </div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved.</div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var links = document.querySelector('.nav-links');
+    var burger = document.querySelector('.hamburger');
+    function closeNav() {
+        links.classList.remove('open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+    }
+    links.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeNav); });
+    document.addEventListener('click', function(e) { if (!e.target.closest('nav')) closeNav(); });
+})();
+</script>
+</body>
+</html>
