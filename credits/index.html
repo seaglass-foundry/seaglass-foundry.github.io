@@ -23,6 +23,7 @@
         main h2 { font-size: var(--fs-h2-sm); color: var(--ink); letter-spacing: -0.02em; margin-bottom: 10px; }
         main p, main li { font-size: var(--fs-body); margin-bottom: 10px; }
         main ul { padding-left: 22px; }
+        main pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--grey-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; font-family: var(--font-mono); font-size: var(--fs-micro); line-height: 1.5; margin-bottom: 10px; }
         main .where { color: var(--text-light); font-size: var(--fs-sm); }
         @media (max-width: 768px) {
             .hero h1 { font-size: var(--fs-h1-page-sm); }
@@ -56,7 +57,26 @@
 
 <section id="maps">
     <h2>Maps and terrain</h2>
-    <p><strong>The Denver film and clip.</strong> © OpenMapTiles, data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> (ODbL); terrain: Mapzen Terrain Tiles (AWS Open Data) / USGS and others. The base map is served from OpenFreeMap in the OpenMapTiles schema. This is the credit printed in the film&rsquo;s own strip.</p>
+    <p><strong>The Denver film and clip.</strong> Map: OpenFreeMap © <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> (<a href="https://openmaptiles.org/" target="_blank" rel="noopener">openmaptiles.org</a>; design CC BY 4.0), data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, ODbL — <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">openstreetmap.org/copyright</a>. Style: OSM Liberty. Terrain: Mapzen Terrain Tiles via AWS Open Data (<a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">registry.opendata.aws/terrain-tiles</a>); sources:</p>
+    <pre id="terrain">* ArcticDEM terrain data DEM(s) were created from DigitalGlobe, Inc., imagery and
+  funded under National Science Foundation awards 1043681, 1559691, and 1542736;
+* Australia terrain data © Commonwealth of Australia (Geoscience Australia) 2017;
+* Austria terrain data © offene Daten Österreichs – Digitales Geländemodell (DGM)
+  Österreich;
+* Canada terrain data contains information licensed under the Open Government
+  Licence – Canada;
+* Europe terrain data produced using Copernicus data and information funded by the
+  European Union - EU-DEM layers;
+* Global ETOPO1 terrain data U.S. National Oceanic and Atmospheric Administration
+* Mexico terrain data source: INEGI, Continental relief, 2016;
+* New Zealand terrain data Copyright 2011 Crown copyright (c) Land Information New
+  Zealand and the New Zealand Government (All rights reserved);
+* Norway terrain data © Kartverket;
+* United Kingdom terrain data © Environment Agency copyright and/or database right
+  2015. All rights reserved;
+* United States 3DEP (formerly NED) and global GMTED2010 and SRTM terrain data
+  courtesy of the U.S. Geological Survey.</pre>
+    <p class="where">From the <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md" target="_blank" rel="noopener">tilezen/joerd attribution page</a>.</p>
     <p><strong>Seaglass Globe screenshot.</strong> Map © OpenStreetMap contributors, under the Open Database License. Terrain: Mapzen Terrain Tiles (AWS Open Data); terrain data courtesy of the U.S. Geological Survey.</p>
     <p class="where">Shown on the Seaglass Globe page.</p>
 </section>

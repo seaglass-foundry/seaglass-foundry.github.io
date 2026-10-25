@@ -1,7 +1,7 @@
 # Globe media snippets (T1456)
 
 Assets live in `products/seaglass-globe/`. Not placed in any page yet; the page tasks drop these in.
-Paths below are root-relative. The credit text is the film's own strip wording.
+Paths below are root-relative. The caption is the credit text agreed in T1460 (the full joerd source block is on `/credits/#terrain`; do not add Mapbox or Maputnik names to promote anything).
 
 Files:
 - `video/denver-hero.mp4`: 22 s, 1600x900, H.264, no audio, faststart, ~5.9 MB.
@@ -17,7 +17,7 @@ Files:
          width="1600" height="900" aria-label="Seaglass Globe zooming from the Colorado Front Range down to Denver">
     <source src="/products/seaglass-globe/video/denver-hero.mp4" type="video/mp4">
   </video>
-  <figcaption>© OpenMapTiles, data © OpenStreetMap contributors (ODbL); terrain: Mapzen Terrain Tiles (AWS Open Data) / USGS and others</figcaption>
+  <figcaption>Map: OpenFreeMap © <a href="https://openmaptiles.org/">OpenMapTiles</a> (openmaptiles.org; design CC BY 4.0), data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ODbL — openstreetmap.org/copyright. Style: OSM Liberty. Terrain: Mapzen Terrain Tiles via AWS Open Data (registry.opendata.aws/terrain-tiles); sources: <a href="/credits/#terrain">terrain data credits</a></figcaption>
 </figure>
 <script>
 /* Reduced motion: no autoplay, keep the poster. */
@@ -46,7 +46,7 @@ Click-to-play: the poster is a button; the video element is created on click, so
           data-poster="/products/seaglass-globe/img/denver-film-poster.webp">
     <img src="/products/seaglass-globe/img/denver-film-poster.webp" width="1920" height="1080" alt="Seaglass Globe map of the Colorado Front Range mid-descent toward Denver" loading="lazy">
   </button>
-  <figcaption>© OpenMapTiles, data © OpenStreetMap contributors (ODbL); terrain: Mapzen Terrain Tiles (AWS Open Data) / USGS and others</figcaption>
+  <figcaption>Map: OpenFreeMap © <a href="https://openmaptiles.org/">OpenMapTiles</a> (openmaptiles.org; design CC BY 4.0), data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ODbL — openstreetmap.org/copyright. Style: OSM Liberty. Terrain: Mapzen Terrain Tiles via AWS Open Data (registry.opendata.aws/terrain-tiles); sources: <a href="/credits/#terrain">terrain data credits</a></figcaption>
 </figure>
 <script>
 document.querySelectorAll('.globe-film-play').forEach(function (b) {
