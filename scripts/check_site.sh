@@ -7,7 +7,7 @@
 #   b  lychee: 0 broken internal links (offline) plus check_fragments.py for #anchors; external failures are listed, not fatal
 #   c  headless Chrome at 375 px: document.documentElement.scrollWidth <= 375 on every live page
 #   d  Lighthouse accessibility >= 95 and axe-core 0 serious/critical on /, /products/forgegis/,
-#      /products/seaglass-globe/, /suite/ (skipped with a notice until /suite/ exists)
+#      /products/seaglass-globe/, /suite/, /credits/
 #   p  the data-provenance gate
 #
 # Tools live in the uncommitted .tools/ dir (lychee.exe in .tools/lychee, npm packages in .tools/node).
@@ -41,6 +41,8 @@ files() { (cd "$ROOT" && find . \( -name .git -o -name .tools -o -name node_modu
 
 if want a; then
   section a "Esri / ArcGIS / CARTO / World Imagery (case-insensitive)"
+  # The PDF scan needs pdftotext; without it every PDF would read as clean, so stop instead of passing.
+  command -v pdftotext >/dev/null 2>&1 || { echo "setup problem: pdftotext not found on PATH (needed by check a to read PDFs; install poppler)" >&2; exit 2; }
   hits=0
   echo "-- file names"
   while IFS= read -r f; do echo "  NAME  $f"; hits=$((hits+1)); done < <(files | grep -iE "$PAT")

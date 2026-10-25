@@ -67,7 +67,7 @@ try {
       await page.close();
     }
   } else {
-    const targets = ['/', '/products/forgegis/', '/products/seaglass-globe/', '/suite/'];
+    const targets = ['/', '/products/forgegis/', '/products/seaglass-globe/', '/suite/', '/credits/'];
     const lighthouse = (await import(pathToFileURL(path.join(nodeDir, 'node_modules/lighthouse/core/index.js')).href)).default;
     const port = new URL(browser.wsEndpoint()).port;
     for (const u of targets) {
