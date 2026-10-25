@@ -1,0 +1,235 @@
+/* products/swingtopdf/pricing.html: page rules (moved from the page's <style>; loads after site.css). */
+
+/* ── Page header ── */
+.page-header {
+    background: var(--gradient-hero);
+    color: var(--white);
+    padding: 50px 24px 55px;
+    text-align: center;
+}
+.page-header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+.page-header p { color: var(--on-navy-link); font-size: 1.05rem; }
+
+/* ── Early adopter banner ── */
+.promo-banner {
+    background: var(--teal-dark); /* white text on --teal is 3.4:1; --teal-dark is 4.54:1 */
+    color: var(--white);
+    text-align: center;
+    padding: 14px 24px;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+}
+
+/* ── Pricing cards ── */
+.pricing { padding: 70px 24px 80px; background: var(--grey-bg); }
+.pricing-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+.price-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 28px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.price-card.featured {
+    border-color: var(--teal);
+    box-shadow: var(--shadow-teal);
+    position: relative;
+}
+.price-card.featured::before {
+    content: "Most Popular";
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--teal-dark);
+    color: var(--white);
+    padding: 4px 18px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.price-card h2 {
+    font-size: 1.35rem;
+    color: var(--ink);
+    margin-bottom: 4px;
+}
+.price-card .tier-desc {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 12px;
+}
+.price-card .price-original {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    text-decoration: line-through;
+    margin-bottom: 2px;
+}
+.price-card .price-tag {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 2px;
+}
+.price-card .price-note {
+    font-size: 0.82rem;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.price-card .price-note-plain {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+.price-card ul {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 32px;
+    flex: 1;
+}
+.price-card li {
+    padding: 8px 0;
+    font-size: 0.9rem;
+    color: var(--text);
+    border-bottom: 1px solid var(--grey-bg);
+}
+.price-card li:last-child { border-bottom: none; }
+.price-card li::before {
+    content: "\2713";
+    color: var(--teal);
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.2s, transform 0.1s;
+    text-align: center;
+}
+.btn-secondary { background: var(--grey-bg); color: var(--ink); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--border); }
+
+/* ── OEM section ── */
+.oem { padding: 0 24px 70px; background: var(--grey-bg); }
+.oem-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 40px 36px;
+    text-align: center;
+}
+.oem-card h2 {
+    font-size: 1.35rem;
+    color: var(--ink);
+    margin-bottom: 8px;
+}
+.oem-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 20px;
+}
+.oem-card .price-tag {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 20px;
+}
+
+/* ── License terms ── */
+.terms { padding: 70px 24px 80px; background: var(--surface); }
+.terms h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--ink);
+    margin-bottom: 40px;
+}
+.terms-table {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    border-collapse: collapse;
+}
+.terms-table th,
+.terms-table td {
+    text-align: left;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.93rem;
+}
+.terms-table th {
+    color: var(--ink);
+    font-weight: 700;
+    width: 180px;
+    vertical-align: top;
+}
+.terms-table td {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* ── FAQ ── */
+.faq { padding: 70px 24px 80px; background: var(--grey-bg); }
+.faq h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--ink);
+    margin-bottom: 40px;
+}
+.faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    gap: 28px;
+}
+.faq-item h3 {
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 6px;
+}
+.faq-item p {
+    color: var(--text-light);
+    font-size: 0.93rem;
+    line-height: 1.65;
+}
+
+/* ── Contact ── */
+.contact-bar {
+    background: var(--surface);
+    padding: 40px 24px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+.contact-bar p {
+    font-size: 1.05rem;
+    color: var(--text);
+}
+.contact-bar a { font-weight: 600; }
+
+/* ── Footer ── */
+
+@media (max-width: 1024px) {
+    .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .page-header h1 { font-size: 1.7rem; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+    .terms-table th { width: 130px; }
+}

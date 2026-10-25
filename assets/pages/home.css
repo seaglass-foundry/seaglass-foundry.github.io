@@ -1,0 +1,77 @@
+/* index.html: page rules (moved from the page's <style>; loads after site.css). */
+section { scroll-margin-top: 60px; }
+/* Teal text on --grey-bg (light mode only; dark mode keeps --link as is). */
+.proof, .tinted { --link: var(--link-on-grey); }
+@media (prefers-color-scheme: dark) { .proof, .tinted { --link: var(--teal); } }
+.eyebrow { display: block; color: var(--link); font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; }
+.accent { color: var(--link); }
+.more-link { display: inline-block; margin-top: 18px; font-weight: 600; font-size: var(--fs-sm); }
+figure { margin: 0; }
+figcaption { color: var(--text-light); font-size: var(--fs-caption); line-height: 1.55; margin-top: 10px; }
+figcaption a { color: inherit; text-decoration: underline; }
+
+/* ── 1. Hero: ForgeGIS ── */
+.hero { background: var(--gradient-hero); color: var(--white); padding: 84px 24px 72px; text-align: center; }
+.hero .eyebrow { color: var(--teal-on-navy); }
+.hero h1 { font-size: var(--fs-display); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; max-width: 820px; margin: 0 auto 20px; }
+.hero h1 .accent { color: var(--teal); }
+.hero .sub { color: var(--on-navy); font-size: var(--fs-tagline); line-height: 1.55; max-width: 720px; margin: 0 auto; }
+.hero-actions { margin-top: 32px; display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.hero-actions .text-link { color: var(--white); font-weight: 600; font-size: var(--fs-sm); }
+.hero-visual { max-width: 960px; margin: 52px auto 0; }
+.hero-visual img, .hero-visual video { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--frame-on-navy); box-shadow: var(--shadow-on-navy); }
+.hero-visual figcaption { color: var(--on-navy-muted); text-align: left; }
+/* Hero clip: muted loop. Reduced motion shows the poster instead, without JavaScript (as the Globe clip). */
+.hero-visual .forgegis-hero-still { display: none; }
+@media (prefers-reduced-motion: reduce) {
+    .hero-visual .forgegis-hero-video { display: none; }
+    .hero-visual .forgegis-hero-still { display: block; }
+}
+
+/* ── 2. Proof line ── */
+.proof { background: var(--grey-bg); padding: 40px 24px; text-align: center; border-bottom: 1px solid var(--border); }
+.proof p { max-width: 820px; margin: 0 auto; color: var(--ink); font-size: var(--fs-tagline); line-height: 1.5; font-weight: 600; letter-spacing: -0.01em; }
+.proof a { display: inline-block; margin-top: 10px; font-size: var(--fs-sm); font-weight: 600; }
+
+/* ── 3, 4. Globe and suite: text beside one visual ── */
+.feature { padding: 88px 24px; }
+.feature.tinted { background: var(--grey-bg); }
+.feature-row { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 52px; align-items: center; }
+.feature-row.flip { grid-template-columns: 1.5fr 1fr; }
+.feature-row.flip .feature-text { order: 2; }
+.feature h2 { font-size: var(--fs-h2); color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px; }
+.feature p { font-size: var(--fs-body-lg); line-height: 1.7; }
+.feature-media img, .feature-media video { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-elevated); }
+
+/* Globe clip: muted loop. Reduced motion shows the poster instead, without JavaScript. */
+.feature-media .globe-hero-still { display: none; }
+@media (prefers-reduced-motion: reduce) {
+    .feature-media .globe-hero-video { display: none; }
+    .feature-media .globe-hero-still { display: block; }
+}
+
+/* ── 5. Evaluate ── */
+.evaluate { background: var(--gradient-hero); color: var(--white); text-align: center; padding: 80px 24px; }
+.evaluate .eyebrow { color: var(--teal-on-navy); }
+.evaluate h2 { font-size: var(--fs-h2); letter-spacing: -0.02em; margin-bottom: 14px; }
+.evaluate p { color: var(--on-navy); font-size: var(--fs-body-lg); max-width: 600px; margin: 0 auto 30px; }
+.evaluate .btn-primary { font-size: var(--fs-body); padding: 15px 32px; }
+
+
+@media (max-width: 900px) {
+    .feature-row, .feature-row.flip { grid-template-columns: 1fr; gap: 32px; }
+    .feature-row.flip .feature-text { order: 0; }
+}
+@media (max-width: 768px) {
+    .hero { padding: 56px 16px 48px; }
+    .hero h1 { font-size: var(--fs-display-mobile); }
+    .hero .sub { font-size: var(--fs-body-lg); }
+    .hero-visual { margin-top: 40px; }
+    .proof { padding: 32px 16px; }
+    .proof p { font-size: var(--fs-body-lg); }
+    .feature { padding: 56px 16px; }
+    .feature h2, .evaluate h2 { font-size: var(--fs-h2-sm); }
+    .evaluate { padding: 56px 16px; }
+    footer { padding: 36px 16px; }
+    nav { padding: 0 16px; }
+}

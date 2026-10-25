@@ -1,0 +1,67 @@
+/* products/seaglass-globe/index.html: page rules (moved from the page's <style>; loads after site.css). */
+section { scroll-margin-top: 60px; }
+/* Teal text on --grey-bg (light mode only; dark mode keeps --link as is). */
+.tinted { --link: var(--link-on-grey); }
+@media (prefers-color-scheme: dark) { .tinted { --link: var(--teal); } }
+.eyebrow { display: block; color: var(--link); font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; }
+figure { margin: 0; }
+figcaption { color: var(--text-light); font-size: var(--fs-caption); line-height: 1.55; margin-top: 10px; }
+figcaption a { color: inherit; text-decoration: underline; }
+
+/* ── 1. Hero: the film, then the name ── */
+.hero { background: var(--gradient-hero); color: var(--white); padding: 56px 24px 76px; text-align: center; }
+.hero .eyebrow { color: var(--teal-on-navy); }
+.hero .eyebrow a { color: inherit; }
+.hero-film { max-width: 960px; margin: 0 auto 48px; text-align: left; }
+.hero-film figcaption { color: var(--on-navy-muted); }
+.hero h1 { font-size: var(--fs-display); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 12px; }
+.hero .tagline { color: var(--white); font-size: var(--fs-tagline); line-height: 1.5; max-width: 720px; margin: 0 auto 22px; }
+.hero .lede { color: var(--on-navy); font-size: var(--fs-body-lg); line-height: 1.7; max-width: 720px; margin: 0 auto; }
+.hero-actions { margin-top: 32px; }
+
+/* Film facade: the poster links to the MP4; on click it becomes a <video> with controls.
+   The frame is 16:9 like the film, so the burned-in credit strip along the bottom is never cropped. */
+.film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--media-bg); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--frame-on-navy); box-shadow: var(--shadow-on-navy); }
+.film-frame video, .film-frame .film-facade { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.film-frame video { object-fit: contain; }
+
+/* ── Sections ── */
+.block { padding: 80px 24px; }
+.block.tinted { background: var(--grey-bg); }
+.block h2 { font-size: var(--fs-h2); color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px; }
+.block p { font-size: var(--fs-body-lg); line-height: 1.7; }
+.block p + p { margin-top: 14px; }
+.block p a { text-decoration: underline; }
+.narrow { max-width: 820px; margin: 0 auto; }
+
+/* ── 2. Spec: term beside description, body type ── */
+.spec { display: grid; grid-template-columns: 10em 1fr; margin-top: 8px; border-top: 1px solid var(--border); }
+.spec dt, .spec dd { padding: 16px 0; border-bottom: 1px solid var(--border); line-height: 1.7; }
+.spec dt { font-weight: 700; color: var(--ink); padding-right: 24px; }
+
+/* ── 3. Symbology ── */
+.symbology figure { max-width: 1000px; margin: 36px auto 0; }
+.symbology img { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-elevated); }
+
+/* ── 5. Credits and evaluate ── */
+.credits p { font-size: var(--fs-body); color: var(--text-light); }
+.evaluate { background: var(--gradient-hero); color: var(--white); text-align: center; padding: 80px 24px; }
+.evaluate .eyebrow { color: var(--teal-on-navy); }
+.evaluate h2 { font-size: var(--fs-h2); letter-spacing: -0.02em; margin-bottom: 14px; }
+.evaluate p { color: var(--on-navy); font-size: var(--fs-body-lg); max-width: 600px; margin: 0 auto 30px; }
+.evaluate .btn-primary { font-size: var(--fs-body); padding: 15px 32px; }
+
+
+@media (max-width: 768px) {
+    .hero { padding: 40px 16px 48px; }
+    .hero-film { margin-bottom: 36px; }
+    .hero h1 { font-size: var(--fs-display-mobile); }
+    .hero .tagline { font-size: var(--fs-body-lg); }
+    .block, .evaluate { padding: 56px 16px; }
+    .block h2, .evaluate h2 { font-size: var(--fs-h2-sm); }
+    .spec { grid-template-columns: 1fr; }
+    .spec dt { padding: 16px 0 0; border-bottom: none; }
+    .spec dd { padding-top: 2px; }
+    footer { padding: 36px 16px; }
+    nav { padding: 0 16px; }
+}

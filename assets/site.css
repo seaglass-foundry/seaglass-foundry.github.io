@@ -1,7 +1,8 @@
 /* Seaglass Foundry: shared stylesheet.
    Tokens from seaglass-foundry-design-system/dist/seaglass.css; see docs/design/redesign-2026-10.md sec. 9.
    Holds only the rules every page shares (tokens, reset, type, nav, footer, buttons, cards).
-   Page-specific rules stay in each page's <style>, which loads after this file and wins on equal specificity. */
+   Page-specific rules sit in a short <style> in the page, or past 60 lines in assets/pages/<page>.css,
+   linked right after this file; either way they load after it and win on equal specificity. */
 
 /* ── Tokens ── */
 :root {

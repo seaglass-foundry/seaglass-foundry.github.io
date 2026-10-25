@@ -1,0 +1,143 @@
+/* products/swingtopdf/index.html: page rules (moved from the page's <style>; loads after site.css). */
+
+/* ── Hero ── */
+.hero {
+    background: var(--gradient-hero);
+    color: var(--white);
+    padding: 80px 24px 90px;
+    text-align: center;
+}
+.hero h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+}
+.hero h1 span { color: var(--teal); }
+.hero .tagline {
+    font-size: 1.25rem;
+    color: var(--on-navy-link);
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+.hero .description {
+    max-width: 620px;
+    margin: 0 auto 36px;
+    color: var(--on-navy-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+.hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ── Features ── */
+.features { padding: 80px 24px; background: var(--surface); }
+.features h2 { text-align: center; font-size: 2rem; margin-bottom: 12px; color: var(--ink); }
+.features .subtitle { text-align: center; color: var(--text-light); margin-bottom: 48px; font-size: 1.05rem; }
+.feature-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+}
+.feature-card {
+    background: var(--grey-bg);
+    border-radius: 10px;
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+}
+.feature-card h3 {
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: normal;
+}
+.feature-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+.feature-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: var(--teal-light);
+    border-radius: 8px;
+    margin-bottom: 14px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* ── Code ── */
+.code-section { padding: 80px 24px; background: var(--grey-bg); }
+.code-section h2 { text-align: center; font-size: 2rem; margin-bottom: 12px; color: var(--ink); }
+.code-section .subtitle { text-align: center; color: var(--text-light); margin-bottom: 40px; font-size: 1.05rem; }
+.code-columns {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+.code-block { background: var(--code-bg); border-radius: 10px; overflow: hidden; }
+.code-block-header {
+    padding: 12px 20px;
+    background: var(--glass-on-navy);
+    color: var(--code-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.code-block pre {
+    padding: 20px;
+    overflow-x: auto;
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+.code-block code {
+    color: var(--code-text);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+.kw { color: var(--code-keyword); }
+.str { color: var(--code-string); }
+.cmt { color: var(--code-comment); }
+.tag { color: var(--code-tag); }
+.attr { color: var(--code-attr); }
+
+/* ── License overview ── */
+.license-section { padding: 80px 24px; background: var(--surface); }
+.license-section h2 { text-align: center; font-size: 2rem; margin-bottom: 12px; color: var(--ink); }
+.license-section .subtitle { text-align: center; color: var(--text-light); margin-bottom: 48px; font-size: 1.05rem; }
+.license-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+.license-card {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 32px 28px;
+    text-align: center;
+}
+.license-card.highlight { border-color: var(--teal); }
+.license-card h3 { font-size: 1.15rem; color: var(--ink); margin-bottom: 8px; }
+.license-card p { color: var(--text-light); font-size: 0.93rem; line-height: 1.65; margin-bottom: 20px; }
+.license-card ul { list-style: none; text-align: left; margin-bottom: 24px; }
+.license-card li { padding: 6px 0; font-size: 0.93rem; color: var(--text-light); }
+.license-card li::before { content: "\2713"; color: var(--teal); font-weight: 700; margin-right: 10px; }
+
+/* ── Footer ── */
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .hero .tagline { font-size: 1.05rem; }
+    .code-columns { grid-template-columns: 1fr; }
+    .license-grid { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr; }
+}
+/* Moved from inline style attributes (T515) */
+.btn.btn-outline.btn-github { color: var(--ink); border-color: var(--border); }
