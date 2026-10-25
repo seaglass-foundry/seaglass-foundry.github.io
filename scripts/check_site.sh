@@ -97,7 +97,7 @@ fi
 
 if want p; then
   section p "data-provenance gate"
-  python "$HERE/check_data_provenance.py" --root "$ROOT" --manifest "$ROOT/docs/legal/data-manifest.tsv"; rc=$?
+  (cd "$ROOT" && python "$HERE/check_data_provenance.py" --root . --manifest docs/legal/data-manifest.tsv); rc=$?
   [ "$rc" -eq 0 ] && RESULT[p]=PASS || RESULT[p]="FAIL (exit $rc)"
 fi
 
