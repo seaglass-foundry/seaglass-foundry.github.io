@@ -146,6 +146,7 @@
         <span class="eyebrow"><a href="/">Home</a> / Seaglass Globe</span>
         <figure class="hero-film">
             <div class="film-frame">
+                <!-- YouTube ID: none yet. Once the film is on YouTube, point this facade at the youtube-nocookie embed for that ID, swap in an iframe on click as the ForgeGIS page does, and add the youtube:<id> row to docs/legal/data-manifest.tsv. -->
                 <a class="film-facade" href="video/denver-film.mp4" aria-label="Play the Denver film: Seaglass Globe descending from the Front Range to Denver">
                     <img src="img/denver-film-poster.webp" width="1920" height="1080" alt="Seaglass Globe map of the Colorado Front Range mid-descent toward Denver, with the map and terrain credits along the bottom" decoding="async">
                     <span class="film-play" aria-hidden="true"></span>
@@ -267,9 +268,6 @@ document.querySelectorAll('.film-facade').forEach(function (a) {
         v.focus();
     });
 });
-/* TODO(YouTube): once the film is uploaded, point the facade at
-   https://www.youtube-nocookie.com/embed/<VIDEO_ID_GOES_HERE> and swap in an iframe on click (as on the ForgeGIS page),
-   and add the youtube:<id> row to docs/legal/data-manifest.tsv. */
 </script>
 </body>
 </html>
