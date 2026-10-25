@@ -56,8 +56,14 @@
         .hero-actions { margin-top: 32px; display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap; }
         .hero-actions .text-link { color: var(--white); font-weight: 600; font-size: var(--fs-sm); }
         .hero-visual { max-width: 960px; margin: 52px auto 0; }
-        .hero-visual img { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 18px 50px rgba(0,0,0,0.45); }
+        .hero-visual img, .hero-visual video { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 18px 50px rgba(0,0,0,0.45); }
         .hero-visual figcaption { color: var(--on-navy-muted); text-align: left; }
+        /* Hero clip: muted loop. Reduced motion shows the poster instead, without JavaScript (as the Globe clip). */
+        .hero-visual .forgegis-hero-still { display: none; }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-visual .forgegis-hero-video { display: none; }
+            .hero-visual .forgegis-hero-still { display: block; }
+        }
 
         /* ── 2. Proof line ── */
         .proof { background: var(--grey-bg); padding: 40px 24px; text-align: center; border-bottom: 1px solid var(--border); }
@@ -136,10 +142,14 @@
             <a href="/#get" class="btn btn-outline">Request an evaluation</a>
             <a href="/products/forgegis/" class="text-link">How it compares &rarr;</a>
         </div>
-        <!-- Hero visual: the cleared race poster until the Studio pipeline capture lands (brief sec. 8). -->
         <figure class="hero-visual">
-            <img src="/products/forgegis/img/race-excerpt-poster.webp" alt="ForgeGIS and GDAL side by side: the same grey hillshade of the Grand Canyon from each, with each side's elapsed time beneath" width="1280" height="720" fetchpriority="high" decoding="async">
-            <figcaption>The same hillshade from ForgeGIS and from GDAL, side by side. Elevation: Copernicus DEM (<a href="/credits/#elevation">credits</a>).</figcaption>
+            <video class="forgegis-hero-video" muted autoplay loop playsinline preload="metadata"
+                   poster="/products/forgegis/img/forgegis-hero-poster.webp"
+                   width="1920" height="1080" aria-label="ForgeGIS Studio building a pipeline on a Grand Canyon elevation model: the raw elevation, then a hillshade, a second hillshade in teal and contour lines, ending on the teal composite">
+                <source src="/products/forgegis/video/forgegis-hero.mp4" type="video/mp4">
+            </video>
+            <img class="forgegis-hero-still" src="/products/forgegis/img/forgegis-hero-poster.webp" width="1920" height="1080" decoding="async" alt="ForgeGIS Studio with a four-step pipeline on the left (elevation, hillshade, hillshade, contour) and the result on the canvas: a teal hillshade of a Grand Canyon section with white contour lines">
+            <figcaption>Elevation: Copernicus DEM GLO-30 &copy; DLR e.V., Airbus Defence and Space, ESA, provided under COPERNICUS by the EU and ESA (<a href="/credits/#elevation">credits</a>).</figcaption>
         </figure>
     </div>
 </section>
@@ -231,13 +241,13 @@
 })();
 /* Reduced motion: no autoplay, keep the poster (the CSS above already swaps in the still without JS). */
 (function () {
-    var v = document.querySelector('.globe-hero-video');
-    if (v && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    document.querySelectorAll('.forgegis-hero-video, .globe-hero-video').forEach(function (v) {
         v.removeAttribute('autoplay');
         v.pause();
         v.removeAttribute('loop');
         v.preload = 'none';
-    }
+    });
 })();
 </script>
 </body>
