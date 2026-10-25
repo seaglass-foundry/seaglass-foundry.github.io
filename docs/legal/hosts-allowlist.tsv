@@ -5,3 +5,4 @@ central.sonatype.com	outbound links to the Maven Central artifact; nothing fetch
 www.youtube.com	outbound watch links (facade fallback and the full-race link); never loaded by the page (the embed is the www.youtube-nocookie.com row)
 schema.org	JSON-LD @context identifier, never fetched
 www.gnu.org	licence URL inside JSON-LD, never fetched
+www.openstreetmap.org	outbound link to the OpenStreetMap copyright page from the OSM credit; nothing fetched

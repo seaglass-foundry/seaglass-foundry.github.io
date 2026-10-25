@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ForgeGIS — Benchmarked Against GDAL: Method, Figures and the Uncut Race</title>
-    <meta name="description" content="ForgeGIS 1.2.6 against GDAL 3.12: 15× geometric mean over 242 operations, 6× kernel against kernel, 0 parity failures. The method, and the uncut 61-operation race.">
+    <meta name="description" content="ForgeGIS 1.2.6 against GDAL 3.12: 1,191 checks, 0 failures; 884 compared against GDAL or an oracle. Faster in 239 of 242 operations, 3 slower. The method, and the uncut 61-operation race.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/">
     <meta property="og:title" content="ForgeGIS — Benchmarked Against GDAL: Method, Figures and the Uncut Race">
-    <meta property="og:description" content="ForgeGIS 1.2.6 against GDAL 3.12 in the benchmark of record: 15× geometric mean across 242 operations, 6× kernel against kernel, 3 slower and all tiny. With the method and the uncut race.">
+    <meta property="og:description" content="ForgeGIS 1.2.6 against GDAL 3.12 in the benchmark of record: 1,191 checks, 0 failures; 884 compared against GDAL or an oracle. Faster in 239 of 242 operations, 3 slower and all tiny. With the method and the uncut race.">
     <meta property="og:image" content="https://seaglassfoundry.com/products/forgegis/img/race-excerpt-poster.webp">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="720">
@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/forgegis/img/race-excerpt-poster.webp">
     <meta name="twitter:title" content="ForgeGIS — Benchmarked Against GDAL: Method, Figures and the Uncut Race">
-    <meta name="twitter:description" content="ForgeGIS 1.2.6 against GDAL 3.12: 15× geometric mean, 6× kernel against kernel, with the method and the uncut race.">
+    <meta name="twitter:description" content="ForgeGIS 1.2.6 against GDAL 3.12: 1,191 checks, 0 failures; 884 compared against GDAL or an oracle. With the method and the uncut race.">
     <meta name="keywords" content="GPU-accelerated geospatial library, MCP geospatial server, Java GPU GIS, geospatial Model Context Protocol, GDAL alternative, Java GIS library, GPU GIS compute, agent-callable geospatial">
     <script type="application/ld+json">
     {
@@ -748,7 +748,7 @@
 
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">Flagship &middot; v1.2.6</div>
+        <div class="flagship-badge">Flagship &middot; v1.2.7</div>
         <h1>ForgeGIS<sup class="tm">&trade;</sup></h1>
         <p class="tagline">GPU-Accelerated Geospatial Compute, Benchmarked Against GDAL</p>
         <p class="categorical-claim">
@@ -768,7 +768,7 @@
     <div class="stats-grid">
         <div class="stat">
             <div class="number">15&times;<span class="accent"> geomean</span></div>
-            <div class="label">over GDAL 3.12 across 242 benchmark operations, warm timings &mdash; 6&times; kernel against kernel for work of 1&nbsp;ms or more</div>
+            <div class="label">over GDAL 3.12 across 242 benchmark operations (239 faster, 3 slower), warm timings &mdash; 6&times; kernel against kernel for work of 1&nbsp;ms or more</div>
         </div>
         <div class="stat">
             <div class="number">0<span class="accent"> fails</span></div>
@@ -789,6 +789,7 @@
         <p class="section-intro center">
             The benchmark of record, run <code>20261004-094534-191f1b44</code>: ForgeGIS 1.2.6 against GDAL 3.12, warm timings,
             the median of each timed block. This is the benchmark; the race further down is a separate demonstration.
+            ForgeGIS 1.2.7 (October 2026); benchmarks run on 1.2.6.
         </p>
         <ul class="perf-list">
             <li>
@@ -819,9 +820,9 @@
             <li>
                 <div class="perf-num">By category</div>
                 <div class="perf-text">
-                    faster in every category measured (geometric mean): pipelines 81&times;, resampling 30&times;,
-                    transforms 30&times;, vectorizing 26&times;, warps 24&times;, zonal and focal 20&times;, terrain 4.3&times;,
-                    viewshed 3.4&times;, raster I/O 3.0&times;.
+                    faster in every category measured (geometric mean; n is the number of operations): pipelines 81&times; (n=14),
+                    resampling 30&times; (n=51), transforms 30&times; (n=13), vectorizing 26&times; (n=44), warps 24&times; (n=20),
+                    zonal and focal 20&times; (n=29), terrain 4.3&times; (n=5), viewshed 3.4&times; (n=2), raster I/O 3.0&times; (n=64).
                 </div>
             </li>
             <li>
@@ -866,7 +867,7 @@
         <div class="demo-methodology">
             <h3>How the race runs</h3>
             <ul>
-                <li>Inputs are loaded before the timers start, for both: ForgeGIS&rsquo;s onto the GPU, and GDAL&rsquo;s into an in-memory dataset. Each timer covers the operation and reading the result back.</li>
+                <li>Inputs are loaded before the timers start, for both: ForgeGIS&rsquo;s onto the GPU, and GDAL&rsquo;s into an in-memory dataset. Each timer covers the operation and reading its result back into memory; drawing the result on screen is excluded.</li>
                 <li>Single operations call GDAL through its Java bindings, in memory. Multi-stage pipelines run as GDAL command-line chains that write each stage to disk, the way those chains run in practice.</li>
                 <li>Each operation runs once on each side, ForgeGIS first, with ForgeGIS kernels compiled during warmup &mdash; so the race shows single runs, not the warm medians of the benchmark above.</li>
             </ul>
