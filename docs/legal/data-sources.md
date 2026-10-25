@@ -29,6 +29,7 @@ No network. It passes when a manifest row covers every data-like file (the fixed
 | OpenStreetMap tile screenshots (Studio hero, vector-drop, three vector-at-scale maps) | STANDARD v2 says OSM-derived data is never shipped; a tile screenshot is a Produced Work. Developer decides. |
 | CARTO | Standard forbids CARTO services; the Globe footer credits it and the screenshots cannot show where it is used. Not read. |
 | `globe-2525.webp` and `globe-replay.webp` | The two film posters (Earth render) were removed in T1455. `globe-2525.webp` and `globe-replay.webp` are OpenStreetMap ('osm BASE default' in the pixels); `globe-2525.webp` also shows Mapzen Terrarium relief, the Globe's default elevation (T1348). |
+| Denver hero clip and film (`denver-hero.mp4`, `denver-film.mp4`, two posters; T1456) | OpenFreeMap vector base (OpenMapTiles schema, OpenStreetMap data, ODbL) plus Mapzen Terrain Tiles; rendered by the Globe (seaglass-globe `out/_release/zoom-denver`), no Esri imagery. Credit burned into the frames and printed under each: "© OpenMapTiles, data © OpenStreetMap contributors (ODbL); terrain: Mapzen Terrain Tiles (AWS Open Data) / USGS and others". OpenFreeMap and OpenMapTiles terms were not read in this task; the rows stay open. Not yet placed in a page. |
 | YouTube embedding | Embedded-player requirements read; terms for a commercial site not. |
 | Films | The films were not watched by this task; imagery is inferred from posters and page credits. |
 
