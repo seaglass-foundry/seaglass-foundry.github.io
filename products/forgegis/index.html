@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ForgeGIS — Benchmarked Against GDAL: Method, Figures and the Uncut Race</title>
-    <meta name="description" content="ForgeGIS 1.2.6 against GDAL 3.12: 1,191 checks, 0 failures; 884 compared against GDAL or an oracle. Faster in 239 of 242 operations, 3 slower. The method, and the uncut 61-operation race.">
+    <title>ForgeGIS: GPU geospatial compute for Java</title>
+    <meta name="description" content="ForgeGIS runs terrain, hydrology, visibility, spectral, zonal and vector operations on the GPU, from Java or from an AI agent over its native MCP server. Maven artifacts, no GDAL at run time, a CPU fallback for every operation.">
     <link rel="canonical" href="https://seaglassfoundry.com/products/forgegis/">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://seaglassfoundry.com/products/forgegis/">
-    <meta property="og:title" content="ForgeGIS — Benchmarked Against GDAL: Method, Figures and the Uncut Race">
-    <meta property="og:description" content="ForgeGIS 1.2.6 against GDAL 3.12 in the benchmark of record: 1,191 checks, 0 failures; 884 compared against GDAL or an oracle. Faster in 239 of 242 operations, 3 slower and all tiny. With the method and the uncut race.">
+    <meta property="og:title" content="ForgeGIS: GPU geospatial compute for Java">
+    <meta property="og:description" content="GPU geospatial compute for Java, with a native MCP server. 15× faster than GDAL, geometric mean across 242 benchmark operations, with 1,191 parity checks and no failures.">
     <meta property="og:image" content="https://seaglassfoundry.com/products/forgegis/img/race-excerpt-poster.webp">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="720">
-    <meta property="og:image:alt" content="Frame from the ForgeGIS vs GDAL performance demonstration: the two results side by side as grey hillshades of the Grand Canyon, each with its elapsed time">
+    <meta property="og:image:alt" content="ForgeGIS and GDAL side by side: the same grey hillshade of the Grand Canyon from each, with each side's elapsed time beneath">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://seaglassfoundry.com/products/forgegis/img/race-excerpt-poster.webp">
-    <meta name="twitter:title" content="ForgeGIS — Benchmarked Against GDAL: Method, Figures and the Uncut Race">
-    <meta name="twitter:description" content="ForgeGIS 1.2.6 against GDAL 3.12: 1,191 checks, 0 failures; 884 compared against GDAL or an oracle. With the method and the uncut race.">
+    <meta name="twitter:title" content="ForgeGIS: GPU geospatial compute for Java">
+    <meta name="twitter:description" content="GPU geospatial compute for Java, with a native MCP server. 15× faster than GDAL, geometric mean across 242 benchmark operations, with 1,191 parity checks and no failures.">
     <meta name="keywords" content="GPU-accelerated geospatial library, MCP geospatial server, Java GPU GIS, geospatial Model Context Protocol, GDAL alternative, Java GIS library, GPU GIS compute, agent-callable geospatial">
     <script type="application/ld+json">
     {
@@ -28,7 +28,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform (JVM)",
         "url": "https://seaglassfoundry.com/products/forgegis/",
-        "description": "A GPU-accelerated geospatial compute library and native Model Context Protocol (MCP) server, distributed as pure-Java Maven artifacts with no first-party native code, no GDAL native bindings, and no separate native install step.",
+        "description": "GPU geospatial compute for Java, with a native Model Context Protocol (MCP) server. Distributed as Maven artifacts, with no GDAL at run time, no native binaries of its own and a CPU fallback for every operation.",
         "programmingLanguage": "Java",
         "creator": {
             "@type": "Organization",
@@ -46,633 +46,282 @@
     </script>
     <link rel="stylesheet" href="/assets/site.css">
     <style>
+        section { scroll-margin-top: 60px; }
+        /* Teal text on --grey-bg: --teal-dark is 4.2:1 there, this is 5.4:1. Dark mode keeps --link as is. */
+        .tinted { --link: #326e62; }
+        @media (prefers-color-scheme: dark) { .tinted { --link: var(--teal); } }
+        .eyebrow { display: block; color: var(--link); font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; }
+        figure { margin: 0; }
+        figcaption { color: var(--text-light); font-size: var(--fs-caption); line-height: 1.55; margin-top: 10px; }
+        figcaption a { color: inherit; text-decoration: underline; }
+        code { font-family: var(--font-mono); font-size: var(--fs-code); }
 
-        .container-narrow { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+        /* ── 1. Hero ── */
+        .hero { background: var(--gradient-hero); color: var(--white); padding: 84px 24px 76px; text-align: center; }
+        .hero .eyebrow { color: var(--teal-on-navy); }
+        .hero .eyebrow a { color: inherit; }
+        .hero h1 { font-size: var(--fs-display); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 12px; }
+        .hero .tagline { color: var(--white); font-size: var(--fs-tagline); line-height: 1.5; max-width: 720px; margin: 0 auto 22px; }
+        .hero .lede { color: var(--on-navy); font-size: var(--fs-body-lg); line-height: 1.7; max-width: 720px; margin: 0 auto; }
+        .hero-actions { margin-top: 32px; display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap; }
+        .hero-actions .text-link { color: var(--white); font-weight: 600; font-size: var(--fs-sm); text-decoration: underline; }
 
-        code, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.92em; }
-        p code, li code { background: var(--grey-bg); padding: 1px 6px; border-radius: 4px; color: var(--ink); }
+        /* ── Sections ── */
+        .block { padding: 80px 24px; }
+        .block.tinted { background: var(--grey-bg); }
+        .block h2 { font-size: var(--fs-h2); color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px; }
+        .block .intro { font-size: var(--fs-body-lg); line-height: 1.7; max-width: 720px; margin-bottom: 32px; }
+        .narrow { max-width: 820px; margin: 0 auto; }
 
-        /* ── Hero ── */
-        .hero {
-            background: var(--gradient-hero);
-            color: var(--white);
-            padding: 80px 24px 90px;
-            text-align: center;
-        }
-        .hero .flagship-badge {
-            display: inline-block;
-            background: rgba(216, 151, 60, 0.15);
-            color: var(--amber);
-            border: 1px solid rgba(216, 151, 60, 0.4);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin-bottom: 12px;
-        }
-        .hero h1 span { color: var(--teal); }
-        .hero .tagline {
-            font-size: 1.3rem;
-            color: var(--on-navy-link);
-            margin-bottom: 24px;
-            font-weight: 400;
-        }
-        .hero .categorical-claim {
-            max-width: 700px;
-            margin: 0 auto 36px;
-            color: var(--white);
-            font-size: 1.1rem;
-            line-height: 1.65;
-            font-weight: 500;
-        }
-        .hero .categorical-claim em { color: var(--teal); font-style: normal; font-weight: 700; }
-        .hero .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        /* Outline button for use on light/tinted sections, where .btn-outline's white would vanish */
-        .btn-light { background: var(--surface); color: var(--ink); border: 1px solid var(--border); }
-        .btn-light:hover { border-color: var(--teal); }
+        /* ── 2. How it runs: three ways beside one visual ── */
+        .runs-row { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 52px; align-items: center; }
+        .runs-list h3 { font-size: var(--fs-h3); color: var(--ink); margin: 22px 0 6px; letter-spacing: -0.01em; }
+        .runs-list h3:first-of-type { margin-top: 0; }
+        .runs-list p { line-height: 1.7; }
+        .runs-media img { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-elevated); }
 
-        /* ── Stats strip ── */
-        .stats {
-            background: var(--surface);
-            padding: 56px 24px;
-            border-bottom: 1px solid var(--border);
-        }
-        .stats-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-        }
-        .stat {
-            text-align: center;
-            padding: 0 12px;
-        }
-        .stat .number {
-            font-size: 2.4rem;
-            font-weight: 800;
-            color: var(--ink);
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            margin-bottom: 8px;
-        }
-        .stat .number .accent { color: var(--teal); }
-        .stat .label {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            line-height: 1.5;
-        }
+        /* ── 3. Benchmark table ── */
+        .figures { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+        .figures caption { text-align: left; color: var(--text-light); font-size: var(--fs-caption); padding-bottom: 10px; }
+        .figures th, .figures td { padding: 18px 24px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: baseline; }
+        .figures tr:last-child th, .figures tr:last-child td { border-bottom: none; }
+        .figures th { color: var(--ink); font-size: var(--fs-tagline); font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; width: 34%; }
+        .figures td { line-height: 1.6; }
+        .slower { margin-top: 18px; font-weight: 600; color: var(--ink); }
 
-        /* ── Generic section ── */
-        section.block { padding: 70px 24px; }
-        section.block.tinted { background: var(--grey-bg); }
-        section.block h2 {
-            font-size: 1.9rem;
-            color: var(--ink);
-            margin-bottom: 10px;
-            letter-spacing: -0.02em;
-        }
-        section.block .section-intro {
-            color: var(--text-light);
-            font-size: 1.02rem;
-            margin-bottom: 32px;
-            max-width: 720px;
-        }
-        section.block h2.center, section.block .center { text-align: center; }
-        section.block .center.section-intro { margin-left: auto; margin-right: auto; }
+        /* ── 4. Method ── */
+        .method ul { list-style: disc; padding-left: 22px; line-height: 1.7; }
+        .method li { margin-bottom: 8px; }
+        .method code { overflow-wrap: anywhere; }
+        .rig { color: var(--text-light); font-size: var(--fs-caption); margin-top: 16px; }
+        details { margin-top: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 20px; }
+        summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+        .by-category { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: var(--fs-sm); }
+        .by-category th, .by-category td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+        .by-category tr:last-child td { border-bottom: none; }
+        .by-category .num { text-align: right; font-variant-numeric: tabular-nums; }
+        .by-category thead th { color: var(--text-light); font-weight: 600; }
 
-        .twin-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+        /* ── 5. The race (poster facade → youtube-nocookie iframe on click) ── */
+        .film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-elevated); }
+        .film-frame iframe, .film-frame .film-facade { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+        .film-facade { cursor: pointer; }
+        /* The poster is the film's own operation card (not 16:9); letterbox it on the film's background. */
+        .film-facade { background: #0c1018; }
+        .film-facade img { width: 100%; height: 100%; object-fit: contain; display: block; }
+        .film-facade .film-play { position: absolute; left: 50%; top: 50%; width: 78px; height: 54px; transform: translate(-50%, -50%); border-radius: 14px; background: rgba(15, 38, 64, 0.82); border: 1px solid rgba(255, 255, 255, 0.25); transition: background 0.15s, transform 0.15s; }
+        .film-facade .film-play::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-38%, -50%); border-style: solid; border-width: 11px 0 11px 19px; border-color: transparent transparent transparent #fff; }
+        .film-facade:hover .film-play, .film-facade:focus-visible .film-play { background: var(--teal-dark); transform: translate(-50%, -50%) scale(1.06); }
+        .film-facade:focus-visible { outline: 3px solid var(--teal); outline-offset: -3px; }
+        .race figcaption .lead { color: var(--ink); font-size: var(--fs-body); font-weight: 600; display: block; margin-bottom: 4px; }
 
-        /* ── Architecture explainer ── */
-        .arch-block {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 36px 36px;
-            max-width: 920px;
-            margin: 0 auto;
-        }
-        .arch-block .arch-lede {
-            font-size: 1rem;
-            color: var(--text);
-            margin-bottom: 24px;
-        }
-        .arch-surfaces {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-bottom: 22px;
-        }
-        .arch-surface {
-            background: var(--grey-bg);
-            border-left: 3px solid var(--teal);
-            padding: 18px 20px;
-            border-radius: 6px;
-        }
-        .arch-surface .surface-label {
-            font-size: 0.74rem;
-            font-weight: 700;
-            color: var(--link);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 6px;
-        }
-        .arch-surface .surface-name {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--ink);
-            margin-bottom: 8px;
-        }
-        .arch-surface p {
-            font-size: 0.92rem;
-            color: var(--text);
-            line-height: 1.65;
-            margin: 0;
-        }
-        .arch-total {
-            text-align: center;
-            color: var(--text-light);
-            font-size: 0.95rem;
-            padding-top: 8px;
-            border-top: 1px dashed var(--border);
-        }
-        .arch-total strong { color: var(--ink); font-weight: 700; }
-
-        /* ── Performance highlights ── */
-        .perf-list {
-            max-width: 880px;
-            margin: 0 auto;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 8px 0;
-        }
-        .perf-list li {
-            display: flex;
-            gap: 24px;
-            padding: 20px 32px;
-            border-bottom: 1px solid var(--border);
-            align-items: baseline;
-        }
-        .perf-list li:last-child { border-bottom: none; }
-        .perf-list .perf-num {
-            flex: 0 0 180px;
-            font-size: 1.45rem;
-            font-weight: 800;
-            color: var(--link);
-            letter-spacing: -0.01em;
-            line-height: 1.2;
-        }
-        .perf-list .perf-text {
-            flex: 1;
-            color: var(--text);
-            font-size: 0.98rem;
-            line-height: 1.6;
-        }
-        .perf-footnote {
-            text-align: center;
-            margin-top: 20px;
-            color: var(--text-light);
-            font-size: 0.92rem;
-        }
-
-        /* ── Performance demonstration (video + methodology) ── */
-        .demo-embed {
-            max-width: 880px;
-            margin: 0 auto;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-top: 3px solid var(--amber);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(15, 38, 64, 0.04);
-        }
-        .demo-embed .demo-frame {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #000;
-        }
-        .demo-embed .demo-frame iframe {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-            display: block;
-        }
-        .demo-methodology {
-            max-width: 880px;
-            margin: 28px auto 0;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--amber);
-            border-radius: 10px;
-            padding: 22px 28px;
-        }
-        .demo-methodology h3 {
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: var(--ink);
-            letter-spacing: -0.01em;
-            margin-bottom: 12px;
-        }
-        .demo-methodology ul {
-            list-style: disc;
-            padding-left: 22px;
-            color: var(--text);
-            font-size: 0.95rem;
-            line-height: 1.65;
-        }
-        .demo-methodology li { margin-bottom: 6px; }
-        .demo-methodology li:last-child { margin-bottom: 0; }
-        .demo-rig {
-            max-width: 880px;
-            margin: 18px auto 0;
-            text-align: center;
-            color: var(--text-light);
-            font-size: 0.88rem;
-            line-height: 1.6;
-        }
-        .demo-cta {
-            max-width: 880px;
-            margin: 22px auto 0;
-            text-align: center;
-            color: var(--text);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .demo-cta a { color: var(--link); font-weight: 600; }
-        .demo-attribution {
-            max-width: 880px;
-            margin: 22px auto 0;
-            color: var(--text-light);
-            font-size: 0.82rem;
-            line-height: 1.55;
-            text-align: center;
-        }
-
-        /* ── Audience cards ── */
-        .audience-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        .audience-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 28px 26px 24px;
-            display: flex;
-            flex-direction: column;
-            transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
-        }
-        .audience-card:hover {
-            text-decoration: none;
-            border-color: var(--teal);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(26, 58, 92, 0.06);
-        }
-        .audience-card .aud-label {
-            font-size: 0.74rem;
-            font-weight: 700;
-            color: var(--label);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 10px;
-        }
-        .audience-card h3 {
-            font-size: 1.15rem;
-            color: var(--ink);
-            margin-bottom: 10px;
-            letter-spacing: -0.01em;
-        }
-        .audience-card p {
-            color: var(--text);
-            font-size: 0.93rem;
-            line-height: 1.65;
-            margin-bottom: 20px;
-            flex: 1;
-        }
-        .audience-card .card-cta {
-            color: var(--link);
-            font-weight: 600;
-            font-size: 0.92rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .audience-card .card-cta::after {
-            content: "↓";
-            transition: transform 0.15s;
-        }
-        .audience-card:hover .card-cta::after { transform: translateY(2px); }
-
-        /* ── Capability catalog ── */
-        .catalog {
-            max-width: 920px;
-            margin: 0 auto;
-        }
-        .catalog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px 24px;
-            margin-bottom: 24px;
-        }
-        .cat-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 18px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            align-items: baseline;
-        }
-        .cat-item .cat-name { color: var(--text); font-size: 0.95rem; font-weight: 500; }
-        .cat-item .cat-count {
-            color: var(--link);
-            font-weight: 700;
-            font-size: 1rem;
-        }
-        .catalog-note {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--amber);
-            border-radius: 6px;
-            padding: 18px 22px;
-            color: var(--text);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-        .catalog-note strong { color: var(--ink); }
-
-        /* ── Contact strip ── */
-        .contact-strip {
-            background: var(--surface);
-            padding: 60px 24px;
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-        .contact-strip h2 {
-            font-size: 1.5rem;
-            color: var(--ink);
-            margin-bottom: 12px;
-        }
-        .contact-strip p {
-            color: var(--text-light);
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.1rem; }
-            .hero .tagline { font-size: 1.05rem; }
-            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
-            .arch-surfaces { grid-template-columns: 1fr; }
-            .audience-grid { grid-template-columns: 1fr; }
-            .perf-list li { flex-direction: column; gap: 4px; padding: 18px 24px; }
-            .perf-list .perf-num { flex: 0 0 auto; }
-            .demo-methodology { padding: 18px 20px; }
-            .demo-methodology ul { font-size: 0.92rem; }
-        }
-        /* Moved from inline style attributes (T515) */
-        h3.center.gap-top { margin-top: 40px; }
+        /* ── 6. Brief ── */
         .downloads-grid.solo { max-width: 520px; grid-template-columns: 1fr; }
-        #performance .demo-methodology { margin-top: 28px; }
+
+        /* ── Footer ── */
+        .footer-credits { width: 100%; color: var(--on-navy-muted); font-size: var(--fs-micro); line-height: 1.6; }
+        .footer-credits a { text-decoration: underline; }
+
+        @media (max-width: 900px) {
+            .runs-row { grid-template-columns: 1fr; gap: 32px; }
+        }
+        @media (max-width: 768px) {
+            .hero { padding: 56px 16px 48px; }
+            .hero h1 { font-size: var(--fs-display-mobile); }
+            .hero .tagline { font-size: var(--fs-body-lg); }
+            .block { padding: 56px 16px; }
+            .block h2 { font-size: var(--fs-h2-sm); }
+            .figures th, .figures td { display: block; width: auto; padding: 14px 18px 0; border-bottom: none; }
+            .figures td { padding: 4px 18px 14px; border-bottom: 1px solid var(--border); }
+            .figures th { white-space: normal; }
+            .film-facade .film-play { width: 60px; height: 42px; border-radius: 10px; }
+            footer { padding: 36px 16px; }
+            nav { padding: 0 16px; }
+        }
     </style>
 </head>
 <body>
 
-
 <nav>
     <div class="nav-inner">
         <a href="/" class="brand">Seaglass <span>Foundry</span></a>
-        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
-        <div class="nav-links">
-            <a href="/products/forgegis/#performance">Benchmark</a>
-            <a href="/#globe">Globe</a>
-            <a href="/#get">Get the suite</a>
-            <a href="mailto:rich@seaglassfoundry.com">Contact</a>
-            <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
+        <button class="hamburger" onclick="this.setAttribute('aria-expanded', document.getElementById('nav-links').classList.toggle('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="/products/forgegis/">ForgeGIS</a>
+            <a href="/products/seaglass-globe/">Seaglass Globe</a>
+            <a href="/suite/">The suite</a>
+            <a href="/#get">Evaluate</a>
         </div>
     </div>
 </nav>
 
-<div class="subnav">
-    <div class="subnav-inner">
-        <div class="crumb">
-            <a href="/">Home</a>
-            <span class="sep">/</span>
-            <span>ForgeGIS</span>
-        </div>
-        <span class="flagship-tag">Benchmark</span>
-    </div>
-</div>
-
+<main>
 <section class="hero">
     <div class="container">
-        <div class="flagship-badge">Flagship &middot; v1.2.7</div>
+        <span class="eyebrow"><a href="/">Home</a> / ForgeGIS</span>
         <h1>ForgeGIS<sup class="tm">&trade;</sup></h1>
-        <p class="tagline">GPU-Accelerated Geospatial Compute, Benchmarked Against GDAL</p>
-        <p class="categorical-claim">
-            GPU-accelerated geospatial compute and a native Model Context Protocol server, distributed as pure-Java Maven
-            artifacts &mdash; no first-party native code, no GDAL native bindings, no separate native install step.
-            This page is <em>its benchmark against GDAL</em>: the figures, how they were measured, and the uncut race.
-        </p>
-        <div class="cta-group">
-            <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20evaluation" class="btn btn-primary">Request evaluation access</a>
-            <a href="#performance" class="btn btn-outline">See the benchmark</a>
-            <a href="#performance-demo" class="btn btn-outline">Watch the race</a>
+        <p class="tagline">GPU geospatial compute for Java, with a native MCP server.</p>
+        <p class="lede">ForgeGIS runs terrain, hydrology, visibility, spectral, zonal and vector operations on the GPU, along with resampling and reprojection. Data stays on the GPU between stages, so a pipeline does not copy back to the CPU after every step, and every operation has a CPU fallback. It ships as Maven artifacts, with no GDAL at run time and no native binaries of its own.</p>
+        <div class="hero-actions">
+            <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20evaluation" class="btn btn-primary">Request an evaluation</a>
+            <a href="downloads/forgegis-technical-brief.pdf" class="text-link">Technical brief (PDF) &darr;</a>
         </div>
     </div>
 </section>
 
-<section class="stats">
-    <div class="stats-grid">
-        <div class="stat">
-            <div class="number">15&times;<span class="accent"> geomean</span></div>
-            <div class="label">over GDAL 3.12 across 242 benchmark operations (239 faster, 3 slower), warm timings &mdash; 6&times; kernel against kernel for work of 1&nbsp;ms or more</div>
+<section class="block" id="how-it-runs">
+    <div class="runs-row">
+        <div class="runs-list">
+            <span class="eyebrow">How it runs</span>
+            <h2>One engine, three ways in.</h2>
+            <h3>From Java</h3>
+            <p>Add the Maven artifacts and call operations from your own code. Rasters stay on the GPU until you read a result back.</p>
+            <h3>From an agent, over MCP</h3>
+            <p>The built-in MCP server gives an AI agent the same operations. A request ForgeGIS can&rsquo;t run comes back as a typed refusal that says why, so the agent can correct it.</p>
+            <h3>As pipelines</h3>
+            <p>Chain operations into a graph and submit it as one <code>run_dag</code> call; intermediate results stay on the GPU from stage to stage.</p>
         </div>
-        <div class="stat">
-            <div class="number">0<span class="accent"> fails</span></div>
-            <div class="label">in the parity checks of the benchmark of record, each against a tolerance stated per operation</div>
-        </div>
-        <div class="stat">
-            <div class="number">Pure<span class="accent"> Java</span></div>
-            <div class="label">Maven artifacts &mdash; no first-party native code, no GDAL bindings</div>
-        </div>
+        <figure class="runs-media">
+            <img src="/products/forgegis-studio/img/03-pipeline-graph.webp" alt="The ForgeGIS Studio canvas in dark mode: a dataset catalog on the left, and on the canvas a 3600 by 3600 elevation source node above a HillshadeOp node showing a grey hillshade thumbnail" width="1600" height="1000" loading="lazy" decoding="async">
+            <figcaption>A two-node pipeline in ForgeGIS Studio: an elevation dataset feeding a hillshade.</figcaption>
+        </figure>
     </div>
 </section>
 
-<!-- Every figure in this section is from forgegis-validation run 20261004-094534-191f1b44 (CANONICAL, v1.2.6),
-     worded per docs/findings/bench-canonical-1.2.6-2026-10-04.md section 7. -->
-<section class="block" id="performance">
-    <div class="container">
-        <h2 class="center">The benchmark</h2>
-        <p class="section-intro center">
-            The benchmark of record, run <code>20261004-094534-191f1b44</code>: ForgeGIS 1.2.6 against GDAL 3.12, warm timings,
-            the median of each timed block. This is the benchmark; the race further down is a separate demonstration.
-            ForgeGIS 1.2.7 (October 2026); benchmarks run on 1.2.6.
-        </p>
-        <ul class="perf-list">
-            <li>
-                <div class="perf-num">15&times; geomean</div>
-                <div class="perf-text">
-                    geometric-mean speedup over GDAL 3.12 across 242 operations with a GDAL equivalent and both sides timed,
-                    no category excluded, at sizes from 16&times;16 to 8192&times;8192 pixels. ForgeGIS was faster in
-                    <strong>239 of 242</strong>; the <strong>3 slower were all tiny</strong>: raster creation and rasterize at
-                    256&times;256, and raster creation at 1024&times;1024.
-                </div>
-            </li>
-            <li>
-                <div class="perf-num">6&times; kernel</div>
-                <div class="perf-text">
-                    kernel against kernel: GDAL in process, on operations where both sides take at least 1&nbsp;ms,
-                    256&times;256 to 4096&times;4096 and real elevation tiles. Sub-millisecond work is where timer resolution
-                    dominates, so this is the figure to lead with where precision matters.
-                </div>
-            </li>
-            <li>
-                <div class="perf-num">Parity</div>
-                <div class="perf-text">
-                    <strong>1191 checks pass, 0 fail.</strong> 884 compare ForgeGIS&rsquo;s output with GDAL&rsquo;s or an
-                    independent oracle within a tolerance stated per operation; 294 are consistency checks that do not count as
-                    parity evidence, and 13 are smoke checks only. Every output was also re-run and compared for determinism.
-                </div>
-            </li>
-            <li>
-                <div class="perf-num">By category</div>
-                <div class="perf-text">
-                    faster in every category measured (geometric mean; n is the number of operations): pipelines 81&times; (n=14),
-                    resampling 30&times; (n=51), transforms 30&times; (n=13), vectorizing 26&times; (n=44), warps 24&times; (n=20),
-                    zonal and focal 20&times; (n=29), terrain 4.3&times; (n=5), viewshed 3.4&times; (n=2), raster I/O 3.0&times; (n=64).
-                </div>
-            </li>
-            <li>
-                <div class="perf-num">178&times; workflow</div>
-                <div class="perf-text">
-                    against the GDAL command line, including process start, on the 30 operations where GDAL runs as a
-                    command-line tool: a workflow cost, not a kernel cost.
-                </div>
-            </li>
+<!-- Every figure on this page is from forgegis-validation run 20261004-094534-191f1b44 (CANONICAL, v1.2.6),
+     worded per docs/design/redesign-2026-10.md section 6. -->
+<section class="block tinted" id="performance">
+    <div class="narrow">
+        <span class="eyebrow">The benchmark</span>
+        <h2>Checked against GDAL, and faster.</h2>
+        <table class="figures">
+            <caption>ForgeGIS 1.2.6 against GDAL 3.12, warm timings.</caption>
+            <tbody>
+                <tr><th scope="row">15&times;</th><td>faster than GDAL, geometric mean across 242 benchmark operations, on rasters from 16&times;16 to 8192&times;8192 pixels and an NVIDIA RTX 5070 Laptop GPU.</td></tr>
+                <tr><th scope="row">6&times;</th><td>on operations of 1&nbsp;ms or more, GDAL in process.</td></tr>
+                <tr><th scope="row">1,191 checks, 0&nbsp;failures</th><td>parity checks on ForgeGIS&rsquo;s output, each within a tolerance stated per operation.</td></tr>
+                <tr><th scope="row">239 of 242 faster</th><td>operations where ForgeGIS finished ahead of GDAL.</td></tr>
+            </tbody>
+        </table>
+        <p class="slower">3 of 242 operations were slower, all small rasters.</p>
+    </div>
+</section>
+
+<section class="block" id="method">
+    <div class="narrow method">
+        <span class="eyebrow">Method</span>
+        <h2>How it was measured.</h2>
+        <ul>
+            <li>Benchmark run <a href="downloads/forgegis-technical-brief.pdf"><code>20261004-094534-191f1b44</code></a>, written up in the technical brief.</li>
+            <li>GDAL is called in process through its Java bindings, so both sides are timed on the operation, not on starting a program.</li>
+            <li>Warm runs, the median of each block, with the GPU kept in its working state between blocks, as a sustained workload would see it. The timing method was tightened in this release, so earlier published figures are not directly comparable.</li>
+            <li>The geometric mean covers every operation with a GDAL equivalent and both sides timed: no category excluded, sub-millisecond operations included. 884 of the parity checks compare ForgeGIS&rsquo;s output with GDAL&rsquo;s or an independent oracle; the rest are consistency and smoke checks.</li>
+            <li>&ldquo;Warm&rdquo; means after the operation has run once. The first call after the GPU has gone idle costs more, and can be slower than GDAL for sub-millisecond work.</li>
         </ul>
-        <div class="demo-methodology">
-            <h3>Method</h3>
-            <ul>
-                <li>GDAL 3.12.1 in process through its Java bindings; command-line pipelines use GDAL 3.11.5, the version those tools report.</li>
-                <li>Timing protocol v4: warm runs, the median of each block, with the GPU kept in its working state between timed blocks, as a sustained workload would see it.</li>
-                <li>The geometric mean covers every GDAL-referenced operation with both sides timed, no category excluded, sub-millisecond rows included.</li>
-                <li>&ldquo;Warm&rdquo; means after the operation has run once; the first call after the GPU has gone idle costs more, and can be slower than GDAL for sub-millisecond work.</li>
-                <li>The timing method was tightened in this release, so earlier published figures are not directly comparable.</li>
-            </ul>
-        </div>
-        <p class="demo-rig">
-            NVIDIA RTX 5070 Laptop GPU &middot; Intel Core 7 240H &middot; Windows 11 &middot; Java 26 &middot; ForgeGIS 1.2.6 &middot; GDAL 3.12.1. Results specific to this stack.
-        </p>
+        <p class="rig">NVIDIA RTX 5070 Laptop GPU &middot; Windows 11 &middot; GDAL 3.12.1. Results are specific to this setup.</p>
+        <details>
+            <summary>Speedup by category</summary>
+            <table class="by-category">
+                <thead><tr><th scope="col">Category</th><th scope="col" class="num">Geometric mean</th><th scope="col" class="num">Operations (n)</th></tr></thead>
+                <tbody>
+                    <tr><td>Pipelines</td><td class="num">81&times;</td><td class="num">14</td></tr>
+                    <tr><td>Resampling</td><td class="num">30&times;</td><td class="num">51</td></tr>
+                    <tr><td>Transforms</td><td class="num">30&times;</td><td class="num">13</td></tr>
+                    <tr><td>Vectorizing</td><td class="num">26&times;</td><td class="num">44</td></tr>
+                    <tr><td>Warps</td><td class="num">24&times;</td><td class="num">20</td></tr>
+                    <tr><td>Zonal and focal</td><td class="num">20&times;</td><td class="num">29</td></tr>
+                    <tr><td>Terrain</td><td class="num">4.3&times;</td><td class="num">5</td></tr>
+                    <tr><td>Viewshed</td><td class="num">3.4&times;</td><td class="num">2</td></tr>
+                    <tr><td>Raster I/O</td><td class="num">3.0&times;</td><td class="num">64</td></tr>
+                </tbody>
+            </table>
+        </details>
     </div>
 </section>
 
-<section class="block tinted" id="performance-demo">
-    <div class="container">
-        <h2 class="center">Performance demonstration</h2>
-        <p class="section-intro center">Not the benchmark: a race you can watch. 61 operations on real terrain &mdash; Copernicus elevation over the Grand Canyon, the Alps and UTM zone 33N, and a 6-band Sentinel-2 scene &mdash; run side by side with GDAL, each operation once on each side. One take, in real time, with no cuts.</p>
-        <div class="demo-embed">
-            <div class="demo-frame">
-                <iframe
-                    src="https://www.youtube-nocookie.com/embed/KzotSSU933g"
-                    title="ForgeGIS 1.2.6 vs GDAL 3.12.1 &mdash; 61-operation performance demonstration (full race film)"
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen></iframe>
+<section class="block tinted race" id="performance-demo">
+    <div class="narrow">
+        <span class="eyebrow">The race</span>
+        <h2>Watch it run.</h2>
+        <figure>
+            <div class="film-frame">
+                <a class="film-facade" href="https://www.youtube-nocookie.com/embed/KzotSSU933g" data-video="KzotSSU933g" aria-label="Play the ForgeGIS and GDAL race film">
+                    <img src="img/race-poster.webp" alt="Operation 1 of 61, a hillshade of the Grand Canyon: the ForgeGIS and GDAL results side by side, with times of 0.044 s and 0.176 s beneath" width="992" height="508" loading="lazy" decoding="async">
+                    <span class="film-play" aria-hidden="true"></span>
+                </a>
             </div>
-        </div>
-        <div class="demo-methodology">
-            <h3>How the race runs</h3>
-            <ul>
-                <li>Inputs are loaded before the timers start, for both: ForgeGIS&rsquo;s onto the GPU, and GDAL&rsquo;s into an in-memory dataset. Each timer covers the operation and reading its result back into memory; drawing the result on screen is excluded.</li>
-                <li>Single operations call GDAL through its Java bindings, in memory. Multi-stage pipelines run as GDAL command-line chains that write each stage to disk, the way those chains run in practice.</li>
-                <li>Each operation runs once on each side, ForgeGIS first, with ForgeGIS kernels compiled during warmup &mdash; so the race shows single runs, not the warm medians of the benchmark above.</li>
-            </ul>
-        </div>
-        <p class="demo-cta">
-            Per-operation timings from this recording, and the reproducible benchmark harness, are available to vetted buyers under NDA &mdash;
-            <a href="mailto:rich@seaglassfoundry.com">rich@seaglassfoundry.com</a>.
-        </p>
-        <p class="demo-attribution">
-            Cop30 DEM contains modified Copernicus DEM data &copy; DLR e.V. 2010&ndash;2014, Airbus DS GmbH 2014&ndash;2018, provided under COPERNICUS by the European Union and ESA.
-            Sentinel-2 L2A contains modified Copernicus Sentinel data, ESA.
-            GDAL is open-source software developed by the GDAL/OGR Project under an MIT-style licence.
-        </p>
+            <figcaption>
+                <span class="lead">Not the benchmark: 61 operations run once each, side by side, real time.</span>
+                Cop30 DEM contains modified Copernicus DEM data &copy; DLR e.V. 2010&ndash;2014, Airbus DS GmbH 2014&ndash;2018, provided under COPERNICUS by the European Union and ESA. Sentinel-2 L2A contains modified Copernicus Sentinel data, ESA. <a href="/credits/#elevation">Credits</a>.
+            </figcaption>
+        </figure>
     </div>
 </section>
 
 <section class="block" id="downloads">
-    <div class="container">
-        <h2 class="center">Technical brief</h2>
-        <p class="section-intro center">Direct download &mdash; no email gate, no form wall.</p>
+    <div class="narrow">
+        <span class="eyebrow">Technical brief</span>
+        <h2>The method in full.</h2>
         <div class="downloads-grid solo">
             <a href="downloads/forgegis-technical-brief.pdf" class="download-card">
-                <div class="dl-type tech">Technical Brief &middot; PDF</div>
                 <h3>ForgeGIS Technical Brief</h3>
-                <p>
-                    Validation methodology, benchmark details and the architecture, for technical evaluators and
-                    engineering reviewers.
-                </p>
+                <p>Validation method, benchmark details and the architecture, for engineers evaluating ForgeGIS.</p>
                 <span class="dl-cta">Download PDF</span>
             </a>
         </div>
     </div>
 </section>
-
-<section class="contact-strip">
-    <div class="container">
-        <h2>Talk to us about ForgeGIS</h2>
-        <p>Licensing questions, evaluation access, partnership inquiries &mdash; we read every email.</p>
-        <a href="mailto:rich@seaglassfoundry.com?subject=ForgeGIS%20inquiry" class="btn btn-primary">rich@seaglassfoundry.com</a>
-    </div>
-</section>
+</main>
 
 <footer>
     <div class="footer-inner">
         <div class="footer-links">
-            <a href="/">Home</a>
+            <a href="/products/forgegis/">ForgeGIS</a>
             <a href="/products/seaglass-globe/">Seaglass Globe</a>
             <a href="/suite/">The suite</a>
             <a href="/products/swingtopdf/">SwingToPDF</a>
             <a href="/products/worldwind-reforged/">Worldwind Reforged</a>
-            <a href="downloads/forgegis-technical-brief.pdf">Technical Brief</a>
             <a href="/credits/">Credits</a>
             <a href="https://github.com/seaglass-foundry" target="_blank" rel="noopener">GitHub</a>
             <a href="mailto:rich@seaglassfoundry.com">Contact</a>
         </div>
+        <p class="footer-credits">Credits: elevation from Copernicus DEM; imagery from Copernicus Sentinel-2. <a href="/credits/">Full data and licence credits</a>.</p>
         <div class="footer-marks">
-            ForgeGIS&trade; and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
-            GDAL, NVIDIA, Intel, Copernicus, Sentinel, Java, Windows, the Model Context Protocol, and other third-party marks referenced on this page
-            are the property of their respective owners. Reference to these marks does not imply endorsement.
+            ForgeGIS&trade;, ForgeGIS Studio&trade; and Seaglass Foundry&trade; are trademarks of Seaglass Foundry LLC.
+            GDAL, NVIDIA, Copernicus, Sentinel, Java, Windows, YouTube, the Model Context Protocol and other third-party products and marks referenced are the property of their respective owners.
+            Reference to these marks does not imply endorsement.
         </div>
-        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved. &middot; <em>Forged For Speed. Refined by Craft.</em></div>
+        <div class="footer-copy">&copy; 2026 Seaglass Foundry LLC. All rights reserved.</div>
     </div>
 </footer>
 
 <script>
 (function() {
     var links = document.querySelector('.nav-links');
-    links.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function() { links.classList.remove('open'); });
-    });
+    var burger = document.querySelector('.hamburger');
+    function closeNav() {
+        links.classList.remove('open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+    }
+    links.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeNav); });
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('nav')) links.classList.remove('open');
+        if (!e.target.closest('nav')) closeNav();
     });
 })();
+/* Race facade: no YouTube request until the viewer clicks; without JS the link opens the player. */
+document.querySelectorAll('.film-facade').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var f = document.createElement('iframe');
+        f.src = a.href + '?autoplay=1';
+        f.title = 'ForgeGIS and GDAL race film: 61 operations side by side';
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        f.referrerPolicy = 'strict-origin-when-cross-origin';
+        f.allowFullscreen = true;
+        a.replaceWith(f);
+        f.focus();
+    });
+});
 </script>
 </body>
 </html>
