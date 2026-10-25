@@ -1,0 +1,2 @@
+# Local tool installs (lychee, lighthouse, axe-core, puppeteer-core) used by scripts/check_site.sh
+/.tools/
